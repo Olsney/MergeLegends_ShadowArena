@@ -10,7 +10,7 @@ namespace Code.Infrastructure
         private GameStateMachine _gameStateMachine;
         
         [Inject]
-        private void Construct(GameStateMachine gameStateMachine, IGameFactory gameFactory)
+        private void Construct(GameStateMachine gameStateMachine)
         {
             _gameStateMachine = gameStateMachine;
         }
