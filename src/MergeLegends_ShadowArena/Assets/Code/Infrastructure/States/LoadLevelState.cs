@@ -36,9 +36,9 @@ namespace Code.Infrastructure.States
 
         private void OnLoaded()
         {
-            InitUIRoot();
-
-            InitGameWorld();
+            // InitUIRoot();
+            //
+            // InitGameWorld();
 
             _stateMachine.Enter<GameLoopState>();
         }
