@@ -21,15 +21,18 @@ namespace Code.UI.Factory
     {
       GameObject prefab = _assets.Load(AssetPath.UIRoothPath);
       _uiRoot = _instantiator.InstantiatePrefab(prefab);
-            
+      
       return _uiRoot;
     }
     
     public GameObject CreateHud()
     {
       GameObject prefab = _assets.Load(AssetPath.HudPath);
-            
-      return _instantiator.InstantiatePrefab(prefab);
+      
+      GameObject hud  = _instantiator.InstantiatePrefab(prefab);
+      hud.transform.SetParent(_uiRoot.transform, false);
+      
+      return hud;
     }
   }
 }

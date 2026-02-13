@@ -27,7 +27,7 @@ namespace Code.Infrastructure.States
 
         public void Enter(string sceneName)
         {
-            _sceneLoader.Load(EmptySceneName, () =>  _sceneLoader.Load(sceneName, OnLoaded));
+            _sceneLoader.Load(EmptySceneName, () => _sceneLoader.Load(sceneName, OnLoaded));
         }
 
         public void Exit()
@@ -36,17 +36,16 @@ namespace Code.Infrastructure.States
 
         private void OnLoaded()
         {
-            // InitUIRoot();
-            //
-            // InitGameWorld();
+            InitUIRoot();
+            InitGameWorld();
 
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InitGameWorld() => 
+        private void InitGameWorld() =>
             _uiFactory.CreateHud();
 
-        private void InitUIRoot() => 
+        private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();
     }
 }
