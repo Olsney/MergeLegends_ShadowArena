@@ -1,14 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine.InputSystem;
 
 namespace Code.Services.Input
 {
-  public class MobileInputService : IInputService
-  {
-    public event Action<Ray> OnRay;
-    public void InitCamera(Camera mainCamera)
+    public class MobileInputService : InputService
     {
-      throw new NotImplementedException();
+        protected override void OnButtonClick(InputAction.CallbackContext context)
+        {
+            InvokeOnRay(MainCamera.ScreenPointToRay(Touchscreen.current.primaryTouch.position.ReadValue()));
+        }
     }
-  }
 }

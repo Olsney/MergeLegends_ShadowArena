@@ -1,0 +1,11 @@
+﻿using Code.Services.Input;
+using UnityEngine;
+using Zenject;
+
+public class LocationInstaller : MonoInstaller
+{
+    public override void InstallBindings()
+    {
+
+    }
+}

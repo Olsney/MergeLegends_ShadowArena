@@ -1,5 +1,7 @@
 using Code.Infrastructure.Factory.Game;
+using Code.Services.Input;
 using Code.UI.Factory;
+using UnityEngine;
 
 namespace Code.Infrastructure.States
 {
@@ -11,18 +13,21 @@ namespace Code.Infrastructure.States
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
+        private readonly IInputService _inputService;
 
         public LoadLevelState(
             GameStateMachine stateMachine,
             SceneLoader sceneLoader,
             IGameFactory gameFactory,
-            IUIFactory uiFactory
+            IUIFactory uiFactory,
+            IInputService inputService
         )
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
             _uiFactory = uiFactory;
+            _inputService = inputService;
         }
 
         public void Enter(string sceneName)
@@ -40,6 +45,7 @@ namespace Code.Infrastructure.States
             //
             // InitGameWorld();
 
+            _inputService.InitCamera(Camera.main);
             _stateMachine.Enter<GameLoopState>();
         }
 
