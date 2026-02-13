@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using Code.Services.Input;
+using UnityEngine;
 
-namespace Code.Services.Input
+namespace Code.Services.RaycastReader
 {
-    public class RaycastReader
+    public class RaycastReader : IDisposable
     {
-        private IInputService _inputService;
+        private readonly IInputService _inputService;
 
         public RaycastReader(IInputService inputService)
         {
@@ -12,14 +14,19 @@ namespace Code.Services.Input
             _inputService.OnRay += Read;
         }
 
-        public void Read(Ray ray)
+        private void Read(Ray ray)
         {
             Debug.Log("Raycast Hit");
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                //var carHit = hit.collider.GetComponent<Vehicle>();
+                //var soldierHit = hit.collider.GetComponent<Soldier>();
             }
+        }
+
+        public void Dispose()
+        {
+            _inputService.OnRay -= Read;
         }
     }
 }
