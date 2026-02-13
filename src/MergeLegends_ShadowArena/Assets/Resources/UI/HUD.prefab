@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 7071556747874595932}
   - component: {fileID: 2114466604609681086}
   - component: {fileID: 4806858606515096077}
+  - component: {fileID: 4102092109040793680}
   m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
@@ -209,6 +210,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4102092109040793680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670765560598719705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ea19ce466a4602b005a49dc804f293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.Currency.CurrencyCounter
+  <CurrentValue>k__BackingField: {fileID: 6715831511298062283}
 --- !u!1 &758508844226332920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,6 +1195,7 @@ GameObject:
   - component: {fileID: 2366888754101610341}
   - component: {fileID: 4370393559590677478}
   - component: {fileID: 7437630531014437571}
+  - component: {fileID: 4376964402278365612}
   m_Layer: 5
   m_Name: EnemyHP
   m_TagString: Untagged
@@ -1246,6 +1261,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4376964402278365612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5137791837286328770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5aa96b8a264714b7623d0c81db5153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.Health.UIEnemyHealth
 --- !u!1 &5222376125438440110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,6 +2115,7 @@ GameObject:
   - component: {fileID: 135765206544570216}
   - component: {fileID: 8253501096853371045}
   - component: {fileID: 6080169882070441656}
+  - component: {fileID: 8657037240121438900}
   m_Layer: 5
   m_Name: PlayerHP
   m_TagString: Untagged
@@ -2153,6 +2181,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8657037240121438900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664712175897550807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38404676fd474498a70dfc0db32fff7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.Health.UIPlayerHealth
 --- !u!1 &8185896508047041369
 GameObject:
   m_ObjectHideFlags: 0

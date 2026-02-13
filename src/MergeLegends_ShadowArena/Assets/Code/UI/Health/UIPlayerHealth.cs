@@ -1,4 +1,6 @@
-﻿using Code.UI.Health;
-
-public class UIPlayerHealth : UIBaseHealth
-{}
+﻿namespace Code.UI.Health
+{
+    public class UIPlayerHealth : UIBaseHealth
+    {
+    }
+}

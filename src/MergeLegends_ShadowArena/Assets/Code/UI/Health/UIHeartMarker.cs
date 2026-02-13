@@ -1,6 +1,6 @@
 ﻿namespace Code.UI.Health
 {
-    public class UIHeart
+    public class UIHeartMarker
     {
     }
 }
