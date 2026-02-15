@@ -3,6 +3,7 @@ using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
 using Code.Services.Input;
+using Code.Services.RaycastReader;
 using Code.Services.StaticData;
 using Code.UI.Factory;
 using Code.UI.Services.Windows;
@@ -20,11 +21,13 @@ namespace Code.Infrastructure.Installers
             BindStates();
             BindServices();
             BindSceneLoader();
+            
+            Container.Bind<RaycastReader>().AsSingle().NonLazy();
         }
-        
-        private void BindCoroutine() => 
+
+        private void BindCoroutine() =>
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
-        
+
         private void BindFactories()
         {
             Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
@@ -40,7 +43,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<LoadProgressState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }
-        
+
         private void BindServices()
         {
             BindInputService();
@@ -48,7 +51,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
         }
-        
+
         private void BindInputService()
         {
             if (Application.isEditor)
@@ -56,8 +59,8 @@ namespace Code.Infrastructure.Installers
             else
                 Container.Bind<IInputService>().To<MobileInputService>().AsSingle();
         }
-        
-        private void BindSceneLoader() => 
+
+        private void BindSceneLoader() =>
             Container.Bind<SceneLoader>().AsSingle();
     }
 }
