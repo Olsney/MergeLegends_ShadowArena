@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace Code.Services.Input
 {
-    public abstract class InputService : IInputService, IDisposable
+    public abstract class InputService : IInputService, IDisposable, IInitializable
     {
         private readonly PlayerInput _playerInput;
         protected Camera MainCamera;
@@ -15,11 +16,10 @@ namespace Code.Services.Input
         {
             _playerInput = new PlayerInput();
             _playerInput.Enable();
-            _playerInput.Player.Touch.performed += OnButtonClick;
         }
 
-        public void InitCamera(Camera mainCamera)
-            => MainCamera = mainCamera;
+        public void Initialize()
+            => _playerInput.Player.Touch.performed += OnButtonClick;
 
         public void Dispose()
         {
@@ -27,11 +27,12 @@ namespace Code.Services.Input
             _playerInput.Player.Touch.performed -= OnButtonClick;
         }
 
+        public void InitCamera(Camera mainCamera)
+            => MainCamera = mainCamera;
+
         protected abstract void OnButtonClick(InputAction.CallbackContext context);
 
         protected void InvokeOnRay(Ray ray)
-        {
-            OnRay?.Invoke(ray);
-        }
+            => OnRay?.Invoke(ray);
     }
 }
