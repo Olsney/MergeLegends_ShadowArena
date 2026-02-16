@@ -8,9 +8,8 @@ namespace Code.Services.Input
     public abstract class InputService : IInputService, IDisposable, IInitializable
     {
         private readonly PlayerInput _playerInput;
-        protected Camera MainCamera;
 
-        public event Action<Ray> OnRay;
+        public event Action<Vector2> Touched;
 
         public InputService()
         {
@@ -19,20 +18,17 @@ namespace Code.Services.Input
         }
 
         public void Initialize()
-            => _playerInput.Player.Touch.performed += OnButtonClick;
+            => _playerInput.Player.Touch.performed += OnTouchPerformed;
 
         public void Dispose()
         {
             _playerInput.Disable();
-            _playerInput.Player.Touch.performed -= OnButtonClick;
+            _playerInput.Player.Touch.performed -= OnTouchPerformed;
         }
 
-        public void InitCamera(Camera mainCamera)
-            => MainCamera = mainCamera;
+        protected abstract Vector2 GetTouchPosition();
 
-        protected abstract void OnButtonClick(InputAction.CallbackContext context);
-
-        protected void InvokeOnRay(Ray ray)
-            => OnRay?.Invoke(ray);
+        private void OnTouchPerformed(InputAction.CallbackContext context)
+            => Touched?.Invoke(GetTouchPosition());
     }
 }

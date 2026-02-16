@@ -113,6 +113,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Touch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b451553-df0a-4f28-a722-6bc6761d6d4d"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mobile"",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -121,6 +132,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             ""name"": ""Desktop"",
             ""bindingGroup"": ""Desktop"",
+            ""devices"": []
+        },
+        {
+            ""name"": ""Mobile"",
+            ""bindingGroup"": ""Mobile"",
             ""devices"": []
         }
     ]
@@ -311,6 +327,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (m_DesktopSchemeIndex == -1) m_DesktopSchemeIndex = asset.FindControlSchemeIndex("Desktop");
             return asset.controlSchemes[m_DesktopSchemeIndex];
+        }
+    }
+    private int m_MobileSchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme MobileScheme
+    {
+        get
+        {
+            if (m_MobileSchemeIndex == -1) m_MobileSchemeIndex = asset.FindControlSchemeIndex("Mobile");
+            return asset.controlSchemes[m_MobileSchemeIndex];
         }
     }
     /// <summary>

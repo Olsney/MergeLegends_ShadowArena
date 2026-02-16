@@ -50,15 +50,15 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
-            Container.BindInterfacesTo<RaycastReader>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle().NonLazy();
         }
 
         private void BindInputService()
         {
             if (Application.isEditor)
-                Container.BindInterfacesTo<StandaloneInputService>().AsSingle();
+                Container.BindInterfacesAndSelfTo<StandaloneInputService>().AsSingle();
             else
-                Container.BindInterfacesTo<MobileInputService>().AsSingle();
+                Container.BindInterfacesAndSelfTo<MobileInputService>().AsSingle();
         }
 
         private void BindSceneLoader() =>
