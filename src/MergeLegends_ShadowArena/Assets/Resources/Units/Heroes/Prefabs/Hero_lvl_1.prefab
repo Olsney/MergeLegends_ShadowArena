@@ -123,7 +123,8 @@ PrefabInstance:
         clip 'A_Hit_B_React_Sword'\n\tFrom animation clip 'A_Attack_LightCombo01A_ReturnToIdle_RootMotion_Sword'\n\tFrom
         animation clip 'A_Attack_HeavyCombo01A_WindUp_Sword'\n\tFrom animation clip
         'A_Death_B_01_Sword'\n\tFrom animation clip 'A_Attack_LightCombo01A_Sword'\n\tFrom
-        animation clip 'A_Idle_Base_Sword'"
+        animation clip 'A_Idle_Base_Sword'\n\tFrom animation clip 'A_Attack_LightCombo01A_ReturnToIdle_RootMotion_Sword'\n\tFrom
+        animation clip 'A_Attack_LightCombo01A_Sword'"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
