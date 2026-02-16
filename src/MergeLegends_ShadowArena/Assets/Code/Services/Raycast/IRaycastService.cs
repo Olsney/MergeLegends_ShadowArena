@@ -1,11 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace Code.Services.RaycastReader
+namespace Code.Services.Raycast
 {
     public interface IRaycastService
     {
         event Action<RaycastHit> HitPerformed;
-        void PerformRaycast(Vector2 screenPoint);
     }
 }

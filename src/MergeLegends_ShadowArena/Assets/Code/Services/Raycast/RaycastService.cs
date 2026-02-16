@@ -4,7 +4,7 @@ using Code.Services.Input;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Services.RaycastReader
+namespace Code.Services.Raycast
 {
     public class RaycastService : IDisposable, IInitializable, IRaycastService
     {
@@ -25,7 +25,7 @@ namespace Code.Services.RaycastReader
         public void Dispose()
             => _inputService.Touched -= PerformRaycast;
 
-        public void PerformRaycast(Vector2 screenPoint)
+        private void PerformRaycast(Vector2 screenPoint)
         {
             Ray ray = _cameraProvider.MainCamera.ScreenPointToRay(screenPoint);
 
