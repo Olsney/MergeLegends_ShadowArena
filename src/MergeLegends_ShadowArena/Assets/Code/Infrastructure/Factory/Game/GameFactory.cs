@@ -9,11 +9,21 @@ namespace Code.Infrastructure.Factory.Game
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
 
-        public GameFactory(IInstantiator instantiator, 
+        public GameFactory(IInstantiator instantiator,
             IAssetProvider assets)
         {
             _instantiator = instantiator;
             _assets = assets;
+        }
+
+        public GameObject CreatePlayZone(Vector3 position)
+        {
+            GameObject prefab = _assets.Load(AssetPath.PlayZone);
+
+            GameObject playZonePrefab = _instantiator.InstantiatePrefab(prefab);
+            playZonePrefab.transform.position = position;
+            
+            return playZonePrefab;
         }
     }
 }

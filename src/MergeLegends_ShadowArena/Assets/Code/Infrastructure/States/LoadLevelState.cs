@@ -45,6 +45,7 @@ namespace Code.Infrastructure.States
             //
             // InitGameWorld();
 
+            _gameFactory.CreatePlayZone(new Vector3(6.71000004f,0.300000012f,-16.3299999f));
             _inputService.InitCamera(Camera.main);
             _stateMachine.Enter<GameLoopState>();
         }
