@@ -21,7 +21,7 @@ namespace Code.Infrastructure.Installers
             BindStates();
             BindServices();
             BindSceneLoader();
-            
+
             Container.Bind<RaycastReader>().AsSingle().NonLazy();
         }
 
@@ -47,7 +47,7 @@ namespace Code.Infrastructure.Installers
         private void BindServices()
         {
             BindInputService();
-            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
         }
