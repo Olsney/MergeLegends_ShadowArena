@@ -27,6 +27,17 @@
                     "action": "Touch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b451553-df0a-4f28-a722-6bc6761d6d4d",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Mobile",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -35,6 +46,11 @@
         {
             "name": "Desktop",
             "bindingGroup": "Desktop",
+            "devices": []
+        },
+        {
+            "name": "Mobile",
+            "bindingGroup": "Mobile",
             "devices": []
         }
     ]

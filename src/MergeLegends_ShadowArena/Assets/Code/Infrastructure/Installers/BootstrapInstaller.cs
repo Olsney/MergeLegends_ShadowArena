@@ -1,9 +1,10 @@
 using Code.Infrastructure.AssetManagement;
+using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
 using Code.Services.Input;
-using Code.Services.RaycastReader;
+using Code.Services.Raycast;
 using Code.Services.StaticData;
 using Code.UI.Factory;
 using Code.UI.Services.Windows;
@@ -21,8 +22,6 @@ namespace Code.Infrastructure.Installers
             BindStates();
             BindServices();
             BindSceneLoader();
-
-            Container.Bind<RaycastReader>().AsSingle().NonLazy();
         }
 
         private void BindCoroutine() =>
@@ -47,17 +46,19 @@ namespace Code.Infrastructure.Installers
         private void BindServices()
         {
             BindInputService();
-            Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
+            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
+            Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle().NonLazy();
         }
 
         private void BindInputService()
         {
             if (Application.isEditor)
-                Container.Bind<IInputService>().To<StandaloneInputService>().AsSingle();
+                Container.BindInterfacesAndSelfTo<StandaloneInputService>().AsSingle();
             else
-                Container.Bind<IInputService>().To<MobileInputService>().AsSingle();
+                Container.BindInterfacesAndSelfTo<MobileInputService>().AsSingle();
         }
 
         private void BindSceneLoader() =>
