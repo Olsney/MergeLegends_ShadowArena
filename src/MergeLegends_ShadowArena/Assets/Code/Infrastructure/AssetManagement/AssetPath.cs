@@ -9,6 +9,8 @@ namespace Code.Infrastructure.AssetManagement
         public const string HudPath = "UI/Hud";
         public const string VictoryWindowPath = "UI/VictoryWindow";
         public const string LoseWindowPath = "UI/LoseWindow";
-        public const string PlayZone = "PlayZone/HeroPlacesZone";
+        public const string PlayZone = "PlayZone/PlayZone";
+        public const string UnitPlacesZone = "PlayZone/UnitPlacesZone";
+        public const string CellGridZone = "PlayZone/CellGridZone";
     }
 }

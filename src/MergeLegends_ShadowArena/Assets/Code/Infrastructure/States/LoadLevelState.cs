@@ -1,5 +1,8 @@
 using Code.Infrastructure.Factory.Game;
+using Code.Services.StaticData;
+using Code.StaticData;
 using Code.UI.Factory;
+using UnityEngine.SceneManagement;
 
 namespace Code.Infrastructure.States
 {
@@ -11,18 +14,21 @@ namespace Code.Infrastructure.States
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
+        private readonly IStaticDataService _staticData;
 
         public LoadLevelState(
             GameStateMachine stateMachine,
             SceneLoader sceneLoader,
             IGameFactory gameFactory,
-            IUIFactory uiFactory
+            IUIFactory uiFactory,
+            IStaticDataService staticData
         )
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
             _uiFactory = uiFactory;
+            _staticData = staticData;
         }
 
         public void Enter(string sceneName)
@@ -38,6 +44,7 @@ namespace Code.Infrastructure.States
         {
             InitUIRoot();
             InitGameWorld();
+            InitPlayZone();
 
             _stateMachine.Enter<GameLoopState>();
         }
@@ -47,5 +54,12 @@ namespace Code.Infrastructure.States
 
         private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();
+
+        private void InitPlayZone()
+        {
+            LevelStaticData levelData = _staticData.ForLevel(SceneManager.GetActiveScene().name);
+
+            _gameFactory.CreatePlayZone(levelData.HeroesGridPlacesPosition, levelData.EnemiesGridPlacesPosition);
+        }
     }
 }

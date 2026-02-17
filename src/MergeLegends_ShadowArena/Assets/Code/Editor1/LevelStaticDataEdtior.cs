@@ -1,4 +1,5 @@
-﻿using Code.StaticData;
+﻿using Code.Logic.PlayArea;
+using Code.StaticData;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,10 +16,27 @@ namespace Code.Editor1
 
             if (GUILayout.Button("Collect"))
             {
-                levelData.HeroesPlacesMarkerPosition = FindAnyObjectByType<HeroesPlacesMarker>().transform.position;
+                levelData.PlayZonePosition =
+                    FindAnyObjectByType<PlayZoneSpawnPoint>().transform.position;
+
+                levelData.HeroesGridPlacesPosition =
+                    FindAnyObjectByType<GridHeroesPlacesSpawnPoint>().transform.position;
+
+                levelData.EnemiesGridPlacesPosition =
+                    FindAnyObjectByType<GridEnemiesPlacesSpawnPoint>().transform.position;
+            }
+
+            if (GUILayout.Button("position"))
+            {
+                FindAnyObjectByType<GridUnitPlaces>().transform.position =
+                    levelData.HeroesGridPlacesPosition;
+                levelData.LevelKey = SceneManager.GetActiveScene().name;
+
+                FindAnyObjectByType<GridUnitPlaces>().transform.position =
+                    levelData.HeroesGridPlacesPosition;
                 levelData.LevelKey = SceneManager.GetActiveScene().name;
             }
-        
+
             EditorUtility.SetDirty(target);
         }
     }

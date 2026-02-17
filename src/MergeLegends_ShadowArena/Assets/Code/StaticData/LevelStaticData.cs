@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using Code.Logic.PlayArea;
+using UnityEngine;
 
 namespace Code.StaticData
 {
@@ -7,6 +7,8 @@ namespace Code.StaticData
     public class LevelStaticData : ScriptableObject
     {
         public string LevelKey;
-        [FormerlySerializedAs("HeroesPlacesMarker")] public Vector3 HeroesPlacesMarkerPosition;
+        public Vector3 PlayZonePosition;
+        public Vector3 HeroesGridPlacesPosition;
+        public Vector3 EnemiesGridPlacesPosition;
     }
 }

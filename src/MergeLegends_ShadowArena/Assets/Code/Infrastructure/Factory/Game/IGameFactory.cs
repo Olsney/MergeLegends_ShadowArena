@@ -4,6 +4,6 @@ namespace Code.Infrastructure.Factory.Game
 {
     public interface IGameFactory
     {
-        GameObject CreatePlayZone(Vector3 position);
+        GameObject CreatePlayZone(Vector3 heroesGridZone, Vector3 enemiesGridZone);
     }
 }

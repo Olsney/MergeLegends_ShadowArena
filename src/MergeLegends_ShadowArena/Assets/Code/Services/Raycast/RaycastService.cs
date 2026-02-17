@@ -30,7 +30,10 @@ namespace Code.Services.Raycast
             Ray ray = _cameraProvider.MainCamera.ScreenPointToRay(screenPoint);
 
             if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Debug.Log(hit.collider.gameObject.name);
                 HitPerformed?.Invoke(hit);
+            }
         }
     }
 }

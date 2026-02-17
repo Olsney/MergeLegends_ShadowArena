@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: LevelData_1
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.LevelStaticData
   LevelKey: Main
-  HeroesPlacesMarkerPosition: {x: 6.71, y: 0.3, z: -16.33}
+  PlayZonePosition: {x: 2.08, y: 0.2, z: -7.42}
+  HeroesGridPlacesPosition: {x: -3.46, y: 0.2, z: -21.669998}
+  EnemiesGridPlacesPosition: {x: -3.1400003, y: 0.2, z: -1.6300001}

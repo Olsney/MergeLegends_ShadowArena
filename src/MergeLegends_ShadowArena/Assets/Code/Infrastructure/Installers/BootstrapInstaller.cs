@@ -46,7 +46,7 @@ namespace Code.Infrastructure.Installers
         private void BindServices()
         {
             BindInputService();
-            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
