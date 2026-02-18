@@ -10,6 +10,7 @@ namespace Code.Infrastructure.Factory.Game
     {
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
+        private GameObject _heroLvl1Prefab;
 
         private GameObject _playZone;
 
@@ -17,6 +18,7 @@ namespace Code.Infrastructure.Factory.Game
         {
             _instantiator = instantiator;
             _assets = assets;
+            _heroLvl1Prefab = _assets.Load(AssetPath.HeroLvl1);
         }
 
         public GameObject CreatePlayZone(Vector3 heroesGridZone, Vector3 enemiesGridZone)
@@ -47,8 +49,6 @@ namespace Code.Infrastructure.Factory.Game
             if (gridUnitPlaces == null)
                 return;
 
-            GameObject prefab = _assets.Load(AssetPath.CellGridZone);
-
             int cellsX = 5;
             int cellsZ = 3;
             float spacing = 1.85f;
@@ -57,7 +57,7 @@ namespace Code.Infrastructure.Factory.Game
             {
                 for (int z = 0; z < cellsZ; z++)
                 {
-                    GameObject cell = Instantiate(prefab);
+                    GameObject cell = Instantiate(_assets.Load(AssetPath.CellGridZone));
 
                     Vector3 localPosition = new Vector3(x * spacing, 0, z * spacing);
                     cell.transform.SetParent(gridZone.transform, true);
@@ -70,7 +70,7 @@ namespace Code.Infrastructure.Factory.Game
         }
 
         public GameObject CreateHero(Vector3 position, Quaternion rotation)
-            => Instantiate(_assets.Load(AssetPath.HeroLvl1), position, rotation);
+            => Instantiate(_heroLvl1Prefab, position, rotation);
 
         private GameObject Instantiate(GameObject prefab)
             => _instantiator.InstantiatePrefab(prefab);
