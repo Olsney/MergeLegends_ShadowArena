@@ -4,23 +4,24 @@ namespace Code.Logic.PlayArea
 {
     public class CellGrid : MonoBehaviour
     {
-        private GameObject _occupyingUnit;
-        private bool _isOccupied;
-
-        public bool IsOccupied => _isOccupied;
+        public GameObject Hero { get; private set; }
+        public bool IsOccupied { get; private set; }
 
         public void PlaceUnit(GameObject unit)
         {
-            _occupyingUnit = unit;
-            _isOccupied = true;
+            Hero = unit;
+
+            Hero.transform.position = transform.position;
+            Hero.transform.SetParent(transform);
+
+            IsOccupied = true;
         }
 
         public void RemoveUnit()
         {
-            if (_occupyingUnit != null)
-                _occupyingUnit = null;
-            
-            _isOccupied = false;
+            Hero.transform.SetParent(null);
+            Hero = null;
+            IsOccupied = false;
         }
     }
 }

@@ -69,11 +69,14 @@ namespace Code.Infrastructure.Factory.Game
             }
         }
 
-        public GameObject CreateHero(Vector3 position, Quaternion rotation)
-            => Instantiate(_heroLvl1Prefab, position, rotation);
+        public GameObject CreateHero(Quaternion rotation)
+            => Instantiate(_heroLvl1Prefab, rotation);
 
         private GameObject Instantiate(GameObject prefab)
             => _instantiator.InstantiatePrefab(prefab);
+        
+        private GameObject Instantiate(GameObject prefab, Quaternion rotation)
+            => _instantiator.InstantiatePrefab(prefab, Vector3.zero, rotation, null);
 
         private GameObject Instantiate(GameObject prefab, Vector3 position)
             => _instantiator.InstantiatePrefab(prefab, position, Quaternion.identity, null);

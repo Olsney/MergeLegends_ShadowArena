@@ -24,8 +24,7 @@ namespace Code.Logic.UnitSpawn
             {
                 if (_cellGrids[i].IsOccupied == false)
                 {
-                    _cellGrids[i].PlaceUnit(_gameFactory.CreateHero(_cellGrids[i].transform.position,
-                        Quaternion.Euler(0, 180, 0)));
+                    _cellGrids[i].PlaceUnit(_gameFactory.CreateHero(Quaternion.Euler(0, 180, 0)));
 
                     return;
                 }

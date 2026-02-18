@@ -31,7 +31,6 @@ namespace Code.Services.Raycast
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                Debug.Log(hit.collider.gameObject.name);
                 HitPerformed?.Invoke(hit);
             }
         }

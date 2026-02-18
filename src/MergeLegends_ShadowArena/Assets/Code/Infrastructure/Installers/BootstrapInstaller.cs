@@ -3,6 +3,7 @@ using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
+using Code.Logic.UnitSelection;
 using Code.Logic.UnitSpawn;
 using Code.Services.Input;
 using Code.Services.Raycast;
@@ -52,7 +53,8 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
-            Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<UnitSelector>().AsSingle();
         }
 
         private void BindInputService()
