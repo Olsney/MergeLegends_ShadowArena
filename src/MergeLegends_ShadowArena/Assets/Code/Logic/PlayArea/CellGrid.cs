@@ -4,8 +4,7 @@ namespace Code.Logic.PlayArea
 {
     public class CellGrid : MonoBehaviour
     {
-        [SerializeField] private GameObject _occupyingUnit;
-
+        private GameObject _occupyingUnit;
         private bool _isOccupied;
 
         public bool IsOccupied => _isOccupied;

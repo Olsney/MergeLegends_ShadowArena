@@ -24,16 +24,7 @@ namespace Code.Editor1
 
                 levelData.EnemiesGridPlacesPosition =
                     FindAnyObjectByType<GridEnemiesPlacesSpawnPoint>().transform.position;
-            }
-
-            if (GUILayout.Button("position"))
-            {
-                FindAnyObjectByType<GridUnitPlaces>().transform.position =
-                    levelData.HeroesGridPlacesPosition;
-                levelData.LevelKey = SceneManager.GetActiveScene().name;
-
-                FindAnyObjectByType<GridUnitPlaces>().transform.position =
-                    levelData.HeroesGridPlacesPosition;
+                
                 levelData.LevelKey = SceneManager.GetActiveScene().name;
             }
 
