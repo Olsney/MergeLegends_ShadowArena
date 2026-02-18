@@ -3,6 +3,7 @@ using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
+using Code.Logic.UnitSpawn;
 using Code.Services.Input;
 using Code.Services.Raycast;
 using Code.Services.StaticData;
@@ -22,6 +23,7 @@ namespace Code.Infrastructure.Installers
             BindStates();
             BindServices();
             BindSceneLoader();
+            BindSpawners();
         }
 
         private void BindCoroutine() =>
@@ -63,5 +65,10 @@ namespace Code.Infrastructure.Installers
 
         private void BindSceneLoader() =>
             Container.Bind<SceneLoader>().AsSingle();
+
+        private void BindSpawners()
+        {
+            Container.Bind<IUnitSpawner>().To<UnitSpawner>().AsSingle();
+        }
     }
 }

@@ -10,7 +10,9 @@ namespace Code.Infrastructure.AssetManagement
         public const string VictoryWindowPath = "UI/VictoryWindow";
         public const string LoseWindowPath = "UI/LoseWindow";
         public const string PlayZone = "PlayZone/PlayZone";
-        public const string UnitPlacesZone = "PlayZone/UnitPlacesZone";
+        public const string HeroesGridZone = "PlayZone/HeroesGridZone";
+        public const string EnemiesGridZone = "PlayZone/EnemiesGridZone";
         public const string CellGridZone = "PlayZone/CellGridZone";
+        public const string HeroLvl1 = "Units/Heroes/Prefabs/Hero_lvl_1";
     }
 }
