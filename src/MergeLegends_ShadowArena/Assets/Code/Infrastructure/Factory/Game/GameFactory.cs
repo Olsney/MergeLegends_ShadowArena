@@ -12,8 +12,6 @@ namespace Code.Infrastructure.Factory.Game
         private readonly IAssetProvider _assets;
 
         private GameObject _playZone;
-        private GameObject _heroesGridZone;
-        private GameObject _enemiesGridZone;
 
         public GameFactory(IInstantiator instantiator, IAssetProvider assets)
         {
@@ -23,61 +21,64 @@ namespace Code.Infrastructure.Factory.Game
 
         public GameObject CreatePlayZone(Vector3 heroesGridZone, Vector3 enemiesGridZone)
         {
-            GameObject prefab = _assets.Load(AssetPath.PlayZone);
-            _playZone = _instantiator.InstantiatePrefab(prefab);
+            _playZone = Instantiate(_assets.Load(AssetPath.PlayZone));
 
-            _heroesGridZone = CreateGridZone(heroesGridZone, AssetPath.HeroesGridZone);
-            _enemiesGridZone = CreateGridZone(enemiesGridZone, AssetPath.EnemiesGridZone);
+            CreateGridZone(heroesGridZone, AssetPath.HeroesGridZone);
+            CreateGridZone(enemiesGridZone, AssetPath.EnemiesGridZone);
 
             return _playZone;
         }
 
-        private GameObject CreateGridZone(Vector3 position, string name)
+        private void CreateGridZone(Vector3 position, string name)
         {
-            GameObject prefab = _assets.Load(name);
-            GameObject gridZone = _instantiator.InstantiatePrefab(prefab);
+            var gridZone = Instantiate(_assets.Load(name));
 
             gridZone.transform.SetParent(_playZone.transform, true);
             gridZone.transform.localPosition = position;
-            gridZone.transform.hasChanged = false;
             gridZone.name = name;
 
-            GenerateGrid(gridZone);
-
-            return gridZone;
+            GenerateGridCells(gridZone);
         }
 
-        private void GenerateGrid(GameObject gridZone)
+        private void GenerateGridCells(GameObject gridZone)
         {
+            var gridUnitPlaces = gridZone.GetComponent<GridUnitPlaces>();
+
+            if (gridUnitPlaces == null)
+                return;
+
             GameObject prefab = _assets.Load(AssetPath.CellGridZone);
-            float spacing = 2.5f;
 
-            GridUnitPlaces gridUnitPlaces = null;
-            List<CellGrid> cellGrids = new List<CellGrid>();
+            int cellsX = 5;
+            int cellsZ = 3;
+            float spacing = 1.85f;
 
-            if (gridZone.TryGetComponent<GridHeroesPlaces>(out GridHeroesPlaces gridHeroesPlaces))
-                gridUnitPlaces = gridHeroesPlaces;
-
-            if (gridZone.TryGetComponent<GridEnemiesPlaces>(out GridEnemiesPlaces gridEnemiesPlaces))
-                gridUnitPlaces = gridEnemiesPlaces;
-
-            for (int x = 0; x < 5; x++)
+            for (int x = 0; x < cellsX; x++)
             {
-                for (int z = 0; z < 3; z++)
+                for (int z = 0; z < cellsZ; z++)
                 {
-                    Vector3 localPosition = new Vector3(x * spacing, 0, z * spacing);
+                    GameObject cell = Instantiate(prefab);
 
-                    GameObject cell = _instantiator.InstantiatePrefab(prefab);
+                    Vector3 localPosition = new Vector3(x * spacing, 0, z * spacing);
                     cell.transform.SetParent(gridZone.transform, true);
                     cell.transform.localPosition = localPosition;
                     cell.name = $"Cell {x} {z}";
 
-                    cellGrids.Add(cell.GetComponent<CellGrid>());
+                    gridUnitPlaces.AddCell(cell.GetComponent<CellGrid>());
                 }
             }
-
-            if (gridUnitPlaces != null)
-                gridUnitPlaces.AddCell(cellGrids);
         }
+
+        public GameObject CreateHero(Vector3 position, Quaternion rotation)
+            => Instantiate(_assets.Load(AssetPath.HeroLvl1), position, rotation);
+
+        private GameObject Instantiate(GameObject prefab)
+            => _instantiator.InstantiatePrefab(prefab);
+
+        private GameObject Instantiate(GameObject prefab, Vector3 position)
+            => _instantiator.InstantiatePrefab(prefab, position, Quaternion.identity, null);
+
+        private GameObject Instantiate(GameObject prefab, Vector3 position, Quaternion rotation)
+            => _instantiator.InstantiatePrefab(prefab, position, rotation, null);
     }
 }

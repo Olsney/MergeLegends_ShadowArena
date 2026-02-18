@@ -7,8 +7,6 @@ namespace Code.Logic.PlayArea
     {
         [Inject]
         public void Construct(IUnitSpawner unitSpawner)
-        {
-            unitSpawner.InitiaileCellGrids(CellGrids);
-        }
+            => unitSpawner.InitiaileCellGrids(CellGrids);
     }
 }

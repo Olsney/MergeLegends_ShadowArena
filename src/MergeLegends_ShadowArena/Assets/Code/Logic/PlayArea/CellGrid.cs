@@ -19,7 +19,7 @@ namespace Code.Logic.PlayArea
         {
             if (_occupyingUnit != null)
                 _occupyingUnit = null;
-
+            
             _isOccupied = false;
         }
     }

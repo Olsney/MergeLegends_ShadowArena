@@ -1,45 +1,35 @@
 ﻿using System.Collections.Generic;
-using Code.Infrastructure.AssetManagement;
+using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea;
 using UnityEngine;
-using Zenject;
 
 namespace Code.Logic.UnitSpawn
 {
     public class UnitSpawner : IUnitSpawner
     {
-        private readonly IAssetProvider _assets;
-        private readonly IInstantiator _instantiator;
-        
-        private List<CellGrid>  _cellGrids = new  List<CellGrid>();
-        private GameObject _heroLvl1Prefab;
+        private readonly IGameFactory _gameFactory;
+        private List<CellGrid> _cellGrids = new List<CellGrid>();
 
-        public UnitSpawner(IAssetProvider assets, IInstantiator instantiator)
+        public UnitSpawner(IGameFactory gameFactory)
         {
-            _assets = assets;
-            _instantiator = instantiator;
-            _heroLvl1Prefab = _assets.Load(AssetPath.HeroLvl1);
+            _gameFactory = gameFactory;
         }
 
         public void InitiaileCellGrids(List<CellGrid> cellGrids)
-        {
-            _cellGrids = cellGrids;
-        }
-        
+            => _cellGrids = cellGrids;
+
         public void Spawn()
         {
             for (int i = 0; i < _cellGrids.Count; i++)
             {
-                if (_cellGrids[i].IsOccupied)
+                if (_cellGrids[i].IsOccupied == false)
                 {
-                    GameObject heroPrefab = _instantiator.InstantiatePrefab(_heroLvl1Prefab);
-                    heroPrefab.transform.position = _cellGrids[i].transform.position;
-                    heroPrefab.transform.Rotate(0, 180, 0);
-                    _cellGrids[i].PlaceUnit(heroPrefab);
+                    _cellGrids[i].PlaceUnit(_gameFactory.CreateHero(_cellGrids[i].transform.position,
+                        Quaternion.Euler(0, 180, 0)));
+
                     return;
                 }
             }
-            
         }
     }
 }
