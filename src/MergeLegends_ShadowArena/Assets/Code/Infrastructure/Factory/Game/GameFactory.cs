@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using Code.Infrastructure.AssetManagement;
-using Code.Logic.PlayArea;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.Grid;
 using UnityEngine;
@@ -35,7 +33,7 @@ namespace Code.Infrastructure.Factory.Game
 
         private void CreateGridZone(Vector3 position, string name)
         {
-            var gridZone = _instantiator.InstantiatePrefab(_assets.Load(name));;
+            var gridZone = _instantiator.InstantiatePrefab(_assets.Load(name));
 
             gridZone.transform.SetParent(_playZone.transform, true);
             gridZone.transform.localPosition = position;
@@ -53,7 +51,7 @@ namespace Code.Infrastructure.Factory.Game
                 if (gridHeroesPlaces == null)
                     return;
 
-                GenerateCellsForGrid<CellGridHero>(gridZone, gridHeroesPlaces, name);
+                GenerateCellsForGrid(gridZone, gridHeroesPlaces, name);
             }
 
             if (name == AssetPath.EnemiesGridZone)
@@ -63,12 +61,11 @@ namespace Code.Infrastructure.Factory.Game
                 if (gridEnemiesPlaces == null)
                     return;
 
-                GenerateCellsForGrid<CellGridEnemy>(gridZone, gridEnemiesPlaces, name);
+                GenerateCellsForGrid(gridZone, gridEnemiesPlaces, name);
             }
         }
 
-        private void GenerateCellsForGrid<T>(GameObject gridZone, GridUnitPlaces<T> gridUnitPlaces, string name)
-            where T : CellGrid
+        private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces, string name)
         {
             int cellsX = 5;
             int cellsZ = 3;
@@ -89,7 +86,7 @@ namespace Code.Infrastructure.Factory.Game
                     cell.transform.localPosition = localPosition;
                     cell.name = $"Cell {x} {z}";
 
-                    gridUnitPlaces.AddCell(cell.GetComponent<T>());
+                    gridUnitPlaces.AddCell(cell.GetComponent<ICellGrid>());
                 }
             }
         }

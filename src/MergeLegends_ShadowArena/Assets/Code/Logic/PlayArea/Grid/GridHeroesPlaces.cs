@@ -1,13 +1,22 @@
+using System.Collections.Generic;
 using Code.Logic.HeroSpawn;
 using Code.Logic.PlayArea.Cell;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Logic.PlayArea.Grid
 {
-    public class GridHeroesPlaces : GridUnitPlaces<CellGridHero>
+    public class GridHeroesPlaces : MonoBehaviour, IGridUnitPlaces
     {
+        public List<ICellGrid> CellGrids { get; private set; } = new List<ICellGrid>();
+
         [Inject]
-        public void Construct(IHeroSpawner heroSpawner)
-            => heroSpawner.InitializeCellGrids(CellGrids);
+        private void Construct(ICellsProvider cellsProvider) 
+            => cellsProvider.InitializeCellGrids(CellGrids);
+
+        public void AddCell(ICellGrid cellGrid)
+        {
+            CellGrids.Add(cellGrid);
+        }
     }
 }

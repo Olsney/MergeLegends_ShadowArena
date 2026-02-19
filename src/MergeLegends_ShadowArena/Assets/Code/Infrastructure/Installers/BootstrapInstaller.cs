@@ -5,6 +5,7 @@ using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
 using Code.Logic.HeroSelect;
 using Code.Logic.HeroSpawn;
+using Code.Logic.PlayArea.Cell;
 using Code.Services.Input;
 using Code.Services.Raycast;
 using Code.Services.StaticData;
@@ -56,6 +57,7 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
             Container.BindInterfacesAndSelfTo<HeroSelector>().AsSingle();
             Container.BindInterfacesAndSelfTo<HeroSpawnerService>().AsSingle().NonLazy();
+            Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
         }
 
         private void BindInputService()

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Code.Infrastructure.Factory.Game;
+﻿using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea.Cell;
 using UnityEngine;
 
@@ -8,26 +7,20 @@ namespace Code.Logic.HeroSpawn
     public class HeroSpawner : IHeroSpawner
     {
         private readonly IGameFactory _gameFactory;
-        private List<CellGridHero> _cellGrids = new List<CellGridHero>();
+        private readonly ICellsProvider _cellsProvider;
 
-        public HeroSpawner(IGameFactory gameFactory)
+        public HeroSpawner(IGameFactory gameFactory, ICellsProvider cellsProvider)
         {
             _gameFactory = gameFactory;
+            _cellsProvider = cellsProvider;
         }
-
-        public void InitializeCellGrids(List<CellGridHero> cellGrids)
-            => _cellGrids = cellGrids;
 
         public void Spawn()
         {
-            for (int i = 0; i < _cellGrids.Count; i++)
+            foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                if (_cellGrids[i].IsOccupied == false)
-                {
-                    _cellGrids[i].PlaceUnit(_gameFactory.CreateHero(Quaternion.Euler(0, 180, 0)));
-
-                    return;
-                }
+                cell.PlaceUnit(_gameFactory.CreateHero(Quaternion.Euler(0, 180, 0)));
+                return;
             }
         }
     }
