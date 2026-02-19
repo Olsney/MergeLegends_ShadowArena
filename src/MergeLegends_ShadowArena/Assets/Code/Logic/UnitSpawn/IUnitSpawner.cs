@@ -6,6 +6,6 @@ namespace Code.Logic.UnitSpawn
     public interface IUnitSpawner
     {
         void Spawn();
-        void InitiaileCellGrids(List<CellGrid> cellGrids);
+        void InitiaileCellGrids(List<CellGridHero> cellGrids);
     }
 }

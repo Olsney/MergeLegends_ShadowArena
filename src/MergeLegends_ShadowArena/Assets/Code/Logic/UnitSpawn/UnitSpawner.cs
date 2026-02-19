@@ -8,14 +8,14 @@ namespace Code.Logic.UnitSpawn
     public class UnitSpawner : IUnitSpawner
     {
         private readonly IGameFactory _gameFactory;
-        private List<CellGrid> _cellGrids = new List<CellGrid>();
+        private List<CellGridHero> _cellGrids = new List<CellGridHero>();
 
         public UnitSpawner(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
         }
 
-        public void InitiaileCellGrids(List<CellGrid> cellGrids)
+        public void InitiaileCellGrids(List<CellGridHero> cellGrids)
             => _cellGrids = cellGrids;
 
         public void Spawn()

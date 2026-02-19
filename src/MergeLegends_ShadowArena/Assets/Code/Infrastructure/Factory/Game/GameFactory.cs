@@ -39,10 +39,10 @@ namespace Code.Infrastructure.Factory.Game
             gridZone.transform.localPosition = position;
             gridZone.name = name;
 
-            GenerateGridCells(gridZone);
+            GenerateGridCells(gridZone, name);
         }
 
-        private void GenerateGridCells(GameObject gridZone)
+        private void GenerateGridCells(GameObject gridZone, string name)
         {
             var gridUnitPlaces = gridZone.GetComponent<GridUnitPlaces>();
 
@@ -57,14 +57,20 @@ namespace Code.Infrastructure.Factory.Game
             {
                 for (int z = 0; z < cellsZ; z++)
                 {
-                    GameObject cell = Instantiate(_assets.Load(AssetPath.CellGridZone));
+                    GameObject cell = null;
+
+                    if (name == AssetPath.HeroesGridZone)
+                        cell = Instantiate(_assets.Load(AssetPath.CellGridZoneHero));
+
+                    if (name == AssetPath.EnemiesGridZone)
+                        cell = Instantiate(_assets.Load(AssetPath.CellGridZoneEnemy));
 
                     Vector3 localPosition = new Vector3(x * spacing, 0, z * spacing);
                     cell.transform.SetParent(gridZone.transform, true);
                     cell.transform.localPosition = localPosition;
                     cell.name = $"Cell {x} {z}";
 
-                    gridUnitPlaces.AddCell(cell.GetComponent<CellGrid>());
+                    gridUnitPlaces.AddCell(cell.GetComponent<CellGridHero>());
                 }
             }
         }
@@ -74,7 +80,7 @@ namespace Code.Infrastructure.Factory.Game
 
         private GameObject Instantiate(GameObject prefab)
             => _instantiator.InstantiatePrefab(prefab);
-        
+
         private GameObject Instantiate(GameObject prefab, Quaternion rotation)
             => _instantiator.InstantiatePrefab(prefab, Vector3.zero, rotation, null);
 

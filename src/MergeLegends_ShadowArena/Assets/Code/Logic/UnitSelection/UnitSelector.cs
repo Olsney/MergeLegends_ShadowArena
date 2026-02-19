@@ -9,56 +9,81 @@ namespace Code.Logic.UnitSelection
     public class UnitSelector : IUnitSelector, IDisposable, IInitializable
     {
         private readonly IRaycastService _raycastService;
-        private CellGrid _selectedCell;
+        private CellGridHero _selectedCell;
 
         public UnitSelector(IRaycastService raycastService)
         {
             _raycastService = raycastService;
         }
 
-        public void Initialize() 
+        public void Initialize()
             => _raycastService.HitPerformed += OnHitPerformed;
 
-        public void Dispose() 
+        public void Dispose()
             => _raycastService.HitPerformed -= OnHitPerformed;
 
         private void OnHitPerformed(RaycastHit hit)
         {
-            if (hit.transform.gameObject.TryGetComponent<CellGrid>(out var cell) == false)
+            if (hit.transform.gameObject.TryGetComponent<CellGridHero>(out var cell))
             {
-                _selectedCell = null;
+                HandleCell(cell);
                 return;
             }
 
-            if (TrySelectCell(cell))
-                return;
-
-            if (_selectedCell != null && !cell.IsOccupied)
-                MoveUnitToCell(cell);
-            else
-                _selectedCell = null;
+            ClearSelection();
         }
 
-        private bool TrySelectCell(CellGrid cell)
+        private void HandleCell(CellGridHero cell)
         {
             if (_selectedCell != null)
-                return false;
-
+            {
+                if (_selectedCell == cell)
+                {
+                    ClearSelection();
+                    return;
+                }
+                
+                if (cell.IsOccupied)
+                {
+                    ClearSelection();
+                    SelectCell(cell);
+                    return;
+                }
+                
+                if (cell.IsOccupied == false)
+                {
+                    MoveUnitToCell(cell);
+                    return;
+                }
+            }
+            
             if (cell.IsOccupied)
             {
-                _selectedCell = cell;
-                return true;
+                SelectCell(cell);
             }
-
-            return false;
         }
 
-        private void MoveUnitToCell(CellGrid targetCell)
+        private void SelectCell(CellGridHero cell)
+        {
+            _selectedCell = cell;
+            _selectedCell.ActivateSelectedBorder();
+        }
+
+        private void MoveUnitToCell(CellGridHero targetCell)
         {
             var hero = _selectedCell.Hero;
             _selectedCell.RemoveUnit();
             targetCell.PlaceUnit(hero);
-            _selectedCell = null;
+            ClearSelection();
+        }
+
+        private void ClearSelection()
+        {
+            if (_selectedCell != null)
+            {
+                _selectedCell.DeactivateSelectedBorder();
+                _selectedCell = null;
+            }
         }
     }
 }

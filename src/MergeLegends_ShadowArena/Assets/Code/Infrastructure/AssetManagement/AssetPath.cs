@@ -12,7 +12,8 @@ namespace Code.Infrastructure.AssetManagement
         public const string PlayZone = "PlayZone/PlayZone";
         public const string HeroesGridZone = "PlayZone/HeroesGridZone";
         public const string EnemiesGridZone = "PlayZone/EnemiesGridZone";
-        public const string CellGridZone = "PlayZone/CellGridZone";
+        public const string CellGridZoneHero = "PlayZone/CellGridZoneHero";
+        public const string CellGridZoneEnemy = "PlayZone/CellGridZoneEnemy";
         public const string HeroLvl1 = "Units/Heroes/Prefabs/Hero_lvl_1";
     }
 }
