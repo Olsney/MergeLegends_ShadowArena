@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using Code.Infrastructure.Factory.Game;
-using Code.Logic.PlayArea;
+using Code.Logic.PlayArea.Cell;
 using UnityEngine;
 
 namespace Code.Logic.UnitSpawn
 {
-    public class UnitSpawner : IUnitSpawner
+    public class HeroSpawner : IHeroSpawner
     {
         private readonly IGameFactory _gameFactory;
         private List<CellGridHero> _cellGrids = new List<CellGridHero>();
 
-        public UnitSpawner(IGameFactory gameFactory)
+        public HeroSpawner(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
         }
 
-        public void InitiaileCellGrids(List<CellGridHero> cellGrids)
+        public void InitializeCellGrids(List<CellGridHero> cellGrids)
             => _cellGrids = cellGrids;
 
         public void Spawn()

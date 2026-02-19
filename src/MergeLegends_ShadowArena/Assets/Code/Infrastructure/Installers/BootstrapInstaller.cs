@@ -54,7 +54,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<UnitSelector>().AsSingle();
+            Container.BindInterfacesAndSelfTo<HeroSelector>().AsSingle();
         }
 
         private void BindInputService()
@@ -70,7 +70,7 @@ namespace Code.Infrastructure.Installers
 
         private void BindSpawners()
         {
-            Container.Bind<IUnitSpawner>().To<UnitSpawner>().AsSingle();
+            Container.Bind<IHeroSpawner>().To<HeroSpawner>().AsSingle();
         }
     }
 }

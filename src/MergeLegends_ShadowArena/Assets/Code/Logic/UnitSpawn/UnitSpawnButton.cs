@@ -7,12 +7,12 @@ namespace Code.Logic.UnitSpawn
     public class UnitSpawnButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
-        private IUnitSpawner _unitSpawner;
+        private IHeroSpawner heroSpawner;
 
         [Inject]
-        private void Construct(IUnitSpawner unitSpawner)
+        private void Construct(IHeroSpawner heroSpawner)
         {
-            _unitSpawner = unitSpawner;
+            this.heroSpawner = heroSpawner;
         }
 
         private void OnEnable()
@@ -27,7 +27,7 @@ namespace Code.Logic.UnitSpawn
 
         private void OnButtonClick()
         {
-            _unitSpawner.Spawn();
+            heroSpawner.Spawn();
         }
     }
 }

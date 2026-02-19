@@ -1,17 +1,18 @@
 ﻿using System;
 using Code.Logic.PlayArea;
+using Code.Logic.PlayArea.Cell;
 using Code.Services.Raycast;
 using UnityEngine;
 using Zenject;
 
 namespace Code.Logic.UnitSelection
 {
-    public class UnitSelector : IUnitSelector, IDisposable, IInitializable
+    public class HeroSelector : IHeroSelector, IDisposable, IInitializable
     {
         private readonly IRaycastService _raycastService;
         private CellGridHero _selectedCell;
 
-        public UnitSelector(IRaycastService raycastService)
+        public HeroSelector(IRaycastService raycastService)
         {
             _raycastService = raycastService;
         }

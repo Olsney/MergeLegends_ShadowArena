@@ -1,6 +1,6 @@
 ﻿namespace Code.Logic.UnitSelection
 {
-    public interface IUnitSelector
+    public interface IHeroSelector
     {
     }
 }

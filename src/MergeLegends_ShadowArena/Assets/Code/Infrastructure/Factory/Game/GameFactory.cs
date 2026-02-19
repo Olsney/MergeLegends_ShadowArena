@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Code.Infrastructure.AssetManagement;
 using Code.Logic.PlayArea;
+using Code.Logic.PlayArea.Cell;
+using Code.Logic.PlayArea.Grid;
 using UnityEngine;
 using Zenject;
 
@@ -44,11 +46,30 @@ namespace Code.Infrastructure.Factory.Game
 
         private void GenerateGridCells(GameObject gridZone, string name)
         {
-            var gridUnitPlaces = gridZone.GetComponent<GridUnitPlaces>();
+            if (name == AssetPath.HeroesGridZone)
+            {
+                var gridHeroesPlaces = gridZone.GetComponent<GridHeroesPlaces>();
 
-            if (gridUnitPlaces == null)
-                return;
+                if (gridHeroesPlaces == null)
+                    return;
 
+                GenerateCellsForGrid<CellGridHero>(gridZone, gridHeroesPlaces, name);
+            }
+
+            if (name == AssetPath.EnemiesGridZone)
+            {
+                var gridEnemiesPlaces = gridZone.GetComponent<GridEnemiesPlaces>();
+
+                if (gridEnemiesPlaces == null)
+                    return;
+
+                GenerateCellsForGrid<CellGridEnemy>(gridZone, gridEnemiesPlaces, name);
+            }
+        }
+
+        private void GenerateCellsForGrid<T>(GameObject gridZone, GridUnitPlaces<T> gridUnitPlaces, string name)
+            where T : CellGrid
+        {
             int cellsX = 5;
             int cellsZ = 3;
             float spacing = 1.85f;
@@ -57,20 +78,18 @@ namespace Code.Infrastructure.Factory.Game
             {
                 for (int z = 0; z < cellsZ; z++)
                 {
-                    GameObject cell = null;
+                    GameObject prefab = name == AssetPath.HeroesGridZone
+                        ? _assets.Load(AssetPath.CellGridZoneHero)
+                        : _assets.Load(AssetPath.CellGridZoneEnemy);
 
-                    if (name == AssetPath.HeroesGridZone)
-                        cell = Instantiate(_assets.Load(AssetPath.CellGridZoneHero));
-
-                    if (name == AssetPath.EnemiesGridZone)
-                        cell = Instantiate(_assets.Load(AssetPath.CellGridZoneEnemy));
+                    GameObject cell = Instantiate(prefab);
 
                     Vector3 localPosition = new Vector3(x * spacing, 0, z * spacing);
                     cell.transform.SetParent(gridZone.transform, true);
                     cell.transform.localPosition = localPosition;
                     cell.name = $"Cell {x} {z}";
 
-                    gridUnitPlaces.AddCell(cell.GetComponent<CellGridHero>());
+                    gridUnitPlaces.AddCell(cell.GetComponent<T>());
                 }
             }
         }
