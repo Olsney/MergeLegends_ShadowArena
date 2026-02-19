@@ -15,5 +15,6 @@ namespace Code.Infrastructure.AssetManagement
         public const string CellGridZoneHero = "PlayZone/CellGridZoneHero";
         public const string CellGridZoneEnemy = "PlayZone/CellGridZoneEnemy";
         public const string HeroLvl1 = "Units/Heroes/Prefabs/Hero_lvl_1";
+        public const string SpawnHeroButton = "UI/SpawnHeroButton";
     }
 }

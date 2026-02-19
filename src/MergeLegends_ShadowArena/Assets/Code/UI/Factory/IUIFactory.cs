@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Code.UI.Factory
@@ -6,5 +7,8 @@ namespace Code.UI.Factory
   {
     GameObject CreateUIRoot();
     GameObject CreateHud();
+    GameObject CreateSpawnHeroView();
+    event Action UIRootCreated;
+    GameObject UiRoot { get; }
   }
 }

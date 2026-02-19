@@ -55,6 +55,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
             Container.BindInterfacesAndSelfTo<HeroSelector>().AsSingle();
+            Container.BindInterfacesAndSelfTo<HeroSpawnerService>().AsSingle().NonLazy();
         }
 
         private void BindInputService()
