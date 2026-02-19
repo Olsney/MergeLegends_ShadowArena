@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Code.Logic.UnitSpawn
+namespace Code.Logic.HeroSpawn
 {
-    public class UnitSpawnButton : MonoBehaviour
+    public class HeroSpawnButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
         private IHeroSpawner heroSpawner;

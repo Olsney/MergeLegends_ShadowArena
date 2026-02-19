@@ -1,11 +1,10 @@
 ﻿using System;
-using Code.Logic.PlayArea;
 using Code.Logic.PlayArea.Cell;
 using Code.Services.Raycast;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Logic.UnitSelection
+namespace Code.Logic.HeroSelect
 {
     public class HeroSelector : IHeroSelector, IDisposable, IInitializable
     {
@@ -72,7 +71,7 @@ namespace Code.Logic.UnitSelection
 
         private void MoveUnitToCell(CellGridHero targetCell)
         {
-            var hero = _selectedCell.Hero;
+            var hero = _selectedCell.Unit;
             _selectedCell.RemoveUnit();
             targetCell.PlaceUnit(hero);
             ClearSelection();

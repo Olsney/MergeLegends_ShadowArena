@@ -1,4 +1,4 @@
-﻿namespace Code.Logic.UnitSelection
+﻿namespace Code.Logic.HeroSelect
 {
     public interface IHeroSelector
     {

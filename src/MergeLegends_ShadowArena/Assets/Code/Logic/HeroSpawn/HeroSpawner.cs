@@ -3,7 +3,7 @@ using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea.Cell;
 using UnityEngine;
 
-namespace Code.Logic.UnitSpawn
+namespace Code.Logic.HeroSpawn
 {
     public class HeroSpawner : IHeroSpawner
     {
