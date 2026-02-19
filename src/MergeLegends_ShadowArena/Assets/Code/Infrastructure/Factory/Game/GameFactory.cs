@@ -25,7 +25,7 @@ namespace Code.Infrastructure.Factory.Game
 
         public GameObject CreatePlayZone(Vector3 heroesGridZone, Vector3 enemiesGridZone)
         {
-            _playZone = Instantiate(_assets.Load(AssetPath.PlayZone));
+            _playZone = _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZone));
 
             CreateGridZone(heroesGridZone, AssetPath.HeroesGridZone);
             CreateGridZone(enemiesGridZone, AssetPath.EnemiesGridZone);
@@ -35,7 +35,7 @@ namespace Code.Infrastructure.Factory.Game
 
         private void CreateGridZone(Vector3 position, string name)
         {
-            var gridZone = Instantiate(_assets.Load(name));
+            var gridZone = _instantiator.InstantiatePrefab(_assets.Load(name));;
 
             gridZone.transform.SetParent(_playZone.transform, true);
             gridZone.transform.localPosition = position;
@@ -82,7 +82,7 @@ namespace Code.Infrastructure.Factory.Game
                         ? _assets.Load(AssetPath.CellGridZoneHero)
                         : _assets.Load(AssetPath.CellGridZoneEnemy);
 
-                    GameObject cell = Instantiate(prefab);
+                    GameObject cell = _instantiator.InstantiatePrefab(prefab);
 
                     Vector3 localPosition = new Vector3(x * spacing, 0, z * spacing);
                     cell.transform.SetParent(gridZone.transform, true);
@@ -95,18 +95,6 @@ namespace Code.Infrastructure.Factory.Game
         }
 
         public GameObject CreateHero(Quaternion rotation)
-            => Instantiate(_heroLvl1Prefab, rotation);
-
-        private GameObject Instantiate(GameObject prefab)
-            => _instantiator.InstantiatePrefab(prefab);
-
-        private GameObject Instantiate(GameObject prefab, Quaternion rotation)
-            => _instantiator.InstantiatePrefab(prefab, Vector3.zero, rotation, null);
-
-        private GameObject Instantiate(GameObject prefab, Vector3 position)
-            => _instantiator.InstantiatePrefab(prefab, position, Quaternion.identity, null);
-
-        private GameObject Instantiate(GameObject prefab, Vector3 position, Quaternion rotation)
-            => _instantiator.InstantiatePrefab(prefab, position, rotation, null);
+            => _instantiator.InstantiatePrefab(_heroLvl1Prefab, Vector3.zero, rotation, null);
     }
 }
