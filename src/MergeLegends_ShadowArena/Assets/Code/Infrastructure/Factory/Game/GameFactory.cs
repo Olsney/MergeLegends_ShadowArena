@@ -1,7 +1,9 @@
 using Code.Infrastructure.AssetManagement;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.Grid;
+using Code.Services.StaticData;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Code.Infrastructure.Factory.Game
@@ -10,14 +12,16 @@ namespace Code.Infrastructure.Factory.Game
     {
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
-        private GameObject _heroLvl1Prefab;
+        private readonly IStaticDataService _staticDataService;
 
+        private GameObject _heroLvl1Prefab;
         private GameObject _playZone;
 
-        public GameFactory(IInstantiator instantiator, IAssetProvider assets)
+        public GameFactory(IInstantiator instantiator, IAssetProvider assets, IStaticDataService staticDataService)
         {
             _instantiator = instantiator;
             _assets = assets;
+            _staticDataService = staticDataService;
             _heroLvl1Prefab = _assets.Load(AssetPath.HeroLvl1);
         }
 
@@ -67,13 +71,15 @@ namespace Code.Infrastructure.Factory.Game
 
         private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces, string name)
         {
-            int cellsX = 5;
-            int cellsZ = 3;
-            float spacing = 1.85f;
+            var levelStaticData = _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
+            
+            int width = levelStaticData.GridConfig.Width;
+            int height = levelStaticData.GridConfig.Height;
+            float spacing = levelStaticData.GridConfig.Spacing;
 
-            for (int x = 0; x < cellsX; x++)
+            for (int x = 0; x < width; x++)
             {
-                for (int z = 0; z < cellsZ; z++)
+                for (int z = 0; z < height; z++)
                 {
                     GameObject prefab = name == AssetPath.HeroesGridZone
                         ? _assets.Load(AssetPath.CellGridZoneHero)
