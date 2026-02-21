@@ -4,7 +4,7 @@ using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
 using Code.Logic.PlayArea.Cell;
-using Code.Logic.PlayArea.GridSelected;
+using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Logic.PlayerUnitSpawn;
 using Code.Services.Input;
 using Code.Services.Raycast;
@@ -55,7 +55,8 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerUnitSelector>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitGridGridSelectorService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerSpawnerService>().AsSingle().NonLazy();
             Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
         }

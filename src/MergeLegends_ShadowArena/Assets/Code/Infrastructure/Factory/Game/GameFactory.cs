@@ -12,7 +12,7 @@ namespace Code.Infrastructure.Factory.Game
     public class GameFactory : IGameFactory
     {
         private static readonly Quaternion PlayerUnitCreateRotation = Quaternion.Euler(0, 180, 0);
-        
+
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
         private readonly IStaticDataService _staticDataService;
@@ -45,7 +45,7 @@ namespace Code.Infrastructure.Factory.Game
             gridZone.transform.SetParent(_playZone.transform, true);
             gridZone.transform.localPosition = position;
             gridZone.name = gridPlacesTypeId.ToString();
-            
+
             GenerateCellsForGrid(gridZone, gridZone.GetComponent<IGridUnitPlaces>(), gridPlacesTypeId);
         }
 
@@ -73,12 +73,13 @@ namespace Code.Infrastructure.Factory.Game
             }
         }
 
-        public GameObject CreatePlayerUnit(Transform parent)
+        public GameObject CreatePlayerUnit(Vector3 position)
         {
             PlayerUnitStaticData playerUnitStaticData = _staticDataService.GetPlayerUnit(PlayerUnitTypeId.Lvl1);
 
-            GameObject playerUnit = _instantiator.InstantiatePrefab(playerUnitStaticData.playerUnitConfig.PlayerUnitPrefab, parent.position,
-                PlayerUnitCreateRotation, parent);
+            GameObject playerUnit = _instantiator.InstantiatePrefab(
+                playerUnitStaticData.playerUnitConfig.PlayerUnitPrefab, position,
+                PlayerUnitCreateRotation, null);
 
             return playerUnit;
         }

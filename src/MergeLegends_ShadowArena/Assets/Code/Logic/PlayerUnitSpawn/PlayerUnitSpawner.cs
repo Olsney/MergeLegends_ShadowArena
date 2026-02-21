@@ -18,7 +18,7 @@ namespace Code.Logic.PlayerUnitSpawn
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.PlaceUnit(_gameFactory.CreatePlayerUnit(cell.Transform));
+                cell.SetUnit(_gameFactory.CreatePlayerUnit(cell.Transform.position));
                 return;
             }
         }

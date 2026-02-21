@@ -4,14 +4,16 @@ using Code.Services.Raycast;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Logic.PlayArea.GridSelected
+namespace Code.Logic.PlayArea.UnitInGridLogic
 {
-    public class PlayerUnitSelector : IPlayerUnitSelector, IDisposable, IInitializable
+    public class PlayerUnitGridGridSelectorService : IPlayerUnitGridSelectorService, IDisposable, IInitializable
     {
         private readonly IRaycastService _raycastService;
         private CellGridPlayerUnit _selectedCell;
 
-        public PlayerUnitSelector(IRaycastService raycastService)
+        public event Action<GameObject, Vector3> UntiCellChanged;
+
+        public PlayerUnitGridGridSelectorService(IRaycastService raycastService)
         {
             _raycastService = raycastService;
         }
@@ -42,21 +44,21 @@ namespace Code.Logic.PlayArea.GridSelected
                     ClearSelection();
                     return;
                 }
-                
+
                 if (cell.IsOccupied)
                 {
                     ClearSelection();
                     SelectCell(cell);
                     return;
                 }
-                
+
                 if (cell.IsOccupied == false)
                 {
-                    MoveUnitToCell(cell);
+                    SetUnitInCell(cell);
                     return;
                 }
             }
-            
+
             if (cell.IsOccupied)
             {
                 SelectCell(cell);
@@ -69,11 +71,12 @@ namespace Code.Logic.PlayArea.GridSelected
             _selectedCell.ActivateSelectedBorder();
         }
 
-        private void MoveUnitToCell(CellGridPlayerUnit targetCell)
+        private void SetUnitInCell(CellGridPlayerUnit targetCell)
         {
             var playerUnit = _selectedCell.Unit;
             _selectedCell.RemoveUnit();
-            targetCell.PlaceUnit(playerUnit);
+            targetCell.SetUnit(playerUnit);
+            UntiCellChanged?.Invoke(playerUnit, targetCell.transform.position);
             ClearSelection();
         }
 

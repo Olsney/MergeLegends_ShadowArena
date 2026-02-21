@@ -8,13 +8,9 @@ namespace Code.Logic.PlayArea.Cell
         public GameObject Unit { get; private set; }
         public bool IsOccupied { get; private set; }
 
-        public void PlaceUnit(GameObject unit)
+        public void SetUnit(GameObject unit)
         {
             Unit = unit;
-
-            Unit.transform.position = transform.position;
-            Unit.transform.SetParent(transform);
-
             IsOccupied = true;
         }
 

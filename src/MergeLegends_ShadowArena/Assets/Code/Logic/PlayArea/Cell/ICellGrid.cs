@@ -7,7 +7,7 @@ namespace Code.Logic.PlayArea.Cell
         Transform Transform { get; }
         GameObject Unit { get; }
         bool IsOccupied { get; }
-        void PlaceUnit(GameObject unit);
+        void SetUnit(GameObject unit);
         void RemoveUnit();
     }
 }

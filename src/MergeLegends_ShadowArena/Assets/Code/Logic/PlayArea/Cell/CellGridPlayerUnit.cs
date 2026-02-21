@@ -15,16 +15,9 @@ namespace Code.Logic.PlayArea.Cell
             SelectedBorder.SetActive(false);
         }
 
-        public void PlaceUnit(GameObject unit)
+        public void SetUnit(GameObject unit)
         {
             Unit = unit;
-            
-            if (Unit.transform.parent != transform)
-            {
-                Unit.transform.position = transform.position;
-                Unit.transform.SetParent(transform);
-            }
-            
             IsOccupied = true;
         }
 
