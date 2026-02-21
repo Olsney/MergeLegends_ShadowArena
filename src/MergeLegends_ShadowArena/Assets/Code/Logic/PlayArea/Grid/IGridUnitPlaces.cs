@@ -5,7 +5,6 @@ namespace Code.Logic.PlayArea.Grid
 {
     public interface IGridUnitPlaces
     {
-        List<ICellGrid> CellGrids { get; }
         void AddCell(ICellGrid cellGrid);
     }
 }

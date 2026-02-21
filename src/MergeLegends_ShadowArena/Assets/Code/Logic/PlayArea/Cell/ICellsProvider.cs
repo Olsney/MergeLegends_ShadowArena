@@ -6,6 +6,6 @@ namespace Code.Logic.PlayArea.Cell
     {
         IEnumerable<ICellGrid> GetFreeCells();
         IEnumerable<ICellGrid> GetAllCells();
-        void InitializeCellGrids(List<ICellGrid> cellGrids);
+        void AddCell(ICellGrid cellGrid);
     }
 }

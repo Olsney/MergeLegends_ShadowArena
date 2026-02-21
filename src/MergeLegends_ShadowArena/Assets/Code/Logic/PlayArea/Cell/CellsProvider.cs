@@ -15,7 +15,7 @@ namespace Code.Logic.PlayArea.Cell
     
         public IEnumerable<ICellGrid> GetAllCells() => _allCells;
         
-        public void InitializeCellGrids(List<ICellGrid> cellGrids) 
-            => _allCells = cellGrids;
+        public void AddCell(ICellGrid cellGrid) 
+            => _allCells.Add(cellGrid);
     }
 }

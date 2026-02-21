@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Code.Logic.HeroSpawn;
 using Code.Logic.PlayArea.Cell;
 using UnityEngine;
 using Zenject;
@@ -8,15 +6,13 @@ namespace Code.Logic.PlayArea.Grid
 {
     public class GridHeroesPlaces : MonoBehaviour, IGridUnitPlaces
     {
-        public List<ICellGrid> CellGrids { get; private set; } = new List<ICellGrid>();
+        private ICellsProvider _cellsProvider;
 
         [Inject]
-        private void Construct(ICellsProvider cellsProvider) 
-            => cellsProvider.InitializeCellGrids(CellGrids);
+        private void Construct(ICellsProvider cellsProvider)
+            => _cellsProvider = cellsProvider;
 
         public void AddCell(ICellGrid cellGrid)
-        {
-            CellGrids.Add(cellGrid);
-        }
+            => _cellsProvider.AddCell(cellGrid);
     }
 }
