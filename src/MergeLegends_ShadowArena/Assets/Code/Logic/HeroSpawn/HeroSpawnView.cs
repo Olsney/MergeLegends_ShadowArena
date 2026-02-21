@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Code.Logic.HeroSpawn
 {
-    public class HeroSpawnView : MonoBehaviour
+    public class HeroSpawnView : MonoBehaviour, IHeroSpawnView
     {
         [SerializeField] private Button _spawnButton;
 

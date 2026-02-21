@@ -49,8 +49,11 @@ namespace Code.Infrastructure.States
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InitGameWorld() =>
+        private void InitGameWorld()
+        {
             _uiFactory.CreateHud();
+            _uiFactory.CreateSpawnHeroView();
+        }
 
         private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();
