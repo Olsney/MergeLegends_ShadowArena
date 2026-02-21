@@ -57,7 +57,7 @@ namespace Code.Infrastructure.States
 
         private void InitPlayZone()
         {
-            LevelStaticData levelData = _staticData.ForLevel(SceneManager.GetActiveScene().name);
+            LevelStaticData levelData = _staticData.GetLevel(SceneManager.GetActiveScene().name);
 
             _gameFactory.CreatePlayZone(levelData.HeroesGridPlacesPosition, levelData.EnemiesGridPlacesPosition);
         }

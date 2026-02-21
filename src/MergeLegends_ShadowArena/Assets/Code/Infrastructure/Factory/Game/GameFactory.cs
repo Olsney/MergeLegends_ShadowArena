@@ -2,6 +2,7 @@ using Code.Infrastructure.AssetManagement;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.Grid;
 using Code.Services.StaticData;
+using Code.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -14,7 +15,6 @@ namespace Code.Infrastructure.Factory.Game
         private readonly IAssetProvider _assets;
         private readonly IStaticDataService _staticDataService;
 
-        private GameObject _heroLvl1Prefab;
         private GameObject _playZone;
 
         public GameFactory(IInstantiator instantiator, IAssetProvider assets, IStaticDataService staticDataService)
@@ -22,70 +22,44 @@ namespace Code.Infrastructure.Factory.Game
             _instantiator = instantiator;
             _assets = assets;
             _staticDataService = staticDataService;
-            _heroLvl1Prefab = _assets.Load(AssetPath.HeroLvl1);
         }
 
         public GameObject CreatePlayZone(Vector3 heroesGridZone, Vector3 enemiesGridZone)
         {
             _playZone = _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZone));
 
-            CreateGridZone(heroesGridZone, AssetPath.HeroesGridZone);
-            CreateGridZone(enemiesGridZone, AssetPath.EnemiesGridZone);
+            CreateGridZone(heroesGridZone, GridPlacesTypeId.Hero);
+            CreateGridZone(enemiesGridZone, GridPlacesTypeId.Enemy);
 
             return _playZone;
         }
 
-        private void CreateGridZone(Vector3 position, string name)
+        private void CreateGridZone(Vector3 position, GridPlacesTypeId gridPlacesTypeId)
         {
-            var gridZone = _instantiator.InstantiatePrefab(_assets.Load(name));
+            var gridZone =
+                _instantiator.InstantiatePrefab(_staticDataService.GetGridPlaces(gridPlacesTypeId).GridConfig
+                    .GridsRoot);
 
             gridZone.transform.SetParent(_playZone.transform, true);
             gridZone.transform.localPosition = position;
-            gridZone.name = name;
-
-            GenerateGridCells(gridZone, name);
-        }
-
-        private void GenerateGridCells(GameObject gridZone, string name)
-        {
-            if (name == AssetPath.HeroesGridZone)
-            {
-                var gridHeroesPlaces = gridZone.GetComponent<GridHeroesPlaces>();
-
-                if (gridHeroesPlaces == null)
-                    return;
-
-                GenerateCellsForGrid(gridZone, gridHeroesPlaces, name);
-            }
-
-            if (name == AssetPath.EnemiesGridZone)
-            {
-                var gridEnemiesPlaces = gridZone.GetComponent<GridEnemiesPlaces>();
-
-                if (gridEnemiesPlaces == null)
-                    return;
-
-                GenerateCellsForGrid(gridZone, gridEnemiesPlaces, name);
-            }
-        }
-
-        private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces, string name)
-        {
-            var levelStaticData = _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
+            gridZone.name = gridPlacesTypeId.ToString();
             
-            int width = levelStaticData.GridConfig.Width;
-            int height = levelStaticData.GridConfig.Height;
-            float spacing = levelStaticData.GridConfig.Spacing;
+            GenerateCellsForGrid(gridZone, gridZone.GetComponent<IGridUnitPlaces>(), gridPlacesTypeId);
+        }
+
+        private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces,
+            GridPlacesTypeId gridPlacesTypeId)
+        {
+            int width = _staticDataService.GetGridPlaces(gridPlacesTypeId).GridConfig.Width;
+            int height = _staticDataService.GetGridPlaces(gridPlacesTypeId).GridConfig.Height;
+            float spacing = _staticDataService.GetGridPlaces(gridPlacesTypeId).GridConfig.Spacing;
 
             for (int x = 0; x < width; x++)
             {
                 for (int z = 0; z < height; z++)
                 {
-                    GameObject prefab = name == AssetPath.HeroesGridZone
-                        ? _assets.Load(AssetPath.CellGridZoneHero)
-                        : _assets.Load(AssetPath.CellGridZoneEnemy);
-
-                    GameObject cell = _instantiator.InstantiatePrefab(prefab);
+                    GameObject cell = _instantiator.InstantiatePrefab(_staticDataService.GetGridPlaces(gridPlacesTypeId)
+                        .GridConfig.CellPrefab);
 
                     Vector3 localPosition = new Vector3(x * spacing, 0, z * spacing);
                     cell.transform.SetParent(gridZone.transform, true);
@@ -97,7 +71,14 @@ namespace Code.Infrastructure.Factory.Game
             }
         }
 
-        public GameObject CreateHero(Quaternion rotation)
-            => _instantiator.InstantiatePrefab(_heroLvl1Prefab, Vector3.zero, rotation, null);
+        public GameObject CreateHero(Transform parent)
+        {
+            HeroStaticData heroStaticData = _staticDataService.GetHero(HeroTypeId.Lvl1);
+
+            GameObject hero = _instantiator.InstantiatePrefab(heroStaticData.HeroConfig.HeroPrefab, parent.position,
+                Quaternion.Euler(0, 180, 0), parent);
+
+            return hero;
+        }
     }
 }

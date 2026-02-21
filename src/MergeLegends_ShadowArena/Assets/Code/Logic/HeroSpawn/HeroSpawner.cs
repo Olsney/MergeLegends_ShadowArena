@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Factory.Game;
+﻿using System.Collections.Generic;
+using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea.Cell;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace Code.Logic.HeroSpawn
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.PlaceUnit(_gameFactory.CreateHero(Quaternion.Euler(0, 180, 0)));
+                cell.PlaceUnit(_gameFactory.CreateHero(cell.Transform));
                 return;
             }
         }

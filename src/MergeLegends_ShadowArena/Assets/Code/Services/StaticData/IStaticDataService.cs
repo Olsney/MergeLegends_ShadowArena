@@ -4,6 +4,8 @@ namespace Code.Services.StaticData
 {
   public interface IStaticDataService
   {
-    LevelStaticData ForLevel(string sceneKey);
+    LevelStaticData GetLevel(string sceneKey);
+    HeroStaticData GetHero(HeroTypeId heroTypeId);
+    GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
   }
 }

@@ -1,15 +1,17 @@
 using System;
 using UnityEngine;
 
-namespace Code.Logic.PlayArea.GridSettings
+namespace Code.Logic.PlayArea.GridConfig
 {
     [Serializable]
     public class GridConfig
     {
-        [field: SerializeField] public int Width { get; private set; }
-        [field: SerializeField] public int Height { get; private set; }
-        [field: SerializeField] public float Spacing { get; private set; }
-
+        public int Width;
+        public int Height;
+        public float Spacing;
+        public GameObject GridsRoot;
+        public GameObject CellPrefab;
+        
         public GridConfig(int width, int height, float spacing)
         {
             Width = width;

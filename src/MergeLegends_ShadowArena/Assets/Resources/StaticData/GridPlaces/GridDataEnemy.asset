@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7841f08f394387b43a7cde06bdf6b68c, type: 3}
+  m_Name: GridDataEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.GridPlacesStaticData
+  gridPlacesTypeId: 2
+  GridConfig:
+    Width: 5
+    Height: 3
+    Spacing: 1.85
+    GridsRoot: {fileID: 5119701443392175823, guid: 57d8622c99e8d2b409dd4ae512aef658, type: 3}
+    CellPrefab: {fileID: 1805529379752491089, guid: bb7173dc6d7c8f74d9d7ca440b010929, type: 3}
