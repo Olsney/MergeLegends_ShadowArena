@@ -4,14 +4,14 @@ using Code.Services.Raycast;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Logic.HeroSelect
+namespace Code.Logic.PlayArea.GridSelected
 {
-    public class HeroSelector : IHeroSelector, IDisposable, IInitializable
+    public class PlayerUnitSelector : IPlayerUnitSelector, IDisposable, IInitializable
     {
         private readonly IRaycastService _raycastService;
-        private CellGridHero _selectedCell;
+        private CellGridPlayerUnit _selectedCell;
 
-        public HeroSelector(IRaycastService raycastService)
+        public PlayerUnitSelector(IRaycastService raycastService)
         {
             _raycastService = raycastService;
         }
@@ -24,7 +24,7 @@ namespace Code.Logic.HeroSelect
 
         private void OnHitPerformed(RaycastHit hit)
         {
-            if (hit.transform.gameObject.TryGetComponent<CellGridHero>(out var cell))
+            if (hit.transform.gameObject.TryGetComponent<CellGridPlayerUnit>(out var cell))
             {
                 HandleCell(cell);
                 return;
@@ -33,7 +33,7 @@ namespace Code.Logic.HeroSelect
             ClearSelection();
         }
 
-        private void HandleCell(CellGridHero cell)
+        private void HandleCell(CellGridPlayerUnit cell)
         {
             if (_selectedCell != null)
             {
@@ -63,17 +63,17 @@ namespace Code.Logic.HeroSelect
             }
         }
 
-        private void SelectCell(CellGridHero cell)
+        private void SelectCell(CellGridPlayerUnit cell)
         {
             _selectedCell = cell;
             _selectedCell.ActivateSelectedBorder();
         }
 
-        private void MoveUnitToCell(CellGridHero targetCell)
+        private void MoveUnitToCell(CellGridPlayerUnit targetCell)
         {
-            var hero = _selectedCell.Unit;
+            var playerUnit = _selectedCell.Unit;
             _selectedCell.RemoveUnit();
-            targetCell.PlaceUnit(hero);
+            targetCell.PlaceUnit(playerUnit);
             ClearSelection();
         }
 

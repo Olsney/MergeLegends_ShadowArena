@@ -2,7 +2,7 @@
 {
     public enum GridPlacesTypeId
     {
-        Hero = 1,
+        PlayerUnit = 1,
         Enemy = 2,
     }
 }

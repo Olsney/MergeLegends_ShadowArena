@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Code.Logic.PlayArea.Cell
 {
-    public class CellGridHero : MonoBehaviour, ICellGrid
+    public class CellGridPlayerUnit : MonoBehaviour, ICellGrid
     {
         public Transform Transform => transform;
         public GameObject Unit { get; private set; }

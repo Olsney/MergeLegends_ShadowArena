@@ -8,7 +8,7 @@ namespace Code.StaticData
     {
         public string LevelKey;
         public Vector3 PlayZonePosition;
-        public Vector3 HeroesGridPlacesPosition;
+        public Vector3 PlayerUnitsGridPlacesPosition;
         public Vector3 EnemiesGridPlacesPosition;
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 489660189500503835}
   - component: {fileID: -5285430959473393715}
   m_Layer: 0
-  m_Name: HeroesGridsRoot
+  m_Name: PlayerUnitsGridsRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

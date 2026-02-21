@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using Code.Infrastructure.Factory.Game;
+﻿using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea.Cell;
-using UnityEngine;
 
-namespace Code.Logic.HeroSpawn
+namespace Code.Logic.PlayerUnitSpawn
 {
-    public class HeroSpawner : IHeroSpawner
+    public class PlayerUnitSpawner : IPlayerUnitSpawner
     {
         private readonly IGameFactory _gameFactory;
         private readonly ICellsProvider _cellsProvider;
 
-        public HeroSpawner(IGameFactory gameFactory, ICellsProvider cellsProvider)
+        public PlayerUnitSpawner(IGameFactory gameFactory, ICellsProvider cellsProvider)
         {
             _gameFactory = gameFactory;
             _cellsProvider = cellsProvider;
@@ -20,7 +18,7 @@ namespace Code.Logic.HeroSpawn
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.PlaceUnit(_gameFactory.CreateHero(cell.Transform));
+                cell.PlaceUnit(_gameFactory.CreatePlayerUnit(cell.Transform));
                 return;
             }
         }

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Code.Logic.PlayArea.Grid
 {
-    public class GridHeroesPlaces : MonoBehaviour, IGridUnitPlaces
+    public class GridPlayerUnitPlaces : MonoBehaviour, IGridUnitPlaces
     {
         private ICellsProvider _cellsProvider;
 

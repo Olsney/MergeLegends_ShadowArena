@@ -3,9 +3,9 @@ using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
-using Code.Logic.HeroSelect;
-using Code.Logic.HeroSpawn;
 using Code.Logic.PlayArea.Cell;
+using Code.Logic.PlayArea.GridSelected;
+using Code.Logic.PlayerUnitSpawn;
 using Code.Services.Input;
 using Code.Services.Raycast;
 using Code.Services.StaticData;
@@ -55,8 +55,8 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<HeroSelector>().AsSingle();
-            Container.BindInterfacesAndSelfTo<HeroSpawnerService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerUnitSelector>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerSpawnerService>().AsSingle().NonLazy();
             Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
         }
 
@@ -73,7 +73,7 @@ namespace Code.Infrastructure.Installers
 
         private void BindSpawners()
         {
-            Container.Bind<IHeroSpawner>().To<HeroSpawner>().AsSingle();
+            Container.Bind<IPlayerUnitSpawner>().To<PlayerUnitSpawner>().AsSingle();
         }
     }
 }

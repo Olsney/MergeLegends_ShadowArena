@@ -9,11 +9,7 @@ namespace Code.Infrastructure.AssetManagement
         public const string HudPath = "UI/Hud";
         public const string VictoryWindowPath = "UI/VictoryWindow";
         public const string LoseWindowPath = "UI/LoseWindow";
-        public const string PlayZone = "PlayZone/PlayZone";
-        public const string HeroesGridZone = "PlayZone/HeroesGridZone";
-        public const string EnemiesGridZone = "PlayZone/EnemiesGridZone";
-        public const string CellGridZoneHero = "PlayZone/CellGridZoneHero";
-        public const string CellGridZoneEnemy = "PlayZone/CellGridZoneEnemy";
-        public const string SpawnHeroButton = "UI/SpawnHeroButton";
+        public const string PlayZonePath = "PlayZone/PlayZone";
+        public const string UISpawnPlayerUnitButtonPath = "UI/SpawnPlayerUnitButtonPath";
     }
 }

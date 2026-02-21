@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class HeroConfig
+public class PlayerUnitConfig
 {
     [Range(1,100)]
     public int Hp;
@@ -13,5 +13,5 @@ public class HeroConfig
     [Range(0,10)]
     public float MoveSpeed;
 
-    public GameObject HeroPrefab;
+    public GameObject PlayerUnitPrefab;
 }

@@ -11,6 +11,8 @@ namespace Code.Infrastructure.Factory.Game
 {
     public class GameFactory : IGameFactory
     {
+        private static readonly Quaternion PlayerUnitCreateRotation = Quaternion.Euler(0, 180, 0);
+        
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
         private readonly IStaticDataService _staticDataService;
@@ -24,11 +26,11 @@ namespace Code.Infrastructure.Factory.Game
             _staticDataService = staticDataService;
         }
 
-        public GameObject CreatePlayZone(Vector3 heroesGridZone, Vector3 enemiesGridZone)
+        public GameObject CreatePlayZone(Vector3 playerUnitGrdGridZone, Vector3 enemiesGridZone)
         {
-            _playZone = _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZone));
+            _playZone = _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath));
 
-            CreateGridZone(heroesGridZone, GridPlacesTypeId.Hero);
+            CreateGridZone(playerUnitGrdGridZone, GridPlacesTypeId.PlayerUnit);
             CreateGridZone(enemiesGridZone, GridPlacesTypeId.Enemy);
 
             return _playZone;
@@ -71,14 +73,14 @@ namespace Code.Infrastructure.Factory.Game
             }
         }
 
-        public GameObject CreateHero(Transform parent)
+        public GameObject CreatePlayerUnit(Transform parent)
         {
-            HeroStaticData heroStaticData = _staticDataService.GetHero(HeroTypeId.Lvl1);
+            PlayerUnitStaticData playerUnitStaticData = _staticDataService.GetPlayerUnit(PlayerUnitTypeId.Lvl1);
 
-            GameObject hero = _instantiator.InstantiatePrefab(heroStaticData.HeroConfig.HeroPrefab, parent.position,
-                Quaternion.Euler(0, 180, 0), parent);
+            GameObject playerUnit = _instantiator.InstantiatePrefab(playerUnitStaticData.playerUnitConfig.PlayerUnitPrefab, parent.position,
+                PlayerUnitCreateRotation, parent);
 
-            return hero;
+            return playerUnit;
         }
     }
 }

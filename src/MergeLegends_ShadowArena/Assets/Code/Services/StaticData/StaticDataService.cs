@@ -10,11 +10,11 @@ namespace Code.Services.StaticData
     public class StaticDataService : IStaticDataService, IInitializable
     {
         private const string LevelStaticDataPath = "StaticData/Levels";
-        private const string HeroesStaticDataPath = "StaticData/Heroes";
+        private const string PlayerUnitsStaticDataPath = "StaticData/PlayerUnits";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
 
         private Dictionary<string, LevelStaticData> _levels;
-        private Dictionary<HeroTypeId, HeroStaticData> _heroes;
+        private Dictionary<PlayerUnitTypeId, PlayerUnitStaticData> _playerUnits;
         private Dictionary<GridPlacesTypeId, GridPlacesStaticData> _grids;
 
         public void Initialize()
@@ -28,9 +28,9 @@ namespace Code.Services.StaticData
                 .LoadAll<LevelStaticData>(LevelStaticDataPath)
                 .ToDictionary(x => x.LevelKey, x => x);
             
-            _heroes = Resources
-                .LoadAll<HeroStaticData>(HeroesStaticDataPath)
-                .ToDictionary(x => x.HeroTypeId, x => x);
+            _playerUnits = Resources
+                .LoadAll<PlayerUnitStaticData>(PlayerUnitsStaticDataPath)
+                .ToDictionary(x => x.playerUnitTypeId, x => x);
             
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
@@ -42,8 +42,8 @@ namespace Code.Services.StaticData
                 ? staticData
                 : null;
 
-        public HeroStaticData GetHero(HeroTypeId heroTypeId) =>
-            _heroes.TryGetValue(heroTypeId, out HeroStaticData staticData)
+        public PlayerUnitStaticData GetPlayerUnit(PlayerUnitTypeId playerUnitTypeId) =>
+            _playerUnits.TryGetValue(playerUnitTypeId, out PlayerUnitStaticData staticData)
                 ? staticData
                 : null;
         

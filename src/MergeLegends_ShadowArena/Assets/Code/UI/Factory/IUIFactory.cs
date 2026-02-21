@@ -7,6 +7,6 @@ namespace Code.UI.Factory
   {
     GameObject CreateUIRoot();
     GameObject CreateHud();
-    GameObject CreateSpawnHeroView();
+    GameObject CreateSpawnPlayerUnitView();
   }
 }

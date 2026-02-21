@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7841f08f394387b43a7cde06bdf6b68c, type: 3}
-  m_Name: GridDataHero
+  m_Name: GridDataPlayerUnit
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.GridPlacesStaticData
   gridPlacesTypeId: 1
   GridConfig:

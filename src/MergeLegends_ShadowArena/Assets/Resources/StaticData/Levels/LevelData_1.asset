@@ -14,9 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.LevelStaticData
   LevelKey: Main
   PlayZonePosition: {x: 3.35, y: 0.2, z: -7.42}
-  HeroesGridPlacesPosition: {x: -2.19, y: 0.2, z: -21.669998}
+  PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0.2, z: -21.669998}
   EnemiesGridPlacesPosition: {x: -1.8700004, y: 0.2, z: -9.77}
-  GridConfig:
-    <Width>k__BackingField: 5
-    <Height>k__BackingField: 3
-    <Spacing>k__BackingField: 1.85

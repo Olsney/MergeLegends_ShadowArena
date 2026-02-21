@@ -1,6 +1,6 @@
 ﻿using System;
 using Code.Infrastructure.AssetManagement;
-using Code.Logic.HeroSpawn;
+using Code.Logic.PlayerUnitSpawn;
 using UnityEngine;
 using Zenject;
 
@@ -10,15 +10,15 @@ namespace Code.UI.Factory
     {
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
-        private readonly IHeroSpawnerService _heroSpawnerService;
+        private readonly IPlayerSpawnerService playerSpawnerService;
 
         private GameObject _uiRoot;
 
-        public UIFactory(IInstantiator instantiator, IAssetProvider assets, IHeroSpawnerService heroSpawnerService)
+        public UIFactory(IInstantiator instantiator, IAssetProvider assets, IPlayerSpawnerService playerSpawnerService)
         {
             _instantiator = instantiator;
             _assets = assets;
-            _heroSpawnerService = heroSpawnerService;
+            this.playerSpawnerService = playerSpawnerService;
         }
 
         public GameObject CreateUIRoot()
@@ -36,14 +36,14 @@ namespace Code.UI.Factory
             return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
         }
 
-        public GameObject CreateSpawnHeroView()
+        public GameObject CreateSpawnPlayerUnitView()
         {
-            GameObject prefab = _assets.Load(AssetPath.SpawnHeroButton);
+            GameObject prefab = _assets.Load(AssetPath.UISpawnPlayerUnitButtonPath);
 
             GameObject view = _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
             view.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             
-            _heroSpawnerService.InitializeView(view.GetComponent<IHeroSpawnView>());
+            playerSpawnerService.InitializeView(view.GetComponent<IPlayerUnitSpawnView>());
             
             return view;
         }

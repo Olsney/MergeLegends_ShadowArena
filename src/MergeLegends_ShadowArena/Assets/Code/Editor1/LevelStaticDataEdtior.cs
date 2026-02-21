@@ -20,8 +20,8 @@ namespace Code.Editor1
                 levelData.PlayZonePosition =
                     FindAnyObjectByType<PlayZoneSpawnPoint>().transform.position;
 
-                levelData.HeroesGridPlacesPosition =
-                    FindAnyObjectByType<GridHeroesPlacesSpawnPoint>().transform.position;
+                levelData.PlayerUnitsGridPlacesPosition =
+                    FindAnyObjectByType<GridPlayerUnitPlacesSpawnPoint>().transform.position;
 
                 levelData.EnemiesGridPlacesPosition =
                     FindAnyObjectByType<GridEnemiesPlacesSpawnPoint>().transform.position;

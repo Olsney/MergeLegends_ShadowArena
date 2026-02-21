@@ -52,7 +52,7 @@ namespace Code.Infrastructure.States
         private void InitGameWorld()
         {
             _uiFactory.CreateHud();
-            _uiFactory.CreateSpawnHeroView();
+            _uiFactory.CreateSpawnPlayerUnitView();
         }
 
         private void InitUIRoot() =>
@@ -62,7 +62,7 @@ namespace Code.Infrastructure.States
         {
             LevelStaticData levelData = _staticData.GetLevel(SceneManager.GetActiveScene().name);
 
-            _gameFactory.CreatePlayZone(levelData.HeroesGridPlacesPosition, levelData.EnemiesGridPlacesPosition);
+            _gameFactory.CreatePlayZone(levelData.PlayerUnitsGridPlacesPosition, levelData.EnemiesGridPlacesPosition);
         }
     }
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8f63cce2db24f4ea3bd0a53c0d5397, type: 3}
   m_Name: HeroConfigLvl1
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.HeroStaticData
-  HeroTypeId: 1
-  HeroConfig:
+  playerUnitTypeId: 1
+  playerUnitConfig:
     Hp: 1
     Damage: 1
     MoveSpeed: 0
-    HeroPrefab: {fileID: 3073036452702465649, guid: 161ccf887532ff149af1620767f0de4b, type: 3}
+    PlayerUnitPrefab: {fileID: 3073036452702465649, guid: 161ccf887532ff149af1620767f0de4b, type: 3}
