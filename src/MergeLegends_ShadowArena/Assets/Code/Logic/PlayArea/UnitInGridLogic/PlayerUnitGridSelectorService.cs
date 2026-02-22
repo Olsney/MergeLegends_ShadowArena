@@ -11,7 +11,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
         private readonly IRaycastService _raycastService;
         private CellGridPlayerUnit _selectedCell;
 
-        public event Action<GameObject, Vector3> UntiCellChanged;
+        public event Action<GameObject, Vector3> UnitCellChanged;
 
         public PlayerUnitGridSelectorService(IRaycastService raycastService)
         {
@@ -76,7 +76,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
             var playerUnit = _selectedCell.Unit;
             _selectedCell.RemoveUnit();
             targetCell.SetUnit(playerUnit);
-            UntiCellChanged?.Invoke(playerUnit, targetCell.transform.position);
+            UnitCellChanged?.Invoke(playerUnit, targetCell.transform.position);
             ClearSelection();
         }
 

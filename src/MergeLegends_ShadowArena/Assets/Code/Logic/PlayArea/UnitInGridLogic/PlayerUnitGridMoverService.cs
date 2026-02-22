@@ -14,10 +14,10 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
         }
 
         public void Initialize()
-            => _selectorService.UntiCellChanged += MoveUnitToCell;
+            => _selectorService.UnitCellChanged += MoveUnitToCell;
 
         public void Dispose()
-            => _selectorService.UntiCellChanged -= MoveUnitToCell;
+            => _selectorService.UnitCellChanged -= MoveUnitToCell;
 
         private void MoveUnitToCell(GameObject unit, Vector3 position)
             => unit.transform.position = position;
