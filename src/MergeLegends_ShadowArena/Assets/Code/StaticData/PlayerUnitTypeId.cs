@@ -2,6 +2,7 @@
 {
     public enum PlayerUnitTypeId
     {
+        None = 0,
         Lvl1 = 1,
         Lvl2 = 2,
         Lvl3 = 3,

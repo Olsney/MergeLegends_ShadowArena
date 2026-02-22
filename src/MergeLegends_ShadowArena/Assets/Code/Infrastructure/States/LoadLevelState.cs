@@ -50,10 +50,7 @@ namespace Code.Infrastructure.States
         }
 
         private void InitGameWorld()
-        {
-            _uiFactory.CreateHud();
-            _uiFactory.CreateSpawnPlayerUnitView();
-        }
+            => _uiFactory.CreateHud();
 
         private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();

@@ -1,26 +1,36 @@
 ﻿using System;
+using Code.UI.Factory;
+using Zenject;
 
 namespace Code.Logic.PlayerUnitSpawn
 {
-    public class PlayerSpawnerService : IDisposable, IPlayerSpawnerService
+    public class PlayerSpawnerService : IInitializable, IDisposable, IPlayerSpawnerService
     {
-        private readonly IPlayerUnitSpawner playerUnitSpawner;
+        private readonly IPlayerUnitSpawner _playerUnitSpawner;
+        private readonly IUIFactory _uiFactory;
         private IPlayerUnitSpawnView _view;
 
-        public PlayerSpawnerService(IPlayerUnitSpawner playerUnitSpawner)
+        public PlayerSpawnerService(IPlayerUnitSpawner playerUnitSpawner, IUIFactory uiFactory)
         {
-            this.playerUnitSpawner = playerUnitSpawner;
+            _playerUnitSpawner = playerUnitSpawner;
+            _uiFactory = uiFactory;
         }
 
-        public void InitializeView(IPlayerUnitSpawnView view)
+        public void Initialize()
         {
-            _view = view;
-            _view.SpawnClicked += playerUnitSpawner.Spawn;
+            _uiFactory.UiRootCreated += InitializeView;
         }
 
         public void Dispose()
         {
-            _view.SpawnClicked -= playerUnitSpawner.Spawn;
+            _view.SpawnClicked -= _playerUnitSpawner.Spawn;
+            _uiFactory.UiRootCreated -= InitializeView;
+        }
+
+        public void InitializeView()
+        {
+            _view = _uiFactory.CreateSpawnPlayerUnitView().GetComponent<IPlayerUnitSpawnView>();
+            _view.SpawnClicked += _playerUnitSpawner.Spawn;
         }
     }
 }

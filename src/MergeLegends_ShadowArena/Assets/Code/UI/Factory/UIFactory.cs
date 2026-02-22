@@ -1,6 +1,5 @@
 ﻿using System;
 using Code.Infrastructure.AssetManagement;
-using Code.Logic.PlayerUnitSpawn;
 using UnityEngine;
 using Zenject;
 
@@ -10,21 +9,22 @@ namespace Code.UI.Factory
     {
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
-        private readonly IPlayerSpawnerService playerSpawnerService;
 
         private GameObject _uiRoot;
 
-        public UIFactory(IInstantiator instantiator, IAssetProvider assets, IPlayerSpawnerService playerSpawnerService)
+        public event Action UiRootCreated;
+
+        public UIFactory(IInstantiator instantiator, IAssetProvider assets)
         {
             _instantiator = instantiator;
             _assets = assets;
-            this.playerSpawnerService = playerSpawnerService;
         }
 
         public GameObject CreateUIRoot()
         {
             GameObject prefab = _assets.Load(AssetPath.UIRoothPath);
             _uiRoot = _instantiator.InstantiatePrefab(prefab);
+            UiRootCreated?.Invoke();
 
             return _uiRoot;
         }
@@ -40,12 +40,7 @@ namespace Code.UI.Factory
         {
             GameObject prefab = _assets.Load(AssetPath.UISpawnPlayerUnitButtonPath);
 
-            GameObject view = _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
-            view.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-            
-            playerSpawnerService.InitializeView(view.GetComponent<IPlayerUnitSpawnView>());
-            
-            return view;
+            return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
         }
     }
 }

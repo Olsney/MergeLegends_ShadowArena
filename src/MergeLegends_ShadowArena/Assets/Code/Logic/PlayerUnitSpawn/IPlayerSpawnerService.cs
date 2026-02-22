@@ -2,6 +2,6 @@
 {
     public interface IPlayerSpawnerService
     {
-        void InitializeView(IPlayerUnitSpawnView view);
+        void InitializeView();
     }
 }

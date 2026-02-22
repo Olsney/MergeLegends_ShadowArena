@@ -55,9 +55,9 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerUnitGridGridSelectorService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerSpawnerService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerSpawnerService>().AsSingle();
             Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
         }
 

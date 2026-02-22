@@ -6,14 +6,14 @@ using Zenject;
 
 namespace Code.Logic.PlayArea.UnitInGridLogic
 {
-    public class PlayerUnitGridGridSelectorService : IPlayerUnitGridSelectorService, IDisposable, IInitializable
+    public class PlayerUnitGridSelectorService : IPlayerUnitGridSelectorService, IDisposable, IInitializable
     {
         private readonly IRaycastService _raycastService;
         private CellGridPlayerUnit _selectedCell;
 
         public event Action<GameObject, Vector3> UntiCellChanged;
 
-        public PlayerUnitGridGridSelectorService(IRaycastService raycastService)
+        public PlayerUnitGridSelectorService(IRaycastService raycastService)
         {
             _raycastService = raycastService;
         }
