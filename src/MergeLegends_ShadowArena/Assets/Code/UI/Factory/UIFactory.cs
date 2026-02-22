@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.AssetManagement;
+﻿using System;
+using Code.Infrastructure.AssetManagement;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +12,8 @@ namespace Code.UI.Factory
 
         private GameObject _uiRoot;
 
+        public event Action UiRootCreated;
+
         public UIFactory(IInstantiator instantiator, IAssetProvider assets)
         {
             _instantiator = instantiator;
@@ -21,6 +24,7 @@ namespace Code.UI.Factory
         {
             GameObject prefab = _assets.Load(AssetPath.UIRoothPath);
             _uiRoot = _instantiator.InstantiatePrefab(prefab);
+            UiRootCreated?.Invoke();
 
             return _uiRoot;
         }
@@ -28,6 +32,13 @@ namespace Code.UI.Factory
         public GameObject CreateHud()
         {
             GameObject prefab = _assets.Load(AssetPath.HudPath);
+
+            return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
+        }
+
+        public GameObject CreateSpawnPlayerUnitView()
+        {
+            GameObject prefab = _assets.Load(AssetPath.UISpawnPlayerUnitButtonPath);
 
             return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
         }

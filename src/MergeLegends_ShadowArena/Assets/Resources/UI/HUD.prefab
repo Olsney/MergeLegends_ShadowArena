@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1855866669698199901}
   m_Layer: 5
-  m_Name: HPBar (1)
+  m_Name: EnemiesHPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 8577408289337061618}
   - component: {fileID: 2763372122518789187}
   m_Layer: 5
-  m_Name: Money (1)
+  m_Name: Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -474,7 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 189926391863421945}
   m_Layer: 5
-  m_Name: HPBar
+  m_Name: HeroesHPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

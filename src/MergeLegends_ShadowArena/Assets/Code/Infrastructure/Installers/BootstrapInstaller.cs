@@ -3,6 +3,9 @@ using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
+using Code.Logic.PlayArea.Cell;
+using Code.Logic.PlayArea.UnitInGridLogic;
+using Code.Logic.PlayerUnitSpawn;
 using Code.Services.Input;
 using Code.Services.Raycast;
 using Code.Services.StaticData;
@@ -22,6 +25,7 @@ namespace Code.Infrastructure.Installers
             BindStates();
             BindServices();
             BindSceneLoader();
+            BindSpawners();
         }
 
         private void BindCoroutine() =>
@@ -46,11 +50,15 @@ namespace Code.Infrastructure.Installers
         private void BindServices()
         {
             BindInputService();
-            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
-            Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerSpawnerService>().AsSingle();
+            Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
         }
 
         private void BindInputService()
@@ -63,5 +71,10 @@ namespace Code.Infrastructure.Installers
 
         private void BindSceneLoader() =>
             Container.Bind<SceneLoader>().AsSingle();
+
+        private void BindSpawners()
+        {
+            Container.Bind<IPlayerUnitSpawner>().To<PlayerUnitSpawner>().AsSingle();
+        }
     }
 }
