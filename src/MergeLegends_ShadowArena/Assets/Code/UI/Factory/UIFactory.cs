@@ -42,5 +42,12 @@ namespace Code.UI.Factory
 
             return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
         }
+        
+        public GameObject CreateStartFightView()
+        {
+            GameObject prefab = _assets.Load(AssetPath.UIStartFightButtonPath);
+
+            return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
+        }
     }
 }

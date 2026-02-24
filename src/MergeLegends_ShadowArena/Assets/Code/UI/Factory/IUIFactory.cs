@@ -8,6 +8,7 @@ namespace Code.UI.Factory
         GameObject CreateUIRoot();
         GameObject CreateHud();
         GameObject CreateSpawnPlayerUnitView();
+        GameObject CreateStartFightView();
         event Action UiRootCreated;
     }
 }

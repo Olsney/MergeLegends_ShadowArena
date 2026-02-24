@@ -3,9 +3,11 @@ using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
+using Code.Logic.HideViewService;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Logic.PlayerUnitSpawn;
+using Code.Logic.ViewProvider;
 using Code.Services.Input;
 using Code.Services.Raycast;
 using Code.Services.StaticData;
@@ -44,6 +46,10 @@ namespace Code.Infrastructure.Installers
             Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<LoadProgressState>().AsSingle();
+            Container.Bind<BattleStateMachine>().AsSingle();
+            Container.Bind<BattleSpawnEnemiesState>().AsSingle();
+            Container.Bind<BattlePlanningState>().AsSingle();
+            Container.Bind<BattleFightState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }
 
@@ -59,6 +65,8 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerSpawnerService>().AsSingle();
             Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
+            Container.Bind<IViewProvider>().To<ViewProvider>().AsSingle();
+            Container.Bind<IHideViewService>().To<HideViewService>().AsSingle();
         }
 
         private void BindInputService()

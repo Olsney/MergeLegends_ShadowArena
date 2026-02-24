@@ -46,7 +46,8 @@ namespace Code.Infrastructure.States
             InitGameWorld();
             InitPlayZone();
 
-            _stateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<BattleStateMachine>();
+            //_stateMachine.Enter<GameLoopState>();
         }
 
         private void InitGameWorld()
