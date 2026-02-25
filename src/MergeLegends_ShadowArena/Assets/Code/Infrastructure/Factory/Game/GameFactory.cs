@@ -5,6 +5,7 @@ using Code.Logic.PlayArea.GridConfig;
 using Code.Services.StaticData;
 using Code.StaticData;
 using UnityEngine;
+using UnityEngine.AI;
 using Zenject;
 
 namespace Code.Infrastructure.Factory.Game
@@ -76,11 +77,14 @@ namespace Code.Infrastructure.Factory.Game
 
         public GameObject CreatePlayerUnit(Vector3 position)
         {
-            PlayerUnitStaticData playerUnitStaticData = _staticDataService.GetPlayerUnit(PlayerUnitTypeId.Lvl1);
+            PlayerUnitConfig playerUnitConfig =
+                _staticDataService.GetPlayerUnit(PlayerUnitTypeId.Lvl1).playerUnitConfig;
 
             GameObject playerUnit = _instantiator.InstantiatePrefab(
-                playerUnitStaticData.playerUnitConfig.PlayerUnitPrefab, position,
-                PlayerUnitCreateRotation, null);
+                playerUnitConfig.PlayerUnitPrefab, position,
+                Quaternion.identity, null);
+
+            playerUnit.GetComponent<NavMeshAgent>().speed = playerUnitConfig.MoveSpeed;
 
             return playerUnit;
         }
