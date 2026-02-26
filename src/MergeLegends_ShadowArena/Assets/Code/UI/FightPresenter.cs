@@ -12,18 +12,12 @@ namespace Code.UI
         }
 
         public override void Initialize()
-        {
-            View.FightClicked += _battleStateMachine.EnterFight;
-        }
+            => View.FightClicked += _battleStateMachine.EnterFight;
 
         public override void Dispose()
-        {
-            View.FightClicked -= _battleStateMachine.EnterFight;
-        }
+            => View.FightClicked -= _battleStateMachine.EnterFight;
 
         public void RemoveView()
-        {
-            View.Remove();
-        }
+            => View.Remove();
     }
 }

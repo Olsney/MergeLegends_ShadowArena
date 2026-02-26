@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Code.Infrastructure.AssetManagement;
 using Code.Infrastructure.States;
 using UnityEngine;
@@ -44,7 +43,7 @@ namespace Code.UI.Factory
         {
             return CreatePresenter<PlayerUnitSpawnView, PlayerSpawnerPresenter>(
                 AssetPath.UISpawnPlayerUnitButtonPath,
-                (view) => new PlayerSpawnerPresenter(view, _spawner, _battleStateMachine)
+                (view) => new PlayerSpawnerPresenter(view, _spawner)
             );
         }
 
