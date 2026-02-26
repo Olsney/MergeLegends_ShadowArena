@@ -1,36 +1,30 @@
-﻿using Code.Logic.Fight;
+﻿using Code.Infrastructure.Factory.Game;
 using Code.UI.Factory;
 
 namespace Code.Infrastructure.States
 {
     public class BattlePlanningState : IState
     {
-        private readonly IUIFactory _uiFactory;
         private readonly BattleStateMachine _battleStateMachine;
-        private IStartFightView _startFightView;
+        private readonly IUIFactory _uiFactory;
+        private readonly IGameFactory _gameFactory;
 
-        public BattlePlanningState(
-            IUIFactory uiFactory,
-            BattleStateMachine battleStateMachine)
+        public BattlePlanningState(IUIFactory uiFactory, BattleStateMachine battleStateMachine, IGameFactory gameFactory)
         {
-            _uiFactory = uiFactory;
             _battleStateMachine = battleStateMachine;
+            _uiFactory = uiFactory;
+            _gameFactory = gameFactory;
         }
 
         public void Enter()
         {
-            _startFightView = _uiFactory.CreateStartFightView().GetComponent<IStartFightView>();
-            _startFightView.FightClicked += StartFight;
+            _uiFactory.CreateSpawnPlayerUnitPresenter();
+            _uiFactory.CreateFightPresenter();
+            _battleStateMachine.InitPlayZone(_gameFactory.CreatePlayZone());
         }
 
         public void Exit()
         {
-            _startFightView.FightClicked -= StartFight;
-        }
-
-        private void StartFight()
-        {
-            _battleStateMachine.EnterFight();
         }
     }
 }

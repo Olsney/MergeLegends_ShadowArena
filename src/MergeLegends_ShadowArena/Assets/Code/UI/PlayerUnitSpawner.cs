@@ -1,7 +1,7 @@
 ﻿using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea.Cell;
 
-namespace Code.Logic.PlayerUnitSpawn
+namespace Code.UI
 {
     public class PlayerUnitSpawner : IPlayerUnitSpawner
     {

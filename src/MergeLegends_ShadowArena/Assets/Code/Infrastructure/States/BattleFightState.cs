@@ -1,29 +1,25 @@
-﻿using Code.Logic.HideViewService;
-
-namespace Code.Infrastructure.States
+﻿namespace Code.Infrastructure.States
 {
     public class BattleFightState : IState
     {
-        //private readonly IBattleService _battleService;
-        private readonly IHideViewService _hideViewService;
+        private readonly GameStateMachine _stateMachine;
+        private readonly BattleStateMachine _battleStateMachine;
 
-        public BattleFightState(
-            //IBattleService battleService,
-            IHideViewService hideViewService)
+        public BattleFightState(GameStateMachine stateMachine, BattleStateMachine battleStateMachine)
         {
-            //_battleService = battleService;
-            _hideViewService = hideViewService;
+            _stateMachine = stateMachine;
+            _battleStateMachine = battleStateMachine;
         }
 
         public void Enter()
         {
-            _hideViewService.HideAll();
-            //_battleService.StartBattle();
+            _battleStateMachine.OnFightStarted();
+            _battleStateMachine.RemovePlayZone();
+            _stateMachine.Enter<GameLoopState>();
         }
 
         public void Exit()
         {
-            //_battleService.StopBattle();
         }
     }
 }
