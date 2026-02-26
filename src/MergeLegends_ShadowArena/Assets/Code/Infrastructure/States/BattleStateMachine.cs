@@ -12,8 +12,6 @@ namespace Code.Infrastructure.States
         {
             _gameStateMachine = gameStateMachine;
         }
-        
-        public event Action FightStarted;
 
         public void Enter() 
             => EnterPlanning();
@@ -21,15 +19,6 @@ namespace Code.Infrastructure.States
         public void Exit()
         {
         }
-
-        public void OnFightStarted() 
-            => FightStarted?.Invoke();
-        
-        public void InitPlayZone(GameObject playZone) 
-            => _playZone = playZone;
-
-        public void RemovePlayZone() 
-            => GameObject.Destroy(_playZone);
 
         public void EnterFight() 
             => _gameStateMachine.Enter<BattleFightState>();
