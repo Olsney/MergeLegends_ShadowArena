@@ -6,10 +6,10 @@ using Code.Infrastructure.States;
 using Code.Logic;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
-using Code.Logic.PlayerUnitSpawn;
 using Code.Services.Input;
 using Code.Services.Raycast;
 using Code.Services.StaticData;
+using Code.UI;
 using Code.UI.Factory;
 using Code.UI.Services.Windows;
 using Code.Units.PlayerUnit;
@@ -46,6 +46,9 @@ namespace Code.Infrastructure.Installers
             Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<LoadProgressState>().AsSingle();
+            Container.Bind<BattleStateMachine>().AsSingle();
+            Container.Bind<BattlePlanningState>().AsSingle();
+            Container.Bind<BattleFightState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }
 
@@ -59,7 +62,6 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerSpawnerService>().AsSingle();
             Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
             Container.Bind<IPlayerUnitProvider>().To<PlayerUnitProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<BattleService>().AsCached();

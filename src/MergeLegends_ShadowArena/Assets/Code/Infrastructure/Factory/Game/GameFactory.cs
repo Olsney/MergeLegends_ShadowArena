@@ -5,7 +5,7 @@ using Code.Logic.PlayArea.GridConfig;
 using Code.Services.StaticData;
 using Code.StaticData;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Code.Infrastructure.Factory.Game
@@ -16,30 +16,32 @@ namespace Code.Infrastructure.Factory.Game
 
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
-        private readonly IStaticDataService _staticDataService;
+        private readonly IStaticDataService _staticData;
 
         private GameObject _playZone;
 
-        public GameFactory(IInstantiator instantiator, IAssetProvider assets, IStaticDataService staticDataService)
+        public GameFactory(IInstantiator instantiator, IAssetProvider assets, IStaticDataService staticData)
         {
             _instantiator = instantiator;
             _assets = assets;
-            _staticDataService = staticDataService;
+            _staticData = staticData;
         }
 
-        public GameObject CreatePlayZone(Vector3 playerUnitGrdGridZone, Vector3 enemiesGridZone)
+        public GameObject CreatePlayZone()
         {
             _playZone = _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath));
 
-            CreateGridZone(playerUnitGrdGridZone, GridPlacesTypeId.PlayerUnit);
-            CreateGridZone(enemiesGridZone, GridPlacesTypeId.Enemy);
+            LevelStaticData levelData = _staticData.GetLevel(SceneManager.GetActiveScene().name);
+            
+            CreateGridZone(levelData.PlayerUnitsGridPlacesPosition, GridPlacesTypeId.PlayerUnit);
+            CreateGridZone(levelData.EnemiesGridPlacesPosition, GridPlacesTypeId.Enemy);
 
             return _playZone;
         }
 
         private void CreateGridZone(Vector3 position, GridPlacesTypeId gridPlacesTypeId)
         {
-            GridConfig gridConfig = _staticDataService.GetGridPlaces(gridPlacesTypeId).GridConfig;
+            GridConfig gridConfig = _staticData.GetGridPlaces(gridPlacesTypeId).GridConfig;
 
             var gridZone = _instantiator.InstantiatePrefab(gridConfig.GridsRoot);
 
@@ -53,7 +55,7 @@ namespace Code.Infrastructure.Factory.Game
         private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces,
             GridPlacesTypeId gridPlacesTypeId)
         {
-            GridConfig gridConfig = _staticDataService.GetGridPlaces(gridPlacesTypeId).GridConfig;
+            GridConfig gridConfig = _staticData.GetGridPlaces(gridPlacesTypeId).GridConfig;
 
             int gridWidth = gridConfig.Width;
             int gridHeight = gridConfig.Height;
@@ -77,14 +79,11 @@ namespace Code.Infrastructure.Factory.Game
 
         public GameObject CreatePlayerUnit(Vector3 position)
         {
-            PlayerUnitConfig playerUnitConfig =
-                _staticDataService.GetPlayerUnit(PlayerUnitTypeId.Lvl1).playerUnitConfig;
+            PlayerUnitStaticData playerUnitStaticData = _staticData.GetPlayerUnit(PlayerUnitTypeId.Lvl1);
 
             GameObject playerUnit = _instantiator.InstantiatePrefab(
-                playerUnitConfig.PlayerUnitPrefab, position,
-                Quaternion.identity, null);
-
-            playerUnit.GetComponent<NavMeshAgent>().speed = playerUnitConfig.MoveSpeed;
+                playerUnitStaticData.playerUnitConfig.PlayerUnitPrefab, position,
+                PlayerUnitCreateRotation, null);
 
             return playerUnit;
         }
