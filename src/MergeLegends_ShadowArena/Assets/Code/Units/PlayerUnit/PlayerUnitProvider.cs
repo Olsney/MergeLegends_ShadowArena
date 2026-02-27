@@ -8,8 +8,11 @@ namespace Code.Units.PlayerUnit
 
         public void AddUnit(PlayerUnit unit) 
             => _units.Add(unit);
+        
+        public void RemoveUnit(PlayerUnit unit) 
+            => _units.Remove(unit);
 
-        public List<PlayerUnit> GetUnits() 
+        public IReadOnlyList<PlayerUnit> GetUnits() 
             => _units;
     }
 }

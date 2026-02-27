@@ -2,7 +2,7 @@
 {
     public interface IBattleService
     {
-        void StartBattle();
-        void StopBattle();
+        void StartFight();
+        void StopFight();
     }
 }

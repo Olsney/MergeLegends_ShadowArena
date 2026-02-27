@@ -7,7 +7,7 @@ namespace Code.Units.PlayerUnit
     {
         private IPlayerUnitProvider _playerUnitProvider;
 
-        public PlayerUnitAgent UnitAgent { get; private set; }
+        public PlayerUnitAgentMover UnitAgentMover { get; private set; }
 
         [Inject]
         private void Construct(IPlayerUnitProvider playerUnitProvider) 
@@ -15,8 +15,11 @@ namespace Code.Units.PlayerUnit
 
         private void Awake()
         {
-            UnitAgent = GetComponent<PlayerUnitAgent>();
+            UnitAgentMover = GetComponent<PlayerUnitAgentMover>();
             _playerUnitProvider.AddUnit(this);
         }
+
+        private void OnDestroy() 
+            => _playerUnitProvider.RemoveUnit(this);
     }
 }

@@ -7,34 +7,42 @@ namespace Code.Units
     {
         [SerializeField] private float _finderRadius;
         [SerializeField] private int _maxColliders;
+        [SerializeField] private LayerMask _layerMask;
 
         private Enemy _currentEnemy;
         private Collider[] _results;
-        private float _sqrSearchRadius;
 
         private void Awake()
         {
             _results = new Collider[_maxColliders];
-            _sqrSearchRadius = _finderRadius * _finderRadius;
         }
 
         public Enemy GetTarget()
-            => Find();
+        {
+            if (_currentEnemy == null || _currentEnemy.IsDead)
+                return Find();
+
+            return _currentEnemy;
+        }
 
         private Enemy Find()
         {
-            if (_currentEnemy != null && IsValid() == false)
-                _currentEnemy = null;
+            _currentEnemy = null;
 
-            int hitCount = Physics.OverlapSphereNonAlloc(transform.position, _finderRadius, _results);
+            int hitCount = Physics.OverlapSphereNonAlloc(
+                transform.position,
+                _finderRadius,
+                _results,
+                _layerMask
+            );
+
             float minSqrDistance = float.MaxValue;
 
             for (int i = 0; i < hitCount; i++)
             {
-                if (_results[i].TryGetComponent<Enemy>(out Enemy enemy) == false)
-                    continue;
+                var enemy = _results[i].GetComponent<Enemy>();
 
-                if (enemy.IsDeath)
+                if (enemy == null || enemy.IsDead)
                     continue;
 
                 float sqrDistance = transform.position.SqrMagnitudeTo(enemy.transform.position);
@@ -47,14 +55,6 @@ namespace Code.Units
             }
 
             return _currentEnemy;
-        }
-
-        private bool IsValid()
-        {
-            if (_currentEnemy == null)
-                return false;
-
-            return transform.position.SqrMagnitudeTo(_currentEnemy.transform.position) <= _sqrSearchRadius;
         }
 
         private void OnDrawGizmosSelected()

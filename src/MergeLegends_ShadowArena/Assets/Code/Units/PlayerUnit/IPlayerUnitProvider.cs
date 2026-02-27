@@ -5,6 +5,7 @@ namespace Code.Units.PlayerUnit
     public interface IPlayerUnitProvider
     {
         void AddUnit(PlayerUnit unit);
-        List<PlayerUnit> GetUnits();
+        void RemoveUnit(PlayerUnit unit);
+        IReadOnlyList<PlayerUnit> GetUnits();
     }
 }
