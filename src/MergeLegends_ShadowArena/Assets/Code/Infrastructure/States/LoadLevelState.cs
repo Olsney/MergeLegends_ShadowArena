@@ -44,9 +44,8 @@ namespace Code.Infrastructure.States
         {
             InitUIRoot();
             InitGameWorld();
-            InitPlayZone();
 
-            _stateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<BattleStateMachine>();
         }
 
         private void InitGameWorld()
@@ -54,12 +53,5 @@ namespace Code.Infrastructure.States
 
         private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();
-
-        private void InitPlayZone()
-        {
-            LevelStaticData levelData = _staticData.GetLevel(SceneManager.GetActiveScene().name);
-
-            _gameFactory.CreatePlayZone(levelData.PlayerUnitsGridPlacesPosition, levelData.EnemiesGridPlacesPosition);
-        }
     }
 }

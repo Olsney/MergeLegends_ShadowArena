@@ -1,4 +1,4 @@
-﻿namespace Code.Logic.PlayerUnitSpawn
+﻿namespace Code.UI
 {
     public interface IPlayerUnitSpawner
     {
