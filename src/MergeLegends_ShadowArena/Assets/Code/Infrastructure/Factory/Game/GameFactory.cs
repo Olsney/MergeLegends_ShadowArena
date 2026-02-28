@@ -4,6 +4,7 @@ using Code.Logic.PlayArea.Grid;
 using Code.Logic.PlayArea.GridConfig;
 using Code.Services.StaticData;
 using Code.StaticData;
+using Code.Units;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -12,8 +13,6 @@ namespace Code.Infrastructure.Factory.Game
 {
     public class GameFactory : IGameFactory
     {
-        private static readonly Quaternion PlayerUnitCreateRotation = Quaternion.Euler(0, 180, 0);
-
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
         private readonly IStaticDataService _staticData;
@@ -80,11 +79,13 @@ namespace Code.Infrastructure.Factory.Game
         public GameObject CreatePlayerUnit(Vector3 position)
         {
             PlayerUnitStaticData playerUnitStaticData = _staticData.GetPlayerUnit(PlayerUnitTypeId.Lvl1);
-
+            
             GameObject playerUnit = _instantiator.InstantiatePrefab(
-                playerUnitStaticData.playerUnitConfig.PlayerUnitPrefab, position,
-                PlayerUnitCreateRotation, null);
-
+                playerUnitStaticData.PlayerUnitConfig.PlayerUnitPrefab, position,
+                Quaternion.identity, null);
+            
+            playerUnit.GetComponent<TargetFinder>().InitSettings(playerUnitStaticData.TargetFinderConfig);
+            
             return playerUnit;
         }
     }

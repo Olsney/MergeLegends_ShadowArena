@@ -1,20 +1,22 @@
 using Code.Data;
+using Code.Units.PlayerUnit;
 using UnityEngine;
 
 namespace Code.Units
 {
     public class TargetFinder : MonoBehaviour
     {
-        [SerializeField] private float _finderRadius;
-        [SerializeField] private int _maxColliders;
-        [SerializeField] private LayerMask _layerMask;
+        private const int MaxColliders = 20;
 
+        private float _finderRadius;
+        private int _layerMask;
+        private Collider[] _results = new Collider[MaxColliders];
         private Enemy _currentEnemy;
-        private Collider[] _results;
 
-        private void Awake()
+        public void InitSettings(TargetFinderConfig config)
         {
-            _results = new Collider[_maxColliders];
+            _finderRadius = config.Radius;
+            _layerMask = 1 << (int)config.layerMaskTypeId;
         }
 
         public Enemy GetTarget()
