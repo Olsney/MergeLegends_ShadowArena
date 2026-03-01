@@ -3,6 +3,7 @@ using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
+using Code.Logic;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.Input;
@@ -11,6 +12,7 @@ using Code.Services.StaticData;
 using Code.UI;
 using Code.UI.Factory;
 using Code.UI.Services.Windows;
+using Code.Units.PlayerUnit;
 using UnityEngine;
 using Zenject;
 
@@ -61,6 +63,8 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
             Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
+            Container.Bind<IPlayerUnitProvider>().To<PlayerUnitProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BattleService>().AsCached();
         }
 
         private void BindInputService()

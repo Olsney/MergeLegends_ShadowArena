@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Code.Logic.PlayArea.GridConfig;
 using Code.StaticData;
 using UnityEngine;
 using Zenject;
@@ -30,7 +29,7 @@ namespace Code.Services.StaticData
             
             _playerUnits = Resources
                 .LoadAll<PlayerUnitStaticData>(PlayerUnitsStaticDataPath)
-                .ToDictionary(x => x.playerUnitTypeId, x => x);
+                .ToDictionary(x => x.PlayerUnitTypeId, x => x);
             
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
