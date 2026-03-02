@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.HeroStaticData
   PlayerUnitTypeId: 1
   PlayerUnitConfig:
-    Hp: 1
-    Damage: 1
+    Hp: 100
     MoveSpeed: 3
     PlayerUnitPrefab: {fileID: 3073036452702465649, guid: 161ccf887532ff149af1620767f0de4b, type: 3}
   TargetFinderConfig:
     Radius: 22
-    TargetLayerMaskName: Enemy
+    TargetMask: 7
+  AttackConfig:
+    Damage: 25
+    TargetMask: 7

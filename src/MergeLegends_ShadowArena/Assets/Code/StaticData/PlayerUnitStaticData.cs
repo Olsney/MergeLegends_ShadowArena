@@ -10,5 +10,6 @@ namespace Code.StaticData
         public PlayerUnitTypeId PlayerUnitTypeId;
         public PlayerUnitConfig PlayerUnitConfig;
         public TargetFinderConfig TargetFinderConfig;
+        public AttackConfig AttackConfig;
     }
 }

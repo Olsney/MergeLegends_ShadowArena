@@ -1,10 +1,9 @@
 using Code.Data;
-using Code.Units.PlayerUnit;
 using UnityEngine;
 
 namespace Code.Units
 {
-    public class TargetFinder : MonoBehaviour
+    public class TargetFinder : MonoBehaviour, ITargetFinder
     {
         private const int MaxColliders = 20;
 
@@ -13,10 +12,10 @@ namespace Code.Units
         private Collider[] _results = new Collider[MaxColliders];
         private Enemy _currentEnemy;
 
-        public void InitSettings(TargetFinderConfig config)
+        public void InitConfig(TargetFinderConfig config)
         {
             _finderRadius = config.Radius;
-            _layerMask = 1 << (int)config.layerMaskTypeId;
+            _layerMask = 1 << (int)config.TargetMask;
         }
 
         public Enemy GetTarget()

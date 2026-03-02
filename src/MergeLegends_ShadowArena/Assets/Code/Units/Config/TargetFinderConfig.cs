@@ -7,6 +7,6 @@ namespace Code.Units
     public class TargetFinderConfig
     {
         public float Radius;
-        public LayerMaskTypeId layerMaskTypeId;
+        public LayerMaskTypeId TargetMask;
     }
 }

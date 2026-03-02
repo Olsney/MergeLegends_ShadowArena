@@ -5,7 +5,9 @@ using Code.Logic.PlayArea.GridConfig;
 using Code.Services.StaticData;
 using Code.StaticData;
 using Code.Units;
+using Code.Units.PlayerUnit;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -84,7 +86,10 @@ namespace Code.Infrastructure.Factory.Game
                 playerUnitStaticData.PlayerUnitConfig.PlayerUnitPrefab, position,
                 Quaternion.identity, null);
             
-            playerUnit.GetComponent<TargetFinder>().InitSettings(playerUnitStaticData.TargetFinderConfig);
+            playerUnit.GetComponent<IHealth>().InitConfig(playerUnitStaticData.PlayerUnitConfig);
+            playerUnit.GetComponent<ITargetFinder>().InitConfig(playerUnitStaticData.TargetFinderConfig);
+            playerUnit.GetComponent<UnitAgentMover>().InitConfig(playerUnitStaticData.PlayerUnitConfig);
+            playerUnit.GetComponentInChildren<MeleeAttacker>().InitConfig(playerUnitStaticData.AttackConfig);
             
             return playerUnit;
         }

@@ -3,13 +3,18 @@ using System.Collections;
 using Code.Units;
 using UnityEngine;
 
-
-public class PlayerUnitDeath : MonoBehaviour
+public class UnitDeath : MonoBehaviour
 {
-    public PlayerUnitHealth _health;
+    private IHealth _health;
     private UnitAnimator _animator;
 
-    public event Action Happened;
+    public event Action Dead;
+
+    private void Awake()
+    {
+        _health = GetComponent<IHealth>();
+        _animator = GetComponentInChildren<UnitAnimator>();
+    }
 
     private void Start()
     {
@@ -23,7 +28,7 @@ public class PlayerUnitDeath : MonoBehaviour
 
     private void OnHealthChanged()
     {
-        if (_health.Current <= 0)
+        if (_health.CurrentValue <= 0)
             Die();
     }
 
@@ -35,7 +40,7 @@ public class PlayerUnitDeath : MonoBehaviour
 
         StartCoroutine(DestroyTimer());
 
-        Happened?.Invoke();
+        Dead?.Invoke();
     }
 
     private IEnumerator DestroyTimer()
