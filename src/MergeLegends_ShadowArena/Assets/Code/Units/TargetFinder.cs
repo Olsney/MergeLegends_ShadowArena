@@ -1,4 +1,5 @@
 using Code.Data;
+using Code.Units.Config;
 using UnityEngine;
 
 namespace Code.Units
@@ -6,15 +7,14 @@ namespace Code.Units
     public class TargetFinder : MonoBehaviour, ITargetFinder
     {
         private const int MaxColliders = 20;
+        private const float FinderRadius = 22;
 
-        private float _finderRadius;
         private int _layerMask;
         private Collider[] _results = new Collider[MaxColliders];
         private Enemy _currentEnemy;
 
-        public void InitConfig(TargetFinderConfig config)
+        public void InitConfig(TargetConfig config)
         {
-            _finderRadius = config.Radius;
             _layerMask = 1 << (int)config.TargetMask;
         }
 
@@ -32,7 +32,7 @@ namespace Code.Units
 
             int hitCount = Physics.OverlapSphereNonAlloc(
                 transform.position,
-                _finderRadius,
+                FinderRadius,
                 _results,
                 _layerMask
             );
@@ -61,7 +61,7 @@ namespace Code.Units
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, _finderRadius);
+            Gizmos.DrawWireSphere(transform.position, FinderRadius);
         }
     }
 }

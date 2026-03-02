@@ -7,6 +7,7 @@ namespace Code.Units.PlayerUnit
     {
         public bool IsDead { get; private set; }
         public UnitAgentMover UnitAgentMover { get; private set; }
+        public IAttacker Attacker { get; private set; }
 
         private UnitDeath _unitDeath;
         private IPlayerUnitProvider _playerUnitProvider;
@@ -18,6 +19,7 @@ namespace Code.Units.PlayerUnit
         private void Awake()
         {
             UnitAgentMover = GetComponent<UnitAgentMover>();
+            Attacker = GetComponentInChildren<IAttacker>();
             _unitDeath = GetComponent<UnitDeath>();
         }
 

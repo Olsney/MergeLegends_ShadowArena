@@ -1,4 +1,5 @@
 using System;
+using Code.Units;
 using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
 {
     private float _currentValue = 100;
 
-    public float MaxValue { get; private set; }
+    public float MaxValue { get; private set; } = 100;
     
     public float CurrentValue 
     { 
@@ -24,16 +25,17 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
     public event Action HealthChanged;
 
-    public void InitConfig(PlayerUnitConfig playerUnitConfig)
+    public void InitConfig(UnitConfig unitConfig)
     {
-        throw new NotImplementedException();
+        _currentValue = unitConfig.Hp;
+        MaxValue = unitConfig.Hp;
     }
 
     public void TakeDamage(float damage)
     {
         if (CurrentValue <= 0)
             return;
-
+        
         CurrentValue = Mathf.Clamp(CurrentValue - damage, 0, MaxValue);
     }
 }

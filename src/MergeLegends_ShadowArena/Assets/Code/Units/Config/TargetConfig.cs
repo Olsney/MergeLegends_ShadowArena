@@ -1,12 +1,11 @@
 ﻿using System;
 using Code.StaticData;
 
-namespace Code.Units
+namespace Code.Units.Config
 {
     [Serializable]
-    public class TargetFinderConfig
+    public class TargetConfig
     {
-        public float Radius;
         public LayerMaskTypeId TargetMask;
     }
 }

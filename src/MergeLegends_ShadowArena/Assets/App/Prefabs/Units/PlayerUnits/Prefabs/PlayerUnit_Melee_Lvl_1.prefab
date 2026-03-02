@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -4765136499790190814}
   - component: {fileID: 6181524536966564669}
   m_Layer: 6
-  m_Name: Hero_lvl_1
+  m_Name: PlayerUnit_Melee_Lvl_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 1585499920602645868}
   - component: {fileID: 4227352287884485815}
   m_Layer: 6
-  m_Name: SphereAttack
+  m_Name: Attacker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 4215596971948808248}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.376, z: 0}
+  m_LocalPosition: {x: -0, y: 0.535, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

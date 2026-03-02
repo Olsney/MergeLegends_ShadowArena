@@ -7,5 +7,5 @@ public interface IHealth
     float CurrentValue { get; }
     float MaxValue { get; }
     void TakeDamage(float damage);
-    void InitConfig(PlayerUnitConfig playerUnitConfig);
+    void InitConfig(UnitConfig unitConfig);
 }

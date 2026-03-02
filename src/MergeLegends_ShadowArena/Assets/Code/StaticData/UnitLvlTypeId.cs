@@ -1,6 +1,6 @@
 ﻿namespace Code.StaticData
 {
-    public enum PlayerUnitTypeId
+    public enum UnitLvlTypeId
     {
         None = 0,
         Lvl1 = 1,

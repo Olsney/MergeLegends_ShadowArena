@@ -9,30 +9,32 @@ namespace Code.Units.PlayerUnit
     [RequireComponent(typeof(NavMeshAgent))]
     public class UnitAgentMover : MonoBehaviour
     {
-        private const float SqrDistance = 1.5f;
+        private float _sqrStopDistance;
 
         private NavMeshAgent _navMeshAgent;
         private ITargetFinder _targetFinder;
-        private MeleeAttacker meleeAttacker;
+        private IAttacker _attacker;
         private AnimateAlongAgent _animateAlongAgent;
         private Enemy _enemyTarget;
 
         public event Action<Transform> TargetReached;
+        public event Action TargetLosted;
 
         private void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _targetFinder = GetComponent<ITargetFinder>();
-            meleeAttacker = GetComponentInChildren<MeleeAttacker>();
+            _attacker = GetComponentInChildren<IAttacker>();
             _animateAlongAgent = GetComponentInChildren<AnimateAlongAgent>();
         }
 
-        public void InitConfig(PlayerUnitConfig playerUnitConfig)
+        public void InitConfig(UnitConfig unitConfig)
         {
-            _navMeshAgent.speed = playerUnitConfig.MoveSpeed;
+            _navMeshAgent.speed = unitConfig.MoveSpeed;
+            _sqrStopDistance = unitConfig.AttackDistance;
         }
 
-        public void Move()
+        public void Tick()
         {
             UpdateTarget();
             HandleMovement();
@@ -52,12 +54,14 @@ namespace Code.Units.PlayerUnit
             if (_enemyTarget == null || _enemyTarget.IsDead)
             {
                 StopMoving();
+                TargetLosted?.Invoke();
                 return;
             }
 
-            if (IsNeedToMove() && meleeAttacker.IsAttacking == false)
+            if (IsNeedToMove() && _attacker.IsAttacking == false)
             {
                 _navMeshAgent.destination = _enemyTarget.transform.position;
+                TargetLosted?.Invoke();
             }
             else
             {
@@ -79,8 +83,8 @@ namespace Code.Units.PlayerUnit
         {
             if (_navMeshAgent == null || _enemyTarget == null)
                 return false;
-
-            return transform.position.SqrMagnitudeTo(_enemyTarget.transform.position) >= SqrDistance;
+            
+            return transform.position.SqrMagnitudeTo(_enemyTarget.transform.position) >= _sqrStopDistance;
         }
     }
 }

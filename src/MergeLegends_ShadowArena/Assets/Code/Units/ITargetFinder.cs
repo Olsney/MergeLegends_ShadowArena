@@ -1,8 +1,10 @@
-﻿namespace Code.Units
+﻿using Code.Units.Config;
+
+namespace Code.Units
 {
     public interface ITargetFinder
     {
-        void InitConfig(TargetFinderConfig config);
+        void InitConfig(TargetConfig config);
         Enemy GetTarget();
     }
 }

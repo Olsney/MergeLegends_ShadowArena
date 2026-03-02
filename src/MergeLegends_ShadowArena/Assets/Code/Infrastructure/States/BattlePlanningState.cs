@@ -10,7 +10,8 @@ namespace Code.Infrastructure.States
         private readonly IUIFactory _uiFactory;
         private readonly IGameFactory _gameFactory;
 
-        private PlayerSpawnerPresenter _spawnPresenter;
+        private MeleePlayerUnitSpawnerPresenter _meleeSpawnPresenter;
+        private RangedPlayerUnitSpawnerPresenter _rangedSpawnPresenter;
         private FightPresenter _fightPresenter;
         private GameObject _playZone;
 
@@ -22,20 +23,24 @@ namespace Code.Infrastructure.States
 
         public void Enter()
         {
-            _spawnPresenter = _uiFactory.CreateSpawnPlayerUnitPresenter();
+            _meleeSpawnPresenter = _uiFactory.CreateSpawnMeleePlayerUnitPresenter();
+            _rangedSpawnPresenter = _uiFactory.CreateSpawnRangedPlayerUnitPresenter();
             _fightPresenter = _uiFactory.CreateFightPresenter();
             _playZone = _gameFactory.CreatePlayZone();
         }
 
         public void Exit()
         {
-            _spawnPresenter.RemoveView();
+            _meleeSpawnPresenter.RemoveView();
+            _rangedSpawnPresenter.RemoveView();
             _fightPresenter.RemoveView();
 
-            _spawnPresenter?.Dispose();
+            _meleeSpawnPresenter?.Dispose();
+            _rangedSpawnPresenter?.Dispose();
             _fightPresenter?.Dispose();
 
-            _spawnPresenter = null;
+            _meleeSpawnPresenter = null;
+            _rangedSpawnPresenter = null;
             _fightPresenter = null;
 
             GameObject.Destroy(_playZone);

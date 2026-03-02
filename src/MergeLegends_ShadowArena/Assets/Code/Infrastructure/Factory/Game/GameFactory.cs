@@ -6,6 +6,7 @@ using Code.Services.StaticData;
 using Code.StaticData;
 using Code.Units;
 using Code.Units.PlayerUnit;
+using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -33,7 +34,7 @@ namespace Code.Infrastructure.Factory.Game
             _playZone = _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath));
 
             LevelStaticData levelData = _staticData.GetLevel(SceneManager.GetActiveScene().name);
-            
+
             CreateGridZone(levelData.PlayerUnitsGridPlacesPosition, GridPlacesTypeId.PlayerUnit);
             CreateGridZone(levelData.EnemiesGridPlacesPosition, GridPlacesTypeId.Enemy);
 
@@ -78,20 +79,51 @@ namespace Code.Infrastructure.Factory.Game
             }
         }
 
-        public GameObject CreatePlayerUnit(Vector3 position)
+        public GameObject CreateMeleePlayerUnit(Vector3 position)
         {
-            PlayerUnitStaticData playerUnitStaticData = _staticData.GetPlayerUnit(PlayerUnitTypeId.Lvl1);
-            
+            MeleeUnitStaticData meleeUnitStaticData = _staticData.GetMeleePlayerUnit(UnitLvlTypeId.Lvl1);
+
             GameObject playerUnit = _instantiator.InstantiatePrefab(
-                playerUnitStaticData.PlayerUnitConfig.PlayerUnitPrefab, position,
+                meleeUnitStaticData.UnitConfig.UnitPrefab, position,
                 Quaternion.identity, null);
-            
-            playerUnit.GetComponent<IHealth>().InitConfig(playerUnitStaticData.PlayerUnitConfig);
-            playerUnit.GetComponent<ITargetFinder>().InitConfig(playerUnitStaticData.TargetFinderConfig);
-            playerUnit.GetComponent<UnitAgentMover>().InitConfig(playerUnitStaticData.PlayerUnitConfig);
-            playerUnit.GetComponentInChildren<MeleeAttacker>().InitConfig(playerUnitStaticData.AttackConfig);
-            
+
+            playerUnit.GetComponent<IHealth>().InitConfig(meleeUnitStaticData.UnitConfig);
+            playerUnit.GetComponent<ITargetFinder>().InitConfig(meleeUnitStaticData.TargetConfig);
+            playerUnit.GetComponent<UnitAgentMover>().InitConfig(meleeUnitStaticData.UnitConfig);
+            playerUnit.GetComponentInChildren<IAttacker>()
+                .InitConfig(meleeUnitStaticData.TargetConfig, meleeUnitStaticData.UnitConfig);
+
             return playerUnit;
+        }
+
+        public GameObject CreateRangerPlayerUnit(Vector3 position)
+        {
+            RangedUnitStaticData rangedPlayerUnit = _staticData.GetRangedPlayerUnit(UnitLvlTypeId.Lvl1);
+
+            GameObject playerUnit = _instantiator.InstantiatePrefab(
+                rangedPlayerUnit.UnitConfig.UnitPrefab, position,
+                Quaternion.identity,
+                null);
+
+            playerUnit.GetComponent<IHealth>().InitConfig(rangedPlayerUnit.UnitConfig);
+            playerUnit.GetComponent<ITargetFinder>().InitConfig(rangedPlayerUnit.TargetConfig);
+            playerUnit.GetComponent<UnitAgentMover>().InitConfig(rangedPlayerUnit.UnitConfig);
+            playerUnit.GetComponentInChildren<IAttacker>()
+                .InitConfig(rangedPlayerUnit.TargetConfig, rangedPlayerUnit.UnitConfig);
+
+            return playerUnit;
+        }
+
+        public GameObject CreateMagicSpherePlayerUnit(Vector3 position)
+        {
+            RangedUnitStaticData rangedPlayerUnit = _staticData.GetRangedPlayerUnit(UnitLvlTypeId.Lvl1);
+
+            GameObject magicSphere = _instantiator.InstantiatePrefab(
+                rangedPlayerUnit.MagicSpherePrefab,
+                position,
+                Quaternion.identity, null);
+
+            return magicSphere;
         }
     }
 }

@@ -1,12 +1,13 @@
 using System.Linq;
 using Code.Units;
+using Code.Units.Config;
 using Code.Units.PlayerUnit;
 using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 
-public class MeleeAttacker : MonoBehaviour
+public class MeleeAttacker : MonoBehaviour, IAttacker
 {
-    private const float Cleavage = 0.22f;
+    private const float HitRadius = 0.35f;
 
     public bool IsAttacking { get; private set; }
 
@@ -16,6 +17,8 @@ public class MeleeAttacker : MonoBehaviour
 
     private Collider[] _hits = new Collider[1];
     private int _layerMask;
+    private float _attackCooldown;
+    private float _currentAttackCooldown;
     private Transform _targetTransform;
     private float _damage;
 
@@ -40,15 +43,21 @@ public class MeleeAttacker : MonoBehaviour
         _agentMover.TargetReached -= StartAttack;
     }
 
-    public void InitConfig(AttackConfig attackConfig)
+    public void InitConfig(TargetConfig targetConfig, UnitConfig unitConfig)
     {
-        _damage = attackConfig.Damage;
-        _layerMask = 1 << (int)attackConfig.TargetMask;
+        _damage = unitConfig.Damage;
+        _layerMask = 1 << (int)targetConfig.TargetMask;
+        _attackCooldown = unitConfig.AttackCooldown;
+    }
+
+    public void Tick()
+    {
+        UpdateCooldown();
     }
 
     private void OnAttack()
     {
-        if (Hit(out Collider hit))
+        if (CanHit(out Collider hit))
         {
             hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
         }
@@ -56,21 +65,22 @@ public class MeleeAttacker : MonoBehaviour
 
     private void OnAttackEnded()
     {
+        _currentAttackCooldown = _attackCooldown;
         IsAttacking = false;
     }
 
-    private bool Hit(out Collider hit)
+    private bool CanHit(out Collider hit)
     {
-        var hitAmount = Physics.OverlapSphereNonAlloc(transform.position, Cleavage, _hits, _layerMask);
+        var hitAmount = Physics.OverlapSphereNonAlloc(transform.position, HitRadius, _hits, _layerMask);
         
         hit = _hits.FirstOrDefault();
-
+        
         return hitAmount > 0;
     }
 
     private void StartAttack(Transform target)
     {
-        if (IsAttacking)
+        if (CanAttack() == false)
             return;
 
         _agentMover.transform.LookAt(target);
@@ -78,9 +88,19 @@ public class MeleeAttacker : MonoBehaviour
         IsAttacking = true;
     }
 
+    private void UpdateCooldown()
+    {
+        if (_currentAttackCooldown <= 0f == false)
+            _currentAttackCooldown -= Time.deltaTime;
+    }
+
+    private bool CanAttack() =>
+        IsAttacking == false && _currentAttackCooldown <= 0f;
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, Cleavage);
+        Gizmos.DrawWireSphere(transform.position, HitRadius);
     }
+    
 }

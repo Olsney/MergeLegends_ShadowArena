@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerUnitHealth : MonoBehaviour, IHealth
 {
-    private float _currentValue = 100;
+    private float _currentValue;
 
     public float MaxValue { get; private set; }
     
@@ -24,10 +24,10 @@ public class PlayerUnitHealth : MonoBehaviour, IHealth
 
     public event Action HealthChanged;
 
-    public void InitConfig(PlayerUnitConfig playerUnitConfig)
+    public void InitConfig(UnitConfig unitConfig)
     {
-        _currentValue = playerUnitConfig.Hp;
-        MaxValue = playerUnitConfig.Hp;
+        _currentValue = unitConfig.Hp;
+        MaxValue = unitConfig.Hp;
     }
 
     public void TakeDamage(float damage)

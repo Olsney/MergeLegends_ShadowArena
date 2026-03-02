@@ -1,5 +1,4 @@
 ﻿using Code.Units.PlayerUnit;
-using UnityEngine;
 using Zenject;
 
 namespace Code.Logic
@@ -29,10 +28,11 @@ namespace Code.Logic
             
             for (int i = 0; i < units.Count; i++)
             {
-                if (units[i] == null || units[i].UnitAgentMover == null)
+                if (units[i] == null || units[i].UnitAgentMover == null || units[i].Attacker  == null)
                     continue;
                 
-                units[i].UnitAgentMover.Move();
+                units[i].UnitAgentMover.Tick();
+                units[i].Attacker.Tick();
             }
         }
     }
