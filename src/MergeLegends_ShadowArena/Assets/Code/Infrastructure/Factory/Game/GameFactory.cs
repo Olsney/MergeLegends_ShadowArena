@@ -1,4 +1,5 @@
 using Code.Infrastructure.AssetManagement;
+using Code.Logic.PlayArea;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.Grid;
 using Code.Logic.PlayArea.GridConfig;
@@ -29,7 +30,7 @@ namespace Code.Infrastructure.Factory.Game
             _staticData = staticData;
         }
 
-        public GameObject CreatePlayZone()
+        public PlayZone CreatePlayZone()
         {
             _playZone = _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath));
 
@@ -38,7 +39,7 @@ namespace Code.Infrastructure.Factory.Game
             CreateGridZone(levelData.PlayerUnitsGridPlacesPosition, GridPlacesTypeId.PlayerUnit);
             CreateGridZone(levelData.EnemiesGridPlacesPosition, GridPlacesTypeId.Enemy);
 
-            return _playZone;
+            return _playZone.GetComponent<PlayZone>();
         }
 
         private void CreateGridZone(Vector3 position, GridPlacesTypeId gridPlacesTypeId)

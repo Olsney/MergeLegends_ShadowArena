@@ -1,7 +1,7 @@
 ﻿using Code.Infrastructure.Factory.Game;
+using Code.Logic.PlayArea;
 using Code.UI;
 using Code.UI.Factory;
-using UnityEngine;
 
 namespace Code.Infrastructure.States
 {
@@ -13,7 +13,7 @@ namespace Code.Infrastructure.States
         private MeleePlayerUnitSpawnerPresenter _meleeSpawnPresenter;
         private RangedPlayerUnitSpawnerPresenter _rangedSpawnPresenter;
         private FightPresenter _fightPresenter;
-        private GameObject _playZone;
+        private PlayZone _playZone;
 
         public BattlePlanningState(IUIFactory uiFactory, IGameFactory gameFactory)
         {
@@ -35,15 +35,15 @@ namespace Code.Infrastructure.States
             _rangedSpawnPresenter.RemoveView();
             _fightPresenter.RemoveView();
 
-            _meleeSpawnPresenter?.Dispose();
-            _rangedSpawnPresenter?.Dispose();
-            _fightPresenter?.Dispose();
+            _meleeSpawnPresenter.Dispose();
+            _rangedSpawnPresenter.Dispose();
+            _fightPresenter.Dispose();
 
             _meleeSpawnPresenter = null;
             _rangedSpawnPresenter = null;
             _fightPresenter = null;
 
-            GameObject.Destroy(_playZone);
+            _playZone.Remove();
         }
     }
 }

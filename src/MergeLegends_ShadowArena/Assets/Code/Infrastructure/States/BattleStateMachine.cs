@@ -1,28 +1,32 @@
-﻿using UnityEngine;
+﻿using Code.Logic;
 
 namespace Code.Infrastructure.States
 {
     public class BattleStateMachine : IState
     {
         private readonly GameStateMachine _gameStateMachine;
-        private GameObject _playZone;
+        private readonly IBattleService _battleService;
 
-        public BattleStateMachine(GameStateMachine gameStateMachine)
+        public BattleStateMachine(GameStateMachine gameStateMachine, IBattleService battleService)
         {
             _gameStateMachine = gameStateMachine;
+            _battleService = battleService;
         }
 
-        public void Enter() 
+        public void Enter()
             => EnterPlanning();
 
         public void Exit()
         {
         }
 
-        public void EnterFight() 
-            => _gameStateMachine.Enter<BattleFightState>();
-        
-        private void EnterPlanning() 
+        public void EnterFight()
+        {
+            if (_battleService.CanStartFight())
+                _gameStateMachine.Enter<BattleFightState>();
+        }
+
+        private void EnterPlanning()
             => _gameStateMachine.Enter<BattlePlanningState>();
     }
 }
