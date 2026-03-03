@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4096151632659330169}
   - component: {fileID: 24879451930921398}
   - component: {fileID: 5262721198072686555}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BorderCellSelected
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 375269199776570667}
   - component: {fileID: 4470769899372156201}
   - component: {fileID: 6936970676761960885}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CellGridZoneHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9074582733671943659}
   - component: {fileID: 445555539877181370}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BordedHeroZoneSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
