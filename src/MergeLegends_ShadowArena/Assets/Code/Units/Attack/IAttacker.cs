@@ -1,7 +1,7 @@
 ﻿using Code.Units.Config;
 using Code.Units.PlayerUnit.Config;
 
-namespace Code.Units
+namespace Code.Units.Attack
 {
     public interface IAttacker
     {

@@ -1,24 +1,33 @@
+using System.Collections;
 using System.Linq;
 using Code.Units.Config;
 using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 
-namespace Code.Units
+namespace Code.Units.MagicSphereAttack
 {
     public class MagicSphere : MonoBehaviour
     {
         private const float Speed = 7f;
         private const float LifeTime = 3f;
         private const float HitRadius = 0.25f;
-    
+
+        private MagicSpherePassiveEffect _passiveEffect;
+        private MagicSphereExplosionEffect _explosionEffect;
+
+        private Coroutine _coroutine;
         private int _layerMask;
         private Collider[] _hits = new Collider[1];
         private bool _isActive;
         private float _currentLifeTime;
         private float _damage;
 
-        private void Awake() 
-            => gameObject.SetActive(false);
+        private void Awake()
+        {
+            _passiveEffect = GetComponentInChildren<MagicSpherePassiveEffect>();
+            _explosionEffect = GetComponentInChildren<MagicSphereExplosionEffect>();
+            gameObject.SetActive(false);
+        }
 
         public void InitConfig(TargetConfig targetConfig, UnitConfig unitConfig)
         {
@@ -43,7 +52,7 @@ namespace Code.Units
             Hit();
         }
 
-        private void Move() 
+        private void Move()
             => transform.position += transform.forward * Speed * Time.deltaTime;
 
         public void Launch(Vector3 position, Vector3 direction)
@@ -53,6 +62,7 @@ namespace Code.Units
             _currentLifeTime = LifeTime;
             _isActive = true;
             gameObject.SetActive(true);
+            _passiveEffect.Play();
         }
 
         private void Hit()
@@ -60,29 +70,59 @@ namespace Code.Units
             if (TryHit(out Collider hit))
             {
                 hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
-                Deactivate();
+                StartExplosionCoroutine();
             }
         }
 
         private bool TryHit(out Collider hit)
         {
             int hitAmount = Physics.OverlapSphereNonAlloc(transform.position, HitRadius, _hits, _layerMask);
-        
+
             hit = _hits.FirstOrDefault();
 
             return hitAmount > 0;
         }
 
+        private IEnumerator PlayExplosionAndDeactivate()
+        {
+            _isActive = false;
+            _passiveEffect.Stop();
+            _explosionEffect.Play();
+
+            yield return new WaitForSeconds(_explosionEffect.GetDuration());
+
+            Deactivate();
+        }
+
         private void Deactivate()
         {
+            StopExplosionCoroutine();
             _isActive = false;
             gameObject.SetActive(false);
         }
-    
+
         private void UpdateLifeTime()
         {
             if (_currentLifeTime <= 0f == false)
                 _currentLifeTime -= Time.deltaTime;
+        }
+
+        private void StartExplosionCoroutine()
+        {
+            // Останавливаем предыдущую корутину, если она была
+            StopExplosionCoroutine();
+
+            // Запускаем новую
+            _coroutine = StartCoroutine(PlayExplosionAndDeactivate());
+        }
+
+        private void StopExplosionCoroutine()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+            }
         }
 
         private void OnDrawGizmosSelected()

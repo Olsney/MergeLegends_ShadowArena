@@ -1,10 +1,11 @@
 using System;
 using Code.Data;
+using Code.Units.Attack;
 using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Code.Units.PlayerUnit
+namespace Code.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class UnitAgentMover : MonoBehaviour
@@ -18,7 +19,6 @@ namespace Code.Units.PlayerUnit
         private Enemy _enemyTarget;
 
         public event Action<Transform> TargetReached;
-        public event Action TargetLosted;
 
         private void Awake()
         {
@@ -54,14 +54,12 @@ namespace Code.Units.PlayerUnit
             if (_enemyTarget == null || _enemyTarget.IsDead)
             {
                 StopMoving();
-                TargetLosted?.Invoke();
                 return;
             }
 
             if (IsNeedToMove() && _attacker.IsAttacking == false)
             {
                 _navMeshAgent.destination = _enemyTarget.transform.position;
-                TargetLosted?.Invoke();
             }
             else
             {
