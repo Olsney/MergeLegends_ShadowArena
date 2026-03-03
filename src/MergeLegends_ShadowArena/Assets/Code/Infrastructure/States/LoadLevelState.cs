@@ -1,5 +1,8 @@
 using Code.Infrastructure.Factory.Game;
+using Code.Services.StaticData;
+using Code.StaticData;
 using Code.UI.Factory;
+using UnityEngine.SceneManagement;
 
 namespace Code.Infrastructure.States
 {
@@ -11,23 +14,26 @@ namespace Code.Infrastructure.States
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
+        private readonly IStaticDataService _staticData;
 
         public LoadLevelState(
             GameStateMachine stateMachine,
             SceneLoader sceneLoader,
             IGameFactory gameFactory,
-            IUIFactory uiFactory
+            IUIFactory uiFactory,
+            IStaticDataService staticData
         )
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
             _uiFactory = uiFactory;
+            _staticData = staticData;
         }
 
         public void Enter(string sceneName)
         {
-            _sceneLoader.Load(EmptySceneName, () =>  _sceneLoader.Load(sceneName, OnLoaded));
+            _sceneLoader.Load(EmptySceneName, () => _sceneLoader.Load(sceneName, OnLoaded));
         }
 
         public void Exit()
@@ -36,17 +42,16 @@ namespace Code.Infrastructure.States
 
         private void OnLoaded()
         {
-            // InitUIRoot();
-            //
-            // InitGameWorld();
+            InitUIRoot();
+            InitGameWorld();
 
-            _stateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<BattleStateMachine>();
         }
 
-        private void InitGameWorld() => 
-            _uiFactory.CreateHud();
+        private void InitGameWorld()
+            => _uiFactory.CreateHud();
 
-        private void InitUIRoot() => 
+        private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();
     }
 }

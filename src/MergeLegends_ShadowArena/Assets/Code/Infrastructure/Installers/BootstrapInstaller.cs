@@ -1,11 +1,18 @@
 using Code.Infrastructure.AssetManagement;
+using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
+using Code.Logic;
+using Code.Logic.PlayArea.Cell;
+using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.Input;
+using Code.Services.Raycast;
 using Code.Services.StaticData;
+using Code.UI;
 using Code.UI.Factory;
 using Code.UI.Services.Windows;
+using Code.Units.PlayerUnit;
 using UnityEngine;
 using Zenject;
 
@@ -20,11 +27,12 @@ namespace Code.Infrastructure.Installers
             BindStates();
             BindServices();
             BindSceneLoader();
+            BindSpawners();
         }
-        
-        private void BindCoroutine() => 
+
+        private void BindCoroutine() =>
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
-        
+
         private void BindFactories()
         {
             Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
@@ -38,26 +46,41 @@ namespace Code.Infrastructure.Installers
             Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<LoadProgressState>().AsSingle();
+            Container.Bind<BattleStateMachine>().AsSingle();
+            Container.Bind<BattlePlanningState>().AsSingle();
+            Container.Bind<BattleFightState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }
-        
+
         private void BindServices()
         {
             BindInputService();
-            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
+            Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
+            Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
+            Container.Bind<IPlayerUnitProvider>().To<PlayerUnitProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BattleService>().AsCached();
         }
-        
+
         private void BindInputService()
         {
             if (Application.isEditor)
-                Container.Bind<IInputService>().To<StandaloneInputService>().AsSingle();
+                Container.BindInterfacesAndSelfTo<StandaloneInputService>().AsSingle();
             else
-                Container.Bind<IInputService>().To<MobileInputService>().AsSingle();
+                Container.BindInterfacesAndSelfTo<MobileInputService>().AsSingle();
         }
-        
-        private void BindSceneLoader() => 
+
+        private void BindSceneLoader() =>
             Container.Bind<SceneLoader>().AsSingle();
+
+        private void BindSpawners()
+        {
+            Container.Bind<IPlayerUnitSpawner>().To<PlayerUnitSpawner>().AsSingle();
+        }
     }
 }
