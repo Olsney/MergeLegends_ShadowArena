@@ -1,10 +1,11 @@
-﻿using Code.Units.Config;
+﻿using Code.StaticData;
+using Code.Units.Enemies;
 
 namespace Code.Units
 {
     public interface ITargetFinder
     {
-        void InitConfig(TargetConfig config);
+        void InitConfig(LayerMaskTypeId layerMaskTypeId);
         Enemy GetTarget();
     }
 }

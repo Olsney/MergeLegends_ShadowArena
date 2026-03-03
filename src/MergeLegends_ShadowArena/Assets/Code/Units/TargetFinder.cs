@@ -1,5 +1,7 @@
 using Code.Data;
+using Code.StaticData;
 using Code.Units.Config;
+using Code.Units.Enemies;
 using UnityEngine;
 
 namespace Code.Units
@@ -13,9 +15,9 @@ namespace Code.Units
         private Collider[] _results = new Collider[MaxColliders];
         private Enemy _currentEnemy;
 
-        public void InitConfig(TargetConfig config)
+        public void InitConfig(LayerMaskTypeId layerMaskTypeId)
         {
-            _layerMask = 1 << (int)config.TargetMask;
+            _layerMask = 1 << (int)layerMaskTypeId;
         }
 
         public Enemy GetTarget()

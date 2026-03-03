@@ -1,5 +1,4 @@
-using Code.Units.Config;
-using Code.Units.PlayerUnit.Config;
+using Code.StaticData;
 using UnityEngine;
 
 namespace Code.Units.Attack
@@ -11,12 +10,12 @@ namespace Code.Units.Attack
         private Collider[] _hits = new Collider[1];
         private int _layerMask;
         private float _damage;
-
-        public override void InitConfig(TargetConfig targetConfig, UnitConfig unitConfig)
+        
+        public override void InitConfig(float damage, float cooldown, LayerMaskTypeId targetLayerMask)
         {
-            _damage = unitConfig.Damage;
-            _layerMask = 1 << (int)targetConfig.TargetMask;
-            _attackCooldown = unitConfig.AttackCooldown;
+            _damage = damage;
+            _attackCooldown = cooldown;
+            _layerMask = 1 << (int)targetLayerMask;
         }
 
         protected override void OnAttack()

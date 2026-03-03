@@ -2,7 +2,7 @@ using Code.Units.Attack;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Units.PlayerUnit
+namespace Code.Units.PlayerUnits
 {
     public class PlayerUnit : MonoBehaviour
     {

@@ -1,7 +1,6 @@
 using Code.Infrastructure.Factory.Game;
-using Code.Units.Config;
+using Code.StaticData;
 using Code.Units.MagicSphereAttack;
-using Code.Units.PlayerUnit.Config;
 using Zenject;
 
 namespace Code.Units.Attack
@@ -21,10 +20,10 @@ namespace Code.Units.Attack
             _magicSphere = _gameFactory.CreateMagicSpherePlayerUnit(transform.position).GetComponent<MagicSphere>();
         }
 
-        public override void InitConfig(TargetConfig targetConfig, UnitConfig unitConfig)
+        public override void InitConfig(float damage, float cooldown, LayerMaskTypeId targetLayerMask)
         {
-            _attackCooldown = unitConfig.AttackCooldown;
-            _magicSphere.InitConfig(targetConfig, unitConfig);
+            _attackCooldown = cooldown;
+            _magicSphere.Init(damage, targetLayerMask);
         }
 
         public override void Tick()

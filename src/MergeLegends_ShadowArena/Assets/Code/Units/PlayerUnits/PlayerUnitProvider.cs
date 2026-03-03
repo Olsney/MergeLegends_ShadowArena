@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace Code.Units.PlayerUnit
+namespace Code.Units.PlayerUnits
 {
     public class PlayerUnitProvider : IPlayerUnitProvider
     {
-        private readonly List<PlayerUnit> _units = new List<PlayerUnit>();
+        private readonly List<PlayerUnit> _units = new();
 
         public void AddUnit(PlayerUnit unit) 
             => _units.Add(unit);

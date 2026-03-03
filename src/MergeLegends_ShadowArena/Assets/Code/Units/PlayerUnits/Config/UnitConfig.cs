@@ -6,12 +6,6 @@ namespace Code.Units.PlayerUnit.Config
     [Serializable]
     public class UnitConfig
     {
-        [Range(1,100)]
-        public float Hp;
-
-        [Range(1,100)]
-        public float Damage;
-
         [Range(0,10)]
         public float MoveSpeed;
 
@@ -20,7 +14,5 @@ namespace Code.Units.PlayerUnit.Config
 
         [Range(0,5)]
         public float AttackCooldown;
-
-        public GameObject UnitPrefab;
     }
 }

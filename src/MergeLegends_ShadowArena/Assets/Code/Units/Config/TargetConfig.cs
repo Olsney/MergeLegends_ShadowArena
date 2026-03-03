@@ -6,6 +6,6 @@ namespace Code.Units.Config
     [Serializable]
     public class TargetConfig
     {
-        public LayerMaskTypeId TargetMask;
+        public LayerMaskTypeId TargetLayerMask;
     }
 }

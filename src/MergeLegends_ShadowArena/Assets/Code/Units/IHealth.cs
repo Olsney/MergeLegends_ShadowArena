@@ -1,5 +1,4 @@
 using System;
-using Code.Units.PlayerUnit.Config;
 
 public interface IHealth
 {
@@ -7,5 +6,5 @@ public interface IHealth
     float CurrentValue { get; }
     float MaxValue { get; }
     void TakeDamage(float damage);
-    void InitConfig(UnitConfig unitConfig);
+    void InitConfig(float maxHp);
 }

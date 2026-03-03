@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Code.Units.PlayerUnit
+namespace Code.Units.PlayerUnits
 {
     public interface IPlayerUnitProvider
     {

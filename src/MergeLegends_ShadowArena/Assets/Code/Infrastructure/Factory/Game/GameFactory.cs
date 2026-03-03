@@ -7,10 +7,8 @@ using Code.StaticData;
 using Code.Units;
 using Code.Units.Attack;
 using Code.Units.Config;
-using Code.Units.PlayerUnit;
 using Code.Units.PlayerUnit.Config;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -83,10 +81,10 @@ namespace Code.Infrastructure.Factory.Game
 
         public GameObject CreateMagicSpherePlayerUnit(Vector3 position)
         {
-            RangedUnitStaticData rangedPlayerUnit = _staticData.GetRangedPlayerUnit(UnitLvlTypeId.Lvl1);
+            UnitStaticData unitData = _staticData.GetPlayerUnit(UnitTypeId.Ranged);
 
             GameObject magicSphere = _instantiator.InstantiatePrefab(
-                rangedPlayerUnit.MagicSpherePrefab,
+                unitData.GeneralConfig.MagicSpherePrefab,
                 position,
                 Quaternion.identity, null);
 
@@ -95,26 +93,31 @@ namespace Code.Infrastructure.Factory.Game
 
         public GameObject CreateMeleePlayerUnit(Vector3 position)
         {
-            var unitData = _staticData.GetMeleePlayerUnit(UnitLvlTypeId.Lvl1);
-            return CreatePlayerUnit(position, unitData.UnitConfig, unitData.TargetConfig);
+            UnitStaticData unitData = _staticData.GetPlayerUnit(UnitTypeId.Melee);
+            return CreatePlayerUnit(position, unitData);
         }
 
         public GameObject CreateRangerPlayerUnit(Vector3 position)
         {
-            var unitData = _staticData.GetRangedPlayerUnit(UnitLvlTypeId.Lvl1);
-            return CreatePlayerUnit(position, unitData.UnitConfig, unitData.TargetConfig);
+            UnitStaticData unitData = _staticData.GetPlayerUnit(UnitTypeId.Ranged);
+            return CreatePlayerUnit(position, unitData);
         }
 
-        private GameObject CreatePlayerUnit(Vector3 position, UnitConfig unitConfig, TargetConfig targetConfig)
+        private GameObject CreatePlayerUnit(Vector3 position, UnitStaticData unitData)
         {
+            UnitLvlStatsConfig lvlStatsConfig = unitData.GetStatsForLvl(UnitLvlTypeId.Lvl1);
+            TargetConfig targetConfig = unitData.GeneralConfig.TargetConfig;
+            UnitConfig unitConfig = unitData.GeneralConfig.UnitConfig;
+            
             GameObject playerUnit = _instantiator.InstantiatePrefab(
-                unitConfig.UnitPrefab, position,
+                lvlStatsConfig.ViewPrefab, position,
                 Quaternion.identity, null);
 
-            playerUnit.GetComponent<IHealth>().InitConfig(unitConfig);
-            playerUnit.GetComponent<ITargetFinder>().InitConfig(targetConfig);
-            playerUnit.GetComponent<UnitAgentMover>().InitConfig(unitConfig);
-            playerUnit.GetComponentInChildren<IAttacker>().InitConfig(targetConfig, unitConfig);
+            playerUnit.GetComponent<IHealth>().InitConfig(lvlStatsConfig.Hp);
+            playerUnit.GetComponent<ITargetFinder>().InitConfig(targetConfig.TargetLayerMask);
+            playerUnit.GetComponent<UnitAgentMover>().InitConfig(unitConfig.MoveSpeed, unitConfig.AttackDistance);
+            playerUnit.GetComponentInChildren<IAttacker>().InitConfig(lvlStatsConfig.Damage, unitConfig.AttackCooldown,
+                targetConfig.TargetLayerMask);
 
             return playerUnit;
         }

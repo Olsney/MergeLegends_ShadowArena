@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
-using Code.Units.Config;
-using Code.Units.PlayerUnit.Config;
+using Code.StaticData;
 using UnityEngine;
 
 namespace Code.Units.MagicSphereAttack
@@ -29,10 +28,10 @@ namespace Code.Units.MagicSphereAttack
             gameObject.SetActive(false);
         }
 
-        public void InitConfig(TargetConfig targetConfig, UnitConfig unitConfig)
+        public void Init(float damage, LayerMaskTypeId targetLayerMask)
         {
-            _damage = unitConfig.Damage;
-            _layerMask = 1 << (int)targetConfig.TargetMask;
+            _damage = damage;
+            _layerMask = 1 << (int)targetLayerMask;
         }
 
         public void Tick()
@@ -109,10 +108,8 @@ namespace Code.Units.MagicSphereAttack
 
         private void StartExplosionCoroutine()
         {
-            // Останавливаем предыдущую корутину, если она была
             StopExplosionCoroutine();
 
-            // Запускаем новую
             _coroutine = StartCoroutine(PlayExplosionAndDeactivate());
         }
 

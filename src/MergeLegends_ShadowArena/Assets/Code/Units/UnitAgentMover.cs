@@ -1,6 +1,7 @@
 using System;
 using Code.Data;
 using Code.Units.Attack;
+using Code.Units.Enemies;
 using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 using UnityEngine.AI;
@@ -28,10 +29,10 @@ namespace Code.Units
             _animateAlongAgent = GetComponentInChildren<AnimateAlongAgent>();
         }
 
-        public void InitConfig(UnitConfig unitConfig)
+        public void InitConfig(float speed, float attackDistance)
         {
-            _navMeshAgent.speed = unitConfig.MoveSpeed;
-            _sqrStopDistance = unitConfig.AttackDistance;
+            _navMeshAgent.speed = speed;
+            _sqrStopDistance = attackDistance;
         }
 
         public void Tick()

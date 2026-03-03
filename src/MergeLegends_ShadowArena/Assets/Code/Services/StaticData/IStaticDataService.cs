@@ -5,8 +5,7 @@ namespace Code.Services.StaticData
     public interface IStaticDataService
     {
         LevelStaticData GetLevel(string sceneKey);
-        MeleeUnitStaticData GetMeleePlayerUnit(UnitLvlTypeId unitLvlTypeId);
-        RangedUnitStaticData GetRangedPlayerUnit(UnitLvlTypeId unitLvlTypeId);
+        UnitStaticData GetPlayerUnit(UnitTypeId unitTypeId);
         GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
     }
 }
