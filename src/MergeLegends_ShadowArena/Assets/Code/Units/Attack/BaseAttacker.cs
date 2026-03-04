@@ -1,6 +1,4 @@
 ﻿using Code.StaticData;
-using Code.Units.Config;
-using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 
 namespace Code.Units.Attack
@@ -52,12 +50,11 @@ namespace Code.Units.Attack
             IsAttacking = false;
         }
 
-        protected virtual void StartAttack(Transform target)
+        protected virtual void StartAttack()
         {
             if (CanAttack() == false)
                 return;
-
-            _agentMover.transform.LookAt(target);
+            
             _animator.PlayAttack();
             IsAttacking = true;
         }
@@ -69,6 +66,7 @@ namespace Code.Units.Attack
         public virtual void Tick()
         {
             UpdateCooldown();
+            _agentMover.RotateToTarget();
         }
 
         private void UpdateCooldown()

@@ -1,51 +1,53 @@
 using System;
 using System.Collections;
-using Code.Units;
 using UnityEngine;
 
-public class UnitDeath : MonoBehaviour
+namespace Code.Units
 {
-    private IHealth _health;
-    private UnitAnimator _animator;
-
-    public event Action Dead;
-
-    private void Awake()
+    public class UnitDeath : MonoBehaviour
     {
-        _health = GetComponent<IHealth>();
-        _animator = GetComponentInChildren<UnitAnimator>();
-    }
+        private IHealth _health;
+        private UnitAnimator _animator;
 
-    private void Start()
-    {
-        _health.HealthChanged += OnHealthChanged;
-    }
+        public event Action Dead;
 
-    private void OnDestroy()
-    {
-        _health.HealthChanged -= OnHealthChanged;
-    }
+        private void Awake()
+        {
+            _health = GetComponent<IHealth>();
+            _animator = GetComponentInChildren<UnitAnimator>();
+        }
 
-    private void OnHealthChanged()
-    {
-        if (_health.CurrentValue <= 0)
-            Die();
-    }
+        private void Start()
+        {
+            _health.HealthChanged += OnHealthChanged;
+        }
 
-    private void Die()
-    {
-        _health.HealthChanged -= OnHealthChanged;
+        private void OnDestroy()
+        {
+            _health.HealthChanged -= OnHealthChanged;
+        }
 
-        _animator.PlayDeath();
+        private void OnHealthChanged()
+        {
+            if (_health.CurrentValue <= 0)
+                Die();
+        }
 
-        StartCoroutine(DestroyTimer());
+        private void Die()
+        {
+            _health.HealthChanged -= OnHealthChanged;
 
-        Dead?.Invoke();
-    }
+            _animator.PlayDeath();
 
-    private IEnumerator DestroyTimer()
-    {
-        yield return new WaitForSeconds(3);
-        Destroy(gameObject);
+            StartCoroutine(DestroyTimer());
+
+            Dead?.Invoke();
+        }
+
+        private IEnumerator DestroyTimer()
+        {
+            yield return new WaitForSeconds(3);
+            Destroy(gameObject);
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace Code.Units.MagicSphereAttack
         private const float Speed = 7f;
         private const float LifeTime = 3f;
         private const float HitRadius = 0.25f;
+        private const float ZeroPositionY = 0f;
 
         private MagicSpherePassiveEffect _passiveEffect;
         private MagicSphereExplosionEffect _explosionEffect;
@@ -20,6 +21,7 @@ namespace Code.Units.MagicSphereAttack
         private bool _isActive;
         private float _currentLifeTime;
         private float _damage;
+        private Transform _targetTransform;
 
         private void Awake()
         {
@@ -52,12 +54,16 @@ namespace Code.Units.MagicSphereAttack
         }
 
         private void Move()
-            => transform.position += transform.forward * Speed * Time.deltaTime;
+        {
+            Vector3 direction = (_targetTransform.position - transform.position).normalized;
+            direction.y = ZeroPositionY;
+            transform.position += direction * Speed * Time.deltaTime;
+        }
 
-        public void Launch(Vector3 position, Vector3 direction)
+        public void Launch(Vector3 position, Transform targetTransform)
         {
             transform.position = new Vector3(position.x, position.y, position.z);
-            transform.forward = direction;
+            _targetTransform =  targetTransform;
             _currentLifeTime = LifeTime;
             _isActive = true;
             gameObject.SetActive(true);
@@ -66,14 +72,14 @@ namespace Code.Units.MagicSphereAttack
 
         private void Hit()
         {
-            if (TryHit(out Collider hit))
+            if (CanHit(out Collider hit))
             {
                 hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
                 StartExplosionCoroutine();
             }
         }
 
-        private bool TryHit(out Collider hit)
+        private bool CanHit(out Collider hit)
         {
             int hitAmount = Physics.OverlapSphereNonAlloc(transform.position, HitRadius, _hits, _layerMask);
 
@@ -84,6 +90,7 @@ namespace Code.Units.MagicSphereAttack
 
         private IEnumerator PlayExplosionAndDeactivate()
         {
+            _targetTransform = null;
             _isActive = false;
             _passiveEffect.Stop();
             _explosionEffect.Play();

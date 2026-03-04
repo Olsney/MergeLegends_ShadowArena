@@ -2,7 +2,6 @@ using System;
 using Code.Data;
 using Code.Units.Attack;
 using Code.Units.Enemies;
-using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,7 +18,7 @@ namespace Code.Units
         private AnimateAlongAgent _animateAlongAgent;
         private Enemy _enemyTarget;
 
-        public event Action<Transform> TargetReached;
+        public event Action TargetReached;
 
         private void Awake()
         {
@@ -40,6 +39,22 @@ namespace Code.Units
             UpdateTarget();
             HandleMovement();
             UpdateAnimation();
+        }
+
+        public void RotateToTarget()
+        {
+            if (_enemyTarget == null)
+                return;
+
+            transform.LookAt(_enemyTarget.transform);
+        }
+
+        public Transform GetCurrentTargetTransform()
+        {
+            if (_enemyTarget == null)
+                return null;
+            
+            return _enemyTarget.transform;
         }
 
         private void UpdateTarget()
@@ -65,7 +80,7 @@ namespace Code.Units
             else
             {
                 StopMoving();
-                TargetReached?.Invoke(_enemyTarget.transform);
+                TargetReached?.Invoke();
             }
         }
 
@@ -82,7 +97,7 @@ namespace Code.Units
         {
             if (_navMeshAgent == null || _enemyTarget == null)
                 return false;
-            
+
             return transform.position.SqrMagnitudeTo(_enemyTarget.transform.position) >= _sqrStopDistance;
         }
     }

@@ -1,6 +1,8 @@
 using Code.Infrastructure.Factory.Game;
+using Code.Logic;
 using Code.StaticData;
 using Code.Units.MagicSphereAttack;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Units.Attack
@@ -32,7 +34,12 @@ namespace Code.Units.Attack
             _magicSphere.Tick();
         }
 
-        protected override void OnAttack() 
-            => _magicSphere.Launch(transform.position, transform.forward);
+        protected override void OnAttack()
+        {
+            if (_agentMover.GetCurrentTargetTransform() == null)
+                return;
+            
+            _magicSphere.Launch(transform.position, _agentMover.GetCurrentTargetTransform());
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using Code.StaticData;
 using UnityEngine;
 
@@ -29,7 +30,9 @@ namespace Code.Units.Attack
         private bool CanHit(out Collider hit)
         {
             int hitAmount = Physics.OverlapSphereNonAlloc(transform.position, HitRadius, _hits, _layerMask);
-            hit = hitAmount > 0 ? _hits[0] : null;
+
+            hit = _hits.FirstOrDefault();
+
             return hitAmount > 0;
         }
 
