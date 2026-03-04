@@ -1,7 +1,7 @@
 ﻿using System;
+using Code.StaticData;
 using Code.Units.Config;
 using Code.Units.PlayerUnit.Config;
-using UnityEngine;
 
 namespace Code.StaticData
 {
@@ -10,6 +10,6 @@ namespace Code.StaticData
     {
         public UnitConfig UnitConfig;
         public TargetConfig TargetConfig;
-        public GameObject MagicSpherePrefab;
+        public MagicSphereConfig MagicSphereConfig;
     }
 }

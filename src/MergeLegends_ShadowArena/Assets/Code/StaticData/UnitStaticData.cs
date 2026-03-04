@@ -1,22 +1,24 @@
 ﻿using System.Collections.Generic;
-using Code.StaticData;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerUnitData", menuName = "StaticData/Unit")]
-public class UnitStaticData : ScriptableObject
+namespace Code.StaticData
 {
-    public UnitTypeId UnitTypeId;
-    public List<UnitLvlEntry> UnitLvlStatsConfigs = new();
-    public GeneralConfig GeneralConfig;
-    
-    [HideInInspector]
-    public UnitLvlStatsConfig GetStatsForLvl(UnitLvlTypeId lvlTypeId)
+    [CreateAssetMenu(fileName = "PlayerUnitData", menuName = "StaticData/Unit")]
+    public class UnitStaticData : ScriptableObject
     {
-        foreach (UnitLvlEntry entry in UnitLvlStatsConfigs)
+        public UnitTypeId UnitTypeId;
+        public List<UnitLvlEntry> UnitLvlStatsConfigs = new();
+        public GeneralConfig GeneralConfig;
+    
+        [HideInInspector]
+        public UnitLvlStatsConfig GetStatsLvl(UnitLvlTypeId lvlTypeId)
         {
-            if (entry.LvlTypeId == lvlTypeId)
-                return entry.StatsConfig;
+            foreach (UnitLvlEntry entry in UnitLvlStatsConfigs)
+            {
+                if (entry.LvlTypeId == lvlTypeId)
+                    return entry.StatsConfig;
+            }
+            return null;
         }
-        return null;
     }
 }

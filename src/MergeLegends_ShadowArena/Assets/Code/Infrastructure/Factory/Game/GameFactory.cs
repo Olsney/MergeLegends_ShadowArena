@@ -85,7 +85,7 @@ namespace Code.Infrastructure.Factory.Game
             UnitStaticData unitData = _staticData.GetPlayerUnit(UnitTypeId.Ranged);
 
             GameObject magicSphere = _instantiator.InstantiatePrefab(
-                unitData.GeneralConfig.MagicSpherePrefab,
+                unitData.GeneralConfig.MagicSphereConfig.ViewPrefab,
                 position,
                 Quaternion.identity, null);
 
@@ -106,10 +106,11 @@ namespace Code.Infrastructure.Factory.Game
 
         private GameObject CreatePlayerUnit(Vector3 position, UnitStaticData unitData)
         {
-            UnitLvlStatsConfig lvlStatsConfig = unitData.GetStatsForLvl(UnitLvlTypeId.Lvl1);
+            UnitLvlStatsConfig lvlStatsConfig = unitData.GetStatsLvl(UnitLvlTypeId.Lvl1);
             TargetConfig targetConfig = unitData.GeneralConfig.TargetConfig;
             UnitConfig unitConfig = unitData.GeneralConfig.UnitConfig;
-            
+            MagicSphereConfig magicSphereConfig = unitData.GeneralConfig.MagicSphereConfig;
+
             GameObject playerUnit = _instantiator.InstantiatePrefab(
                 lvlStatsConfig.ViewPrefab, position,
                 Quaternion.identity, null);
@@ -117,8 +118,19 @@ namespace Code.Infrastructure.Factory.Game
             playerUnit.GetComponent<IHealth>().InitConfig(lvlStatsConfig.Hp);
             playerUnit.GetComponent<ITargetFinder>().InitConfig(targetConfig.TargetLayerMask);
             playerUnit.GetComponent<UnitAgentMover>().InitConfig(unitConfig.MoveSpeed, unitConfig.AttackDistance);
-            playerUnit.GetComponentInChildren<IAttacker>().InitConfig(lvlStatsConfig.Damage, unitConfig.AttackCooldown,
-                targetConfig.TargetLayerMask);
+
+            var attacker = playerUnit.GetComponentInChildren<IAttacker>();
+
+            if (attacker is MeleeAttacker meleeAttacker)
+            {
+                meleeAttacker.InitConfig(lvlStatsConfig.Damage, unitConfig.AttackCooldown,
+                    targetConfig.TargetLayerMask);
+            }
+            else if (attacker is RangedAttacker rangedAttacker)
+            {
+                rangedAttacker.InitConfig(lvlStatsConfig.Damage, unitConfig.AttackCooldown,
+                    targetConfig.TargetLayerMask, magicSphereConfig.Speed);
+            }
 
             return playerUnit;
         }

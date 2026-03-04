@@ -1,5 +1,4 @@
-﻿using Code.StaticData;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Code.Units.Attack
 {
@@ -60,8 +59,6 @@ namespace Code.Units.Attack
         }
 
         protected abstract void OnAttack();
-
-        public abstract void InitConfig(float damage, float cooldown, LayerMaskTypeId targetLayerMask);
 
         public virtual void Tick()
         {

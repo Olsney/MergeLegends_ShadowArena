@@ -12,7 +12,7 @@ namespace Code.Units.Attack
         private int _layerMask;
         private float _damage;
         
-        public override void InitConfig(float damage, float cooldown, LayerMaskTypeId targetLayerMask)
+        public void InitConfig(float damage, float cooldown, LayerMaskTypeId targetLayerMask)
         {
             _damage = damage;
             _attackCooldown = cooldown;

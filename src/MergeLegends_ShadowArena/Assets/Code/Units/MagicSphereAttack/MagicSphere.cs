@@ -7,7 +7,6 @@ namespace Code.Units.MagicSphereAttack
 {
     public class MagicSphere : MonoBehaviour
     {
-        private const float Speed = 7f;
         private const float LifeTime = 3f;
         private const float HitRadius = 0.25f;
         private const float ZeroPositionY = 0f;
@@ -15,6 +14,7 @@ namespace Code.Units.MagicSphereAttack
         private MagicSpherePassiveEffect _passiveEffect;
         private MagicSphereExplosionEffect _explosionEffect;
 
+        private float _speed;
         private Coroutine _coroutine;
         private int _layerMask;
         private Collider[] _hits = new Collider[1];
@@ -30,10 +30,11 @@ namespace Code.Units.MagicSphereAttack
             gameObject.SetActive(false);
         }
 
-        public void Init(float damage, LayerMaskTypeId targetLayerMask)
+        public void Init(float damage, LayerMaskTypeId targetLayerMask, float speed)
         {
             _damage = damage;
             _layerMask = 1 << (int)targetLayerMask;
+            _speed = speed;
         }
 
         public void Tick()
@@ -57,7 +58,7 @@ namespace Code.Units.MagicSphereAttack
         {
             Vector3 direction = (_targetTransform.position - transform.position).normalized;
             direction.y = ZeroPositionY;
-            transform.position += direction * Speed * Time.deltaTime;
+            transform.position += direction * _speed * Time.deltaTime;
         }
 
         public void Launch(Vector3 position, Transform targetTransform)

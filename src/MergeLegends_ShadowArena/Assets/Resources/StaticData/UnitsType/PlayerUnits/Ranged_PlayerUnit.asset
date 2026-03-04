@@ -26,4 +26,6 @@ MonoBehaviour:
       AttackCooldown: 0.8
     TargetConfig:
       TargetLayerMask: 7
-    MagicSpherePrefab: {fileID: 5959412765337696548, guid: 574dd2aaac98a3f4c9a740fc7bbe1430, type: 3}
+    MagicSphereConfig:
+      Speed: 7
+      ViewPrefab: {fileID: 5959412765337696548, guid: 574dd2aaac98a3f4c9a740fc7bbe1430, type: 3}
