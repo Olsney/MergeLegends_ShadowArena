@@ -17,24 +17,22 @@ namespace Synty.Interface.FantasyWarriorHUD.Samples
     /// </summary>
     public class SampleOscillateSliders : MonoBehaviour
     {
-        [Header("References")]
-        public List<Slider> sliders;
+        [Header("References")] public List<Slider> sliders;
 
-        [Header("Parameters")]
-        public bool autoGetSliders = true;
+        [Header("Parameters")] public bool autoGetSliders = true;
         public float speed = 1f;
         public float offset = 0.5f;
 
         private void Reset()
         {
-            sliders = FindObjectsOfType<Slider>().ToList();
+            sliders = FindObjectsByType<Slider>(FindObjectsSortMode.None).ToList();
         }
 
         private void Start()
         {
             if (autoGetSliders)
             {
-                sliders = FindObjectsOfType<Slider>().ToList();
+                sliders = FindObjectsByType<Slider>(FindObjectsSortMode.None).ToList();
             }
         }
 
