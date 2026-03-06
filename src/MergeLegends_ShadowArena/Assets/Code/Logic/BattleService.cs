@@ -31,10 +31,10 @@ namespace Code.Logic
 
             for (int i = 0; i < units.Count; i++)
             {
-                if (units[i] == null || units[i].UnitAgentMover == null || units[i].Attacker == null)
+                if (units[i] == null || units[i].UnitNavmeshAgentMover == null || units[i].Attacker == null)
                     continue;
 
-                units[i].UnitAgentMover.Tick();
+                units[i].UnitNavmeshAgentMover.Tick();
                 units[i].Attacker.Tick();
             }
         }

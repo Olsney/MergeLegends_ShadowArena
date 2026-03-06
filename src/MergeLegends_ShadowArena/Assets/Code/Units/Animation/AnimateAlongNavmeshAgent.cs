@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Code.Units
+namespace Code.Units.Animation
 {
-    public class AnimateAlongAgent : MonoBehaviour
+    public class AnimateAlongNavmeshAgent : MonoBehaviour
     {
         private const float MinimalVelocity = 0.1f;
 

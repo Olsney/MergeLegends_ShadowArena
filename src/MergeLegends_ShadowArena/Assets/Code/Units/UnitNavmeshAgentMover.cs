@@ -1,5 +1,6 @@
 using System;
 using Code.Data;
+using Code.Units.Animation;
 using Code.Units.Attack;
 using Code.Units.Enemies;
 using UnityEngine;
@@ -8,14 +9,14 @@ using UnityEngine.AI;
 namespace Code.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class UnitAgentMover : MonoBehaviour
+    public class UnitNavmeshAgentMover : MonoBehaviour
     {
         private float _sqrStopDistance;
 
         private NavMeshAgent _navMeshAgent;
         private ITargetFinder _targetFinder;
         private IAttacker _attacker;
-        private AnimateAlongAgent _animateAlongAgent;
+        private AnimateAlongNavmeshAgent animateAlongNavmeshAgent;
         private Enemy _enemyTarget;
 
         public event Action TargetReached;
@@ -25,7 +26,7 @@ namespace Code.Units
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _targetFinder = GetComponent<ITargetFinder>();
             _attacker = GetComponentInChildren<IAttacker>();
-            _animateAlongAgent = GetComponentInChildren<AnimateAlongAgent>();
+            animateAlongNavmeshAgent = GetComponentInChildren<AnimateAlongNavmeshAgent>();
         }
 
         public void InitConfig(float speed, float attackDistance)
@@ -85,7 +86,7 @@ namespace Code.Units
         }
 
         private void UpdateAnimation()
-            => _animateAlongAgent.MoveAnimation();
+            => animateAlongNavmeshAgent.MoveAnimation();
 
         private void StopMoving()
         {

@@ -8,7 +8,7 @@ namespace Code.Units.Attack
 
         protected UnitAnimator _animator;
         protected AnimationEventsReader _animationEventsReader;
-        protected UnitAgentMover _agentMover;
+        protected UnitNavmeshAgentMover NavmeshAgentMover;
 
         protected float _attackCooldown;
         protected float _currentAttackCooldown;
@@ -26,21 +26,21 @@ namespace Code.Units.Attack
         {
             _animationEventsReader = GetComponentInParent<AnimationEventsReader>();
             _animator = GetComponentInParent<UnitAnimator>();
-            _agentMover = GetComponentInParent<UnitAgentMover>();
+            NavmeshAgentMover = GetComponentInParent<UnitNavmeshAgentMover>();
         }
 
         protected virtual void OnStart()
         {
             _animationEventsReader.Attacked += OnAttack;
             _animationEventsReader.AttackEnded += OnAttackEnded;
-            _agentMover.TargetReached += StartAttack;
+            NavmeshAgentMover.TargetReached += StartAttack;
         }
 
         protected virtual void OnDestroyInternal()
         {
             _animationEventsReader.Attacked -= OnAttack;
             _animationEventsReader.AttackEnded -= OnAttackEnded;
-            _agentMover.TargetReached -= StartAttack;
+            NavmeshAgentMover.TargetReached -= StartAttack;
         }
 
         protected virtual void OnAttackEnded()
@@ -63,7 +63,7 @@ namespace Code.Units.Attack
         public virtual void Tick()
         {
             UpdateCooldown();
-            _agentMover.RotateToTarget();
+            NavmeshAgentMover.RotateToTarget();
         }
 
         private void UpdateCooldown()

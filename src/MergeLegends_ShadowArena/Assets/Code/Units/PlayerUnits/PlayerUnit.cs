@@ -7,7 +7,7 @@ namespace Code.Units.PlayerUnits
     public class PlayerUnit : MonoBehaviour
     {
         public bool IsDead { get; private set; }
-        public UnitAgentMover UnitAgentMover { get; private set; }
+        public UnitNavmeshAgentMover UnitNavmeshAgentMover { get; private set; }
         public IAttacker Attacker { get; private set; }
 
         private UnitDeath _unitDeath;
@@ -19,7 +19,7 @@ namespace Code.Units.PlayerUnits
 
         private void Awake()
         {
-            UnitAgentMover = GetComponent<UnitAgentMover>();
+            UnitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
             Attacker = GetComponentInChildren<IAttacker>();
             _unitDeath = GetComponent<UnitDeath>();
         }

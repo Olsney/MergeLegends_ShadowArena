@@ -34,10 +34,10 @@ namespace Code.Units.Attack
 
         protected override void OnAttack()
         {
-            if (_agentMover.GetCurrentTargetTransform() == null)
+            if (NavmeshAgentMover.GetCurrentTargetTransform() == null)
                 return;
             
-            _magicSphere.Launch(transform.position, _agentMover.GetCurrentTargetTransform());
+            _magicSphere.Launch(transform.position, NavmeshAgentMover.GetCurrentTargetTransform());
         }
     }
 }

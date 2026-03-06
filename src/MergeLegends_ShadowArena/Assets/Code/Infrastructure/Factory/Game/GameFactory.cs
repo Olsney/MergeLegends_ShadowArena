@@ -115,7 +115,7 @@ namespace Code.Infrastructure.Factory.Game
 
             playerUnit.GetComponent<IHealth>().InitConfig(lvlStatsData.Hp);
             playerUnit.GetComponent<ITargetFinder>().InitConfig(targetData.TargetLayerMask);
-            playerUnit.GetComponent<UnitAgentMover>().InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
+            playerUnit.GetComponent<UnitNavmeshAgentMover>().InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
 
             var attacker = playerUnit.GetComponentInChildren<IAttacker>();
 
