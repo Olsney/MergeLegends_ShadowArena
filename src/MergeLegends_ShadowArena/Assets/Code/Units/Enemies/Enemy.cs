@@ -11,7 +11,7 @@ namespace Code.Units.Enemies
         private void Awake()
         {
             unitDeath = GetComponent<UnitDeath>();
-            GetComponent<IHealth>().InitConfig(100f);
+            GetComponent<IHealth>().Init(100f);
         }
 
         private void Start()

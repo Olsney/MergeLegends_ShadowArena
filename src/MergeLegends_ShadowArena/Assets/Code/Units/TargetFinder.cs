@@ -14,7 +14,7 @@ namespace Code.Units
         private Collider[] _results = new Collider[MaxColliders];
         private Enemy _currentEnemy;
 
-        public void InitConfig(LayerMaskTypeId layerMaskTypeId)
+        public void Init(LayerMaskTypeId layerMaskTypeId)
         {
             _layerMask = 1 << (int)layerMaskTypeId;
         }

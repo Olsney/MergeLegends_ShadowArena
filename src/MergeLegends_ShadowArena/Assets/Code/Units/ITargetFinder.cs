@@ -5,7 +5,7 @@ namespace Code.Units
 {
     public interface ITargetFinder
     {
-        void InitConfig(LayerMaskTypeId layerMaskTypeId);
+        void Init(LayerMaskTypeId layerMaskTypeId);
         Enemy GetTarget();
     }
 }

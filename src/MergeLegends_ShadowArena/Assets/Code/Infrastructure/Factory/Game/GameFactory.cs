@@ -113,20 +113,20 @@ namespace Code.Infrastructure.Factory.Game
                 lvlStatsData.ViewPrefab, position,
                 Quaternion.identity, null);
 
-            playerUnit.GetComponent<IHealth>().InitConfig(lvlStatsData.Hp);
-            playerUnit.GetComponent<ITargetFinder>().InitConfig(targetData.TargetLayerMask);
+            playerUnit.GetComponent<IHealth>().Init(lvlStatsData.Hp);
+            playerUnit.GetComponent<ITargetFinder>().Init(targetData.TargetLayerMask);
             playerUnit.GetComponent<UnitNavmeshAgentMover>().InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
 
             var attacker = playerUnit.GetComponentInChildren<IAttacker>();
 
             if (attacker is MeleeAttacker meleeAttacker)
             {
-                meleeAttacker.InitConfig(lvlStatsData.Damage, unitData.AttackCooldown,
+                meleeAttacker.Init(lvlStatsData.Damage, unitData.AttackCooldown,
                     targetData.TargetLayerMask);
             }
             else if (attacker is RangedAttacker rangedAttacker)
             {
-                rangedAttacker.InitConfig(lvlStatsData.Damage, unitData.AttackCooldown,
+                rangedAttacker.Init(lvlStatsData.Damage, unitData.AttackCooldown,
                     targetData.TargetLayerMask, magicSphereData.Speed);
             }
 
