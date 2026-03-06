@@ -33,7 +33,7 @@ namespace Code.Services.StaticData
 
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
-                .ToDictionary(x => x.gridPlacesTypeId, x => x);
+                .ToDictionary(x => x.GridPlacesTypeId, x => x);
         }
 
         public LevelStaticData GetLevel(string sceneKey) =>

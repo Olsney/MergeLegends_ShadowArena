@@ -1,6 +1,5 @@
 using Code.Data;
 using Code.StaticData;
-using Code.Units.Config;
 using Code.Units.Enemies;
 using UnityEngine;
 

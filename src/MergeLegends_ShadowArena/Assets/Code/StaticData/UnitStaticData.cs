@@ -7,16 +7,16 @@ namespace Code.StaticData
     public class UnitStaticData : ScriptableObject
     {
         public UnitTypeId UnitTypeId;
-        public List<UnitLvlEntry> UnitLvlStatsConfigs = new();
-        public GeneralConfig GeneralConfig;
+        public List<UnitLvlEntrySetup> UnitLvlStatsEntries = new();
+        public GeneralData GeneralData;
     
         [HideInInspector]
-        public UnitLvlStatsConfig GetStatsLvl(UnitLvlTypeId lvlTypeId)
+        public UnitLvlStatsData GetStatsLvl(UnitLvlTypeId lvlTypeId)
         {
-            foreach (UnitLvlEntry entry in UnitLvlStatsConfigs)
+            foreach (UnitLvlEntrySetup entry in UnitLvlStatsEntries)
             {
                 if (entry.LvlTypeId == lvlTypeId)
-                    return entry.StatsConfig;
+                    return entry.UnitLvlStats;
             }
             return null;
         }

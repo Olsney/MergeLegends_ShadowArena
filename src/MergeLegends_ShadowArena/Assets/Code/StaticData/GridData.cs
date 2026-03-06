@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace Code.Logic.PlayArea.GridConfig
+namespace Code.StaticData
 {
     [Serializable]
-    public class GridConfig
+    public class GridData
     {
         public int Width;
         public int Height;
@@ -12,7 +12,7 @@ namespace Code.Logic.PlayArea.GridConfig
         public GameObject GridsRoot;
         public GameObject CellPrefab;
         
-        public GridConfig(int width, int height, float spacing)
+        public GridData(int width, int height, float spacing)
         {
             Width = width;
             Height = height;

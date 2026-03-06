@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Code.StaticData
 {
     [Serializable]
-    public class MagicSphereConfig
+    public class MagicSphereData
     {
         public float Speed;
         public GameObject ViewPrefab;

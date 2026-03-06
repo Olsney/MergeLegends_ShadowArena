@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace Code.Units.PlayerUnit.Config
+namespace Code.StaticData
 {
     [Serializable]
-    public class UnitConfig
+    public class UnitData
     {
         [Range(0,10)]
         public float MoveSpeed;

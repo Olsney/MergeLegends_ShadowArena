@@ -1,10 +1,9 @@
 ﻿using System;
-using Code.StaticData;
 
-namespace Code.Units.Config
+namespace Code.StaticData
 {
     [Serializable]
-    public class TargetConfig
+    public class TargetData
     {
         public LayerMaskTypeId TargetLayerMask;
     }
