@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using Code.StaticData;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Units.MagicSphereAttack
@@ -15,7 +16,6 @@ namespace Code.Units.MagicSphereAttack
         private MagicSphereExplosionEffect _explosionEffect;
 
         private float _speed;
-        private Coroutine _coroutine;
         private int _layerMask;
         private Collider[] _hits = new Collider[1];
         private bool _isActive;
@@ -64,7 +64,7 @@ namespace Code.Units.MagicSphereAttack
         public void Launch(Vector3 position, Transform targetTransform)
         {
             transform.position = new Vector3(position.x, position.y, position.z);
-            _targetTransform =  targetTransform;
+            _targetTransform = targetTransform;
             _currentLifeTime = LifeTime;
             _isActive = true;
             gameObject.SetActive(true);
@@ -76,7 +76,7 @@ namespace Code.Units.MagicSphereAttack
             if (CanHit(out Collider hit))
             {
                 hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
-                StartExplosionCoroutine();
+                StartExplosionAsync();
             }
         }
 
@@ -89,21 +89,21 @@ namespace Code.Units.MagicSphereAttack
             return hitAmount > 0;
         }
 
-        private IEnumerator PlayExplosionAndDeactivate()
+        private async void StartExplosionAsync()
         {
             _targetTransform = null;
             _isActive = false;
             _passiveEffect.Stop();
             _explosionEffect.Play();
 
-            yield return new WaitForSeconds(_explosionEffect.GetDuration());
+            await UniTask.WaitForSeconds(_explosionEffect.GetDuration());
 
+            _explosionEffect.Stop();
             Deactivate();
         }
 
         private void Deactivate()
         {
-            StopExplosionCoroutine();
             _isActive = false;
             gameObject.SetActive(false);
         }
@@ -112,22 +112,6 @@ namespace Code.Units.MagicSphereAttack
         {
             if (_currentLifeTime <= 0f == false)
                 _currentLifeTime -= Time.deltaTime;
-        }
-
-        private void StartExplosionCoroutine()
-        {
-            StopExplosionCoroutine();
-
-            _coroutine = StartCoroutine(PlayExplosionAndDeactivate());
-        }
-
-        private void StopExplosionCoroutine()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-                _coroutine = null;
-            }
         }
 
         private void OnDrawGizmosSelected()

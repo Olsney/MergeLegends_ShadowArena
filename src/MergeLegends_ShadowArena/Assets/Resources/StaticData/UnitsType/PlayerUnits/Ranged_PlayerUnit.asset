@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: Ranged_PlayerUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitStaticData
   UnitTypeId: 2
-  UnitLvlStatsConfigs:
+  UnitLvlStatsEntries:
   - LvlTypeId: 1
-    StatsConfig:
-      Hp: 60
+    UnitLvlStats:
+      Hp: 80
       Damage: 25
       ViewPrefab: {fileID: 3073036452702465649, guid: 3f6ff6b78ba3af6498e192d1662b4fe8, type: 3}
-  GeneralConfig:
-    UnitConfig:
+  GeneralData:
+    UnitData:
       MoveSpeed: 3
       AttackDistance: 35
       AttackCooldown: 0.8
-    TargetConfig:
+    TargetData:
       TargetLayerMask: 7
-    MagicSphereConfig:
+    MagicSphereData:
       Speed: 7
       ViewPrefab: {fileID: 5959412765337696548, guid: 574dd2aaac98a3f4c9a740fc7bbe1430, type: 3}
