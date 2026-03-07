@@ -7,7 +7,7 @@ namespace Code.Infrastructure.States
         private readonly GameStateMachine _stateMachine;
         private readonly IBattleService _battleService;
 
-        public BattleFightState(GameStateMachine stateMachine, BattleService battleService)
+        public BattleFightState(GameStateMachine stateMachine, IBattleService battleService)
         {
             _stateMachine = stateMachine;
             _battleService = battleService;

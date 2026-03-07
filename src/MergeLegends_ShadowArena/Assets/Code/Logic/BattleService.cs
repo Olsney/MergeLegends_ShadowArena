@@ -1,4 +1,4 @@
-﻿using Code.Units.PlayerUnit;
+﻿using Code.Units.PlayerUnits;
 using Zenject;
 
 namespace Code.Logic
@@ -19,19 +19,23 @@ namespace Code.Logic
         public void StopFight()
             => _isFighting = false;
 
+        public bool CanStartFight() 
+            => _playerUnitProvider.GetUnits().Count > 0;
+
         public void Tick()
         {
             if (_isFighting == false)
                 return;
-            
+
             var units = _playerUnitProvider.GetUnits();
-            
+
             for (int i = 0; i < units.Count; i++)
             {
-                if (units[i] == null || units[i].UnitAgentMover == null)
+                if (units[i] == null || units[i].UnitNavmeshAgentMover == null || units[i].Attacker == null)
                     continue;
-                
-                units[i].UnitAgentMover.Move();
+
+                units[i].UnitNavmeshAgentMover.Tick();
+                units[i].Attacker.Tick();
             }
         }
     }

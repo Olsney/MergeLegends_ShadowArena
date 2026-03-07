@@ -1,5 +1,4 @@
-﻿using Code.Logic.PlayArea.GridConfig;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Code.StaticData
 {

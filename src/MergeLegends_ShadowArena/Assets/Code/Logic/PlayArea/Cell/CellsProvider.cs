@@ -13,7 +13,8 @@ namespace Code.Logic.PlayArea.Cell
                     yield return cell;
         }
     
-        public IEnumerable<ICellGrid> GetAllCells() => _allCells;
+        public IEnumerable<ICellGrid> GetAllCells() 
+            => _allCells;
         
         public void AddCell(ICellGrid cellGrid) 
             => _allCells.Add(cellGrid);

@@ -39,11 +39,19 @@ namespace Code.UI.Factory
             return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
         }
 
-        public PlayerSpawnerPresenter CreateSpawnPlayerUnitPresenter()
+        public MeleePlayerUnitSpawnerPresenter CreateSpawnMeleePlayerUnitPresenter()
         {
-            return CreatePresenter<PlayerUnitSpawnView, PlayerSpawnerPresenter>(
-                AssetPath.UISpawnPlayerUnitButtonPath,
-                (view) => new PlayerSpawnerPresenter(view, _spawner)
+            return CreatePresenter<PlayerUnitSpawnView, MeleePlayerUnitSpawnerPresenter>(
+                AssetPath.UISpawnMeleePlayerUnitButtonPath,
+                (view) => new MeleePlayerUnitSpawnerPresenter(view, _spawner)
+            );
+        }
+
+        public RangedPlayerUnitSpawnerPresenter CreateSpawnRangedPlayerUnitPresenter()
+        {
+            return CreatePresenter<PlayerUnitSpawnView, RangedPlayerUnitSpawnerPresenter>(
+                AssetPath.UISpawnRangedPlayerUnitButtonPath,
+                (view) => new RangedPlayerUnitSpawnerPresenter(view, _spawner)
             );
         }
 

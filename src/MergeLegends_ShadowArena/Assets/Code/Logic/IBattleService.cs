@@ -4,5 +4,6 @@
     {
         void StartFight();
         void StopFight();
+        bool CanStartFight();
     }
 }

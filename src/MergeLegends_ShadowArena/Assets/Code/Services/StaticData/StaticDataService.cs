@@ -9,11 +9,11 @@ namespace Code.Services.StaticData
     public class StaticDataService : IStaticDataService, IInitializable
     {
         private const string LevelStaticDataPath = "StaticData/Levels";
-        private const string PlayerUnitsStaticDataPath = "StaticData/PlayerUnits";
+        private const string PlayerUnitsStaticDataPath = "StaticData/UnitsType/PlayerUnits";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
 
         private Dictionary<string, LevelStaticData> _levels;
-        private Dictionary<PlayerUnitTypeId, PlayerUnitStaticData> _playerUnits;
+        private Dictionary<UnitTypeId, UnitStaticData> _playerUnits;
         private Dictionary<GridPlacesTypeId, GridPlacesStaticData> _grids;
 
         public void Initialize()
@@ -26,14 +26,14 @@ namespace Code.Services.StaticData
             _levels = Resources
                 .LoadAll<LevelStaticData>(LevelStaticDataPath)
                 .ToDictionary(x => x.LevelKey, x => x);
-            
+
             _playerUnits = Resources
-                .LoadAll<PlayerUnitStaticData>(PlayerUnitsStaticDataPath)
-                .ToDictionary(x => x.PlayerUnitTypeId, x => x);
-            
+                .LoadAll<UnitStaticData>(PlayerUnitsStaticDataPath)
+                .ToDictionary(x => x.UnitTypeId, x => x);
+
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
-                .ToDictionary(x => x.gridPlacesTypeId, x => x);
+                .ToDictionary(x => x.GridPlacesTypeId, x => x);
         }
 
         public LevelStaticData GetLevel(string sceneKey) =>
@@ -41,11 +41,11 @@ namespace Code.Services.StaticData
                 ? staticData
                 : null;
 
-        public PlayerUnitStaticData GetPlayerUnit(PlayerUnitTypeId playerUnitTypeId) =>
-            _playerUnits.TryGetValue(playerUnitTypeId, out PlayerUnitStaticData staticData)
+        public UnitStaticData GetPlayerUnit(UnitTypeId unitTypeId) =>
+            _playerUnits.TryGetValue(unitTypeId, out UnitStaticData staticData)
                 ? staticData
                 : null;
-        
+
         public GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId) =>
             _grids.TryGetValue(gridPlacesTypeId, out GridPlacesStaticData staticData)
                 ? staticData

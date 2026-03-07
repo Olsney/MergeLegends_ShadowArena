@@ -2,6 +2,7 @@
 {
     public interface IPlayerUnitSpawner
     {
-        void Spawn();
+        void SpawnMelee();
+        void SpawnRanged();
     }
 }

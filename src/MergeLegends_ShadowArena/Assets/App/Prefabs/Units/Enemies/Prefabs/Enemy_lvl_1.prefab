@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6502506020497929645}
-  - component: {fileID: 2536877439760902220}
+  - component: {fileID: 2882634197818807377}
   - component: {fileID: 4503056762677231213}
   - component: {fileID: -5178917844012780935}
+  - component: {fileID: -4322051091873375717}
+  - component: {fileID: -2443668912873559723}
   m_Layer: 7
   m_Name: Enemy_lvl_1
   m_TagString: Untagged
@@ -35,8 +37,8 @@ Transform:
   - {fileID: 5667772112306324948}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2536877439760902220
-SphereCollider:
+--- !u!65 &2882634197818807377
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -54,8 +56,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.05
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 0.6, y: 1.7, z: 0.6}
+  m_Center: {x: 0, y: 0.97, z: 0}
 --- !u!195 &4503056762677231213
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -68,7 +70,7 @@ NavMeshAgent:
   m_Radius: 0.15
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 99
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -90,6 +92,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50ff08fc92c04a489bc2b01bf72eb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+--- !u!114 &-4322051091873375717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8591336734477682272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10fef80f833180e4ca59776567ccd74d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+--- !u!114 &-2443668912873559723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8591336734477682272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9236355bd79114f889e5d715d44ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDeath
 --- !u!1001 &3810444030317754386
 PrefabInstance:
   m_ObjectHideFlags: 0

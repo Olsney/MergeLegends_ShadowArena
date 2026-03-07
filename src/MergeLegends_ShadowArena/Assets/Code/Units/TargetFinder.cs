@@ -1,22 +1,22 @@
 using Code.Data;
-using Code.Units.PlayerUnit;
+using Code.StaticData;
+using Code.Units.Enemies;
 using UnityEngine;
 
 namespace Code.Units
 {
-    public class TargetFinder : MonoBehaviour
+    public class TargetFinder : MonoBehaviour, ITargetFinder
     {
         private const int MaxColliders = 20;
+        private const float FinderRadius = 22;
 
-        private float _finderRadius;
         private int _layerMask;
         private Collider[] _results = new Collider[MaxColliders];
         private Enemy _currentEnemy;
 
-        public void InitSettings(TargetFinderConfig config)
+        public void Init(LayerMaskTypeId layerMaskTypeId)
         {
-            _finderRadius = config.Radius;
-            _layerMask = 1 << (int)config.layerMaskTypeId;
+            _layerMask = 1 << (int)layerMaskTypeId;
         }
 
         public Enemy GetTarget()
@@ -33,7 +33,7 @@ namespace Code.Units
 
             int hitCount = Physics.OverlapSphereNonAlloc(
                 transform.position,
-                _finderRadius,
+                FinderRadius,
                 _results,
                 _layerMask
             );
@@ -62,7 +62,7 @@ namespace Code.Units
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, _finderRadius);
+            Gizmos.DrawWireSphere(transform.position, FinderRadius);
         }
     }
 }

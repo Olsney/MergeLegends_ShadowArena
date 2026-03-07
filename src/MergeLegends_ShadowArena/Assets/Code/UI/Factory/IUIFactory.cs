@@ -6,7 +6,8 @@ namespace Code.UI.Factory
     {
         GameObject CreateUIRoot();
         GameObject CreateHud();
-        PlayerSpawnerPresenter CreateSpawnPlayerUnitPresenter();
+        MeleePlayerUnitSpawnerPresenter CreateSpawnMeleePlayerUnitPresenter();
+        RangedPlayerUnitSpawnerPresenter CreateSpawnRangedPlayerUnitPresenter();
         FightPresenter CreateFightPresenter();
     }
 }

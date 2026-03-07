@@ -1,0 +1,105 @@
+using System;
+using Code.Data;
+using Code.Units.Animation;
+using Code.Units.Attack;
+using Code.Units.Enemies;
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace Code.Units
+{
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class UnitNavmeshAgentMover : MonoBehaviour
+    {
+        private float _sqrStopDistance;
+
+        private NavMeshAgent _navMeshAgent;
+        private ITargetFinder _targetFinder;
+        private IAttacker _attacker;
+        private AnimateAlongNavmeshAgent animateAlongNavmeshAgent;
+        private Enemy _enemyTarget;
+
+        public event Action TargetReached;
+
+        private void Awake()
+        {
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _targetFinder = GetComponent<ITargetFinder>();
+            _attacker = GetComponentInChildren<IAttacker>();
+            animateAlongNavmeshAgent = GetComponentInChildren<AnimateAlongNavmeshAgent>();
+        }
+
+        public void InitConfig(float speed, float attackDistance)
+        {
+            _navMeshAgent.speed = speed;
+            _sqrStopDistance = attackDistance;
+        }
+
+        public void Tick()
+        {
+            UpdateTarget();
+            HandleMovement();
+            UpdateAnimation();
+        }
+
+        public void RotateToTarget()
+        {
+            if (_enemyTarget == null)
+                return;
+
+            transform.LookAt(_enemyTarget.transform);
+        }
+
+        public Transform GetCurrentTargetTransform()
+        {
+            if (_enemyTarget == null)
+                return null;
+            
+            return _enemyTarget.transform;
+        }
+
+        private void UpdateTarget()
+        {
+            var newTarget = _targetFinder.GetTarget();
+
+            if (newTarget != _enemyTarget)
+                _enemyTarget = newTarget;
+        }
+
+        private void HandleMovement()
+        {
+            if (_enemyTarget == null || _enemyTarget.IsDead)
+            {
+                StopMoving();
+                return;
+            }
+
+            if (IsNeedToMove() && _attacker.IsAttacking == false)
+            {
+                _navMeshAgent.destination = _enemyTarget.transform.position;
+            }
+            else
+            {
+                StopMoving();
+                TargetReached?.Invoke();
+            }
+        }
+
+        private void UpdateAnimation()
+            => animateAlongNavmeshAgent.MoveAnimation();
+
+        private void StopMoving()
+        {
+            if (_navMeshAgent.hasPath)
+                _navMeshAgent.ResetPath();
+        }
+
+        private bool IsNeedToMove()
+        {
+            if (_navMeshAgent == null || _enemyTarget == null)
+                return false;
+
+            return transform.position.SqrMagnitudeTo(_enemyTarget.transform.position) >= _sqrStopDistance;
+        }
+    }
+}

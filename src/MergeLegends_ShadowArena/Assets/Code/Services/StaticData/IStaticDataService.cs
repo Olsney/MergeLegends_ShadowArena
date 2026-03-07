@@ -2,10 +2,10 @@ using Code.StaticData;
 
 namespace Code.Services.StaticData
 {
-  public interface IStaticDataService
-  {
-    LevelStaticData GetLevel(string sceneKey);
-    PlayerUnitStaticData GetPlayerUnit(PlayerUnitTypeId playerUnitTypeId);
-    GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
-  }
+    public interface IStaticDataService
+    {
+        LevelStaticData GetLevel(string sceneKey);
+        UnitStaticData GetPlayerUnit(UnitTypeId unitTypeId);
+        GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
+    }
 }

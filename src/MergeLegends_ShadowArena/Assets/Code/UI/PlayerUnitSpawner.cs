@@ -14,11 +14,20 @@ namespace Code.UI
             _cellsProvider = cellsProvider;
         }
 
-        public void Spawn()
+        public void SpawnMelee()
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.SetUnit(_gameFactory.CreatePlayerUnit(cell.Transform.position));
+                cell.SetUnit(_gameFactory.CreateMeleePlayerUnit(cell.Transform.position));
+                return;
+            }
+        } 
+        
+        public void SpawnRanged()
+        {
+            foreach (var cell in _cellsProvider.GetFreeCells())
+            {
+                cell.SetUnit(_gameFactory.CreateRangerPlayerUnit(cell.Transform.position));
                 return;
             }
         }
