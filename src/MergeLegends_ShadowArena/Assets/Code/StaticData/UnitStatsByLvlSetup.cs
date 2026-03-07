@@ -3,7 +3,7 @@
 namespace Code.StaticData
 {
     [Serializable]
-    public class UnitLvlEntrySetup
+    public class UnitStatsByLvlSetup
     {
         public UnitLvlTypeId LvlTypeId;
         public UnitLvlStatsData UnitLvlStats;

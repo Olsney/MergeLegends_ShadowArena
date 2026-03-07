@@ -7,13 +7,13 @@ namespace Code.StaticData
     public class UnitStaticData : ScriptableObject
     {
         public UnitTypeId UnitTypeId;
-        public List<UnitLvlEntrySetup> UnitLvlStatsEntries = new();
+        public List<UnitStatsByLvlSetup> unitStatsByLvlSetups = new();
         public GeneralData GeneralData;
     
         [HideInInspector]
         public UnitLvlStatsData GetStatsLvl(UnitLvlTypeId lvlTypeId)
         {
-            foreach (UnitLvlEntrySetup entry in UnitLvlStatsEntries)
+            foreach (UnitStatsByLvlSetup entry in unitStatsByLvlSetups)
             {
                 if (entry.LvlTypeId == lvlTypeId)
                     return entry.UnitLvlStats;
