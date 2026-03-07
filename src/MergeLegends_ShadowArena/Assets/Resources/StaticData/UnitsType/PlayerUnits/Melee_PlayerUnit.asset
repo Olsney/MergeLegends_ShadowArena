@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Melee_PlayerUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitStaticData
   UnitTypeId: 1
-  UnitLvlStatsEntries:
+  unitStatsByLvlSetups:
   - LvlTypeId: 1
     UnitLvlStats:
       Hp: 100

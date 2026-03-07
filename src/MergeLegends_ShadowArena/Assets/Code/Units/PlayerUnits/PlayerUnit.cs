@@ -25,22 +25,12 @@ namespace Code.Units.PlayerUnits
         }
 
         private void Start()
-        {
-            if (_unitDeath != null)
-                _unitDeath.Dead += OnDead;
-
-            _playerUnitProvider?.AddUnit(this);
-        }
+            => _playerUnitProvider.AddUnit(this);
 
         private void OnDestroy()
-        {
-            if (_unitDeath != null)
-                _unitDeath.Dead -= OnDead;
+            => _playerUnitProvider.RemoveUnit(this);
 
-            _playerUnitProvider?.RemoveUnit(this);
-        }
-
-        private void OnDead() 
+        private void OnDead()
             => IsDead = true;
     }
 }

@@ -1,11 +1,12 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Code.Units
 {
     public class UnitDeath : MonoBehaviour
     {
+        private const float TimeToDestroy = 3f;
+
         private IHealth _health;
         private UnitAnimator _animator;
 
@@ -36,18 +37,9 @@ namespace Code.Units
         private void Die()
         {
             _health.HealthChanged -= OnHealthChanged;
-
             _animator.PlayDeath();
-
-            StartCoroutine(DestroyTimer());
-
             Dead?.Invoke();
-        }
-
-        private IEnumerator DestroyTimer()
-        {
-            yield return new WaitForSeconds(3);
-            Destroy(gameObject);
+            Destroy(gameObject, TimeToDestroy);
         }
     }
 }

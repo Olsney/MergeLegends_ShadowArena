@@ -1,6 +1,8 @@
+using Code.ParticleBase;
+
 namespace Code.Units.MagicSphereAttack
 {
-    public class MagicSpherePassiveEffect : BaseEffect.BaseEffect
+    public class MagicSpherePassiveEffect : BaseEffect
     {
     }
 }

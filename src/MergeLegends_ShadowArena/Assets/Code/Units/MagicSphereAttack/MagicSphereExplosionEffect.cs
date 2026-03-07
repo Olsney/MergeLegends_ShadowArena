@@ -1,6 +1,8 @@
-﻿namespace Code.Units.MagicSphereAttack
+﻿using Code.ParticleBase;
+
+namespace Code.Units.MagicSphereAttack
 {
-    public class MagicSphereExplosionEffect : BaseEffect.BaseEffect
+    public class MagicSphereExplosionEffect : BaseEffect
     {
     }
 }

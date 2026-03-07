@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.BaseEffect
+namespace Code.ParticleBase
 {
     public class BaseEffect : MonoBehaviour
     {
