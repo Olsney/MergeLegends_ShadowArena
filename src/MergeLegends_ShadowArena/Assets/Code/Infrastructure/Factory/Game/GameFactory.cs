@@ -1,12 +1,14 @@
 using Code.Infrastructure.AssetManagement;
-using Code.Infrastructure.States;
 using Code.Logic.PlayArea;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.Grid;
+using Code.Logic.PlayArea.GridConfig;
 using Code.Services.StaticData;
 using Code.StaticData;
 using Code.Units;
 using Code.Units.Attack;
+using Code.Units.Config;
+using Code.Units.PlayerUnit.Config;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -42,9 +44,9 @@ namespace Code.Infrastructure.Factory.Game
 
         private void CreateGridZone(Vector3 position, GridPlacesTypeId gridPlacesTypeId)
         {
-            GridData gridData = _staticData.GetGridPlaces(gridPlacesTypeId).GridData;
+            GridConfig gridConfig = _staticData.GetGridPlaces(gridPlacesTypeId).GridConfig;
 
-            var gridZone = _instantiator.InstantiatePrefab(gridData.GridsRoot);
+            var gridZone = _instantiator.InstantiatePrefab(gridConfig.GridsRoot);
 
             gridZone.transform.SetParent(_playZone.transform, true);
             gridZone.transform.localPosition = position;
@@ -56,22 +58,22 @@ namespace Code.Infrastructure.Factory.Game
         private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces,
             GridPlacesTypeId gridPlacesTypeId)
         {
-            GridData gridData = _staticData.GetGridPlaces(gridPlacesTypeId).GridData;
+            GridConfig gridConfig = _staticData.GetGridPlaces(gridPlacesTypeId).GridConfig;
 
-            int gridWidth = gridData.Width;
-            int gridHeight = gridData.Height;
-            float gridSpacing = gridData.Spacing;
+            int gridWidth = gridConfig.Height;
+            int gridHeight = gridConfig.Width;
+            float gridSpacing = gridConfig.Spacing;
 
-            for (int x = 0; x < gridWidth; x++)
+            for (int verical = 0; verical < gridWidth; verical++)
             {
-                for (int z = 0; z < gridHeight; z++)
+                for (int horizontal = 0; horizontal < gridHeight; horizontal++)
                 {
-                    GameObject cell = _instantiator.InstantiatePrefab(gridData.CellPrefab);
+                    GameObject cell = _instantiator.InstantiatePrefab(gridConfig.CellPrefab);
 
-                    Vector3 localPosition = new Vector3(x * gridSpacing, 0, z * gridSpacing);
+                    Vector3 localPosition = new Vector3(horizontal * gridSpacing, 0, verical * gridSpacing);
                     cell.transform.SetParent(gridZone.transform, true);
                     cell.transform.localPosition = localPosition;
-                    cell.name = $"Cell {x} {z}";
+                    cell.name = $"Cell {horizontal} {verical}";
 
                     gridUnitPlaces.AddCell(cell.GetComponent<ICellGrid>());
                 }
@@ -83,51 +85,57 @@ namespace Code.Infrastructure.Factory.Game
             UnitStaticData unitData = _staticData.GetPlayerUnit(UnitTypeId.Ranged);
 
             GameObject magicSphere = _instantiator.InstantiatePrefab(
-                unitData.GeneralData.MagicSphereData.ViewPrefab,
+                unitData.GeneralConfig.MagicSphereConfig.ViewPrefab,
                 position,
                 Quaternion.identity, null);
 
             return magicSphere;
         }
 
+        public GameObject CreateEnemy(UnitTypeId unitTypeId, UnitLvlTypeId unitLvlTypeId, Vector3 position)
+        {
+            UnitStaticData unitData = _staticData.GetEnemy(unitTypeId);
+            return CreateUnit(position, unitData, unitLvlTypeId);
+        }
+
         public GameObject CreateMeleePlayerUnit(Vector3 position)
         {
             UnitStaticData unitData = _staticData.GetPlayerUnit(UnitTypeId.Melee);
-            return CreatePlayerUnit(position, unitData);
+            return CreateUnit(position, unitData, UnitLvlTypeId.Lvl1);
         }
 
         public GameObject CreateRangerPlayerUnit(Vector3 position)
         {
             UnitStaticData unitData = _staticData.GetPlayerUnit(UnitTypeId.Ranged);
-            return CreatePlayerUnit(position, unitData);
+            return CreateUnit(position, unitData, UnitLvlTypeId.Lvl1);
         }
 
-        private GameObject CreatePlayerUnit(Vector3 position, UnitStaticData unitStaticData)
+        private GameObject CreateUnit(Vector3 position, UnitStaticData unitData, UnitLvlTypeId unitLvlTypeId)
         {
-            UnitLvlStatsData lvlStatsData = unitStaticData.GetStatsLvl(UnitLvlTypeId.Lvl1);
-            TargetData targetData = unitStaticData.GeneralData.TargetData;
-            UnitData unitData = unitStaticData.GeneralData.UnitData;
-            MagicSphereData magicSphereData = unitStaticData.GeneralData.MagicSphereData;
+            UnitLvlStatsConfig lvlStatsConfig = unitData.GetStatsLvl(unitLvlTypeId);
+            TargetConfig targetConfig = unitData.GeneralConfig.TargetConfig;
+            UnitConfig unitConfig = unitData.GeneralConfig.UnitConfig;
+            MagicSphereConfig magicSphereConfig = unitData.GeneralConfig.MagicSphereConfig;
 
             GameObject playerUnit = _instantiator.InstantiatePrefab(
-                lvlStatsData.ViewPrefab, position,
+                lvlStatsConfig.ViewPrefab, position,
                 Quaternion.identity, null);
 
-            playerUnit.GetComponent<IHealth>().Init(lvlStatsData.Hp);
-            playerUnit.GetComponent<ITargetFinder>().Init(targetData.TargetLayerMask);
-            playerUnit.GetComponent<UnitNavmeshAgentMover>().InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
+            playerUnit.GetComponent<IHealth>().InitConfig(lvlStatsConfig.Hp);
+            playerUnit.GetComponent<ITargetFinder>().InitConfig(targetConfig.TargetLayerMask);
+            playerUnit.GetComponent<UnitAgentMover>().InitConfig(unitConfig.MoveSpeed, unitConfig.AttackDistance);
 
             var attacker = playerUnit.GetComponentInChildren<IAttacker>();
 
             if (attacker is MeleeAttacker meleeAttacker)
             {
-                meleeAttacker.Init(lvlStatsData.Damage, unitData.AttackCooldown,
-                    targetData.TargetLayerMask);
+                meleeAttacker.InitConfig(lvlStatsConfig.Damage, unitConfig.AttackCooldown,
+                    targetConfig.TargetLayerMask);
             }
             else if (attacker is RangedAttacker rangedAttacker)
             {
-                rangedAttacker.Init(lvlStatsData.Damage, unitData.AttackCooldown,
-                    targetData.TargetLayerMask, magicSphereData.Speed);
+                rangedAttacker.InitConfig(lvlStatsConfig.Damage, unitConfig.AttackCooldown,
+                    targetConfig.TargetLayerMask, magicSphereConfig.Speed);
             }
 
             return playerUnit;

@@ -9,16 +9,18 @@ namespace Code.Infrastructure.States
     {
         private readonly IUIFactory _uiFactory;
         private readonly IGameFactory _gameFactory;
+        private readonly IEnemySpawner _enemySpawner;
 
         private MeleePlayerUnitSpawnerPresenter _meleeSpawnPresenter;
         private RangedPlayerUnitSpawnerPresenter _rangedSpawnPresenter;
         private FightPresenter _fightPresenter;
         private PlayZone _playZone;
 
-        public BattlePlanningState(IUIFactory uiFactory, IGameFactory gameFactory)
+        public BattlePlanningState(IUIFactory uiFactory, IGameFactory gameFactory, IEnemySpawner enemySpawner)
         {
             _uiFactory = uiFactory;
             _gameFactory = gameFactory;
+            _enemySpawner = enemySpawner;
         }
 
         public void Enter()
@@ -27,6 +29,7 @@ namespace Code.Infrastructure.States
             _rangedSpawnPresenter = _uiFactory.CreateSpawnRangedPlayerUnitPresenter();
             _fightPresenter = _uiFactory.CreateFightPresenter();
             _playZone = _gameFactory.CreatePlayZone();
+            _enemySpawner.Spawn();
         }
 
         public void Exit()

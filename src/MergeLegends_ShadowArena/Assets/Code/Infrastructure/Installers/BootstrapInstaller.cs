@@ -62,7 +62,8 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
-            Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
+            Container.Bind<IPlayerUnitCellsProvider>().To<PlayerUnitCellsProvider>().AsSingle();
+            Container.Bind<IEnemyCellsProvider>().To<EnemyCellsProvider>().AsSingle();
             Container.Bind<IPlayerUnitProvider>().To<PlayerUnitProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<BattleService>().AsCached();
         }
@@ -81,6 +82,7 @@ namespace Code.Infrastructure.Installers
         private void BindSpawners()
         {
             Container.Bind<IPlayerUnitSpawner>().To<PlayerUnitSpawner>().AsSingle();
+            Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
         }
     }
 }

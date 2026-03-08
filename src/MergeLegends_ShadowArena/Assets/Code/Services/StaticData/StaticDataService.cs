@@ -10,10 +10,12 @@ namespace Code.Services.StaticData
     {
         private const string LevelStaticDataPath = "StaticData/Levels";
         private const string PlayerUnitsStaticDataPath = "StaticData/UnitsType/PlayerUnits";
+        private const string EnemiesStaticDataPath = "StaticData/UnitsType/Enemies";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
 
         private Dictionary<string, LevelStaticData> _levels;
         private Dictionary<UnitTypeId, UnitStaticData> _playerUnits;
+        private Dictionary<UnitTypeId, UnitStaticData> _enemies;
         private Dictionary<GridPlacesTypeId, GridPlacesStaticData> _grids;
 
         public void Initialize()
@@ -31,6 +33,10 @@ namespace Code.Services.StaticData
                 .LoadAll<UnitStaticData>(PlayerUnitsStaticDataPath)
                 .ToDictionary(x => x.UnitTypeId, x => x);
 
+            _enemies = Resources
+                .LoadAll<UnitStaticData>(EnemiesStaticDataPath)
+                .ToDictionary(x => x.UnitTypeId, x => x);
+
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
                 .ToDictionary(x => x.GridPlacesTypeId, x => x);
@@ -43,6 +49,11 @@ namespace Code.Services.StaticData
 
         public UnitStaticData GetPlayerUnit(UnitTypeId unitTypeId) =>
             _playerUnits.TryGetValue(unitTypeId, out UnitStaticData staticData)
+                ? staticData
+                : null;
+
+        public UnitStaticData GetEnemy(UnitTypeId unitTypeId) =>
+            _enemies.TryGetValue(unitTypeId, out UnitStaticData staticData)
                 ? staticData
                 : null;
 

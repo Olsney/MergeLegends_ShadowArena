@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c032879a89e485aa7d29a4a58334db5, type: 3}
+  m_Name: Enemy_Melee
+  m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.UnitStaticData
+  UnitTypeId: 1
+  UnitLvlStatsConfigs:
+  - LvlTypeId: 1
+    StatsConfig:
+      Hp: 100
+      Damage: 15
+      ViewPrefab: {fileID: 8591336734477682272, guid: e0406cb8358bfd3458d89d63b3187577, type: 3}
+  GeneralConfig:
+    UnitConfig:
+      MoveSpeed: 3
+      AttackDistance: 1.5
+      AttackCooldown: 0.8
+    TargetConfig:
+      TargetLayerMask: 6
+    MagicSphereConfig:
+      Speed: 0
+      ViewPrefab: {fileID: 0}

@@ -6,10 +6,10 @@ namespace Code.Logic.PlayArea.Grid
 {
     public class GridPlayerUnitPlaces : MonoBehaviour, IGridUnitPlaces
     {
-        private ICellsProvider _cellsProvider;
+        private IPlayerUnitCellsProvider _cellsProvider;
 
         [Inject]
-        private void Construct(ICellsProvider cellsProvider)
+        private void Construct(IPlayerUnitCellsProvider cellsProvider)
             => _cellsProvider = cellsProvider;
 
         public void AddCell(ICellGrid cellGrid)

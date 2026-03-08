@@ -6,9 +6,9 @@ namespace Code.UI
     public class PlayerUnitSpawner : IPlayerUnitSpawner
     {
         private readonly IGameFactory _gameFactory;
-        private readonly ICellsProvider _cellsProvider;
+        private readonly IPlayerUnitCellsProvider _cellsProvider;
 
-        public PlayerUnitSpawner(IGameFactory gameFactory, ICellsProvider cellsProvider)
+        public PlayerUnitSpawner(IGameFactory gameFactory, IPlayerUnitCellsProvider cellsProvider)
         {
             _gameFactory = gameFactory;
             _cellsProvider = cellsProvider;

@@ -18,6 +18,7 @@ namespace Code.StaticData
                 if (entry.LvlTypeId == lvlTypeId)
                     return entry.UnitLvlStats;
             }
+            
             return null;
         }
     }

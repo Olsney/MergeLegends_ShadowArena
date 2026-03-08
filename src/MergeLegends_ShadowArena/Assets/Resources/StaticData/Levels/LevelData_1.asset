@@ -16,3 +16,12 @@ MonoBehaviour:
   PlayZonePosition: {x: 3.35, y: 0, z: -7.42}
   PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0, z: -21.669998}
   EnemiesGridPlacesPosition: {x: -1.8700004, y: 0, z: -9.77}
+  EnemiesSpawnData:
+  - UnitTypeId: 1
+    UnitLvlTypeId: 1
+  - UnitTypeId: 1
+    UnitLvlTypeId: 1
+  - UnitTypeId: 1
+    UnitLvlTypeId: 1
+  - UnitTypeId: 1
+    UnitLvlTypeId: 1

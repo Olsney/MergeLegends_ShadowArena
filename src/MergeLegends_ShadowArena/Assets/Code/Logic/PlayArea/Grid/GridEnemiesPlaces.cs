@@ -1,16 +1,19 @@
 using System.Collections.Generic;
 using Code.Logic.PlayArea.Cell;
 using UnityEngine;
+using Zenject;
 
 namespace Code.Logic.PlayArea.Grid
 {
     public class GridEnemiesPlaces : MonoBehaviour, IGridUnitPlaces
     {
-        public List<ICellGrid> CellGrids { get; private set; } = new List<ICellGrid>();
+        private IEnemyCellsProvider _cellsProvider;
+
+        [Inject]
+        private void Construct(IEnemyCellsProvider cellsProvider)
+            => _cellsProvider = cellsProvider;
 
         public void AddCell(ICellGrid cellGrid)
-        {
-            CellGrids.Add(cellGrid);
-        }
+            => _cellsProvider.AddCell(cellGrid);
     }
 }

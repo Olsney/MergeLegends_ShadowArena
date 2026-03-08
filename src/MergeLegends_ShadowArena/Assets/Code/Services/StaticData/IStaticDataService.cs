@@ -6,6 +6,7 @@ namespace Code.Services.StaticData
     {
         LevelStaticData GetLevel(string sceneKey);
         UnitStaticData GetPlayerUnit(UnitTypeId unitTypeId);
+        UnitStaticData GetEnemy(UnitTypeId unitTypeId);
         GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
     }
 }
