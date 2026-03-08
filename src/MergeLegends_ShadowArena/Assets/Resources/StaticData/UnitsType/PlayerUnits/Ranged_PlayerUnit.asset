@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c032879a89e485aa7d29a4a58334db5, type: 3}
   m_Name: Ranged_PlayerUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitStaticData
-  UnitTypeId: 2
+  unitAttackTypeId: 2
   unitStatsByLvlSetups:
   - LvlTypeId: 1
     UnitLvlStats:
