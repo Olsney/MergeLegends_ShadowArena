@@ -79,9 +79,18 @@ namespace Code.Infrastructure.Factory.Game
             }
         }
 
-        public GameObject CreateMagicSpherePlayerUnit(Vector3 position)
+        public GameObject CreateMagicSphere(UnitTypeId unitTypeId, Vector3 position)
         {
-            UnitStaticData unitData = _staticData.GetPlayerUnit(UnitAttackTypeId.Ranged);
+            UnitStaticData unitData = null;
+
+            if (unitTypeId == UnitTypeId.PlayerUnit)
+            {
+                unitData = _staticData.GetPlayerUnit(UnitAttackTypeId.Ranged);
+            }
+            else if (unitTypeId == UnitTypeId.Enemy)
+            {
+                unitData = _staticData.GetEnemy(UnitAttackTypeId.Ranged);
+            }
 
             GameObject magicSphere = _instantiator.InstantiatePrefab(
                 unitData.GeneralData.MagicSphereData.ViewPrefab,
@@ -94,15 +103,16 @@ namespace Code.Infrastructure.Factory.Game
         public GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
             UnitLvlTypeId unitLvlTypeId, Vector3 position)
         {
+            UnitStaticData unitData;
+
             if (unitTypeId == UnitTypeId.PlayerUnit)
             {
-                UnitStaticData unitData = _staticData.GetPlayerUnit(unitAttackTypeId);
+                unitData = _staticData.GetPlayerUnit(unitAttackTypeId);
                 return CreateConcreteUnit(unitData, unitLvlTypeId, position, Quaternion.identity);
             }
-
-            if (unitTypeId == UnitTypeId.Enemy)
+            else if (unitTypeId == UnitTypeId.Enemy)
             {
-                UnitStaticData unitData = _staticData.GetEnemy(unitAttackTypeId);
+                unitData = _staticData.GetEnemy(unitAttackTypeId);
                 return CreateConcreteUnit(unitData, unitLvlTypeId, position,
                     Quaternion.Euler(0, EnemySpawnRotationY, 0));
             }
@@ -137,7 +147,7 @@ namespace Code.Infrastructure.Factory.Game
             else if (attacker is RangedAttacker rangedAttacker)
             {
                 rangedAttacker.Init(unitLvlStatsData.Damage, unitData.AttackCooldown,
-                    targetData.TargetLayerMask, magicSphereData.Speed);
+                    targetData.TargetLayerMask, magicSphereData.Speed, playerUnit.GetComponent<UnitDeath>());
             }
 
             return playerUnit;

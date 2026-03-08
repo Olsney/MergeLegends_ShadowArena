@@ -1,32 +1,49 @@
+using Code.Units.Attack;
 using UnityEngine;
+using Zenject;
 
 namespace Code.Units.Enemies
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, IUnit
     {
         public bool IsDead { get; private set; }
-    
-        private UnitDeath unitDeath;
+        public Transform Transform => transform;
+
+        private UnitNavmeshAgentMover _unitNavmeshAgentMover;
+        private IAttacker _attacker;
+        private UnitDeath _unitDeath;
+        private IEnemiesProvider _enemiesProvider;
+
+        [Inject]
+        private void Construct(IEnemiesProvider enemiesProvider)
+            => _enemiesProvider = enemiesProvider;
 
         private void Awake()
         {
-            unitDeath = GetComponent<UnitDeath>();
-            GetComponent<IHealth>().Init(100f);
+            _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
+            _attacker = GetComponentInChildren<IAttacker>();
+            _unitDeath = GetComponent<UnitDeath>();
         }
 
         private void Start()
         {
-            unitDeath.Dead += OnDead;
+            _enemiesProvider.AddUnit(this);
+            _unitDeath.Dead += OnDead;
         }
 
         private void OnDestroy()
         {
-            unitDeath.Dead -= OnDead;
+            _enemiesProvider.RemoveUnit(this);
+            _unitDeath.Dead -= OnDead;
+        }
+
+        public void Tick()
+        {
+            _unitNavmeshAgentMover.Tick();
+            _attacker.Tick();
         }
 
         private void OnDead()
-        {
-            IsDead = true;
-        }
+            => IsDead = true;
     }
 }

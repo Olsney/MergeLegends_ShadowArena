@@ -7,7 +7,7 @@ namespace Code.Infrastructure.Factory.Game
     public interface IGameFactory
     {
         PlayZone CreatePlayZone();
-        GameObject CreateMagicSpherePlayerUnit(Vector3 position);
+        GameObject CreateMagicSphere(UnitTypeId unitTypeId, Vector3 position);
         GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
             UnitLvlTypeId unitLvlTypeId, Vector3 position);
     }

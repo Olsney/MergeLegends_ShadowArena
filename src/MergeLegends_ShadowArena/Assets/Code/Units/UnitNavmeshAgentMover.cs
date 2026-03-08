@@ -2,7 +2,6 @@ using System;
 using Code.Data;
 using Code.Units.Animation;
 using Code.Units.Attack;
-using Code.Units.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,8 +15,8 @@ namespace Code.Units
         private NavMeshAgent _navMeshAgent;
         private ITargetFinder _targetFinder;
         private IAttacker _attacker;
-        private AnimateAlongNavmeshAgent animateAlongNavmeshAgent;
-        private Enemy _enemyTarget;
+        private AnimateAlongNavmeshAgent _animateAlongNavmeshAgent;
+        private IUnit _unitTarget;
 
         public event Action TargetReached;
 
@@ -26,7 +25,7 @@ namespace Code.Units
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _targetFinder = GetComponent<ITargetFinder>();
             _attacker = GetComponentInChildren<IAttacker>();
-            animateAlongNavmeshAgent = GetComponentInChildren<AnimateAlongNavmeshAgent>();
+            _animateAlongNavmeshAgent = GetComponentInChildren<AnimateAlongNavmeshAgent>();
         }
 
         public void InitConfig(float speed, float attackDistance)
@@ -44,31 +43,31 @@ namespace Code.Units
 
         public void RotateToTarget()
         {
-            if (_enemyTarget == null)
+            if (_unitTarget == null)
                 return;
 
-            transform.LookAt(_enemyTarget.transform);
+            transform.LookAt(_unitTarget.Transform);
         }
 
         public Transform GetCurrentTargetTransform()
         {
-            if (_enemyTarget == null)
+            if (_unitTarget == null)
                 return null;
             
-            return _enemyTarget.transform;
+            return _unitTarget.Transform;
         }
 
         private void UpdateTarget()
         {
             var newTarget = _targetFinder.GetTarget();
 
-            if (newTarget != _enemyTarget)
-                _enemyTarget = newTarget;
+            if (newTarget != _unitTarget)
+                _unitTarget = newTarget;
         }
 
         private void HandleMovement()
         {
-            if (_enemyTarget == null || _enemyTarget.IsDead)
+            if (_unitTarget == null || _unitTarget.IsDead)
             {
                 StopMoving();
                 return;
@@ -76,7 +75,7 @@ namespace Code.Units
 
             if (IsNeedToMove() && _attacker.IsAttacking == false)
             {
-                _navMeshAgent.destination = _enemyTarget.transform.position;
+                _navMeshAgent.destination = _unitTarget.Transform.position;
             }
             else
             {
@@ -86,7 +85,7 @@ namespace Code.Units
         }
 
         private void UpdateAnimation()
-            => animateAlongNavmeshAgent.MoveAnimation();
+            => _animateAlongNavmeshAgent.MoveAnimation();
 
         private void StopMoving()
         {
@@ -96,10 +95,10 @@ namespace Code.Units
 
         private bool IsNeedToMove()
         {
-            if (_navMeshAgent == null || _enemyTarget == null)
+            if (_navMeshAgent == null || _unitTarget == null)
                 return false;
 
-            return transform.position.SqrMagnitudeTo(_enemyTarget.transform.position) >= _sqrStopDistance;
+            return transform.position.SqrMagnitudeTo(_unitTarget.Transform.position) >= _sqrStopDistance;
         }
     }
 }

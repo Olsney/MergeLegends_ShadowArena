@@ -1,6 +1,8 @@
 using Code.Infrastructure.Factory.Game;
 using Code.StaticData;
+using Code.Units.Enemies;
 using Code.Units.MagicSphereAttack;
+using Code.Units.PlayerUnits;
 using UnityEngine;
 using Zenject;
 
@@ -28,7 +30,19 @@ namespace Code.Units.Attack
             _animationEventsReader = GetComponentInParent<AnimationEventsReader>();
             _animator = GetComponentInParent<UnitAnimator>();
             _navmeshAgentMover = GetComponentInParent<UnitNavmeshAgentMover>();
-            _magicSphere = _gameFactory.CreateMagicSpherePlayerUnit(transform.position).GetComponent<MagicSphere>();
+
+            var unit = GetComponentInParent<IUnit>();
+
+            if (unit is PlayerUnit)
+            {
+                _magicSphere = _gameFactory.CreateMagicSphere(UnitTypeId.PlayerUnit, transform.position)
+                    .GetComponent<MagicSphere>();
+            }
+            else if (unit is Enemy)
+            {
+                _magicSphere = _gameFactory.CreateMagicSphere(UnitTypeId.Enemy, transform.position)
+                    .GetComponent<MagicSphere>();
+            }
         }
 
         private void OnEnable()
@@ -45,16 +59,18 @@ namespace Code.Units.Attack
             _navmeshAgentMover.TargetReached -= StartAttack;
         }
 
-        public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask, float magicSphereSpeed)
+        public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask, float magicSphereSpeed,
+            UnitDeath unitDeath)
         {
             _attackCooldown = cooldown;
-            _magicSphere.Init(damage, targetLayerMask, magicSphereSpeed);
+            _magicSphere.Init(damage, targetLayerMask, magicSphereSpeed, unitDeath);
         }
 
         public void Tick()
         {
-            UpdateCooldown();
+            _navmeshAgentMover.RotateToTarget();
             _magicSphere.Tick();
+            UpdateCooldown();
         }
 
         private void OnAttack()

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Linq;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
@@ -12,6 +11,7 @@ namespace Code.Units.MagicSphereAttack
         private const float HitRadius = 0.25f;
         private const float ZeroPositionY = 0f;
 
+        private UnitDeath _unitDeath;
         private MagicSpherePassiveEffect _passiveEffect;
         private MagicSphereExplosionEffect _explosionEffect;
 
@@ -30,11 +30,19 @@ namespace Code.Units.MagicSphereAttack
             gameObject.SetActive(false);
         }
 
-        public void Init(float damage, LayerMaskTypeId targetLayerMask, float speed)
+        public void OnDestroy()
+        {
+            _unitDeath.Dead -= OnDestroySelf;
+        }
+
+        public void Init(float damage, LayerMaskTypeId targetLayerMask, float speed, UnitDeath unitDeath)
         {
             _damage = damage;
             _layerMask = 1 << (int)targetLayerMask;
             _speed = speed;
+
+            _unitDeath = unitDeath;
+            _unitDeath.Dead += OnDestroySelf;
         }
 
         public void Tick()
@@ -98,8 +106,11 @@ namespace Code.Units.MagicSphereAttack
 
             await UniTask.WaitForSeconds(_explosionEffect.GetDuration());
 
-            _explosionEffect.Stop();
-            Deactivate();
+            if (this != null)
+            {
+                _explosionEffect.Stop();
+                Deactivate();
+            }
         }
 
         private void Deactivate()
@@ -113,6 +124,9 @@ namespace Code.Units.MagicSphereAttack
             if (_currentLifeTime <= 0f == false)
                 _currentLifeTime -= Time.deltaTime;
         }
+
+        private void OnDestroySelf()
+            => Destroy(gameObject);
 
         private void OnDrawGizmosSelected()
         {
