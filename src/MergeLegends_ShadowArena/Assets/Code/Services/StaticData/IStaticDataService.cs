@@ -5,8 +5,9 @@ namespace Code.Services.StaticData
     public interface IStaticDataService
     {
         LevelStaticData GetLevel(string sceneKey);
-        UnitStaticData GetPlayerUnit(UnitTypeId unitTypeId);
-        UnitStaticData GetEnemy(UnitTypeId unitTypeId);
+        UnitStaticData GetPlayerUnit(UnitAttackTypeId unitAttackTypeId);
+        UnitStaticData GetEnemy(UnitAttackTypeId unitAttackTypeId);
         GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
+        SpawnEnemiesStaticData GetSpawnEnemies(GameLevelTypeId gameLevelTypeId);
     }
 }

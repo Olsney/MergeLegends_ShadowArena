@@ -2,8 +2,8 @@ using System.Linq;
 using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea.Cell;
 using Code.Services.StaticData;
+using Code.StaticData;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class EnemySpawner : IEnemySpawner
 {
@@ -21,20 +21,20 @@ public class EnemySpawner : IEnemySpawner
 
     public void Spawn()
     {
-        var enemiesConfigs = 
-            _staticDataService.GetLevel(SceneManager.GetActiveScene().name).EnemiesSpawnData;
+        var enemiesSpawnData =
+            _staticDataService.GetSpawnEnemies(GameLevelTypeId.Level1).EnemiesSpawnData;
     
         var freeCells = _cellsProvider.GetFreeCells().ToList();
     
-        int enemiesToSpawn = Mathf.Min(enemiesConfigs.Count, freeCells.Count);
+        int enemiesToSpawn = Mathf.Min(enemiesSpawnData.Count, freeCells.Count);
     
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            var config = enemiesConfigs[i];
+            var config = enemiesSpawnData[i];
             var cell = freeCells[i];
         
-            GameObject enemy = _gameFactory.CreateEnemy(
-                config.UnitTypeId, 
+            GameObject enemy = _gameFactory.CreateUnit(UnitTypeId.Enemy,
+                config.UnitAttackTypeId, 
                 config.UnitLvlTypeId, 
                 cell.Transform.position
             );

@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace Code.Logic.PlayArea.GridConfig
+namespace Code.StaticData
 {
     [Serializable]
-    public class GridConfig
+    public class GridData
     {
         public int Width;
         public int Height;

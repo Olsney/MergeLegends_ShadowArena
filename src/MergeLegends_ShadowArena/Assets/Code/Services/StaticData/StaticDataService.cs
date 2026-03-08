@@ -12,11 +12,13 @@ namespace Code.Services.StaticData
         private const string PlayerUnitsStaticDataPath = "StaticData/UnitsType/PlayerUnits";
         private const string EnemiesStaticDataPath = "StaticData/UnitsType/Enemies";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
+        private const string SpawnEnemiesStaticDataPath = "StaticData/SpawnEnemies";
 
         private Dictionary<string, LevelStaticData> _levels;
-        private Dictionary<UnitTypeId, UnitStaticData> _playerUnits;
-        private Dictionary<UnitTypeId, UnitStaticData> _enemies;
+        private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
+        private Dictionary<UnitAttackTypeId, UnitStaticData> _enemies;
         private Dictionary<GridPlacesTypeId, GridPlacesStaticData> _grids;
+        private Dictionary<GameLevelTypeId, SpawnEnemiesStaticData> _spawnEnemies;
 
         public void Initialize()
         {
@@ -31,15 +33,19 @@ namespace Code.Services.StaticData
 
             _playerUnits = Resources
                 .LoadAll<UnitStaticData>(PlayerUnitsStaticDataPath)
-                .ToDictionary(x => x.UnitTypeId, x => x);
+                .ToDictionary(x => x.unitAttackTypeId, x => x);
 
             _enemies = Resources
                 .LoadAll<UnitStaticData>(EnemiesStaticDataPath)
-                .ToDictionary(x => x.UnitTypeId, x => x);
+                .ToDictionary(x => x.unitAttackTypeId, x => x);
 
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
                 .ToDictionary(x => x.GridPlacesTypeId, x => x);
+
+            _spawnEnemies = Resources
+                .LoadAll<SpawnEnemiesStaticData>(SpawnEnemiesStaticDataPath)
+                .ToDictionary(x => x.GameLevelTypeId, x => x);
         }
 
         public LevelStaticData GetLevel(string sceneKey) =>
@@ -47,18 +53,23 @@ namespace Code.Services.StaticData
                 ? staticData
                 : null;
 
-        public UnitStaticData GetPlayerUnit(UnitTypeId unitTypeId) =>
-            _playerUnits.TryGetValue(unitTypeId, out UnitStaticData staticData)
+        public UnitStaticData GetPlayerUnit(UnitAttackTypeId unitAttackTypeId) =>
+            _playerUnits.TryGetValue(unitAttackTypeId, out UnitStaticData staticData)
                 ? staticData
                 : null;
 
-        public UnitStaticData GetEnemy(UnitTypeId unitTypeId) =>
-            _enemies.TryGetValue(unitTypeId, out UnitStaticData staticData)
+        public UnitStaticData GetEnemy(UnitAttackTypeId unitAttackTypeId) =>
+            _enemies.TryGetValue(unitAttackTypeId, out UnitStaticData staticData)
                 ? staticData
                 : null;
 
         public GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId) =>
             _grids.TryGetValue(gridPlacesTypeId, out GridPlacesStaticData staticData)
+                ? staticData
+                : null;
+
+        public SpawnEnemiesStaticData GetSpawnEnemies(GameLevelTypeId gameLevelTypeId) =>
+            _spawnEnemies.TryGetValue(gameLevelTypeId, out SpawnEnemiesStaticData staticData)
                 ? staticData
                 : null;
     }

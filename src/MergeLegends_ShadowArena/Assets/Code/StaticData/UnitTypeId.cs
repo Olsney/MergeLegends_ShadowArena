@@ -3,7 +3,7 @@
     public enum UnitTypeId
     {
         None = 0,
-        Melee = 1,
-        Ranged = 2,
+        PlayerUnit = 1,
+        Enemy = 2,
     }
 }

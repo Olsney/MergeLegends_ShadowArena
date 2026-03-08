@@ -3,9 +3,9 @@
 namespace Code.StaticData
 {
     [Serializable]
-    public class EnemyTypeSpawnConfig
+    public class EnemySpawnData
     {
-        public UnitTypeId UnitTypeId;
+        public UnitAttackTypeId UnitAttackTypeId;
         public UnitLvlTypeId  UnitLvlTypeId;
     }
 }

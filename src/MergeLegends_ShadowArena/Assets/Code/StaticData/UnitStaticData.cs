@@ -6,7 +6,7 @@ namespace Code.StaticData
     [CreateAssetMenu(fileName = "PlayerUnitData", menuName = "StaticData/Unit")]
     public class UnitStaticData : ScriptableObject
     {
-        public UnitTypeId UnitTypeId;
+        public UnitAttackTypeId unitAttackTypeId;
         public List<UnitStatsByLvlSetup> unitStatsByLvlSetups = new();
         public GeneralData GeneralData;
     

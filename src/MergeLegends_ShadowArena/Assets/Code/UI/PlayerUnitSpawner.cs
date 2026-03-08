@@ -1,5 +1,6 @@
 ﻿using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea.Cell;
+using Code.StaticData;
 
 namespace Code.UI
 {
@@ -18,16 +19,18 @@ namespace Code.UI
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.SetUnit(_gameFactory.CreateMeleePlayerUnit(cell.Transform.position));
+                cell.SetUnit(_gameFactory.CreateUnit(UnitTypeId.PlayerUnit, UnitAttackTypeId.Melee, UnitLvlTypeId.Lvl1,
+                    cell.Transform.position));
                 return;
             }
-        } 
-        
+        }
+
         public void SpawnRanged()
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.SetUnit(_gameFactory.CreateRangerPlayerUnit(cell.Transform.position));
+                cell.SetUnit(_gameFactory.CreateUnit(UnitTypeId.PlayerUnit, UnitAttackTypeId.Ranged, UnitLvlTypeId.Lvl1,
+                    cell.Transform.position));
                 return;
             }
         }
