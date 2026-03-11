@@ -3,12 +3,14 @@ using UnityEngine;
 
 namespace Code.Units
 {
+    [RequireComponent(typeof(BoxCollider))]
     public class UnitDeath : MonoBehaviour
     {
         private const float TimeToDestroy = 3f;
 
         private IHealth _health;
         private UnitAnimator _animator;
+        private BoxCollider _collider;
 
         public event Action Dead;
 
@@ -16,6 +18,7 @@ namespace Code.Units
         {
             _health = GetComponent<IHealth>();
             _animator = GetComponentInChildren<UnitAnimator>();
+            _collider = GetComponent<BoxCollider>();
         }
 
         private void Start()
@@ -36,6 +39,7 @@ namespace Code.Units
 
         private void Die()
         {
+            _collider.enabled = false;
             _health.HealthChanged -= OnHealthChanged;
             _animator.PlayDeath();
             Dead?.Invoke();

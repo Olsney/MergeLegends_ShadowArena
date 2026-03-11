@@ -30,11 +30,6 @@ namespace Code.Units.MagicSphereAttack
             gameObject.SetActive(false);
         }
 
-        public void OnDestroy()
-        {
-            _unitDeath.Dead -= OnDestroySelf;
-        }
-
         public void Init(float damage, LayerMaskTypeId targetLayerMask, float speed, UnitDeath unitDeath)
         {
             _damage = damage;
@@ -111,6 +106,10 @@ namespace Code.Units.MagicSphereAttack
                 _explosionEffect.Stop();
                 Deactivate();
             }
+            else
+            {
+                OnDestroySelf();
+            }
         }
 
         private void Deactivate()
@@ -126,7 +125,10 @@ namespace Code.Units.MagicSphereAttack
         }
 
         private void OnDestroySelf()
-            => Destroy(gameObject);
+        {
+            _unitDeath.Dead -= OnDestroySelf;
+            Destroy(gameObject);
+        }
 
         private void OnDrawGizmosSelected()
         {

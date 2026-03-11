@@ -1,10 +1,6 @@
-using Code.Infrastructure.Factory.Game;
 using Code.StaticData;
-using Code.Units.Enemies;
 using Code.Units.MagicSphereAttack;
-using Code.Units.PlayerUnits;
 using UnityEngine;
-using Zenject;
 
 namespace Code.Units.Attack
 {
@@ -12,7 +8,6 @@ namespace Code.Units.Attack
     {
         public bool IsAttacking { get; private set; }
 
-        private IGameFactory _gameFactory;
         private UnitAnimator _animator;
         private AnimationEventsReader _animationEventsReader;
         private UnitNavmeshAgentMover _navmeshAgentMover;
@@ -21,28 +16,11 @@ namespace Code.Units.Attack
         private float _attackCooldown;
         private float _currentAttackCooldown;
 
-        [Inject]
-        private void Construct(IGameFactory gameFactory)
-            => _gameFactory = gameFactory;
-
         private void Awake()
         {
             _animationEventsReader = GetComponentInParent<AnimationEventsReader>();
             _animator = GetComponentInParent<UnitAnimator>();
             _navmeshAgentMover = GetComponentInParent<UnitNavmeshAgentMover>();
-
-            var unit = GetComponentInParent<IUnit>();
-
-            if (unit is PlayerUnit)
-            {
-                _magicSphere = _gameFactory.CreateMagicSphere(UnitTypeId.PlayerUnit, transform.position)
-                    .GetComponent<MagicSphere>();
-            }
-            else if (unit is Enemy)
-            {
-                _magicSphere = _gameFactory.CreateMagicSphere(UnitTypeId.Enemy, transform.position)
-                    .GetComponent<MagicSphere>();
-            }
         }
 
         private void OnEnable()
@@ -60,9 +38,10 @@ namespace Code.Units.Attack
         }
 
         public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask, float magicSphereSpeed,
-            UnitDeath unitDeath)
+            UnitDeath unitDeath, MagicSphere magicSphere)
         {
             _attackCooldown = cooldown;
+            _magicSphere = magicSphere;
             _magicSphere.Init(damage, targetLayerMask, magicSphereSpeed, unitDeath);
         }
 
