@@ -68,7 +68,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IEnemiesProvider>().To<EnemiesProvider>().AsSingle();
             Container.Bind<IEnemyCellsProvider>().To<EnemyCellsProvider>().AsSingle();
             Container.Bind<IPlayerUnitsProvider>().To<PlayerUnitsProvider>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BattleService>().AsCached();
+            Container.BindInterfacesAndSelfTo<BattleService>().AsSingle();
         }
 
         private void BindInputService()
