@@ -46,17 +46,20 @@ namespace Code.Infrastructure.Factory.Game
         public GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
             int unitCurrentLevelIndex, Vector3 position)
         {
-            if (unitTypeId == UnitTypeId.PlayerUnit)
+            switch (unitTypeId)
             {
-                return CreateConcreteUnit(_staticData.GetPlayerUnit(unitAttackTypeId), unitCurrentLevelIndex, position,
-                    Quaternion.identity,
-                    CreateMagicSphere(UnitTypeId.PlayerUnit, position).GetComponent<MagicSphere>());
-            }
-            else
-            {
-                return CreateConcreteUnit(_staticData.GetEnemy(unitAttackTypeId), unitCurrentLevelIndex, position,
-                    Quaternion.Euler(0, EnemySpawnRotationY, 0),
-                    CreateMagicSphere(UnitTypeId.Enemy, position).GetComponent<MagicSphere>());
+                case UnitTypeId.PlayerUnit:
+                    return CreateConcreteUnit(_staticData.GetPlayerUnit(unitAttackTypeId),
+                        unitCurrentLevelIndex, position,
+                        Quaternion.identity,
+                        CreateMagicSphere(UnitTypeId.PlayerUnit, position).GetComponent<MagicSphere>());
+                case UnitTypeId.Enemy:
+                    return CreateConcreteUnit(_staticData.GetEnemy(unitAttackTypeId),
+                        unitCurrentLevelIndex, position,
+                        Quaternion.Euler(0, EnemySpawnRotationY, 0),
+                        CreateMagicSphere(UnitTypeId.Enemy, position).GetComponent<MagicSphere>());
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(unitTypeId), unitTypeId, null);
             }
         }
 
@@ -112,21 +115,21 @@ namespace Code.Infrastructure.Factory.Game
 
             playerUnit.GetComponent<IHealth>().Init(unitLevelStatsData.Hp);
             playerUnit.GetComponent<ITargetFinder>().Init(targetData.TargetLayerMask);
-            playerUnit.GetComponent<UnitNavmeshAgentMover>()
-                .InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
+            playerUnit.GetComponent<UnitNavmeshAgentMover>().InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
 
             var attacker = playerUnit.GetComponentInChildren<IAttacker>();
 
-            if (attacker is MeleeAttacker meleeAttacker)
+            switch (attacker)
             {
-                meleeAttacker.Init(unitLevelStatsData.Damage, unitData.AttackCooldown,
-                    targetData.TargetLayerMask);
-            }
-            else if (attacker is RangedAttacker rangedAttacker)
-            {
-                rangedAttacker.Init(unitLevelStatsData.Damage, unitData.AttackCooldown,
-                    targetData.TargetLayerMask, magicSphereData.Speed, playerUnit.GetComponent<UnitDeath>(),
-                    magicSphere);
+                case MeleeAttacker melee:
+                    melee.Init(unitLevelStatsData.Damage, unitData.AttackCooldown, targetData.TargetLayerMask);
+                    break;
+                case RangedAttacker ranged:
+                    ranged.Init(unitLevelStatsData.Damage, unitData.AttackCooldown, targetData.TargetLayerMask,
+                        magicSphereData.Speed, playerUnit.GetComponent<UnitDeath>(), magicSphere);
+                    break;
+                default:
+                    throw new NullReferenceException($"Unknown attacker type: {attacker}");
             }
 
             return playerUnit;
@@ -134,22 +137,22 @@ namespace Code.Infrastructure.Factory.Game
 
         private GameObject CreateMagicSphere(UnitTypeId unitTypeId, Vector3 position)
         {
-            UnitStaticData unitData = null;
+            UnitStaticData unitStaticData;
 
-            if (unitTypeId == UnitTypeId.PlayerUnit)
+            switch (unitTypeId)
             {
-                unitData = _staticData.GetPlayerUnit(UnitAttackTypeId.Ranged);
+                case UnitTypeId.PlayerUnit:
+                    unitStaticData = _staticData.GetPlayerUnit(UnitAttackTypeId.Ranged);
+                    break;
+                case UnitTypeId.Enemy:
+                    unitStaticData = _staticData.GetEnemy(UnitAttackTypeId.Ranged);
+                    break;
+                default:
+                    throw new NullReferenceException($"UnitStaticData not found for {unitTypeId}");
             }
-            else if (unitTypeId == UnitTypeId.Enemy)
-            {
-                unitData = _staticData.GetEnemy(UnitAttackTypeId.Ranged);
-            }
-
-            if (unitData == null)
-                throw new NullReferenceException("Unit data is null");
 
             GameObject magicSphere = _instantiator.InstantiatePrefab(
-                unitData.GeneralData.MagicSphereData.ViewPrefab,
+                unitStaticData.GeneralData.MagicSphereData.ViewPrefab,
                 position,
                 Quaternion.identity, null);
 

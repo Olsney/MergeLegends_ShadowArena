@@ -106,10 +106,6 @@ namespace Code.Units.MagicSphereAttack
                 _explosionEffect.Stop();
                 Deactivate();
             }
-            else
-            {
-                OnDestroySelf();
-            }
         }
 
         private void Deactivate()

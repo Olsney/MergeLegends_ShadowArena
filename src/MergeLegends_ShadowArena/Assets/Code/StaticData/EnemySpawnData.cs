@@ -6,7 +6,7 @@ namespace Code.StaticData
     [Serializable]
     public class EnemySpawnData
     {
-        [Range(0, 100)] 
+        [Min(0)] 
         public int LevelIndex;
 
         public UnitAttackTypeId UnitAttackTypeId;

@@ -54,9 +54,9 @@ namespace Code.Units.Attack
 
         private void OnAttack()
         {
-            if (_navmeshAgentMover.GetCurrentTargetTransform() == null)
+            if (_navmeshAgentMover.GetCurrentTargetTransform() == null || _magicSphere == null)
                 return;
-
+            
             _magicSphere.Launch(transform.position, _navmeshAgentMover.GetCurrentTargetTransform());
         }
 
