@@ -8,6 +8,5 @@ namespace Code.Services.StaticData
         UnitStaticData GetPlayerUnit(UnitAttackTypeId unitAttackTypeId);
         UnitStaticData GetEnemy(UnitAttackTypeId unitAttackTypeId);
         GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
-        SpawnEnemiesStaticData GetSpawnEnemies(GameLevelTypeId gameLevelTypeId);
     }
 }
