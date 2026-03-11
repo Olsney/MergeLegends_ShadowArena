@@ -1,4 +1,4 @@
-﻿namespace Code.Logic
+﻿namespace Code.Logic.BattleServices
 {
     public interface IBattleService
     {

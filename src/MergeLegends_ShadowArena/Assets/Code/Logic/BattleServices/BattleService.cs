@@ -4,7 +4,7 @@ using Code.Units.Enemies;
 using Code.Units.PlayerUnits;
 using Zenject;
 
-namespace Code.Logic
+namespace Code.Logic.BattleServices
 {
     public class BattleService : ITickable, IBattleService
     {

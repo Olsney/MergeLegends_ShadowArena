@@ -3,7 +3,7 @@ using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
-using Code.Logic;
+using Code.Logic.BattleServices;
 using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;

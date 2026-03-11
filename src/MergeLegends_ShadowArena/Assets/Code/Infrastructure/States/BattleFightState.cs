@@ -1,4 +1,4 @@
-﻿using Code.Logic;
+﻿using Code.Logic.BattleServices;
 
 namespace Code.Infrastructure.States
 {
