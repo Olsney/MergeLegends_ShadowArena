@@ -16,3 +16,30 @@ MonoBehaviour:
   PlayZonePosition: {x: 3.35, y: 0, z: -7.42}
   PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0, z: -21.669998}
   EnemiesGridPlacesPosition: {x: -1.8700004, y: 0, z: -9.77}
+  SpawnEnemiesInGameLevels:
+  - EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+  - EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1

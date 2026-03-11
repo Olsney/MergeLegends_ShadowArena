@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c032879a89e485aa7d29a4a58334db5, type: 3}
   m_Name: Melee_PlayerUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitStaticData
-  UnitTypeId: 1
-  unitStatsByLvlSetups:
-  - LvlTypeId: 1
-    UnitLvlStats:
+  unitAttackTypeId: 1
+  UnitStatsByLevelIndexSetups:
+  - UnitLevelStatsData:
       Hp: 100
       Damage: 15
       ViewPrefab: {fileID: 3073036452702465649, guid: 161ccf887532ff149af1620767f0de4b, type: 3}
   GeneralData:
     UnitData:
       MoveSpeed: 3
-      AttackDistance: 1.5
+      AttackDistance: 2
       AttackCooldown: 0.8
     TargetData:
       TargetLayerMask: 7

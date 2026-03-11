@@ -11,12 +11,5 @@ namespace Code.StaticData
         public float Spacing;
         public GameObject GridsRoot;
         public GameObject CellPrefab;
-        
-        public GridData(int width, int height, float spacing)
-        {
-            Width = width;
-            Height = height;
-            Spacing = spacing;
-        }
     }
 }

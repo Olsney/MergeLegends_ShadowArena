@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Code.StaticData
 {
     [Serializable]
-    public class UnitLvlStatsData
+    public class UnitLevelStatsData
     {
         [Range(0, 1000)]
         public float Hp;

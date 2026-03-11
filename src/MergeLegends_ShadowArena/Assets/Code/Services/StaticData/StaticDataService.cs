@@ -10,10 +10,12 @@ namespace Code.Services.StaticData
     {
         private const string LevelStaticDataPath = "StaticData/Levels";
         private const string PlayerUnitsStaticDataPath = "StaticData/UnitsType/PlayerUnits";
+        private const string EnemiesStaticDataPath = "StaticData/UnitsType/Enemies";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
 
         private Dictionary<string, LevelStaticData> _levels;
-        private Dictionary<UnitTypeId, UnitStaticData> _playerUnits;
+        private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
+        private Dictionary<UnitAttackTypeId, UnitStaticData> _enemies;
         private Dictionary<GridPlacesTypeId, GridPlacesStaticData> _grids;
 
         public void Initialize()
@@ -29,7 +31,11 @@ namespace Code.Services.StaticData
 
             _playerUnits = Resources
                 .LoadAll<UnitStaticData>(PlayerUnitsStaticDataPath)
-                .ToDictionary(x => x.UnitTypeId, x => x);
+                .ToDictionary(x => x.unitAttackTypeId, x => x);
+
+            _enemies = Resources
+                .LoadAll<UnitStaticData>(EnemiesStaticDataPath)
+                .ToDictionary(x => x.unitAttackTypeId, x => x);
 
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
@@ -41,8 +47,13 @@ namespace Code.Services.StaticData
                 ? staticData
                 : null;
 
-        public UnitStaticData GetPlayerUnit(UnitTypeId unitTypeId) =>
-            _playerUnits.TryGetValue(unitTypeId, out UnitStaticData staticData)
+        public UnitStaticData GetPlayerUnit(UnitAttackTypeId unitAttackTypeId) =>
+            _playerUnits.TryGetValue(unitAttackTypeId, out UnitStaticData staticData)
+                ? staticData
+                : null;
+
+        public UnitStaticData GetEnemy(UnitAttackTypeId unitAttackTypeId) =>
+            _enemies.TryGetValue(unitAttackTypeId, out UnitStaticData staticData)
                 ? staticData
                 : null;
 

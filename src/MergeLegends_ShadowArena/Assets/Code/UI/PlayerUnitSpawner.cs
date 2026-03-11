@@ -1,14 +1,17 @@
 ﻿using Code.Infrastructure.Factory.Game;
 using Code.Logic.PlayArea.Cell;
+using Code.StaticData;
 
 namespace Code.UI
 {
     public class PlayerUnitSpawner : IPlayerUnitSpawner
     {
+        private const int FirstLevelIndex = 0;
+        
         private readonly IGameFactory _gameFactory;
-        private readonly ICellsProvider _cellsProvider;
+        private readonly IPlayerUnitCellsProvider _cellsProvider;
 
-        public PlayerUnitSpawner(IGameFactory gameFactory, ICellsProvider cellsProvider)
+        public PlayerUnitSpawner(IGameFactory gameFactory, IPlayerUnitCellsProvider cellsProvider)
         {
             _gameFactory = gameFactory;
             _cellsProvider = cellsProvider;
@@ -18,16 +21,18 @@ namespace Code.UI
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.SetUnit(_gameFactory.CreateMeleePlayerUnit(cell.Transform.position));
+                cell.SetUnit(_gameFactory.CreateUnit(UnitTypeId.PlayerUnit, UnitAttackTypeId.Melee, FirstLevelIndex,
+                    cell.Transform.position));
                 return;
             }
-        } 
-        
+        }
+
         public void SpawnRanged()
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.SetUnit(_gameFactory.CreateRangerPlayerUnit(cell.Transform.position));
+                cell.SetUnit(_gameFactory.CreateUnit(UnitTypeId.PlayerUnit, UnitAttackTypeId.Ranged, FirstLevelIndex,
+                    cell.Transform.position));
                 return;
             }
         }

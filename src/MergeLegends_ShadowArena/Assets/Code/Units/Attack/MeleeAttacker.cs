@@ -50,6 +50,7 @@ namespace Code.Units.Attack
 
         public void Tick()
         {
+            _navmeshAgentMover.RotateToTarget();
             UpdateCooldown();
         }
 

@@ -1,4 +1,5 @@
 using Code.Logic.PlayArea;
+using Code.StaticData;
 using UnityEngine;
 
 namespace Code.Infrastructure.Factory.Game
@@ -6,8 +7,7 @@ namespace Code.Infrastructure.Factory.Game
     public interface IGameFactory
     {
         PlayZone CreatePlayZone();
-        GameObject CreateMeleePlayerUnit(Vector3 position);
-        GameObject CreateRangerPlayerUnit(Vector3 position);
-        GameObject CreateMagicSpherePlayerUnit(Vector3 position);
+        GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
+            int unitCurrentLevelIndex, Vector3 position);
     }
 }

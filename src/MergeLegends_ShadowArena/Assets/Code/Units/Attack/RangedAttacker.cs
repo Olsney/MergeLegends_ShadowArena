@@ -1,8 +1,6 @@
-using Code.Infrastructure.Factory.Game;
 using Code.StaticData;
 using Code.Units.MagicSphereAttack;
 using UnityEngine;
-using Zenject;
 
 namespace Code.Units.Attack
 {
@@ -10,7 +8,6 @@ namespace Code.Units.Attack
     {
         public bool IsAttacking { get; private set; }
 
-        private IGameFactory _gameFactory;
         private UnitAnimator _animator;
         private AnimationEventsReader _animationEventsReader;
         private UnitNavmeshAgentMover _navmeshAgentMover;
@@ -19,16 +16,11 @@ namespace Code.Units.Attack
         private float _attackCooldown;
         private float _currentAttackCooldown;
 
-        [Inject]
-        private void Construct(IGameFactory gameFactory)
-            => _gameFactory = gameFactory;
-
         private void Awake()
         {
             _animationEventsReader = GetComponentInParent<AnimationEventsReader>();
             _animator = GetComponentInParent<UnitAnimator>();
             _navmeshAgentMover = GetComponentInParent<UnitNavmeshAgentMover>();
-            _magicSphere = _gameFactory.CreateMagicSpherePlayerUnit(transform.position).GetComponent<MagicSphere>();
         }
 
         private void OnEnable()
@@ -45,23 +37,26 @@ namespace Code.Units.Attack
             _navmeshAgentMover.TargetReached -= StartAttack;
         }
 
-        public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask, float magicSphereSpeed)
+        public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask, float magicSphereSpeed,
+            UnitDeath unitDeath, MagicSphere magicSphere)
         {
             _attackCooldown = cooldown;
-            _magicSphere.Init(damage, targetLayerMask, magicSphereSpeed);
+            _magicSphere = magicSphere;
+            _magicSphere.Init(damage, targetLayerMask, magicSphereSpeed, unitDeath);
         }
 
         public void Tick()
         {
-            UpdateCooldown();
+            _navmeshAgentMover.RotateToTarget();
             _magicSphere.Tick();
+            UpdateCooldown();
         }
 
         private void OnAttack()
         {
-            if (_navmeshAgentMover.GetCurrentTargetTransform() == null)
+            if (_navmeshAgentMover.GetCurrentTargetTransform() == null || _magicSphere == null)
                 return;
-
+            
             _magicSphere.Launch(transform.position, _navmeshAgentMover.GetCurrentTargetTransform());
         }
 

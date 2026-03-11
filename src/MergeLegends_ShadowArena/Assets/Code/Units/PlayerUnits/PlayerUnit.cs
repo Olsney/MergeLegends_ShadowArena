@@ -4,31 +4,47 @@ using Zenject;
 
 namespace Code.Units.PlayerUnits
 {
-    public class PlayerUnit : MonoBehaviour
+    public class PlayerUnit : MonoBehaviour, IUnit
     {
         public bool IsDead { get; private set; }
-        public UnitNavmeshAgentMover UnitNavmeshAgentMover { get; private set; }
-        public IAttacker Attacker { get; private set; }
+        public Transform Transform => transform;
 
+        private UnitNavmeshAgentMover _unitNavmeshAgentMover;
+        private IAttacker _attacker;
         private UnitDeath _unitDeath;
-        private IPlayerUnitProvider _playerUnitProvider;
+        private IPlayerUnitsProvider _playerUnitsProvider;
 
         [Inject]
-        private void Construct(IPlayerUnitProvider playerUnitProvider)
-            => _playerUnitProvider = playerUnitProvider;
+        private void Construct(IPlayerUnitsProvider playerUnitsProvider)
+            => _playerUnitsProvider = playerUnitsProvider;
 
         private void Awake()
         {
-            UnitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
-            Attacker = GetComponentInChildren<IAttacker>();
+            _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
+            _attacker = GetComponentInChildren<IAttacker>();
             _unitDeath = GetComponent<UnitDeath>();
         }
 
         private void Start()
-            => _playerUnitProvider.AddUnit(this);
+        {
+            _playerUnitsProvider.AddUnit(this);
+            _unitDeath.Dead += OnDead;
+        }
 
         private void OnDestroy()
-            => _playerUnitProvider.RemoveUnit(this);
+        {
+            _playerUnitsProvider.RemoveUnit(this);
+            _unitDeath.Dead -= OnDead;
+        }
+
+        public void Tick()
+        {
+            if (IsDead)
+                return;
+
+            _unitNavmeshAgentMover.Tick();
+            _attacker.Tick();
+        }
 
         private void OnDead()
             => IsDead = true;

@@ -3,7 +3,8 @@ using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.States;
-using Code.Logic;
+using Code.Logic.BattleServices;
+using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.Input;
@@ -12,6 +13,7 @@ using Code.Services.StaticData;
 using Code.UI;
 using Code.UI.Factory;
 using Code.UI.Services.Windows;
+using Code.Units.Enemies;
 using Code.Units.PlayerUnits;
 using UnityEngine;
 using Zenject;
@@ -62,9 +64,11 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
-            Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
-            Container.Bind<IPlayerUnitProvider>().To<PlayerUnitProvider>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BattleService>().AsCached();
+            Container.Bind<IPlayerUnitCellsProvider>().To<PlayerUnitCellsProvider>().AsSingle();
+            Container.Bind<IEnemiesProvider>().To<EnemiesProvider>().AsSingle();
+            Container.Bind<IEnemyCellsProvider>().To<EnemyCellsProvider>().AsSingle();
+            Container.Bind<IPlayerUnitsProvider>().To<PlayerUnitsProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BattleService>().AsSingle();
         }
 
         private void BindInputService()
@@ -81,6 +85,7 @@ namespace Code.Infrastructure.Installers
         private void BindSpawners()
         {
             Container.Bind<IPlayerUnitSpawner>().To<PlayerUnitSpawner>().AsSingle();
+            Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
         }
     }
 }
