@@ -4,15 +4,15 @@ namespace Code.Units.PlayerUnits
 {
     public class PlayerUnitsProvider : IPlayerUnitsProvider
     {
-        private readonly List<IUnit> _units = new();
+        private readonly List<PlayerUnit> _playerUnits = new();
 
-        public void AddUnit(IUnit unit) 
-            => _units.Add(unit);
+        public void AddUnit(PlayerUnit playerUnit) 
+            => _playerUnits.Add(playerUnit);
         
-        public void RemoveUnit(IUnit unit) 
-            => _units.Remove(unit);
+        public void RemoveUnit(PlayerUnit playerUnit) 
+            => _playerUnits.Remove(playerUnit);
 
         public IReadOnlyList<IUnit> GetUnits() 
-            => _units;
+            => _playerUnits;
     }
 }
