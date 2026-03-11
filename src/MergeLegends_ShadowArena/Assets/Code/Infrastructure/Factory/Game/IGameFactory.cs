@@ -8,6 +8,6 @@ namespace Code.Infrastructure.Factory.Game
     {
         PlayZone CreatePlayZone();
         GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
-            UnitLvlTypeId unitLvlTypeId, Vector3 position);
+            int unitCurrentLevelIndex, Vector3 position);
     }
 }

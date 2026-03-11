@@ -41,7 +41,7 @@ namespace Code.Logic.EnemySpawners
 
                 GameObject enemy = _gameFactory.CreateUnit(UnitTypeId.Enemy,
                     config.UnitAttackTypeId,
-                    config.UnitLvlTypeId,
+                    config.LevelIndex,
                     cell.Transform.position
                 );
 

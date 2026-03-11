@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Enemy_Melee
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.UnitStaticData
   unitAttackTypeId: 1
-  unitStatsByLvlSetups:
-  - LvlTypeId: 1
-    UnitLvlStats:
+  UnitStatsByLevelIndexSetups:
+  - UnitLevelStatsData:
       Hp: 100
       Damage: 15
       ViewPrefab: {fileID: 8591336734477682272, guid: e0406cb8358bfd3458d89d63b3187577, type: 3}

@@ -18,23 +18,28 @@ MonoBehaviour:
   EnemiesGridPlacesPosition: {x: -1.8700004, y: 0, z: -9.77}
   SpawnEnemiesInGameLevels:
   - EnemiesSpawnData:
-    - UnitAttackTypeId: 1
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 1
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 1
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 1
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 1
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 2
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 2
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 2
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 2
-      UnitLvlTypeId: 1
-    - UnitAttackTypeId: 2
-      UnitLvlTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+  - EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1

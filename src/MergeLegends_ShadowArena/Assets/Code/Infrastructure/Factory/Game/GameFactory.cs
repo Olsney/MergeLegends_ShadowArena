@@ -44,25 +44,20 @@ namespace Code.Infrastructure.Factory.Game
         }
 
         public GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
-            UnitLvlTypeId unitLvlTypeId, Vector3 position)
+            int unitCurrentLevelIndex, Vector3 position)
         {
-            UnitStaticData unitData;
-
             if (unitTypeId == UnitTypeId.PlayerUnit)
             {
-                unitData = _staticData.GetPlayerUnit(unitAttackTypeId);
-                return CreateConcreteUnit(unitData, unitLvlTypeId, position, Quaternion.identity,
+                return CreateConcreteUnit(_staticData.GetPlayerUnit(unitAttackTypeId), unitCurrentLevelIndex, position,
+                    Quaternion.identity,
                     CreateMagicSphere(UnitTypeId.PlayerUnit, position).GetComponent<MagicSphere>());
             }
-            else if (unitTypeId == UnitTypeId.Enemy)
+            else
             {
-                unitData = _staticData.GetEnemy(unitAttackTypeId);
-                return CreateConcreteUnit(unitData, unitLvlTypeId, position,
+                return CreateConcreteUnit(_staticData.GetEnemy(unitAttackTypeId), unitCurrentLevelIndex, position,
                     Quaternion.Euler(0, EnemySpawnRotationY, 0),
                     CreateMagicSphere(UnitTypeId.Enemy, position).GetComponent<MagicSphere>());
             }
-
-            return null;
         }
 
         private void CreateGridZone(Vector3 position, GridPlacesTypeId gridPlacesTypeId)
@@ -104,18 +99,18 @@ namespace Code.Infrastructure.Factory.Game
         }
 
         private GameObject CreateConcreteUnit(UnitStaticData unitStaticData,
-            UnitLvlTypeId unitLvlTypeId, Vector3 position, Quaternion rotation, MagicSphere magicSphere)
+            int unitCurrentLevelIndex, Vector3 position, Quaternion rotation, MagicSphere magicSphere)
         {
-            UnitLvlStatsData unitLvlStatsData = unitStaticData.GetStatsLvl(unitLvlTypeId);
+            UnitLevelStatsData unitLevelStatsData = unitStaticData.GetStatsLvl(unitCurrentLevelIndex);
             TargetData targetData = unitStaticData.GeneralData.TargetData;
             UnitData unitData = unitStaticData.GeneralData.UnitData;
             MagicSphereData magicSphereData = unitStaticData.GeneralData.MagicSphereData;
 
             GameObject playerUnit = _instantiator.InstantiatePrefab(
-                unitLvlStatsData.ViewPrefab, position,
+                unitLevelStatsData.ViewPrefab, position,
                 rotation, null);
 
-            playerUnit.GetComponent<IHealth>().Init(unitLvlStatsData.Hp);
+            playerUnit.GetComponent<IHealth>().Init(unitLevelStatsData.Hp);
             playerUnit.GetComponent<ITargetFinder>().Init(targetData.TargetLayerMask);
             playerUnit.GetComponent<UnitNavmeshAgentMover>()
                 .InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
@@ -124,12 +119,12 @@ namespace Code.Infrastructure.Factory.Game
 
             if (attacker is MeleeAttacker meleeAttacker)
             {
-                meleeAttacker.Init(unitLvlStatsData.Damage, unitData.AttackCooldown,
+                meleeAttacker.Init(unitLevelStatsData.Damage, unitData.AttackCooldown,
                     targetData.TargetLayerMask);
             }
             else if (attacker is RangedAttacker rangedAttacker)
             {
-                rangedAttacker.Init(unitLvlStatsData.Damage, unitData.AttackCooldown,
+                rangedAttacker.Init(unitLevelStatsData.Damage, unitData.AttackCooldown,
                     targetData.TargetLayerMask, magicSphereData.Speed, playerUnit.GetComponent<UnitDeath>(),
                     magicSphere);
             }
@@ -152,7 +147,7 @@ namespace Code.Infrastructure.Factory.Game
 
             if (unitData == null)
                 throw new NullReferenceException("Unit data is null");
-            
+
             GameObject magicSphere = _instantiator.InstantiatePrefab(
                 unitData.GeneralData.MagicSphereData.ViewPrefab,
                 position,

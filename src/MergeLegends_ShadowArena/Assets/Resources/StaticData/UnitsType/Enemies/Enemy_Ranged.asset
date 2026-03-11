@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Enemy_Ranged
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.UnitStaticData
   unitAttackTypeId: 2
-  unitStatsByLvlSetups:
-  - LvlTypeId: 1
-    UnitLvlStats:
-      Hp: 75
+  UnitStatsByLevelIndexSetups:
+  - UnitLevelStatsData:
+      Hp: 100
       Damage: 25
       ViewPrefab: {fileID: 8591336734477682272, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
   GeneralData:
