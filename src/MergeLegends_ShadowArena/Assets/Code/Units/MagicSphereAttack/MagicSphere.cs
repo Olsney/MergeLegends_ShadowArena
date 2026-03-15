@@ -1,4 +1,3 @@
-using System.Linq;
 using Code.StaticData;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -45,6 +44,12 @@ namespace Code.Units.MagicSphereAttack
             if (_isActive == false)
                 return;
 
+            if (_targetTransform == null)
+            {
+                Deactivate();
+                return;
+            }
+
             Move();
             UpdateLifeTime();
 
@@ -87,7 +92,7 @@ namespace Code.Units.MagicSphereAttack
         {
             int hitAmount = Physics.OverlapSphereNonAlloc(transform.position, HitRadius, _hits, _layerMask);
 
-            hit = _hits.FirstOrDefault();
+            hit = hitAmount > 0 ? _hits[0] : null;
 
             return hitAmount > 0;
         }

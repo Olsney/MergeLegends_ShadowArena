@@ -46,18 +46,22 @@ namespace Code.Infrastructure.Factory.Game
         public GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
             int unitCurrentLevelIndex, Vector3 position)
         {
+            MagicSphere magicSphere = unitAttackTypeId == UnitAttackTypeId.Ranged
+                ? CreateMagicSphere(unitTypeId, position).GetComponent<MagicSphere>()
+                : null;
+
             switch (unitTypeId)
             {
                 case UnitTypeId.PlayerUnit:
                     return CreateConcreteUnit(_staticData.GetPlayerUnit(unitAttackTypeId),
                         unitCurrentLevelIndex, position,
                         Quaternion.identity,
-                        CreateMagicSphere(UnitTypeId.PlayerUnit, position).GetComponent<MagicSphere>());
+                        magicSphere);
                 case UnitTypeId.Enemy:
                     return CreateConcreteUnit(_staticData.GetEnemy(unitAttackTypeId),
                         unitCurrentLevelIndex, position,
                         Quaternion.Euler(0, EnemySpawnRotationY, 0),
-                        CreateMagicSphere(UnitTypeId.Enemy, position).GetComponent<MagicSphere>());
+                        magicSphere);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitTypeId), unitTypeId, null);
             }

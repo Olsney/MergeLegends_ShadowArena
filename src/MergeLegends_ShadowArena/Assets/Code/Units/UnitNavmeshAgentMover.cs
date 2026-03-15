@@ -31,7 +31,7 @@ namespace Code.Units
         public void InitConfig(float speed, float attackDistance)
         {
             _navMeshAgent.speed = speed;
-            _sqrStopDistance = attackDistance;
+            _sqrStopDistance = attackDistance * attackDistance;
         }
 
         public void Tick()
