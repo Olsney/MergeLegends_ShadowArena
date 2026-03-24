@@ -22,6 +22,8 @@ namespace Code.Units.MagicSphereAttack
         private float _currentLifeTime;
         private float _damage;
         private Transform _targetTransform;
+        private Vector3 _lastDirection;
+        private Vector3 _direction;
 
         private void Awake()
         {
@@ -50,7 +52,7 @@ namespace Code.Units.MagicSphereAttack
 
             if (_currentLifeTime <= 0f)
             {
-                Deactivate();
+                StartExplosionAsync();
                 return;
             }
 
@@ -59,20 +61,33 @@ namespace Code.Units.MagicSphereAttack
 
         private void Move()
         {
-            Vector3 direction = (_targetTransform.position - transform.position).normalized;
-            direction.y = ZeroPositionY;
-            transform.position += direction * _speed * Time.deltaTime;
+            if (_targetTransform != null)
+            {
+                _direction = (_targetTransform.position - transform.position).normalized;
+                _lastDirection = _direction;
+            }
+            else
+            {
+                _direction = _lastDirection;
+            }
+    
+            _direction.y = ZeroPositionY;
+            transform.position += _direction * _speed * Time.deltaTime;
         }
 
         public void Launch(Vector3 position, Transform targetTransform)
         {
             transform.position = new Vector3(position.x, position.y, position.z);
             _targetTransform = targetTransform;
+            _lastDirection = (targetTransform.position - position).normalized;
             _currentLifeTime = LifeTime;
             _isActive = true;
             gameObject.SetActive(true);
             _passiveEffect.Play();
         }
+
+        public void ResetTargetTransform() 
+            => _targetTransform = null;
 
         private void Hit()
         {

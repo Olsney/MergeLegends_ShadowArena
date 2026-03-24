@@ -57,12 +57,12 @@ namespace Code.Units
             transform.LookAt(_unitTarget.Transform);
         }
 
-        public Transform GetCurrentTargetTransform()
+        public IUnit GetCurrentTarget()
         {
             if (_unitTarget == null)
                 return null;
-
-            return _unitTarget.Transform;
+            
+            return _unitTarget;
         }
 
         private void UpdateTarget()
