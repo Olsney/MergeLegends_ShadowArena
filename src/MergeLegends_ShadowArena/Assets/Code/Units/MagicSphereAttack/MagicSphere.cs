@@ -8,7 +8,7 @@ namespace Code.Units.MagicSphereAttack
     public class MagicSphere : MonoBehaviour
     {
         private const float LifeTime = 3f;
-        private const float HitRadius = 0.25f;
+        private const float HitRadius = 1f;
         private const float ZeroPositionY = 0f;
 
         private UnitDeath _unitDeath;
