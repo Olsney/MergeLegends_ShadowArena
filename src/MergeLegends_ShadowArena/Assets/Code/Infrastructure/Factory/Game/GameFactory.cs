@@ -9,6 +9,7 @@ using Code.UI;
 using Code.Units;
 using Code.Units.Attack;
 using Code.Units.MagicSphereAttack;
+using Code.Units.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
