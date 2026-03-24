@@ -12,6 +12,7 @@ namespace Code.Units
     {
         private float _sqrStopDistance;
 
+        private UnitDeath _unitDeath;
         private NavMeshAgent _navMeshAgent;
         private ITargetFinder _targetFinder;
         private IAttacker _attacker;
@@ -26,7 +27,14 @@ namespace Code.Units
             _targetFinder = GetComponent<ITargetFinder>();
             _attacker = GetComponentInChildren<IAttacker>();
             _animateAlongNavmeshAgent = GetComponentInChildren<AnimateAlongNavmeshAgent>();
+            _unitDeath = GetComponent<UnitDeath>();
         }
+
+        private void Start() 
+            => _unitDeath.Dead += StopMoving;
+
+        private void OnDestroy() 
+            => _unitDeath.Dead -= StopMoving;
 
         public void InitConfig(float speed, float attackDistance)
         {
@@ -53,7 +61,7 @@ namespace Code.Units
         {
             if (_unitTarget == null)
                 return null;
-            
+
             return _unitTarget.Transform;
         }
 
