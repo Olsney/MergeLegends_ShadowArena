@@ -5,6 +5,7 @@ using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.Grid;
 using Code.Services.StaticData;
 using Code.StaticData;
+using Code.UI;
 using Code.Units;
 using Code.Units.Attack;
 using Code.Units.MagicSphereAttack;
@@ -52,12 +53,12 @@ namespace Code.Infrastructure.Factory.Game
                     return CreateConcreteUnit(_staticData.GetPlayerUnit(unitAttackTypeId),
                         unitCurrentLevelIndex, position,
                         Quaternion.identity,
-                        CreateMagicSphere(UnitTypeId.PlayerUnit, position).GetComponent<MagicSphere>());
+                        UnitTypeId.PlayerUnit, position);
                 case UnitTypeId.Enemy:
                     return CreateConcreteUnit(_staticData.GetEnemy(unitAttackTypeId),
                         unitCurrentLevelIndex, position,
-                        Quaternion.Euler(0, EnemySpawnRotationY, 0),
-                        CreateMagicSphere(UnitTypeId.Enemy, position).GetComponent<MagicSphere>());
+                        Quaternion.Euler(0, EnemySpawnRotationY, 0), 
+                        UnitTypeId.Enemy, position);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitTypeId), unitTypeId, null);
             }
@@ -102,22 +103,24 @@ namespace Code.Infrastructure.Factory.Game
         }
 
         private GameObject CreateConcreteUnit(UnitStaticData unitStaticData,
-            int unitCurrentLevelIndex, Vector3 position, Quaternion rotation, MagicSphere magicSphere)
+            int unitCurrentLevelIndex, Vector3 position, Quaternion rotation, UnitTypeId unitTypeId,
+            Vector3 magicSpherePosition)
         {
             UnitLevelStatsData unitLevelStatsData = unitStaticData.GetStatsLvl(unitCurrentLevelIndex);
             TargetData targetData = unitStaticData.GeneralData.TargetData;
             UnitData unitData = unitStaticData.GeneralData.UnitData;
             MagicSphereData magicSphereData = unitStaticData.GeneralData.MagicSphereData;
 
-            GameObject playerUnit = _instantiator.InstantiatePrefab(
+            GameObject unit = _instantiator.InstantiatePrefab(
                 unitLevelStatsData.ViewPrefab, position,
                 rotation, null);
 
-            playerUnit.GetComponent<IHealth>().Init(unitLevelStatsData.Hp);
-            playerUnit.GetComponent<ITargetFinder>().Init(targetData.TargetLayerMask);
-            playerUnit.GetComponent<UnitNavmeshAgentMover>().InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
+            unit.GetComponent<IHealth>().Init(unitLevelStatsData.Hp);
+            unit.GetComponent<ITargetFinder>().Init(targetData.TargetLayerMask);
+            unit.GetComponent<UnitNavmeshAgentMover>().InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
+            unit.GetComponentInChildren<UnitLevelShower>().Init(unitCurrentLevelIndex);
 
-            var attacker = playerUnit.GetComponentInChildren<IAttacker>();
+            var attacker = unit.GetComponentInChildren<IAttacker>();
 
             switch (attacker)
             {
@@ -126,13 +129,14 @@ namespace Code.Infrastructure.Factory.Game
                     break;
                 case RangedAttacker ranged:
                     ranged.Init(unitLevelStatsData.Damage, unitData.AttackCooldown, targetData.TargetLayerMask,
-                        magicSphereData.Speed, playerUnit.GetComponent<UnitDeath>(), magicSphere);
+                        magicSphereData.Speed, unit.GetComponent<UnitDeath>(),
+                        CreateMagicSphere(unitTypeId, magicSpherePosition).GetComponent<MagicSphere>());
                     break;
                 default:
                     throw new NullReferenceException($"Unknown attacker type: {attacker}");
             }
 
-            return playerUnit;
+            return unit;
         }
 
         private GameObject CreateMagicSphere(UnitTypeId unitTypeId, Vector3 position)

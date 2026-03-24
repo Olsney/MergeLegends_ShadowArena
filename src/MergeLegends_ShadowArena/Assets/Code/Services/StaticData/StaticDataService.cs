@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.Services.Windows;
 using Code.StaticData;
 using UnityEngine;
 using Zenject;
@@ -12,11 +13,13 @@ namespace Code.Services.StaticData
         private const string PlayerUnitsStaticDataPath = "StaticData/UnitsType/PlayerUnits";
         private const string EnemiesStaticDataPath = "StaticData/UnitsType/Enemies";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
+        private const string StaticDataWindowPath = "StaticData/UI/WindowStaticData";
 
         private Dictionary<string, LevelStaticData> _levels;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _enemies;
         private Dictionary<GridPlacesTypeId, GridPlacesStaticData> _grids;
+        private Dictionary<WindowType, WindowData> _windowConfigs;
 
         public void Initialize()
         {
@@ -40,6 +43,11 @@ namespace Code.Services.StaticData
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
                 .ToDictionary(x => x.GridPlacesTypeId, x => x);
+            
+            _windowConfigs = Resources
+                .Load<WindowStaticData>(StaticDataWindowPath)
+                .WindowDatas
+                .ToDictionary(x => x.windowType, x => x);
         }
 
         public LevelStaticData GetLevel(string sceneKey) =>
@@ -60,6 +68,11 @@ namespace Code.Services.StaticData
         public GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId) =>
             _grids.TryGetValue(gridPlacesTypeId, out GridPlacesStaticData staticData)
                 ? staticData
+                : null;
+        
+        public WindowData GetWindow(WindowType windowType) =>
+            _windowConfigs.TryGetValue(windowType, out WindowData windowData)
+                ? windowData
                 : null;
     }
 }
