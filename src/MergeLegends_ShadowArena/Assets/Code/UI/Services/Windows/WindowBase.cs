@@ -33,7 +33,7 @@ namespace Code.UI.Services.Windows
 
         public void Open()
         {
-            OnOpen();
+            gameObject.SetActive(true);
         }
 
         protected virtual void OnAwake()
@@ -54,19 +54,9 @@ namespace Code.UI.Services.Windows
         {
         }
 
-        protected virtual void OnOpen()
-        {
-            gameObject.SetActive(true);
-        }
-
-        protected virtual void OnClose()
-        {
-            gameObject.SetActive(false);
-        }
-
         private void Close()
         {
-            OnClose();
+            gameObject.SetActive(false);
         }
     }
 }
