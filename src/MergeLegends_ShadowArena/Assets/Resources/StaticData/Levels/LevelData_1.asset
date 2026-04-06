@@ -20,26 +20,21 @@ MonoBehaviour:
   - EnemiesSpawnData:
     - LevelIndex: 0
       UnitAttackTypeId: 1
-    - LevelIndex: 0
+    - LevelIndex: 1
       UnitAttackTypeId: 1
-    - LevelIndex: 0
+    - LevelIndex: 2
       UnitAttackTypeId: 1
-    - LevelIndex: 0
+    - LevelIndex: 3
       UnitAttackTypeId: 1
-    - LevelIndex: 0
+    - LevelIndex: 4
       UnitAttackTypeId: 1
-    - LevelIndex: 0
-      UnitAttackTypeId: 2
-    - LevelIndex: 0
-      UnitAttackTypeId: 2
-    - LevelIndex: 0
-      UnitAttackTypeId: 2
-    - LevelIndex: 0
-      UnitAttackTypeId: 2
-    - LevelIndex: 0
-      UnitAttackTypeId: 2
-  - EnemiesSpawnData:
-    - LevelIndex: 0
+    - LevelIndex: 5
       UnitAttackTypeId: 1
-    - LevelIndex: 0
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+    - LevelIndex: 9
       UnitAttackTypeId: 1
