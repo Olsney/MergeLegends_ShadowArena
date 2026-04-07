@@ -76,6 +76,18 @@ PrefabInstance:
       propertyPath: m_SkinnedMotionVectors
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
+      propertyPath: m_Color.b
+      value: 0.06666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
+      propertyPath: m_Color.g
+      value: 0.06666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6502506020497929645, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -115,6 +127,18 @@ PrefabInstance:
     - target: {fileID: 6502506020497929645, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
+      propertyPath: m_Color.b
+      value: 0.06666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8591336734477682272, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       propertyPath: m_Name
