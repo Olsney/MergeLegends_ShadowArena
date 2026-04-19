@@ -12,7 +12,9 @@ namespace Code.Units.Attack
         private AnimationEventsReader _animationEventsReader;
         private UnitNavmeshAgentMover _navmeshAgentMover;
         private MagicSphere _magicSphere;
+        private IUnit _targetUnit;
 
+        private bool _isTargetUnitDead;
         private float _attackCooldown;
         private float _currentAttackCooldown;
 
@@ -50,14 +52,26 @@ namespace Code.Units.Attack
             _navmeshAgentMover.RotateToTarget();
             _magicSphere.Tick();
             UpdateCooldown();
+
+            if (_targetUnit == null || _targetUnit.IsDead)
+            {
+                if (_isTargetUnitDead == false)
+                {
+                    _isTargetUnitDead = true;
+                    _magicSphere.ResetTargetTransform();
+                }
+            }
         }
 
         private void OnAttack()
         {
-            if (_navmeshAgentMover.GetCurrentTargetTransform() == null || _magicSphere == null)
+            _targetUnit = _navmeshAgentMover.GetCurrentTarget();
+
+            if (_navmeshAgentMover.GetCurrentTarget() == null || _magicSphere == null)
                 return;
-            
-            _magicSphere.Launch(transform.position, _navmeshAgentMover.GetCurrentTargetTransform());
+
+            _isTargetUnitDead = false;
+            _magicSphere.Launch(transform.position, _navmeshAgentMover.GetCurrentTarget().Transform);
         }
 
         private void OnAttackEnded()

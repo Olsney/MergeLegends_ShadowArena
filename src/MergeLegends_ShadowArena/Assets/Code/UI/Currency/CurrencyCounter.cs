@@ -1,33 +1,32 @@
-﻿using System;
-using TMPro;
+﻿using Code.Services.PersistentProgress;
+using Code.UI.Texts;
 using UnityEngine;
+using Zenject;
 
 namespace Code.UI.Currency
 {
     public class CurrencyCounter : MonoBehaviour
     {
-        [field: SerializeField] public TextMeshProUGUI CurrentValue { get; private set; }
-        
-        //TODO: Дописать сюда когда будет что. 
-        // protected IWorldData WorldData;
+        private CurrencyText currencyText;
+        private IPersistentProgressService _progressService;
 
-        // private void Start()
-        // {
-        //     UpdateCounter();
-        // }
+        private void Awake()
+            => currencyText = GetComponentInChildren<CurrencyText>();
 
-        // protected int Score => WorldData.CurrencyCountValue;
-        
-        // [Inject]
-        // public void Construct(IWorldData worldData)
-        // {
-        //   WorldData = worldData;
-        //   WorldData.CurrecnyData.Changed += UpdateCounter;
-        // }
+        private void Start()
+            => UpdateCounter();
 
-        // private void UpdateCounter()
-        // {
-        //     CurrentValue.text = $"{WoroldData.CurrecnyData.Collected}"
-        // }
+        private void OnDestroy()
+            => _progressService.Progress.WorldData.CurrencyData.Changed -= UpdateCounter;
+
+        [Inject]
+        public void Construct(IPersistentProgressService progressService)
+        {
+            _progressService = progressService;
+            _progressService.Progress.WorldData.CurrencyData.Changed += UpdateCounter;
+        }
+
+        private void UpdateCounter()
+            => currencyText.TextMeshPro.text = $"{_progressService.Progress.WorldData.CurrencyData.Value}";
     }
 }

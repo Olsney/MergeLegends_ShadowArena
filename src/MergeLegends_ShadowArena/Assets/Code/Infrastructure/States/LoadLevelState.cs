@@ -1,8 +1,7 @@
 using Code.Infrastructure.Factory.Game;
+using Code.Services.PersistentProgress;
 using Code.Services.StaticData;
-using Code.StaticData;
 using Code.UI.Factory;
-using UnityEngine.SceneManagement;
 
 namespace Code.Infrastructure.States
 {
@@ -15,13 +14,15 @@ namespace Code.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
         private readonly IStaticDataService _staticData;
+        private readonly IPersistentProgressService _progressService;
 
         public LoadLevelState(
             GameStateMachine stateMachine,
             SceneLoader sceneLoader,
             IGameFactory gameFactory,
             IUIFactory uiFactory,
-            IStaticDataService staticData
+            IStaticDataService staticData,
+            IPersistentProgressService progressService
         )
         {
             _stateMachine = stateMachine;
@@ -29,6 +30,7 @@ namespace Code.Infrastructure.States
             _gameFactory = gameFactory;
             _uiFactory = uiFactory;
             _staticData = staticData;
+            _progressService = progressService;
         }
 
         public void Enter(string sceneName)
@@ -44,12 +46,22 @@ namespace Code.Infrastructure.States
         {
             InitUIRoot();
             InitGameWorld();
+            InformProgressReaders();
 
             _stateMachine.Enter<BattleStateMachine>();
         }
 
+        private void InformProgressReaders()
+        {
+            foreach (ISavedProgressReader progressReader in _uiFactory.ProgressReaders)
+                progressReader.LoadProgress(_progressService.Progress);
+        }
+        
         private void InitGameWorld()
-            => _uiFactory.CreateHud();
+        {
+            _uiFactory.CreateHud();
+            _uiFactory.CreateSettingsPresenter();
+        }
 
         private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();
