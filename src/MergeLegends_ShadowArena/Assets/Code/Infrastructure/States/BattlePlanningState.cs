@@ -3,6 +3,8 @@ using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea;
 using Code.UI;
 using Code.UI.Factory;
+using Code.UI.Fights;
+using Code.UI.SpawnUnits;
 
 namespace Code.Infrastructure.States
 {
@@ -12,6 +14,7 @@ namespace Code.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IEnemySpawner _enemySpawner;
 
+        private UnitSpawnerViewsRoot _unitSpawnerViewsRoot;
         private MeleePlayerUnitSpawnerPresenter _meleeSpawnPresenter;
         private RangedPlayerUnitSpawnerPresenter _rangedSpawnPresenter;
         private FightPresenter _fightPresenter;
@@ -26,8 +29,13 @@ namespace Code.Infrastructure.States
 
         public void Enter()
         {
-            _meleeSpawnPresenter = _uiFactory.CreateSpawnMeleePlayerUnitPresenter();
-            _rangedSpawnPresenter = _uiFactory.CreateSpawnRangedPlayerUnitPresenter();
+            _unitSpawnerViewsRoot = _uiFactory.CreateSpawnerViewsRoot();
+
+            _meleeSpawnPresenter =
+                _uiFactory.CreateSpawnMeleePlayerUnitPresenter(_unitSpawnerViewsRoot.GetViewsBarTransform());
+            _rangedSpawnPresenter =
+                _uiFactory.CreateSpawnRangedPlayerUnitPresenter(_unitSpawnerViewsRoot.GetViewsBarTransform());
+
             _fightPresenter = _uiFactory.CreateFightPresenter();
             _playZone = _gameFactory.CreatePlayZone();
             _enemySpawner.Spawn();
@@ -47,6 +55,7 @@ namespace Code.Infrastructure.States
             _rangedSpawnPresenter = null;
             _fightPresenter = null;
 
+            _unitSpawnerViewsRoot.Remove();
             _playZone.Remove();
         }
     }

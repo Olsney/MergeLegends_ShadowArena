@@ -8,11 +8,13 @@ using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.Input;
+using Code.Services.PersistentProgress;
 using Code.Services.Raycast;
+using Code.Services.SaveLoad;
 using Code.Services.StaticData;
 using Code.UI;
 using Code.UI.Factory;
-using Code.UI.Services.Windows;
+using Code.UI.SpawnUnits;
 using Code.Units.Enemies;
 using Code.Units.PlayerUnits;
 using UnityEngine;
@@ -27,6 +29,7 @@ namespace Code.Infrastructure.Installers
             BindCoroutine();
             BindFactories();
             BindStates();
+            BindInputService();
             BindServices();
             BindSceneLoader();
             BindSpawners();
@@ -56,10 +59,8 @@ namespace Code.Infrastructure.Installers
 
         private void BindServices()
         {
-            BindInputService();
             Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
-            Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
@@ -69,6 +70,8 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IEnemyCellsProvider>().To<EnemyCellsProvider>().AsSingle();
             Container.Bind<IPlayerUnitsProvider>().To<PlayerUnitsProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<BattleService>().AsSingle();
+            Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
+            Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
         }
 
         private void BindInputService()

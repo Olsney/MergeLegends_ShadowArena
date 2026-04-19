@@ -1,3 +1,4 @@
+using Code.Services.Windows;
 using Code.StaticData;
 
 namespace Code.Services.StaticData
@@ -8,5 +9,6 @@ namespace Code.Services.StaticData
         UnitStaticData GetPlayerUnit(UnitAttackTypeId unitAttackTypeId);
         UnitStaticData GetEnemy(UnitAttackTypeId unitAttackTypeId);
         GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
+        WindowData GetWindow(WindowType windowType);
     }
 }
