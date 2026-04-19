@@ -97,8 +97,3 @@
 
 # Auto-generated scenes by play mode tests
 /src/MergeLegends_ShadowArena/[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
-
-src/MergeLegends_ShadowArena/Assets/Synty/
-src/MergeLegends_ShadowArena/Assets/Plugins/
-src/MergeLegends_ShadowArena/Assets/DownloadCache/
-src/MergeLegends_ShadowArena/Assets/TextMesh Pro/
