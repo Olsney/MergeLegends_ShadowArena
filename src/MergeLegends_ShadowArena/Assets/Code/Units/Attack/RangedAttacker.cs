@@ -1,6 +1,7 @@
+using Code.Infrastructure.Factory.Projectile;
 using Code.StaticData;
-using Code.Units.MagicSphereAttack;
 using UnityEngine;
+using Zenject;
 
 namespace Code.Units.Attack
 {
@@ -8,15 +9,25 @@ namespace Code.Units.Attack
     {
         public bool IsAttacking { get; private set; }
 
+        private UnitTypeId _unitTypeId;
+
+        private IProjectileFactory _projectileFactory;
         private UnitAnimator _animator;
         private AnimationEventsReader _animationEventsReader;
         private UnitNavmeshAgentMover _navmeshAgentMover;
-        private MagicSphere _magicSphere;
-        private IUnit _targetUnit;
 
-        private bool _isTargetUnitDead;
         private float _attackCooldown;
         private float _currentAttackCooldown;
+        private IUnit _targetToAttack;
+
+        private float _damage;
+        private LayerMaskTypeId _targetLayerMask;
+        private float _magicSphereSpeed;
+        private bool _isActive;
+
+        [Inject]
+        private void Construct(IProjectileFactory projectileFactory)
+            => _projectileFactory = projectileFactory;
 
         private void Awake()
         {
@@ -40,38 +51,36 @@ namespace Code.Units.Attack
         }
 
         public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask, float magicSphereSpeed,
-            UnitDeath unitDeath, MagicSphere magicSphere)
+            UnitTypeId unitTypeId)
         {
             _attackCooldown = cooldown;
-            _magicSphere = magicSphere;
-            _magicSphere.Init(damage, targetLayerMask, magicSphereSpeed, unitDeath);
+            _unitTypeId = unitTypeId;
+
+            _damage = damage;
+            _targetLayerMask = targetLayerMask;
+            _magicSphereSpeed = magicSphereSpeed;
         }
 
-        public void Tick()
-        {
-            _navmeshAgentMover.RotateToTarget();
-            _magicSphere.Tick();
-            UpdateCooldown();
+        public void StartAttacking()
+            => _isActive = true;
 
-            if (_targetUnit == null || _targetUnit.IsDead)
-            {
-                if (_isTargetUnitDead == false)
-                {
-                    _isTargetUnitDead = true;
-                    _magicSphere.ResetTargetTransform();
-                }
-            }
+        private void Update()
+        {
+            if (_isActive == false)
+                return;
+
+            UpdateCooldown();
         }
 
         private void OnAttack()
         {
-            _targetUnit = _navmeshAgentMover.GetCurrentTarget();
+            _targetToAttack = _navmeshAgentMover.GetCurrentTarget();
 
-            if (_navmeshAgentMover.GetCurrentTarget() == null || _magicSphere == null)
+            if (_targetToAttack == null)
                 return;
 
-            _isTargetUnitDead = false;
-            _magicSphere.Launch(transform.position, _navmeshAgentMover.GetCurrentTarget().Transform);
+            _projectileFactory.CreateMagicSphere(_unitTypeId, transform.position)
+                .Launch(_damage, _targetLayerMask, _magicSphereSpeed, transform.position, _targetToAttack);
         }
 
         private void OnAttackEnded()

@@ -1,5 +1,4 @@
 using Code.Units.Attack;
-using Code.Units.UI;
 using UnityEngine;
 using Zenject;
 
@@ -14,7 +13,6 @@ namespace Code.Units.Enemies
         private IAttacker _attacker;
         private UnitDeath _unitDeath;
         private IEnemiesProvider _enemiesProvider;
-        private LookAtCanvasToCamera _lookAtCanvasToCamera;
 
         [Inject]
         private void Construct(IEnemiesProvider enemiesProvider)
@@ -25,7 +23,6 @@ namespace Code.Units.Enemies
             _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
             _attacker = GetComponentInChildren<IAttacker>();
             _unitDeath = GetComponent<UnitDeath>();
-            _lookAtCanvasToCamera = GetComponentInChildren<LookAtCanvasToCamera>();
         }
 
         private void Start()
@@ -40,11 +37,13 @@ namespace Code.Units.Enemies
             _unitDeath.Dead -= OnDead;
         }
 
-        public void Tick()
+        public void ProcessUnit()
         {
-            _unitNavmeshAgentMover.Tick();
-            _attacker.Tick();
-            _lookAtCanvasToCamera.Tick();
+            if (IsDead)
+                return;
+
+            _unitNavmeshAgentMover.StartMoving();
+            _attacker.StartAttacking();
         }
 
         private void OnDead()

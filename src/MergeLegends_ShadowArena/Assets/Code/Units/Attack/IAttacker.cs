@@ -3,6 +3,6 @@
     public interface IAttacker
     {
         bool IsAttacking { get; }
-        void Tick();
+        void StartAttacking();
     }
 }

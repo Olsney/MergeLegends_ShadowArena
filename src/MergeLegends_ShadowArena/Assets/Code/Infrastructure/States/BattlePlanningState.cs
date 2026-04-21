@@ -1,7 +1,6 @@
 ﻿using Code.Infrastructure.Factory.Game;
 using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea;
-using Code.UI;
 using Code.UI.Factory;
 using Code.UI.Fights;
 using Code.UI.SpawnUnits;
@@ -13,6 +12,7 @@ namespace Code.Infrastructure.States
         private readonly IUIFactory _uiFactory;
         private readonly IGameFactory _gameFactory;
         private readonly IEnemySpawner _enemySpawner;
+        private readonly ISpawnButtonsParentProvider _spawnButtonsParentProvider;
 
         private UnitSpawnerViewsRoot _unitSpawnerViewsRoot;
         private MeleePlayerUnitSpawnerPresenter _meleeSpawnPresenter;
@@ -20,11 +20,13 @@ namespace Code.Infrastructure.States
         private FightPresenter _fightPresenter;
         private PlayZone _playZone;
 
-        public BattlePlanningState(IUIFactory uiFactory, IGameFactory gameFactory, IEnemySpawner enemySpawner)
+        public BattlePlanningState(IUIFactory uiFactory, IGameFactory gameFactory, IEnemySpawner enemySpawner,
+            ISpawnButtonsParentProvider spawnButtonsParentProvider)
         {
             _uiFactory = uiFactory;
             _gameFactory = gameFactory;
             _enemySpawner = enemySpawner;
+            _spawnButtonsParentProvider = spawnButtonsParentProvider;
         }
 
         public void Enter()
@@ -32,9 +34,9 @@ namespace Code.Infrastructure.States
             _unitSpawnerViewsRoot = _uiFactory.CreateSpawnerViewsRoot();
 
             _meleeSpawnPresenter =
-                _uiFactory.CreateSpawnMeleePlayerUnitPresenter(_unitSpawnerViewsRoot.GetViewsBarTransform());
+                _uiFactory.CreateSpawnMeleePlayerUnitPresenter(_spawnButtonsParentProvider.TransformParent);
             _rangedSpawnPresenter =
-                _uiFactory.CreateSpawnRangedPlayerUnitPresenter(_unitSpawnerViewsRoot.GetViewsBarTransform());
+                _uiFactory.CreateSpawnRangedPlayerUnitPresenter(_spawnButtonsParentProvider.TransformParent);
 
             _fightPresenter = _uiFactory.CreateFightPresenter();
             _playZone = _gameFactory.CreatePlayZone();

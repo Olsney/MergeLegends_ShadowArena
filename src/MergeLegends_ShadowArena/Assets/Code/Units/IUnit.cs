@@ -6,6 +6,6 @@ namespace Code.Units
     {
         bool IsDead { get; }
         Transform Transform { get; }
-        void Tick();
+        void ProcessUnit();
     }
 }

@@ -61,6 +61,8 @@ namespace Code.Infrastructure.States
         {
             _uiFactory.CreateHud();
             _uiFactory.CreateSettingsPresenter();
+            _uiFactory.CreateCurrencyPresenter();
+            _uiFactory.CreateLevelPresenter();
         }
 
         private void InitUIRoot() =>
