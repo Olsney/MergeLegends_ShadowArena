@@ -10,14 +10,12 @@ namespace Code.Units.UI
 
         [Inject]
         private void Construct(ICameraProvider provider)
-        {
-            _mainCamera = provider.MainCamera;
-        }
+            => _mainCamera = provider.MainCamera;
 
         private void Start()
             => LookAtToCamera();
 
-        public void Tick()
+        public void LateUpdate()
             => LookAtToCamera();
 
         private void LookAtToCamera()
