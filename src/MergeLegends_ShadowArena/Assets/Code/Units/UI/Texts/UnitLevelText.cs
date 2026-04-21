@@ -1,8 +1,14 @@
-using Code.UI.Texts;
+using TMPro;
+using UnityEngine;
 
 namespace Code.Units.UI.Texts
 {
-    public class UnitLevelText : TextBase
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    public class UnitLevelText : MonoBehaviour
     {
+        public TextMeshProUGUI TextMeshPro { get; private set; }
+
+        private void Awake()
+            => TextMeshPro = GetComponent<TextMeshProUGUI>();
     }
 }
