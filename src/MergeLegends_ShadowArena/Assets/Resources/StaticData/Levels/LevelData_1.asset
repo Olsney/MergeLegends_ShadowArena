@@ -19,16 +19,6 @@ MonoBehaviour:
   SpawnEnemiesInGameLevels:
   - EnemiesSpawnData:
     - LevelIndex: 0
-      UnitAttackTypeId: 1
-    - LevelIndex: 0
-      UnitAttackTypeId: 1
-    - LevelIndex: 0
-      UnitAttackTypeId: 1
-    - LevelIndex: 0
-      UnitAttackTypeId: 1
-    - LevelIndex: 0
-      UnitAttackTypeId: 1
-    - LevelIndex: 0
       UnitAttackTypeId: 2
     - LevelIndex: 0
       UnitAttackTypeId: 2
