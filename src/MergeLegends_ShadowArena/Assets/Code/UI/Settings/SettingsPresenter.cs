@@ -1,12 +1,15 @@
-﻿namespace Code.UI.Settings
+﻿using Code.Services.Windows;
+using Code.UI.Factory;
+
+namespace Code.UI.Settings
 {
     public class SettingsPresenter : Presenter<OpenSettingsView>
     {
-        private readonly SettingsWindow _settingsWindow;
+        private readonly IUIFactory _uiFactory;
 
-        public SettingsPresenter(OpenSettingsView view, SettingsWindow settingsSettingsWindow) : base(view)
+        public SettingsPresenter(OpenSettingsView view, IUIFactory uiFactory) : base(view)
         {
-            _settingsWindow = settingsSettingsWindow;
+            _uiFactory = uiFactory;
         }
 
         public override void Initialize()
@@ -16,6 +19,6 @@
             => View.OpenSettingsClicked -= OnOpenSettingsClicked;
 
         private void OnOpenSettingsClicked()
-            => _settingsWindow.Open();
+            => _uiFactory.CreateWindow(WindowType.Settings);
     }
 }
