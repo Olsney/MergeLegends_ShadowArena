@@ -1,7 +1,9 @@
 using Code.Infrastructure.AssetManagement;
 using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
+using Code.Infrastructure.Factory.Projectile;
 using Code.Infrastructure.Factory.State;
+using Code.Infrastructure.Factory.Units;
 using Code.Infrastructure.States;
 using Code.Logic.BattleServices;
 using Code.Logic.EnemySpawners;
@@ -12,7 +14,6 @@ using Code.Services.PersistentProgress;
 using Code.Services.Raycast;
 using Code.Services.SaveLoad;
 using Code.Services.StaticData;
-using Code.UI;
 using Code.UI.Factory;
 using Code.UI.SpawnUnits;
 using Code.Units.Enemies;
@@ -43,6 +44,8 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
             Container.Bind<IStateFactory>().To<StateFactory>().AsSingle();
             Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
+            Container.Bind<IProjectileFactory>().To<ProjectileFactory>().AsSingle();
+            Container.Bind<IUnitFactory>().To<UnitFactory>().AsSingle();
         }
 
         private void BindStates()
@@ -69,9 +72,10 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IEnemiesProvider>().To<EnemiesProvider>().AsSingle();
             Container.Bind<IEnemyCellsProvider>().To<EnemyCellsProvider>().AsSingle();
             Container.Bind<IPlayerUnitsProvider>().To<PlayerUnitsProvider>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BattleService>().AsSingle();
+            Container.Bind<IBattleService>().To<BattleService>().AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
+            Container.Bind<ISpawnButtonsParentProvider>().To<SpawnButtonsParentProvider>().AsSingle();
         }
 
         private void BindInputService()

@@ -753,6 +753,7 @@ GameObject:
   - component: {fileID: 2138677047414820722}
   - component: {fileID: 3243828413386053725}
   - component: {fileID: 4091932226668155631}
+  - component: {fileID: 4540527825732010299}
   m_Layer: 5
   m_Name: BaseSpawnButton
   m_TagString: Untagged
@@ -927,6 +928,20 @@ MonoBehaviour:
   _pressScale: 0.92
   _pressDuration: 0.08
   _pressEase: 6
+--- !u!114 &4540527825732010299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018295235567411323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b387d341155f475cbe080213f3622dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.SpawnUnits.ButtonAnimationController
+  _hoverAnimation: {fileID: 3243828413386053725}
+  _pressAnimation: {fileID: 4091932226668155631}
 --- !u!1 &6375391924851494954
 GameObject:
   m_ObjectHideFlags: 0

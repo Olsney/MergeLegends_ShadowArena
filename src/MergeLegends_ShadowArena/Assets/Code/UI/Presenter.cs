@@ -3,17 +3,19 @@ using Zenject;
 
 namespace Code.UI
 {
-    public abstract class Presenter<T> : IInitializable, IDisposable
+    public abstract class Presenter<IView> : IInitializable, IDisposable
     {
-        protected Presenter(T view)
+        protected Presenter(IView view)
         {
             View = view;
         }
 
-        protected T View { get; }
+        protected IView View { get; }
 
         public abstract void Initialize();
 
-        public abstract void Dispose();
+        public virtual void Dispose()
+        {
+        }
     }
 }

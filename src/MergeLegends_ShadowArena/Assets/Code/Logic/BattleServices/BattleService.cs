@@ -6,11 +6,10 @@ using Zenject;
 
 namespace Code.Logic.BattleServices
 {
-    public class BattleService : ITickable, IBattleService
+    public class BattleService : IBattleService
     {
         private readonly IPlayerUnitsProvider _playerUnitsProvider;
         private readonly IEnemiesProvider _enemiesProvider;
-        private bool _isFighting = false;
 
         public BattleService(IPlayerUnitsProvider playerUnitsProvider, IEnemiesProvider enemiesProvider)
         {
@@ -19,22 +18,13 @@ namespace Code.Logic.BattleServices
         }
 
         public void StartFight()
-            => _isFighting = true;
-
-        public void StopFight()
-            => _isFighting = false;
-
-        public bool CanStartFight()
-            => _playerUnitsProvider.GetUnits().Count > 0;
-
-        public void Tick()
         {
-            if (_isFighting == false)
-                return;
-
             ProcessUnits(_playerUnitsProvider.GetUnits());
             ProcessUnits(_enemiesProvider.GetUnits());
         }
+
+        public bool CanStartFight()
+            => _playerUnitsProvider.GetUnits().Count > 0;
 
         private void ProcessUnits(IReadOnlyList<IUnit> units)
         {
@@ -43,7 +33,7 @@ namespace Code.Logic.BattleServices
                 if (units[i] == null || units[i].IsDead)
                     continue;
 
-                units[i].Tick();
+                units[i].ProcessUnit();
             }
         }
     }

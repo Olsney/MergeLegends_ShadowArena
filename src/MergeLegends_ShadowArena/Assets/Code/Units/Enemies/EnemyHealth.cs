@@ -33,7 +33,7 @@ namespace Code.Units.Enemies
 
         public void TakeDamage(float damage)
         {
-            if (CurrentValue <= 0)
+            if (CurrentValue <= 0 || damage <= 0)
                 return;
 
             CurrentValue = Mathf.Clamp(CurrentValue - damage, 0, MaxValue);

@@ -19,6 +19,7 @@ namespace Code.Units.Attack
         private float _damage;
         private float _attackCooldown;
         private float _currentAttackCooldown;
+        private bool _isActive;
 
         private void Awake()
         {
@@ -48,8 +49,14 @@ namespace Code.Units.Attack
             _layerMask = 1 << (int)targetLayerMask;
         }
 
-        public void Tick()
+        public void StartAttacking()
+            => _isActive = true;
+
+        private void Update()
         {
+            if (_isActive == false)
+                return;
+
             _navmeshAgentMover.RotateToTarget();
             UpdateCooldown();
         }

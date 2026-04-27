@@ -31,15 +31,11 @@ namespace Code.UI.Services.Windows
             Cleanup();
         }
 
-        public void Open()
-        {
-            gameObject.SetActive(true);
-        }
-
         protected virtual void OnAwake()
         {
             if (_closeButton != null)
-                _closeButton.onClick.AddListener(Close);
+                _closeButton.onClick.AddListener(()
+                    => Destroy(gameObject));
         }
 
         protected virtual void Initialize()
@@ -52,11 +48,6 @@ namespace Code.UI.Services.Windows
 
         protected virtual void Cleanup()
         {
-        }
-
-        private void Close()
-        {
-            gameObject.SetActive(false);
         }
     }
 }

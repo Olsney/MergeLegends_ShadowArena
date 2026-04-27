@@ -97,3 +97,8 @@
 
 # Auto-generated scenes by play mode tests
 /src/MergeLegends_ShadowArena/[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Rider / JetBrains
+.idea/
+*.user
+*.sln.iml

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,7 +14,10 @@ namespace Code.UI.DOTWeenAnimation
         private Transform _transform;
         private Vector3 _originalScale;
         private Tween _hoverTween;
-        private bool _isHovering;
+        
+        public bool IsHovering { get; private set; }
+
+        public event Action<bool> OnHoverStateChanged;
 
         private void Awake()
         {
@@ -21,38 +25,40 @@ namespace Code.UI.DOTWeenAnimation
             _originalScale = _transform.localScale;
         }
 
-        private void Update()
-        {
-            if (_isHovering && _transform.localScale == _originalScale)
-            {
-                _hoverTween?.Kill();
-                _hoverTween = _transform.DOScale(_hoverScale, _hoverDuration).SetEase(_hoverEase);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            _hoverTween?.Kill();
-        }
+        private void OnDestroy() 
+            => _hoverTween?.Kill();
 
         private void OnDisable()
         {
             _hoverTween?.Kill();
-
+            
             if (_transform != null)
                 _transform.localScale = _originalScale;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _isHovering = true;
-            _hoverTween?.Kill();
-            _hoverTween = _transform.DOScale(_hoverScale, _hoverDuration).SetEase(_hoverEase);
+            IsHovering = true;
+            OnHoverStateChanged?.Invoke(true);
+            ApplyHoverScale();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _isHovering = false;
+            IsHovering = false;
+            OnHoverStateChanged?.Invoke(false);
+            _hoverTween?.Kill();
+            _hoverTween = _transform.DOScale(_originalScale, _hoverDuration).SetEase(_hoverEase);
+        }
+
+        public void ApplyHoverScale()
+        {
+            _hoverTween?.Kill();
+            _hoverTween = _transform.DOScale(_hoverScale, _hoverDuration).SetEase(_hoverEase);
+        }
+
+        public void ReturnToOriginalScale()
+        {
             _hoverTween?.Kill();
             _hoverTween = _transform.DOScale(_originalScale, _hoverDuration).SetEase(_hoverEase);
         }

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,32 +15,36 @@ namespace Code.UI.DOTWeenAnimation
         private Vector3 _originalScale;
         private Tween _pressTween;
 
+        public event Action OnPressed;
+        public event Action OnReleased;
+
         private void Awake()
         {
             _transform = transform;
             _originalScale = _transform.localScale;
         }
-        
+
         private void OnDestroy()
-        {
-            _pressTween?.Kill();
-        }
+            => _pressTween?.Kill();
 
         private void OnDisable()
         {
             _pressTween?.Kill();
+
             if (_transform != null)
                 _transform.localScale = _originalScale;
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            OnPressed?.Invoke();
             _pressTween?.Kill();
             _pressTween = _transform.DOScale(_pressScale, _pressDuration).SetEase(_pressEase);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            OnReleased?.Invoke();
             _pressTween?.Kill();
             _pressTween = _transform.DOScale(_originalScale, _pressDuration).SetEase(_pressEase);
         }

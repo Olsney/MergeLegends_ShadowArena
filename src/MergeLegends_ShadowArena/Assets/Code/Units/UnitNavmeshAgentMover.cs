@@ -18,6 +18,7 @@ namespace Code.Units
         private IAttacker _attacker;
         private AnimateAlongNavmeshAgent _animateAlongNavmeshAgent;
         private IUnit _unitTarget;
+        private bool _isActive;
 
         public event Action TargetReached;
 
@@ -42,8 +43,14 @@ namespace Code.Units
             _sqrStopDistance = attackDistance;
         }
 
-        public void Tick()
+        public void StartMoving() 
+            => _isActive = true;
+
+        private void Update()
         {
+            if (_isActive == false)
+                return;
+            
             UpdateTarget();
             HandleMovement();
             UpdateAnimation();
