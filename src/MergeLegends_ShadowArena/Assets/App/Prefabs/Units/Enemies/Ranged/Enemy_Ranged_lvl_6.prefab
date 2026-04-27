@@ -220,18 +220,6 @@ PrefabInstance:
       propertyPath: m_SkinnedMotionVectors
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.r
-      value: 0.41960785
-      objectReference: {fileID: 0}
     - target: {fileID: 6502506020497929645, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -272,18 +260,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.g
-      value: 0.49803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.r
-      value: 0.41960785
-      objectReference: {fileID: 0}
     - target: {fileID: 8591336734477682272, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       propertyPath: m_Name
       value: Enemy_Ranged_lvl_6
@@ -291,7 +267,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4834580805828894884, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-    - {fileID: 3321549060615199374, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6502506020497929645, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       insertIndex: 0

@@ -52,18 +52,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.b
-      value: 0.22352941
-      objectReference: {fileID: 0}
-    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.g
-      value: 0.22352941
-      objectReference: {fileID: 0}
-    - target: {fileID: 5811438778357576310, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.r
-      value: 0.9019608
-      objectReference: {fileID: 0}
     - target: {fileID: 6502506020497929645, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -104,18 +92,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.b
-      value: 0.22352941
-      objectReference: {fileID: 0}
-    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.g
-      value: 0.65882355
-      objectReference: {fileID: 0}
-    - target: {fileID: 7221029263444049802, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-      propertyPath: m_Color.r
-      value: 0.9019608
-      objectReference: {fileID: 0}
     - target: {fileID: 8591336734477682272, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       propertyPath: m_Name
       value: Enemy_Ranged_lvl_2
@@ -124,7 +100,6 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 8727469322043726820, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
     - {fileID: 4834580805828894884, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
-    - {fileID: 3321549060615199374, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6502506020497929645, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
       insertIndex: 0
