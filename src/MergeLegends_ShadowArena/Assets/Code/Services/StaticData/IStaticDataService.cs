@@ -10,5 +10,6 @@ namespace Code.Services.StaticData
         UnitStaticData GetEnemy(UnitAttackTypeId unitAttackTypeId);
         GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
         WindowData GetWindow(WindowType windowType);
+        WarningMessageData GetWarningMessage(WarningMessagesTypeId warningTypeId);
     }
 }

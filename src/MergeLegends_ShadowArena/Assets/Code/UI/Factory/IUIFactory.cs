@@ -25,5 +25,6 @@ namespace Code.UI.Factory
         CurrencyPresenter CreateCurrencyPresenter();
         LevelPresenter CreateLevelPresenter();
         WindowBase CreateWindow(WindowType windowType);
+        GameObject CreateWarningMessage(string message);
     }
 }

@@ -12,6 +12,7 @@ using Code.UI.Levels;
 using Code.UI.Services.Windows;
 using Code.UI.Settings;
 using Code.UI.SpawnUnits;
+using Code.UI.WarningMessages;
 using UnityEngine;
 using Zenject;
 
@@ -72,7 +73,7 @@ namespace Code.UI.Factory
         {
             return CreatePresenter<SpawnPlayerUnitView, MeleePlayerUnitSpawnerPresenter>(
                 AssetPath.UISpawnMeleePlayerUnitButtonPath,
-                view => new MeleePlayerUnitSpawnerPresenter(view, _spawner), 
+                view => new MeleePlayerUnitSpawnerPresenter(view, _spawner),
                 parent);
         }
 
@@ -80,7 +81,7 @@ namespace Code.UI.Factory
         {
             return CreatePresenter<SpawnPlayerUnitView, RangedPlayerUnitSpawnerPresenter>(
                 AssetPath.UISpawnRangedPlayerUnitButtonPath,
-                view => new RangedPlayerUnitSpawnerPresenter(view, _spawner), 
+                view => new RangedPlayerUnitSpawnerPresenter(view, _spawner),
                 parent);
         }
 
@@ -94,19 +95,22 @@ namespace Code.UI.Factory
         public SettingsPresenter CreateSettingsPresenter()
         {
             OpenSettingsView view = FindExistingView<OpenSettingsView>();
-            return CreatePresenter(view, openSettingsView => new SettingsPresenter(openSettingsView, this));
+            return CreatePresenter(view, openSettingsView
+                => new SettingsPresenter(openSettingsView, this));
         }
 
         public CurrencyPresenter CreateCurrencyPresenter()
         {
             CurrencyCounterView view = FindExistingView<CurrencyCounterView>();
-            return CreatePresenter(view, currencyView => new CurrencyPresenter(currencyView, _progressService));
+            return CreatePresenter(view, currencyView
+                => new CurrencyPresenter(currencyView, _progressService));
         }
 
         public LevelPresenter CreateLevelPresenter()
         {
             LevelView view = FindExistingView<LevelView>();
-            return CreatePresenter(view, levelShowerView => new LevelPresenter(levelShowerView, _progressService));
+            return CreatePresenter(view, levelShowerView
+                => new LevelPresenter(levelShowerView, _progressService));
         }
 
         public WindowBase CreateWindow(WindowType windowType)
@@ -119,6 +123,18 @@ namespace Code.UI.Factory
                 WindowType.Settings => windowObject.GetComponent<SettingsWindow>(),
                 _ => throw new NullReferenceException($"Unknown window type: {windowType}")
             };
+        }
+
+        public GameObject CreateWarningMessage(string message)
+        {
+            GameObject prefab = _assets.Load(AssetPath.WarningMessagePath);
+
+            GameObject warningMessagePrefab = _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
+            
+            CreatePresenter(warningMessagePrefab.GetComponentInChildren<WarningMessageView>(), 
+                warningMessageView => new WarningMessagePresenter(warningMessageView, message));
+
+            return warningMessagePrefab;
         }
 
         public void Cleanup()
