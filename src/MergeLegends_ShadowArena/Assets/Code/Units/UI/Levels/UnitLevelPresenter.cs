@@ -1,6 +1,6 @@
 using Code.UI;
 
-namespace Code.Units.UI
+namespace Code.Units.UI.Levels
 {
     public class UnitLevelPresenter : Presenter<UnitLevelView>
     {
