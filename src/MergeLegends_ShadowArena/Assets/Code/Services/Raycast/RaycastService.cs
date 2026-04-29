@@ -15,6 +15,7 @@ namespace Code.Services.Raycast
         private readonly int _layerMask;
 
         public event Action<RaycastHit> HitPerformed;
+        public event Action EmptyHit;
 
         public RaycastService(IInputService inputService, ICameraProvider cameraProvider)
         {
@@ -39,6 +40,10 @@ namespace Code.Services.Raycast
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMask))
             {
                 HitPerformed?.Invoke(hit);
+            }
+            else
+            {
+                EmptyHit?.Invoke();
             }
         }
     }

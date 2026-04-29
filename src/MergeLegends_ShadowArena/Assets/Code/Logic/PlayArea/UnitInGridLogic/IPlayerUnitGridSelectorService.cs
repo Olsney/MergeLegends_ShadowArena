@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Logic.PlayArea.Cell;
 using UnityEngine;
 
 namespace Code.Logic.PlayArea.UnitInGridLogic
@@ -6,5 +7,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
     public interface IPlayerUnitGridSelectorService
     {
         event Action<GameObject, Vector3> UnitCellChanged;
+        event Action<CellGridPlayerUnit> UnitSelected;
+        event Action SelectionCleared;
     }
 }
