@@ -16,43 +16,43 @@ MonoBehaviour:
   UnitStatsByLevelIndexSetups:
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
+      Damage: 15
       ViewPrefab: {fileID: 8591336734477682272, guid: 19f15c2d5ccaad843b244f091f4c50af, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
+      Damage: 15
       ViewPrefab: {fileID: 6337866114096045623, guid: 4265c36f45d0d854e82e809a067c746c, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
+      Damage: 15
       ViewPrefab: {fileID: 7992542836916288862, guid: 6583cab247794fd4d9fd7d312066ccdd, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
+      Damage: 15
       ViewPrefab: {fileID: 2388186917070588010, guid: 56c96ed85c474324f8435620dd8b0b0c, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
+      Damage: 15
       ViewPrefab: {fileID: 4274026215424125263, guid: bd195a8400bf9ad4e9486a85b2e0565d, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
+      Damage: 15
       ViewPrefab: {fileID: 6881128148976861460, guid: b35f07124bcae7e4d8559be1cf3fde41, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
+      Damage: 15
       ViewPrefab: {fileID: 4736427426651620747, guid: c836f0f7083e90b469e1decfa57890ca, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
-      ViewPrefab: {fileID: 9126376104788181517, guid: 9dd6edbc053b933468496fbb39258c64, type: 3}
+      Damage: 15
+      ViewPrefab: {fileID: 4785824760054172255, guid: 9dd6edbc053b933468496fbb39258c64, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
-      ViewPrefab: {fileID: 4785824760054172255, guid: bb622b21277391243884a62682a4f1aa, type: 3}
+      Damage: 15
+      ViewPrefab: {fileID: 9126376104788181517, guid: bb622b21277391243884a62682a4f1aa, type: 3}
   - UnitLevelStatsData:
       Hp: 100
-      Damage: 25
+      Damage: 15
       ViewPrefab: {fileID: 6851098954442268493, guid: e6b4e96d3dc8eaa41a8bb313d09147a3, type: 3}
   GeneralData:
     UnitData:
