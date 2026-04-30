@@ -12,6 +12,8 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
         private CellGridPlayerUnit _selectedCell;
 
         public event Action<GameObject, Vector3> UnitCellChanged;
+        public event Action<CellGridPlayerUnit> UnitSelected;
+        public event Action SelectionCleared;
 
         public PlayerUnitGridSelectorService(IRaycastService raycastService)
         {
@@ -19,10 +21,22 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
         }
 
         public void Initialize()
-            => _raycastService.HitPerformed += OnHitPerformed;
+        {
+            _raycastService.HitPerformed += OnHitPerformed;
+            _raycastService.EmptyHit += OnHitEmpty;
+        }
 
         public void Dispose()
-            => _raycastService.HitPerformed -= OnHitPerformed;
+        {
+            _raycastService.HitPerformed -= OnHitPerformed;
+            _raycastService.EmptyHit -= OnHitEmpty;
+        }
+
+        private void OnHitEmpty()
+        {
+            ClearSelection();
+            SelectionCleared?.Invoke();
+        }
 
         private void OnHitPerformed(RaycastHit hit)
         {
@@ -67,6 +81,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
 
         private void SelectCell(CellGridPlayerUnit cell)
         {
+            UnitSelected?.Invoke(cell);
             _selectedCell = cell;
             _selectedCell.ActivateSelectedBorder();
         }
