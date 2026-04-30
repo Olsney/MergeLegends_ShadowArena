@@ -1,4 +1,5 @@
 using Code.Units.Attack;
+using Code.Units.UI;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,10 @@ namespace Code.Units.Enemies
         private IAttacker _attacker;
         private UnitDeath _unitDeath;
         private IEnemiesProvider _enemiesProvider;
+        private EnemyHealth _enemyHealth;
+
+        private SpawnEffect _spawnEffect;
+        private DamageEffect _damageEffect;
 
         [Inject]
         private void Construct(IEnemiesProvider enemiesProvider)
@@ -23,17 +28,24 @@ namespace Code.Units.Enemies
             _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
             _attacker = GetComponentInChildren<IAttacker>();
             _unitDeath = GetComponent<UnitDeath>();
+            _enemyHealth = GetComponent<EnemyHealth>();
+            
+            _spawnEffect = GetComponentInChildren<SpawnEffect>();
+            _damageEffect = GetComponentInChildren<DamageEffect>();
         }
 
         private void Start()
         {
             _enemiesProvider.AddUnit(this);
             _unitDeath.Dead += OnDead;
+            _enemyHealth.HealthChanged += _damageEffect.Play;
+            _spawnEffect.Play();
         }
 
         private void OnDestroy()
         {
             _enemiesProvider.RemoveUnit(this);
+            _enemyHealth.HealthChanged -= _damageEffect.Play;
             _unitDeath.Dead -= OnDead;
         }
 
