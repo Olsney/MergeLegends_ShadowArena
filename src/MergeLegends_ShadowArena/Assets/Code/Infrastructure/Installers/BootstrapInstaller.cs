@@ -10,10 +10,13 @@ using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.Input;
+using Code.Services.MergeUnits;
 using Code.Services.PersistentProgress;
 using Code.Services.Raycast;
 using Code.Services.SaveLoad;
 using Code.Services.StaticData;
+using Code.Signals;
+using Code.UI;
 using Code.UI.Factory;
 using Code.UI.SpawnUnits;
 using Code.Units.Enemies;
@@ -34,6 +37,7 @@ namespace Code.Infrastructure.Installers
             BindServices();
             BindSceneLoader();
             BindSpawners();
+            BindSignals();
         }
 
         private void BindCoroutine() =>
@@ -76,6 +80,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
             Container.Bind<ISpawnButtonsParentProvider>().To<SpawnButtonsParentProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MergeUnitsService>().AsSingle();
         }
 
         private void BindInputService()
@@ -93,6 +98,12 @@ namespace Code.Infrastructure.Installers
         {
             Container.Bind<IPlayerUnitSpawner>().To<PlayerUnitSpawner>().AsSingle();
             Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
+        }
+
+        private void BindSignals()
+        {
+            SignalBusInstaller.Install(Container);
+            Container.DeclareSignal<StartFightSignal>();
         }
     }
 }
