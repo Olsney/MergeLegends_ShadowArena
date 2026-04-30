@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Signals;
 using Code.Units;
 using Code.Units.Enemies;
 using Code.Units.PlayerUnits;
@@ -10,17 +11,21 @@ namespace Code.Logic.BattleServices
     {
         private readonly IPlayerUnitsProvider _playerUnitsProvider;
         private readonly IEnemiesProvider _enemiesProvider;
+        private readonly SignalBus _signalBus;
 
-        public BattleService(IPlayerUnitsProvider playerUnitsProvider, IEnemiesProvider enemiesProvider)
+        public BattleService(IPlayerUnitsProvider playerUnitsProvider, IEnemiesProvider enemiesProvider,
+            SignalBus signalBus)
         {
             _playerUnitsProvider = playerUnitsProvider;
             _enemiesProvider = enemiesProvider;
+            _signalBus = signalBus;
         }
 
         public void StartFight()
         {
             ProcessUnits(_playerUnitsProvider.GetUnits());
             ProcessUnits(_enemiesProvider.GetUnits());
+            _signalBus.Fire(new StartFightSignal());
         }
 
         public bool CanStartFight()
