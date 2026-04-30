@@ -3,7 +3,9 @@ using Code.Services.StaticData;
 using Code.StaticData;
 using Code.Units;
 using Code.Units.Attack;
-using Code.Units.UI;
+using Code.Units.PlayerUnits;
+using Code.Units.UI.Health;
+using Code.Units.UI.Levels;
 using UnityEngine;
 using Zenject;
 
@@ -24,7 +26,7 @@ namespace Code.Infrastructure.Factory.Units
             _staticData = staticData;
         }
 
-        public GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId, 
+        public GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
             int unitCurrentLevelIndex, Vector3 position)
         {
             switch (unitTypeId)
@@ -35,21 +37,23 @@ namespace Code.Infrastructure.Factory.Units
                         unitCurrentLevelIndex,
                         position,
                         Quaternion.identity,
-                        unitTypeId);
+                        unitTypeId,
+                        unitAttackTypeId);
                 case UnitTypeId.Enemy:
                     return CreateConcreteUnit(
                         _staticData.GetEnemy(unitAttackTypeId),
                         unitCurrentLevelIndex,
                         position,
                         Quaternion.Euler(0, EnemySpawnRotationY, 0),
-                        unitTypeId);
+                        unitTypeId,
+                        unitAttackTypeId);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitTypeId), unitTypeId, null);
             }
         }
 
-        private GameObject CreateConcreteUnit(UnitStaticData unitStaticData, int unitCurrentLevelIndex, 
-            Vector3 position, Quaternion rotation, UnitTypeId unitTypeId)
+        private GameObject CreateConcreteUnit(UnitStaticData unitStaticData, int unitCurrentLevelIndex,
+            Vector3 position, Quaternion rotation, UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId)
         {
             UnitLevelStatsData stats = unitStaticData.GetStatsLvl(unitCurrentLevelIndex);
             TargetData targetData = unitStaticData.GeneralData.TargetData;
@@ -58,16 +62,21 @@ namespace Code.Infrastructure.Factory.Units
 
             GameObject unit = _instantiator.InstantiatePrefab(stats.ViewPrefab, position, rotation, null);
 
-            InitServices(unit, stats, targetData, unitData, magicData, unitTypeId);
-            CreateUnitLevelPresenter(unit, unitCurrentLevelIndex);
+            InitServices(unit, stats, targetData, unitData, magicData, unitTypeId, unitCurrentLevelIndex,
+                unitAttackTypeId);
 
             return unit;
         }
 
         private void InitServices(GameObject unit, UnitLevelStatsData stats, TargetData targetData, UnitData unitData,
-            MagicSphereData magicData, UnitTypeId unitTypeId)
+            MagicSphereData magicData, UnitTypeId unitTypeId, int unitCurrentLevelIndex,
+            UnitAttackTypeId unitAttackTypeId)
         {
-            unit.GetComponent<IHealth>().Init(stats.Hp);
+            if (unit.TryGetComponent<PlayerUnit>(out var playerUnit))
+                playerUnit.Init(unitCurrentLevelIndex, unitAttackTypeId);
+
+            IHealth health = unit.GetComponent<IHealth>();
+            health.Init(stats.Hp);
             unit.GetComponent<ITargetFinder>().Init(targetData.TargetLayerMask);
             unit.GetComponent<UnitNavmeshAgentMover>().InitConfig(unitData.MoveSpeed, unitData.AttackDistance);
 
@@ -90,12 +99,30 @@ namespace Code.Infrastructure.Factory.Units
                 default:
                     throw new NullReferenceException("Unknown attacker type");
             }
+
+            CreateUnitLevelPresenter(unit.GetComponentInChildren<UnitLevelView>(), unitCurrentLevelIndex);
+            CreateUnitHealthBarPresenter(unit.GetComponentInChildren<UnitHealthBarView>(), health);
         }
 
-        private void CreateUnitLevelPresenter(GameObject unit, int unitCurrentLevelIndex)
+        private void CreateUnitHealthBarPresenter(UnitHealthBarView view, IHealth health)
         {
-            var presenter =
-                new UnitLevelPresenter(unit.GetComponentInChildren<UnitLevelView>(), unitCurrentLevelIndex);
+            CreatePresenter(view, healthBarView =>
+                new UnitHealthBarPresenter(healthBarView, health));
+        }
+
+        private void CreateUnitLevelPresenter(UnitLevelView view, int unitCurrentLevelIndex)
+        {
+            CreatePresenter(view, levelView =>
+                new UnitLevelPresenter(levelView, unitCurrentLevelIndex));
+        }
+
+        private void CreatePresenter<TView, TPresenter>(
+            TView view,
+            Func<TView, TPresenter> createPresenter)
+            where TView : MonoBehaviour
+            where TPresenter : IInitializable
+        {
+            TPresenter presenter = createPresenter(view);
             presenter.Initialize();
         }
     }
