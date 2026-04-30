@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Code.StaticData
@@ -12,6 +13,15 @@ namespace Code.StaticData
 
         [HideInInspector]
         public UnitLevelStatsData GetStatsLvl(int unitCurrentLevelIndex)
-            => UnitStatsByLevelIndexSetups[unitCurrentLevelIndex].UnitLevelStatsData;
+        {
+            if (UnitStatsByLevelIndexSetups == null || UnitStatsByLevelIndexSetups.Count == 0 ||
+                unitCurrentLevelIndex < 0)
+                throw new InvalidOperationException($"UnitStatsByLevelIndexSetups is empty for {name}");
+
+            if (unitCurrentLevelIndex >= UnitStatsByLevelIndexSetups.Count)
+                return null;
+
+            return UnitStatsByLevelIndexSetups[unitCurrentLevelIndex].UnitLevelStatsData;
+        }
     }
 }
