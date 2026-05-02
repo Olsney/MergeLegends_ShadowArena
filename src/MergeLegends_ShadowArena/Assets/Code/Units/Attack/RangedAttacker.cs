@@ -69,6 +69,7 @@ namespace Code.Units.Attack
             if (_isActive == false)
                 return;
 
+            _navmeshAgentMover.RotateToTarget();
             UpdateCooldown();
         }
 
