@@ -13,6 +13,7 @@ namespace Code.Infrastructure.States
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
+        private readonly IPresenterFactory _presenterFactory;
         private readonly IStaticDataService _staticData;
         private readonly IPersistentProgressService _progressService;
 
@@ -21,6 +22,7 @@ namespace Code.Infrastructure.States
             SceneLoader sceneLoader,
             IGameFactory gameFactory,
             IUIFactory uiFactory,
+            IPresenterFactory presenterFactory,
             IStaticDataService staticData,
             IPersistentProgressService progressService
         )
@@ -29,6 +31,7 @@ namespace Code.Infrastructure.States
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
             _uiFactory = uiFactory;
+            _presenterFactory = presenterFactory;
             _staticData = staticData;
             _progressService = progressService;
         }
@@ -60,9 +63,9 @@ namespace Code.Infrastructure.States
         private void InitGameWorld()
         {
             _uiFactory.CreateHud();
-            _uiFactory.CreateSettingsPresenter();
-            _uiFactory.CreateCurrencyPresenter();
-            _uiFactory.CreateLevelPresenter();
+            _presenterFactory.CreateSettingsPresenter();
+            _presenterFactory.CreateCurrencyPresenter(_progressService);
+            _presenterFactory.CreateLevelPresenter(_progressService);
         }
 
         private void InitUIRoot() =>

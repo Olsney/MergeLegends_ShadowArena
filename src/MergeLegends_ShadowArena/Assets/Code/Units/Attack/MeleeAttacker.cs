@@ -13,6 +13,7 @@ namespace Code.Units.Attack
         private UnitAnimator _animator;
         private AnimationEventsReader _animationEventsReader;
         private UnitNavmeshAgentMover _navmeshAgentMover;
+        private UnitDeath _unitDeath;
 
         private Collider[] _hits = new Collider[1];
         private int _layerMask;
@@ -26,6 +27,7 @@ namespace Code.Units.Attack
             _animationEventsReader = GetComponentInParent<AnimationEventsReader>();
             _animator = GetComponentInParent<UnitAnimator>();
             _navmeshAgentMover = GetComponentInParent<UnitNavmeshAgentMover>();
+            _unitDeath = GetComponentInParent<UnitDeath>();
         }
 
         private void OnEnable()
@@ -33,6 +35,7 @@ namespace Code.Units.Attack
             _animationEventsReader.Attacked += OnAttack;
             _animationEventsReader.AttackEnded += OnAttackEnded;
             _navmeshAgentMover.TargetReached += StartAttack;
+            _unitDeath.Dead += StopAttacking;
         }
 
         private void OnDisable()
@@ -40,6 +43,15 @@ namespace Code.Units.Attack
             _animationEventsReader.Attacked -= OnAttack;
             _animationEventsReader.AttackEnded -= OnAttackEnded;
             _navmeshAgentMover.TargetReached -= StartAttack;
+            _unitDeath.Dead -= StopAttacking;
+        }
+
+        private void Update()
+        {
+            if (_isActive == false)
+                return;
+            
+            UpdateCooldown();
         }
 
         public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask)
@@ -52,14 +64,8 @@ namespace Code.Units.Attack
         public void StartAttacking()
             => _isActive = true;
 
-        private void Update()
-        {
-            if (_isActive == false)
-                return;
-
-            _navmeshAgentMover.RotateToTarget();
-            UpdateCooldown();
-        }
+        private void StopAttacking() 
+            => _isActive = false;
 
         private void OnAttack()
         {

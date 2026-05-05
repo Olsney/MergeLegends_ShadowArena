@@ -13,13 +13,15 @@ namespace Code.Services.StaticData
         private const string PlayerUnitsStaticDataPath = "StaticData/UnitsType/PlayerUnits";
         private const string EnemiesStaticDataPath = "StaticData/UnitsType/Enemies";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
-        private const string StaticDataWindowPath = "StaticData/UI/WindowStaticData";
+        private const string WindowStaticDataPath = "StaticData/UI/WindowStaticData";
+        private const string WarningMessageStaticDataPath = "StaticData/UI/WarningMessageStaticData";
 
         private Dictionary<string, LevelStaticData> _levels;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _enemies;
         private Dictionary<GridPlacesTypeId, GridPlacesStaticData> _grids;
         private Dictionary<WindowType, WindowData> _windowConfigs;
+        private Dictionary<WarningMessagesTypeId, WarningMessageData> _warningMessages;
 
         public void Initialize()
         {
@@ -34,20 +36,25 @@ namespace Code.Services.StaticData
 
             _playerUnits = Resources
                 .LoadAll<UnitStaticData>(PlayerUnitsStaticDataPath)
-                .ToDictionary(x => x.unitAttackTypeId, x => x);
+                .ToDictionary(x => x.UnitAttackTypeId, x => x);
 
             _enemies = Resources
                 .LoadAll<UnitStaticData>(EnemiesStaticDataPath)
-                .ToDictionary(x => x.unitAttackTypeId, x => x);
+                .ToDictionary(x => x.UnitAttackTypeId, x => x);
 
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
                 .ToDictionary(x => x.GridPlacesTypeId, x => x);
-            
+
             _windowConfigs = Resources
-                .Load<WindowStaticData>(StaticDataWindowPath)
+                .Load<WindowStaticData>(WindowStaticDataPath)
                 .WindowDatas
                 .ToDictionary(x => x.windowType, x => x);
+
+            _warningMessages = Resources
+                .Load<WarningMessageStaticData>(WarningMessageStaticDataPath)
+                .WarningMessages
+                .ToDictionary(x => x.WarningMessagesTypeId, x => x);
         }
 
         public LevelStaticData GetLevel(string sceneKey) =>
@@ -69,10 +76,15 @@ namespace Code.Services.StaticData
             _grids.TryGetValue(gridPlacesTypeId, out GridPlacesStaticData staticData)
                 ? staticData
                 : null;
-        
+
         public WindowData GetWindow(WindowType windowType) =>
             _windowConfigs.TryGetValue(windowType, out WindowData windowData)
                 ? windowData
+                : null;
+
+        public WarningMessageData GetWarningMessage(WarningMessagesTypeId warningTypeId) =>
+            _warningMessages.TryGetValue(warningTypeId, out WarningMessageData warningData)
+                ? warningData
                 : null;
     }
 }

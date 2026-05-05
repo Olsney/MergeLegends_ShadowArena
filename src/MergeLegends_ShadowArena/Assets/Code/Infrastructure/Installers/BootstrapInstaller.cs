@@ -1,4 +1,5 @@
 using Code.Infrastructure.AssetManagement;
+using Code.Infrastructure.Builders;
 using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.Projectile;
@@ -10,6 +11,7 @@ using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.Input;
+using Code.Services.MergeUnits;
 using Code.Services.PersistentProgress;
 using Code.Services.Raycast;
 using Code.Services.SaveLoad;
@@ -76,6 +78,9 @@ namespace Code.Infrastructure.Installers
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
             Container.Bind<ISpawnButtonsParentProvider>().To<SpawnButtonsParentProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MergeUnitsService>().AsSingle();
+            Container.Bind<IPresenterFactory>().To<PresenterFactory>().AsSingle();
+            Container.Bind<IUnitBuilder>().To<UnitBuilder>().AsSingle();
         }
 
         private void BindInputService()

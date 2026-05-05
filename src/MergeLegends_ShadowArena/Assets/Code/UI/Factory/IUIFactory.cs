@@ -7,6 +7,9 @@ using Code.UI.Levels;
 using Code.UI.Services.Windows;
 using Code.UI.Settings;
 using Code.UI.SpawnUnits;
+using Code.UI.WarningMessages;
+using Code.Units.UI.Health;
+using Code.Units.UI.Levels;
 using UnityEngine;
 
 namespace Code.UI.Factory
@@ -18,12 +21,15 @@ namespace Code.UI.Factory
         GameObject CreateUIRoot();
         GameObject CreateHud();
         UnitSpawnerViewsRoot CreateSpawnerViewsRoot();
-        MeleePlayerUnitSpawnerPresenter CreateSpawnMeleePlayerUnitPresenter(Transform parent);
-        RangedPlayerUnitSpawnerPresenter CreateSpawnRangedPlayerUnitPresenter(Transform parent);
-        FightPresenter CreateFightPresenter();
-        SettingsPresenter CreateSettingsPresenter();
-        CurrencyPresenter CreateCurrencyPresenter();
-        LevelPresenter CreateLevelPresenter();
+        SpawnPlayerUnitView CreateMeleeSpawnButtonView(Transform parent);
+        SpawnPlayerUnitView CreateRangedSpawnButtonView(Transform parent);
+        StartFightView CreateStartFightButtonView();
+        WarningMessageView CreateWarningMessageView();
+        OpenSettingsView GetOpenSettingsView();
+        CurrencyCounterView GetCurrencyCounterView();
+        LevelView GetLevelView();
+        public UnitHealthBarView GetUnitHealthBarView();
+        public UnitLevelView GetUnitLevelView();
         WindowBase CreateWindow(WindowType windowType);
     }
 }

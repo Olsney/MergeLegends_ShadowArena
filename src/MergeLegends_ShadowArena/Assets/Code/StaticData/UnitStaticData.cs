@@ -6,12 +6,8 @@ namespace Code.StaticData
     [CreateAssetMenu(fileName = "PlayerUnitData", menuName = "StaticData/Unit")]
     public class UnitStaticData : ScriptableObject
     {
-        public UnitAttackTypeId unitAttackTypeId;
-        public List<UnitStatsByLevelIndexSetup> UnitStatsByLevelIndexSetups = new();
+        public UnitAttackTypeId UnitAttackTypeId;
+        public List<UnitStatsByLevelIndexSetup> UnitStatsByLevelIndexSetups;
         public GeneralData GeneralData;
-
-        [HideInInspector]
-        public UnitLevelStatsData GetStatsLvl(int unitCurrentLevelIndex)
-            => UnitStatsByLevelIndexSetups[unitCurrentLevelIndex].UnitLevelStatsData;
     }
 }

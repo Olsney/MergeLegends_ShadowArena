@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Units;
 using Code.Units.Enemies;
 using Code.Units.PlayerUnits;
-using Zenject;
 
 namespace Code.Logic.BattleServices
 {
@@ -10,6 +10,8 @@ namespace Code.Logic.BattleServices
     {
         private readonly IPlayerUnitsProvider _playerUnitsProvider;
         private readonly IEnemiesProvider _enemiesProvider;
+
+        public event Action FightStarting;
 
         public BattleService(IPlayerUnitsProvider playerUnitsProvider, IEnemiesProvider enemiesProvider)
         {
@@ -19,6 +21,7 @@ namespace Code.Logic.BattleServices
 
         public void StartFight()
         {
+            FightStarting?.Invoke();
             ProcessUnits(_playerUnitsProvider.GetUnits());
             ProcessUnits(_enemiesProvider.GetUnits());
         }
