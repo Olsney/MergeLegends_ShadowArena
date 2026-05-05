@@ -19,6 +19,7 @@ namespace Code.Units
         private AnimateAlongNavmeshAgent _animateAlongNavmeshAgent;
         private IUnit _unitTarget;
         private bool _isActive;
+        private bool _isTargetReached;
 
         public event Action TargetReached;
 
@@ -31,11 +32,11 @@ namespace Code.Units
             _unitDeath = GetComponent<UnitDeath>();
         }
 
-        private void Start() 
-            => _unitDeath.Dead += StopMoving;
+        private void Start()
+            => _unitDeath.Dead += DisableAgent;
 
-        private void OnDestroy() 
-            => _unitDeath.Dead -= StopMoving;
+        private void OnDestroy()
+            => _unitDeath.Dead -= DisableAgent;
 
         public void InitConfig(float speed, float attackDistance)
         {
@@ -43,20 +44,24 @@ namespace Code.Units
             _sqrStopDistance = attackDistance;
         }
 
-        public void StartMoving() 
+        public void StartMoving()
             => _isActive = true;
 
         private void Update()
         {
             if (_isActive == false)
                 return;
-            
+
             UpdateTarget();
+
+            if (_isTargetReached)
+                RotateToTarget();
+
             HandleMovement();
             UpdateAnimation();
         }
 
-        public void RotateToTarget()
+        private void RotateToTarget()
         {
             if (_unitTarget == null)
                 return;
@@ -68,7 +73,7 @@ namespace Code.Units
         {
             if (_unitTarget == null)
                 return null;
-            
+
             return _unitTarget;
         }
 
@@ -77,7 +82,10 @@ namespace Code.Units
             var newTarget = _targetFinder.GetTarget();
 
             if (newTarget != _unitTarget)
+            {
                 _unitTarget = newTarget;
+                _isTargetReached = false;
+            }
         }
 
         private void HandleMovement()
@@ -88,13 +96,18 @@ namespace Code.Units
                 return;
             }
 
+            if (_navMeshAgent.enabled == false || _navMeshAgent.isOnNavMesh == false)
+                return;
+
             if (IsNeedToMove() && _attacker.IsAttacking == false)
             {
+                _isTargetReached = false;
                 _navMeshAgent.destination = _unitTarget.Transform.position;
             }
             else
             {
                 StopMoving();
+                _isTargetReached = true;
                 TargetReached?.Invoke();
             }
         }
@@ -106,6 +119,12 @@ namespace Code.Units
         {
             if (_navMeshAgent.hasPath)
                 _navMeshAgent.ResetPath();
+        }
+
+        private void DisableAgent()
+        {
+            StopMoving();
+            _navMeshAgent.enabled = false;
         }
 
         private bool IsNeedToMove()
