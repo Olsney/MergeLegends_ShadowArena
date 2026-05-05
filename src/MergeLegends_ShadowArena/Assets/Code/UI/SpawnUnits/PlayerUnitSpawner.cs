@@ -1,39 +1,38 @@
-﻿using Code.Infrastructure.Factory.Game;
-using Code.Infrastructure.Factory.Units;
+﻿using Code.Infrastructure.Builders;
 using Code.Logic.PlayArea.Cell;
 using Code.StaticData;
+using UnityEngine;
 
 namespace Code.UI.SpawnUnits
 {
     public class PlayerUnitSpawner : IPlayerUnitSpawner
     {
         private const int FirstLevelIndex = 0;
-        
-        private readonly IUnitFactory _unitFactory;
+
         private readonly IPlayerUnitCellsProvider _cellsProvider;
+        private readonly IUnitBuilder _unitBuilder;
 
-        public PlayerUnitSpawner(IUnitFactory unitFactory, IPlayerUnitCellsProvider cellsProvider)
+        public PlayerUnitSpawner(
+            IPlayerUnitCellsProvider cellsProvider,
+            IUnitBuilder unitBuilder)
         {
-            _unitFactory = unitFactory;
             _cellsProvider = cellsProvider;
+            _unitBuilder = unitBuilder;
         }
 
-        public void Melee()
+        public void Spawn(UnitAttackTypeId attackTypeId)
         {
             foreach (var cell in _cellsProvider.GetFreeCells())
             {
-                cell.SetUnit(_unitFactory.CreateUnit(UnitTypeId.PlayerUnit, UnitAttackTypeId.Melee, FirstLevelIndex,
-                    cell.Transform.position));
-                return;
-            }
-        }
+                Vector3 position = cell.Transform.position;
 
-        public void Ranged()
-        {
-            foreach (var cell in _cellsProvider.GetFreeCells())
-            {
-                cell.SetUnit(_unitFactory.CreateUnit(UnitTypeId.PlayerUnit, UnitAttackTypeId.Ranged, FirstLevelIndex,
-                    cell.Transform.position));
+                cell.SetUnit(
+                    _unitBuilder
+                        .SetUnitType(UnitTypeId.PlayerUnit)
+                        .SetUnitAttackType(attackTypeId)
+                        .SetCurrentLevel(FirstLevelIndex)
+                        .SetPosition(position)
+                        .Build());
                 return;
             }
         }

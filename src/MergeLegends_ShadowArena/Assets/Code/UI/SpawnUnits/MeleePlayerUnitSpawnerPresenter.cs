@@ -1,4 +1,6 @@
-﻿namespace Code.UI.SpawnUnits
+﻿using Code.StaticData;
+
+namespace Code.UI.SpawnUnits
 {
     public class MeleePlayerUnitSpawnerPresenter : Presenter<SpawnPlayerUnitView>
     {
@@ -10,10 +12,13 @@
         }
 
         public override void Initialize()
-            => View.SpawnClicked += _spawner.Melee;
+            => View.SpawnClicked += OnSpawnClicked;
 
         public override void Dispose()
-            => View.SpawnClicked -= _spawner.Melee;
+            => View.SpawnClicked -= OnSpawnClicked;
+
+        private void OnSpawnClicked() 
+            => _spawner.Spawn(UnitAttackTypeId.Melee);
 
         public void RemoveView()
             => View.Remove();

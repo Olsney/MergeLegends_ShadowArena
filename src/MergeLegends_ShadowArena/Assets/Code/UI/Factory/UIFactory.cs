@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Infrastructure.AssetManagement;
-using Code.Infrastructure.States;
 using Code.Services.PersistentProgress;
 using Code.Services.StaticData;
 using Code.Services.Windows;
@@ -13,6 +12,8 @@ using Code.UI.Services.Windows;
 using Code.UI.Settings;
 using Code.UI.SpawnUnits;
 using Code.UI.WarningMessages;
+using Code.Units.UI.Health;
+using Code.Units.UI.Levels;
 using UnityEngine;
 using Zenject;
 
@@ -25,34 +26,24 @@ namespace Code.UI.Factory
 
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
-        private readonly IPlayerUnitSpawner _spawner;
-        private readonly BattleStateMachine _battleStateMachine;
         private readonly IStaticDataService _staticDataService;
-        private readonly IPersistentProgressService _progressService;
 
         private GameObject _uiRoot;
 
         public UIFactory(
             IInstantiator instantiator,
             IAssetProvider assets,
-            IPlayerUnitSpawner spawner,
-            BattleStateMachine battleStateMachine,
-            IStaticDataService staticDataService,
-            IPersistentProgressService progressService)
+            IStaticDataService staticDataService)
         {
             _instantiator = instantiator;
             _assets = assets;
-            _spawner = spawner;
-            _battleStateMachine = battleStateMachine;
             _staticDataService = staticDataService;
-            _progressService = progressService;
         }
 
         public GameObject CreateUIRoot()
         {
             GameObject prefab = _assets.Load(AssetPath.UIRootPath);
             _uiRoot = _instantiator.InstantiatePrefab(prefab);
-
             return _uiRoot;
         }
 
@@ -69,49 +60,32 @@ namespace Code.UI.Factory
                 .GetComponentInChildren<UnitSpawnerViewsRoot>();
         }
 
-        public MeleePlayerUnitSpawnerPresenter CreateSpawnMeleePlayerUnitPresenter(Transform parent)
-        {
-            return CreatePresenter<SpawnPlayerUnitView, MeleePlayerUnitSpawnerPresenter>(
-                AssetPath.UISpawnMeleePlayerUnitButtonPath,
-                view => new MeleePlayerUnitSpawnerPresenter(view, _spawner),
-                parent);
-        }
+        public SpawnPlayerUnitView CreateMeleeSpawnButtonView(Transform parent)
+            => CreateView<SpawnPlayerUnitView>(AssetPath.UISpawnMeleePlayerUnitButtonPath, parent);
 
-        public RangedPlayerUnitSpawnerPresenter CreateSpawnRangedPlayerUnitPresenter(Transform parent)
-        {
-            return CreatePresenter<SpawnPlayerUnitView, RangedPlayerUnitSpawnerPresenter>(
-                AssetPath.UISpawnRangedPlayerUnitButtonPath,
-                view => new RangedPlayerUnitSpawnerPresenter(view, _spawner),
-                parent);
-        }
+        public SpawnPlayerUnitView CreateRangedSpawnButtonView(Transform parent)
+            => CreateView<SpawnPlayerUnitView>(AssetPath.UISpawnRangedPlayerUnitButtonPath, parent);
 
-        public FightPresenter CreateFightPresenter()
-        {
-            return CreatePresenter<StartFightView, FightPresenter>(
-                AssetPath.UIStartFightButtonPath,
-                view => new FightPresenter(view, _battleStateMachine));
-        }
+        public StartFightView CreateStartFightButtonView()
+            => CreateView<StartFightView>(AssetPath.UIStartFightButtonPath);
 
-        public SettingsPresenter CreateSettingsPresenter()
-        {
-            OpenSettingsView view = FindExistingView<OpenSettingsView>();
-            return CreatePresenter(view, openSettingsView
-                => new SettingsPresenter(openSettingsView, this));
-        }
+        public WarningMessageView CreateWarningMessageView()
+            => CreateView<WarningMessageView>(AssetPath.WarningMessagePath);
 
-        public CurrencyPresenter CreateCurrencyPresenter()
-        {
-            CurrencyCounterView view = FindExistingView<CurrencyCounterView>();
-            return CreatePresenter(view, currencyView
-                => new CurrencyPresenter(currencyView, _progressService));
-        }
+        public OpenSettingsView GetOpenSettingsView()
+            => FindExistingView<OpenSettingsView>();
 
-        public LevelPresenter CreateLevelPresenter()
-        {
-            LevelView view = FindExistingView<LevelView>();
-            return CreatePresenter(view, levelShowerView
-                => new LevelPresenter(levelShowerView, _progressService));
-        }
+        public CurrencyCounterView GetCurrencyCounterView()
+            => FindExistingView<CurrencyCounterView>();
+
+        public LevelView GetLevelView()
+            => FindExistingView<LevelView>();
+
+        public UnitHealthBarView GetUnitHealthBarView()
+            => FindExistingView<UnitHealthBarView>();
+
+        public UnitLevelView GetUnitLevelView()
+            => FindExistingView<UnitLevelView>();
 
         public WindowBase CreateWindow(WindowType windowType)
         {
@@ -123,18 +97,6 @@ namespace Code.UI.Factory
                 WindowType.Settings => windowObject.GetComponent<SettingsWindow>(),
                 _ => throw new NullReferenceException($"Unknown window type: {windowType}")
             };
-        }
-
-        public GameObject CreateWarningMessage(string message)
-        {
-            GameObject prefab = _assets.Load(AssetPath.WarningMessagePath);
-
-            GameObject warningMessagePrefab = _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
-            
-            CreatePresenter(warningMessagePrefab.GetComponentInChildren<WarningMessageView>(), 
-                warningMessageView => new WarningMessagePresenter(warningMessageView, message));
-
-            return warningMessagePrefab;
         }
 
         public void Cleanup()
@@ -153,34 +115,13 @@ namespace Code.UI.Factory
             return view;
         }
 
-        private TPresenter CreatePresenter<TView, TPresenter>(
-            string assetPath,
-            Func<TView, TPresenter> createPresenter,
-            Transform parent = null)
-            where TView : MonoBehaviour
-            where TPresenter : IInitializable
-        {
-            var view = CreateView<TView>(assetPath, parent);
-            var presenter = createPresenter(view);
-            presenter.Initialize();
-            return presenter;
-        }
-
-        private TPresenter CreatePresenter<TView, TPresenter>(
-            TView view,
-            Func<TView, TPresenter> createPresenter)
-            where TView : MonoBehaviour
-            where TPresenter : IInitializable
-        {
-            TPresenter presenter = createPresenter(view);
-            presenter.Initialize();
-            return presenter;
-        }
-
         private TView CreateView<TView>(string assetPath, Transform parent = null) where TView : MonoBehaviour
         {
             GameObject prefab = _assets.Load(assetPath);
             GameObject view = _instantiator.InstantiatePrefab(prefab, parent ?? _uiRoot.transform);
+
+            RegisterProgressWatchers(view);
+
             return view.GetComponent<TView>();
         }
 

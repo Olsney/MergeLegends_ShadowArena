@@ -1,8 +1,9 @@
-﻿namespace Code.UI.SpawnUnits
+﻿using Code.StaticData;
+
+namespace Code.UI.SpawnUnits
 {
     public interface IPlayerUnitSpawner
     {
-        void Melee();
-        void Ranged();
+        void Spawn(UnitAttackTypeId attackTypeId);
     }
 }

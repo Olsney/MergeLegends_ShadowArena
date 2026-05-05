@@ -1,4 +1,5 @@
 using System.Linq;
+using Code.Infrastructure.Builders;
 using Code.Infrastructure.Factory.Game;
 using Code.Infrastructure.Factory.Units;
 using Code.Logic.PlayArea.Cell;
@@ -13,14 +14,16 @@ namespace Code.Logic.EnemySpawners
     {
         private const int FirstGameLevelIndex = 0;
 
-        private readonly IUnitFactory _unitFactory;
+        private readonly IUnitBuilder _unitBuilder;
         private readonly IEnemyCellsProvider _cellsProvider;
         private readonly IStaticDataService _staticDataService;
 
-        public EnemySpawner(IUnitFactory unitFactory, IEnemyCellsProvider cellsProvider,
+        public EnemySpawner(
+            IUnitBuilder unitBuilder,
+            IEnemyCellsProvider cellsProvider,
             IStaticDataService staticDataService)
         {
-            _unitFactory = unitFactory;
+            _unitBuilder = unitBuilder;
             _cellsProvider = cellsProvider;
             _staticDataService = staticDataService;
         }
@@ -40,11 +43,12 @@ namespace Code.Logic.EnemySpawners
                 var config = enemiesSpawnData[i];
                 var cell = freeCells[i];
 
-                GameObject enemy = _unitFactory.CreateUnit(UnitTypeId.Enemy,
-                    config.UnitAttackTypeId,
-                    config.LevelIndex,
-                    cell.Transform.position
-                );
+                GameObject enemy = _unitBuilder
+                    .SetUnitType(UnitTypeId.Enemy)
+                    .SetUnitAttackType(config.UnitAttackTypeId)
+                    .SetCurrentLevel(config.LevelIndex)
+                    .SetPosition(cell.Transform.position)
+                    .Build();
 
                 cell.SetUnit(enemy);
             }

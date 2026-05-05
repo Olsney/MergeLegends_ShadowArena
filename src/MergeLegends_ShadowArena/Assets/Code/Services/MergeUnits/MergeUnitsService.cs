@@ -1,11 +1,12 @@
 using System;
-using Code.Infrastructure.Factory.Units;
+using Code.Infrastructure.Builders;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.StaticData;
 using Code.StaticData;
 using Code.UI.Factory;
 using Code.Units.PlayerUnits;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Services.MergeUnits
@@ -13,19 +14,19 @@ namespace Code.Services.MergeUnits
     public class MergeUnitsService : IMergeUnitsService, IDisposable, IInitializable
     {
         private readonly IStaticDataService _staticData;
-        private readonly IUnitFactory _unitFactory;
+        private readonly IUnitBuilder _unitBuilder;
         private readonly IPlayerUnitGridSelectorService _selectorService;
-        private readonly IUIFactory _uiFactory;
+        private readonly IPresenterFactory _uiFactory;
 
         private CellGridPlayerUnit _selectedCell;
 
         public MergeUnitsService(
-            IUnitFactory unitFactory,
+            IUnitBuilder unitBuilder,
             IStaticDataService staticData,
             IPlayerUnitGridSelectorService selectorService,
-            IUIFactory uiFactory)
+            IPresenterFactory uiFactory)
         {
-            _unitFactory = unitFactory;
+            _unitBuilder = unitBuilder;
             _staticData = staticData;
             _selectorService = selectorService;
             _uiFactory = uiFactory;
@@ -79,7 +80,7 @@ namespace Code.Services.MergeUnits
 
             int nextLevel = unit1.LevelIndex + 1;
 
-            if (_staticData.GetPlayerUnit(unit1.AttackType).GetStatsLvl(nextLevel) == null)
+            if (nextLevel >= _staticData.GetPlayerUnit(unit1.AttackType).UnitStatsByLevelIndexSetups.Count)
             {
                 ShowMaxLevelToMergeMessage();
                 return;
@@ -88,19 +89,31 @@ namespace Code.Services.MergeUnits
             DestroyUnit(cell1);
             DestroyUnit(cell2);
 
-            var newUnit = _unitFactory.CreateUnit(
-                UnitTypeId.PlayerUnit,
-                unit1.AttackType,
-                nextLevel,
-                cell2.transform.position
-            );
-
-            cell2.SetUnit(newUnit);
-            newUnit.GetComponent<PlayerUnit>().StartLevelUpEffect();
+            var newUnit = CreateNewLevelUpUnit(cell2, unit1, nextLevel);
+            SetUnitInCell(cell2, newUnit);
+            StartLevelUpEffect(newUnit);
         }
 
+        private GameObject CreateNewLevelUpUnit(CellGridPlayerUnit cell2, PlayerUnit unit1, int nextLevel)
+        {
+            GameObject newUnit = _unitBuilder
+                .SetUnitType(UnitTypeId.PlayerUnit)
+                .SetUnitAttackType(unit1.AttackType)
+                .SetCurrentLevel(nextLevel)
+                .SetPosition(cell2.transform.position)
+                .Build();
+
+            return newUnit;
+        }
+
+        private static void SetUnitInCell(CellGridPlayerUnit cell2, GameObject newUnit)
+            => cell2.SetUnit(newUnit);
+
+        private void StartLevelUpEffect(GameObject newUnit)
+            => newUnit.GetComponent<PlayerUnit>().StartLevelUpEffect();
+
         private void ShowMaxLevelToMergeMessage()
-            => _uiFactory.CreateWarningMessage(
+            => _uiFactory.CreateWarningMessagePresenter(
                 _staticData.GetWarningMessage(WarningMessagesTypeId.MaxUnitLevel).Message);
 
         private void DestroyUnit(CellGridPlayerUnit cell)
