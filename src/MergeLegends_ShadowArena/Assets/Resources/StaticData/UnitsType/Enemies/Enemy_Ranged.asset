@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c032879a89e485aa7d29a4a58334db5, type: 3}
   m_Name: Enemy_Ranged
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.UnitStaticData
-  unitAttackTypeId: 2
+  UnitAttackTypeId: 2
   UnitStatsByLevelIndexSetups:
   - UnitLevelStatsData:
       Hp: 100
@@ -56,9 +56,9 @@ MonoBehaviour:
       ViewPrefab: {fileID: 6851098954442268493, guid: e6b4e96d3dc8eaa41a8bb313d09147a3, type: 3}
   GeneralData:
     UnitData:
-      MoveSpeed: 3
+      MoveSpeed: 3.5
       AttackDistance: 35
-      AttackCooldown: 0.8
+      AttackCooldown: 0.4
     TargetData:
       TargetLayerMask: 6
     MagicSphereData:

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c032879a89e485aa7d29a4a58334db5, type: 3}
   m_Name: Ranged_PlayerUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitStaticData
-  unitAttackTypeId: 2
+  UnitAttackTypeId: 2
   UnitStatsByLevelIndexSetups:
   - UnitLevelStatsData:
       Hp: 100
@@ -56,9 +56,9 @@ MonoBehaviour:
       ViewPrefab: {fileID: 5155759024317157098, guid: 90d4239cb438862449b3286b75a9bc03, type: 3}
   GeneralData:
     UnitData:
-      MoveSpeed: 3
+      MoveSpeed: 3.5
       AttackDistance: 35
-      AttackCooldown: 0.8
+      AttackCooldown: 0.4
     TargetData:
       TargetLayerMask: 7
     MagicSphereData:
