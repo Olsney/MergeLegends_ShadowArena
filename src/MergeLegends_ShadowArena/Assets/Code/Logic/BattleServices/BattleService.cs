@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Code.Signals;
+﻿using System;
+using System.Collections.Generic;
 using Code.Units;
 using Code.Units.Enemies;
 using Code.Units.PlayerUnits;
-using Zenject;
 
 namespace Code.Logic.BattleServices
 {
@@ -11,21 +10,20 @@ namespace Code.Logic.BattleServices
     {
         private readonly IPlayerUnitsProvider _playerUnitsProvider;
         private readonly IEnemiesProvider _enemiesProvider;
-        private readonly SignalBus _signalBus;
 
-        public BattleService(IPlayerUnitsProvider playerUnitsProvider, IEnemiesProvider enemiesProvider,
-            SignalBus signalBus)
+        public event Action FightStarting;
+
+        public BattleService(IPlayerUnitsProvider playerUnitsProvider, IEnemiesProvider enemiesProvider)
         {
             _playerUnitsProvider = playerUnitsProvider;
             _enemiesProvider = enemiesProvider;
-            _signalBus = signalBus;
         }
 
         public void StartFight()
         {
+            FightStarting?.Invoke();
             ProcessUnits(_playerUnitsProvider.GetUnits());
             ProcessUnits(_enemiesProvider.GetUnits());
-            _signalBus.Fire(new StartFightSignal());
         }
 
         public bool CanStartFight()
