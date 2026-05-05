@@ -36,11 +36,11 @@ namespace Code.Services.StaticData
 
             _playerUnits = Resources
                 .LoadAll<UnitStaticData>(PlayerUnitsStaticDataPath)
-                .ToDictionary(x => x.unitAttackTypeId, x => x);
+                .ToDictionary(x => x.UnitAttackTypeId, x => x);
 
             _enemies = Resources
                 .LoadAll<UnitStaticData>(EnemiesStaticDataPath)
-                .ToDictionary(x => x.unitAttackTypeId, x => x);
+                .ToDictionary(x => x.UnitAttackTypeId, x => x);
 
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
