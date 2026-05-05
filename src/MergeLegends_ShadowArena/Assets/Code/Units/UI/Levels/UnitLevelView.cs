@@ -1,27 +1,15 @@
-using Code.Signals;
+using Code.UI;
 using Code.Units.UI.Texts;
 using UnityEngine;
-using Zenject;
 
 namespace Code.Units.UI.Levels
 {
-    public class UnitLevelView : MonoBehaviour
+    public class UnitLevelView : MonoBehaviour, IView
     {
         private UnitLevelText _unitLevelText;
-        private SignalBus _signalBus;
-
-        [Inject]
-        private void Construct(SignalBus signalBus)
-            => _signalBus = signalBus;
 
         private void Awake()
             => _unitLevelText = GetComponentInChildren<UnitLevelText>();
-
-        private void Start()
-            => _signalBus.Subscribe<StartFightSignal>(Remove);
-
-        private void OnDestroy()
-            => _signalBus.Unsubscribe<StartFightSignal>(Remove);
 
         public void SetValue(int levelIndex)
         {
@@ -35,7 +23,7 @@ namespace Code.Units.UI.Levels
             _unitLevelText.TextMeshPro.text = levelNumber.ToString();
         }
 
-        private void Remove()
+        public void Remove()
             => Destroy(gameObject);
     }
 }

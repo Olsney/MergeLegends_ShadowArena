@@ -1,55 +1,34 @@
+using Code.UI;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace Code.Units.UI.FloatingTexts
+namespace Code.Units.UI.FloatingDamages
 {
     [RequireComponent(typeof(LookAtCanvasToCamera))]
-    public class DamageFloatingText : MonoBehaviour
+    public class DamageFloatingView : MonoBehaviour, IView
     {
         [SerializeField] private float _floatDistance = 1.2f;
         [SerializeField] private float _duration = 0.5f;
         [SerializeField] private float _radius = 0.8f;
 
-        private IHealth _health;
-        private float _lastHealthValue;
         private TextMeshPro _textMesh;
         private Tween _currentTween;
         private Color _originalColor;
 
         private void Awake()
         {
-            _health = GetComponentInParent<IHealth>();
             _textMesh = GetComponent<TextMeshPro>();
             _textMesh.sortingOrder = 1;
             _originalColor = _textMesh.color;
         }
 
-        private void Start()
-        {
-            _health.HealthChanged += OnHealthChanged;
-            _lastHealthValue = _health.CurrentValue;
-            gameObject.SetActive(false);
-        }
-
         private void OnDestroy()
         {
-            _health.HealthChanged -= OnHealthChanged;
             _currentTween?.Kill();
         }
 
-        private void OnHealthChanged()
-        {
-            float damage = _lastHealthValue - _health.CurrentValue;
-            _lastHealthValue = _health.CurrentValue;
-
-            if (damage > 0)
-            {
-                ShowDamage((int)damage);
-            }
-        }
-
-        private void ShowDamage(int damage)
+        public void Show(float damage)
         {
             _currentTween?.Kill();
 
@@ -60,7 +39,7 @@ namespace Code.Units.UI.FloatingTexts
             transform.position = transform.parent.position + offset;
             transform.localScale = Vector3.one;
 
-            _textMesh.text = damage.ToString();
+            _textMesh.text = Mathf.RoundToInt(damage).ToString();
             _textMesh.color = _originalColor;
 
             gameObject.SetActive(true);
@@ -76,5 +55,8 @@ namespace Code.Units.UI.FloatingTexts
             _currentTween = sequence;
             sequence.Play();
         }
+
+        public void Hide() 
+            => gameObject.SetActive(false);
     }
 }
