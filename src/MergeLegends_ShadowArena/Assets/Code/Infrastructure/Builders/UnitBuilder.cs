@@ -120,15 +120,16 @@ namespace Code.Infrastructure.Builders
             }
         }
 
-        private void InitPresenters(GameObject unit)
+        private void InitPresenters(GameObject unitPrefab)
         {
-            IHealth health = unit.GetComponent<IHealth>();
-            UnitDeath unitDeath = unit.GetComponent<UnitDeath>();
+            IUnit unit = unitPrefab.GetComponent<IUnit>();
+            IHealth health = unitPrefab.GetComponent<IHealth>();
+            UnitDeath unitDeath = unitPrefab.GetComponent<UnitDeath>();
 
-            UnitCanvasView canvasView = unit.GetComponentInChildren<UnitCanvasView>();
-            UnitLevelView levelView = unit.GetComponentInChildren<UnitLevelView>();
-            UnitHealthBarView healthBarView = unit.GetComponentInChildren<UnitHealthBarView>();
-            DamageFloatingView damageFloatingView = unit.GetComponentInChildren<DamageFloatingView>();
+            UnitCanvasView canvasView = unitPrefab.GetComponentInChildren<UnitCanvasView>();
+            UnitLevelView levelView = unitPrefab.GetComponentInChildren<UnitLevelView>();
+            UnitHealthBarView healthBarView = unitPrefab.GetComponentInChildren<UnitHealthBarView>();
+            DamageFloatingView damageFloatingView = unitPrefab.GetComponentInChildren<DamageFloatingView>();
 
             UnitLevelPresenter levelPresenter =
                 _presenterFactory.CreateUnitLevelPresenter(levelView, _battleService, _unitCurrentLevelIndex);
@@ -136,21 +137,24 @@ namespace Code.Infrastructure.Builders
                 _presenterFactory.CreateUnitHealthBarPresenter(healthBarView, health);
             DamageFloatingPresenter damageFloatingPresenter =
                 _presenterFactory.CreateDamageFloatingPresenter(damageFloatingView, health);
-            UnitCanvasPresenter canvasPresenter =
-                _presenterFactory.CreateUnitCanvasPresenter(canvasView, unitDeath);
+            UnitCanvasPresenter canvasPresenter = _presenterFactory.CreateUnitCanvasPresenter(canvasView, unitDeath);
 
-            unitDeath.Dead += () =>
+            unit.Destroying += OnUnitDestroying;
+
+            void OnUnitDestroying()
             {
-                levelPresenter.Dispose();
-                healthBarPresenter.Dispose();
-                damageFloatingPresenter.Dispose();
-                canvasPresenter.Dispose();
+                unit.Destroying -= OnUnitDestroying;
+
+                levelPresenter?.Dispose();
+                healthBarPresenter?.Dispose();
+                damageFloatingPresenter?.Dispose();
+                canvasPresenter?.Dispose();
 
                 levelPresenter = null;
                 healthBarPresenter = null;
                 damageFloatingPresenter = null;
                 canvasPresenter = null;
-            };
+            }
         }
 
         private UnitStaticData GetUnitStaticData()

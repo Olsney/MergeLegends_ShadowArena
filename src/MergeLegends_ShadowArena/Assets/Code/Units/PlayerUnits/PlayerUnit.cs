@@ -1,7 +1,7 @@
+using System;
 using Code.Services.MergeUnits;
 using Code.StaticData;
 using Code.Units.Attack;
-using Code.Units.UI;
 using UnityEngine;
 using Zenject;
 
@@ -14,12 +14,14 @@ namespace Code.Units.PlayerUnits
         public int LevelIndex { get; private set; }
         public UnitAttackTypeId AttackType { get; private set; }
 
+        public event Action Destroying;
+
         private UnitNavmeshAgentMover _unitNavmeshAgentMover;
         private IAttacker _attacker;
         private UnitDeath _unitDeath;
         private IPlayerUnitsProvider _playerUnitsProvider;
         private PlayerUnitHealth _playerUnitHealth;
-        
+
         private SpawnEffect _spawnEffect;
         private LevelUpEffect _levelUpEffect;
         private DamageEffect _damageEffect;
@@ -58,6 +60,7 @@ namespace Code.Units.PlayerUnits
 
         private void OnDestroy()
         {
+            Destroying?.Invoke();
             _playerUnitsProvider.RemoveUnit(this);
             _unitDeath.Dead -= OnDead;
             _playerUnitHealth.HealthChanged -= _damageEffect.Play;

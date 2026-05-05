@@ -1,5 +1,5 @@
+using System;
 using Code.Units.Attack;
-using Code.Units.UI;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +9,8 @@ namespace Code.Units.Enemies
     {
         public bool IsDead { get; private set; }
         public Transform Transform => transform;
+        
+        public event Action Destroying;
 
         private UnitNavmeshAgentMover _unitNavmeshAgentMover;
         private IAttacker _attacker;
@@ -44,6 +46,7 @@ namespace Code.Units.Enemies
 
         private void OnDestroy()
         {
+            Destroying?.Invoke();
             _enemiesProvider.RemoveUnit(this);
             _enemyHealth.HealthChanged -= _damageEffect.Play;
             _unitDeath.Dead -= OnDead;
