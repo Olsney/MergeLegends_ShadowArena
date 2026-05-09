@@ -8,15 +8,21 @@ namespace Code.StaticData
         public int Value;
         public Action Changed;
 
-        public void Collect(int value)
+        public void Spend(int amount)
         {
-            Value += value;
+            if (amount <= 0)
+                throw new ArgumentOutOfRangeException(nameof(amount), "Spend amount must be positive");
+
+            Value -= amount;
             Changed?.Invoke();
         }
 
-        public void Add(int lootValue)
+        public void Add(int amount)
         {
-            Value += lootValue;
+            if (amount <= 0)
+                throw new ArgumentOutOfRangeException(nameof(amount), "Add amount must be positive");
+
+            Value += amount;
             Changed?.Invoke();
         }
     }
