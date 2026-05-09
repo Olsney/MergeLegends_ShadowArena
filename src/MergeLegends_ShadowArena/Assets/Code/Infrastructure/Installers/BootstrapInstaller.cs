@@ -13,6 +13,7 @@ using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.Input;
 using Code.Services.MergeUnits;
 using Code.Services.PersistentProgress;
+using Code.Services.PlayerUnitPurchases;
 using Code.Services.Raycast;
 using Code.Services.SaveLoad;
 using Code.Services.StaticData;
@@ -81,6 +82,7 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<MergeUnitsService>().AsSingle();
             Container.Bind<IPresenterFactory>().To<PresenterFactory>().AsSingle();
             Container.Bind<IUnitBuilder>().To<UnitBuilder>().AsSingle();
+            Container.Bind<IPlayerUnitPurchaseService>().To<PlayerUnitPurchaseService>().AsSingle();
         }
 
         private void BindInputService()
