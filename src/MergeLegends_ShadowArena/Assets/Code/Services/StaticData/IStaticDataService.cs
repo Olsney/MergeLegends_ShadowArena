@@ -5,10 +5,10 @@ namespace Code.Services.StaticData
 {
     public interface IStaticDataService
     {
-        LevelStaticData GetLevel(string sceneKey);
+        GameStaticData GetGameStaticData(string sceneKey);
         UnitStaticData GetPlayerUnit(UnitAttackTypeId unitAttackTypeId);
         UnitStaticData GetEnemy(UnitAttackTypeId unitAttackTypeId);
-        GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId);
+        GridPlacesStaticData GetGridPlaces(UnitTypeId unitTypeId);
         WindowData GetWindow(WindowType windowType);
         WarningMessageData GetWarningMessage(WarningMessagesTypeId warningTypeId);
     }
