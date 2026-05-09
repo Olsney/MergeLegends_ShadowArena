@@ -1,6 +1,7 @@
 using Code.Infrastructure.States;
 using Code.Logic.BattleServices;
 using Code.Services.PersistentProgress;
+using Code.Services.PlayerUnitPurchases;
 using Code.UI.Currency;
 using Code.UI.Fights;
 using Code.UI.Levels;
@@ -22,12 +23,11 @@ namespace Code.UI.Factory
         UnitHealthBarPresenter CreateUnitHealthBarPresenter(UnitHealthBarView view, IHealth health);
         UnitLevelPresenter CreateUnitLevelPresenter(UnitLevelView view, IBattleService battleService,
             int unitCurrentLevelIndex);
-
         DamageFloatingPresenter CreateDamageFloatingPresenter(DamageFloatingView view, IHealth health);
-        MeleePlayerUnitSpawnerPresenter CreateSpawnMeleePlayerUnitPresenter(
-            Transform parent, IPlayerUnitSpawner spawner);
-        RangedPlayerUnitSpawnerPresenter CreateSpawnRangedPlayerUnitPresenter(
-            Transform parent, IPlayerUnitSpawner spawner);
+        MeleePlayerUnitPurchasePresenter CreateMeleePlayerUnitPurchasePresenter(
+            Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService);
+        RangedPlayerUnitPurchasePresenter CreateRangedPlayerUnitPurchasePresenter(
+            Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService);
         FightPresenter CreateFightPresenter(BattleStateMachine battleStateMachine);
         SettingsPresenter CreateSettingsPresenter();
         CurrencyPresenter CreateCurrencyPresenter(IPersistentProgressService progressService);

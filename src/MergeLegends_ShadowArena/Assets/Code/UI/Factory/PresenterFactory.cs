@@ -2,6 +2,7 @@ using System;
 using Code.Infrastructure.States;
 using Code.Logic.BattleServices;
 using Code.Services.PersistentProgress;
+using Code.Services.PlayerUnitPurchases;
 using Code.UI.Currency;
 using Code.UI.Fights;
 using Code.UI.Levels;
@@ -41,18 +42,20 @@ namespace Code.UI.Factory
         public DamageFloatingPresenter CreateDamageFloatingPresenter(DamageFloatingView view, IHealth health)
             => CreatePresenter(view, floatingView => new DamageFloatingPresenter(floatingView, health));
 
-        public MeleePlayerUnitSpawnerPresenter CreateSpawnMeleePlayerUnitPresenter(
-            Transform parent, IPlayerUnitSpawner spawner)
+        public MeleePlayerUnitPurchasePresenter CreateMeleePlayerUnitPurchasePresenter(
+            Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService)
         {
-            SpawnPlayerUnitView view = _uiFactory.CreateMeleeSpawnButtonView(parent);
-            return CreatePresenter(view, spawnView => new MeleePlayerUnitSpawnerPresenter(spawnView, spawner));
+            MeleePlayerUnitPurchaseView purchaseView = _uiFactory.CreateMeleeSpawnButtonView(parent);
+            return CreatePresenter(purchaseView, view 
+                => new MeleePlayerUnitPurchasePresenter(view, purchaseService, progressService));
         }
 
-        public RangedPlayerUnitSpawnerPresenter CreateSpawnRangedPlayerUnitPresenter(
-            Transform parent, IPlayerUnitSpawner spawner)
+        public RangedPlayerUnitPurchasePresenter CreateRangedPlayerUnitPurchasePresenter(
+            Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService)
         {
-            SpawnPlayerUnitView view = _uiFactory.CreateRangedSpawnButtonView(parent);
-            return CreatePresenter(view, spawnView => new RangedPlayerUnitSpawnerPresenter(spawnView, spawner));
+            RangedPlayerUnitPurchaseView purchaseView = _uiFactory.CreateRangedSpawnButtonView(parent);
+            return CreatePresenter(purchaseView, view 
+                => new RangedPlayerUnitPurchasePresenter(view, purchaseService, progressService));
         }
 
         public FightPresenter CreateFightPresenter(BattleStateMachine battleStateMachine)
