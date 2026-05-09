@@ -2,6 +2,7 @@
 using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea;
 using Code.Services.PersistentProgress;
+using Code.Services.PlayerUnitPurchases;
 using Code.UI.Factory;
 using Code.UI.Fights;
 using Code.UI.SpawnUnits;
@@ -15,13 +16,13 @@ namespace Code.Infrastructure.States
         private readonly IEnemySpawner _enemySpawner;
         private readonly ISpawnButtonsParentProvider _spawnButtonsParentProvider;
         private readonly IPresenterFactory _presenterFactory;
-        private readonly IPlayerUnitSpawner _playerUnitSpawner;
+        private readonly IPlayerUnitPurchaseService _purchaseService;
         private readonly BattleStateMachine _battleStateMachine;
         private readonly IPersistentProgressService _progressService;
 
         private UnitSpawnerViewsRoot _unitSpawnerViewsRoot;
-        private MeleePlayerUnitSpawnerPresenter _meleeSpawnPresenter;
-        private RangedPlayerUnitSpawnerPresenter _rangedSpawnPresenter;
+        private MeleePlayerUnitPurchasePresenter _meleeSpawnPresenter;
+        private RangedPlayerUnitPurchasePresenter _rangedSpawnPresenter;
         private FightPresenter _fightPresenter;
         private PlayZone _playZone;
 
@@ -31,7 +32,7 @@ namespace Code.Infrastructure.States
             IEnemySpawner enemySpawner,
             ISpawnButtonsParentProvider spawnButtonsParentProvider,
             IPresenterFactory presenterFactory,
-            IPlayerUnitSpawner playerUnitSpawner,
+            IPlayerUnitPurchaseService purchaseService,
             BattleStateMachine battleStateMachine,
             IPersistentProgressService progressService)
         {
@@ -40,7 +41,7 @@ namespace Code.Infrastructure.States
             _enemySpawner = enemySpawner;
             _spawnButtonsParentProvider = spawnButtonsParentProvider;
             _presenterFactory = presenterFactory;
-            _playerUnitSpawner = playerUnitSpawner;
+            _purchaseService = purchaseService;
             _battleStateMachine = battleStateMachine;
             _progressService = progressService;
         }
@@ -49,10 +50,10 @@ namespace Code.Infrastructure.States
         {
             _unitSpawnerViewsRoot = _uiFactory.CreateSpawnerViewsRoot();
 
-            _meleeSpawnPresenter = _presenterFactory.CreateSpawnMeleePlayerUnitPresenter(
-                _spawnButtonsParentProvider.TransformParent, _playerUnitSpawner);
-            _rangedSpawnPresenter = _presenterFactory.CreateSpawnRangedPlayerUnitPresenter(
-                _spawnButtonsParentProvider.TransformParent, _playerUnitSpawner);
+            _meleeSpawnPresenter = _presenterFactory.CreateMeleePlayerUnitPurchasePresenter(
+                _spawnButtonsParentProvider.TransformParent, _purchaseService, _progressService);
+            _rangedSpawnPresenter = _presenterFactory.CreateRangedPlayerUnitPurchasePresenter(
+                _spawnButtonsParentProvider.TransformParent, _purchaseService, _progressService);
 
             _fightPresenter = _presenterFactory.CreateFightPresenter(_battleStateMachine);
             _presenterFactory.CreateCurrencyPresenter(_progressService);
@@ -64,10 +65,6 @@ namespace Code.Infrastructure.States
 
         public void Exit()
         {
-            _meleeSpawnPresenter.RemoveView();
-            _rangedSpawnPresenter.RemoveView();
-            _fightPresenter.RemoveView();
-
             _meleeSpawnPresenter.Dispose();
             _rangedSpawnPresenter.Dispose();
             _fightPresenter.Dispose();

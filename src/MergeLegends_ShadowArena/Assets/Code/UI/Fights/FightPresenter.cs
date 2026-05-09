@@ -15,9 +15,9 @@ namespace Code.UI.Fights
             => View.FightClicked += _battleStateMachine.EnterFight;
 
         public override void Dispose()
-            => View.FightClicked -= _battleStateMachine.EnterFight;
-
-        public void RemoveView()
-            => View.Remove();
+        {
+            View.FightClicked -= _battleStateMachine.EnterFight;
+            View.Remove();
+        }
     }
 }
