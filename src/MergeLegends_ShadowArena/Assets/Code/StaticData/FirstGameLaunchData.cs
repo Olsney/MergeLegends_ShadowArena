@@ -1,9 +1,11 @@
 using System;
-using Code.StaticData;
 
-[Serializable]
-public class FirstGameLaunchData
+namespace Code.StaticData
 {
-    public CurrencyStartingData CurrencyStarting;
-    public UnitsStartingPriceData UnitsStartingPrice;
+    [Serializable]
+    public class FirstGameLaunchData
+    {
+        public CurrencyStartingData CurrencyStarting;
+        public UnitsStartingPriceData UnitsStartingPrice;
+    }
 }
