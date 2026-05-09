@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 5889666629740196329}
   - component: {fileID: 4794679163574862100}
   m_Layer: 5
-  m_Name: SpawnerButtonsRoot
+  m_Name: PurchaseButtonsRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -750,12 +750,11 @@ GameObject:
   - component: {fileID: 4871788876608763559}
   - component: {fileID: 3835558714590992793}
   - component: {fileID: 7599780061023131636}
-  - component: {fileID: 2138677047414820722}
   - component: {fileID: 3243828413386053725}
   - component: {fileID: 4091932226668155631}
   - component: {fileID: 4540527825732010299}
   m_Layer: 5
-  m_Name: BaseSpawnButton
+  m_Name: BasePurchaseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -885,19 +884,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2138677047414820722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6018295235567411323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0006ae00dd484ccc93d34289af406607, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.SpawnPlayerUnitView
-  _spawnButton: {fileID: 3835558714590992793}
 --- !u!114 &3243828413386053725
 MonoBehaviour:
   m_ObjectHideFlags: 0

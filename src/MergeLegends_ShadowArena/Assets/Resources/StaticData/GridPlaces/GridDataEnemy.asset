@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7841f08f394387b43a7cde06bdf6b68c, type: 3}
   m_Name: GridDataEnemy
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.GridPlacesStaticData
-  GridPlacesTypeId: 2
+  UnitTypeId: 2
   GridData:
     Width: 5
     Height: 3

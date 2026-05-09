@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2121493499538376024, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
       propertyPath: m_text
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5971165355605195655, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
       propertyPath: m_AnchorMax.y
@@ -154,7 +154,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6636419264247661411, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+    - {fileID: 2138677047414820722, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6018295235567411323, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4632011150654613}
+    - targetCorrespondingSourceObject: {fileID: 1933758934041825328, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4569122475471644736}
   m_SourcePrefab: {fileID: 100100000, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+--- !u!1 &1693627997562779565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1933758934041825328, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+  m_PrefabInstance: {fileID: 961217466869983133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4569122475471644736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693627997562779565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: defc185ff4044beba79f26995ebdacd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.SpawnUnits.PriceTexts.RangedPriceText
+--- !u!114 &4065706364666002948 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3835558714590992793, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+  m_PrefabInstance: {fileID: 961217466869983133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6832991499446405094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6832991499446405094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6018295235567411323, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+  m_PrefabInstance: {fileID: 961217466869983133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4632011150654613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6832991499446405094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc21bddc8fc242d097452c86c4fadcdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.SpawnUnits.BuyRangedPlayerUnitView
+  _spawnButton: {fileID: 4065706364666002948}
