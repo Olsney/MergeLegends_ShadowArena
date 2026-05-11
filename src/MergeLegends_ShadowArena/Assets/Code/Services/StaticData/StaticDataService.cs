@@ -16,10 +16,10 @@ namespace Code.Services.StaticData
         private const string WindowStaticDataPath = "StaticData/UI/WindowStaticData";
         private const string WarningMessageStaticDataPath = "StaticData/UI/WarningMessageStaticData";
 
-        private Dictionary<string, LevelStaticData> _levels;
+        private Dictionary<string, GameStaticData> _gameStaticData;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _enemies;
-        private Dictionary<GridPlacesTypeId, GridPlacesStaticData> _grids;
+        private Dictionary<UnitTypeId, GridPlacesStaticData> _grids;
         private Dictionary<WindowType, WindowData> _windowConfigs;
         private Dictionary<WarningMessagesTypeId, WarningMessageData> _warningMessages;
 
@@ -30,9 +30,9 @@ namespace Code.Services.StaticData
 
         private void Load()
         {
-            _levels = Resources
-                .LoadAll<LevelStaticData>(LevelStaticDataPath)
-                .ToDictionary(x => x.LevelKey, x => x);
+            _gameStaticData = Resources
+                .LoadAll<GameStaticData>(LevelStaticDataPath)
+                .ToDictionary(x => x.SceneKey, x => x);
 
             _playerUnits = Resources
                 .LoadAll<UnitStaticData>(PlayerUnitsStaticDataPath)
@@ -44,7 +44,7 @@ namespace Code.Services.StaticData
 
             _grids = Resources
                 .LoadAll<GridPlacesStaticData>(GridsStaticDataPath)
-                .ToDictionary(x => x.GridPlacesTypeId, x => x);
+                .ToDictionary(x => x.UnitTypeId, x => x);
 
             _windowConfigs = Resources
                 .Load<WindowStaticData>(WindowStaticDataPath)
@@ -57,8 +57,8 @@ namespace Code.Services.StaticData
                 .ToDictionary(x => x.WarningMessagesTypeId, x => x);
         }
 
-        public LevelStaticData GetLevel(string sceneKey) =>
-            _levels.TryGetValue(sceneKey, out LevelStaticData staticData)
+        public GameStaticData GetGameStaticData(string sceneKey) =>
+            _gameStaticData.TryGetValue(sceneKey, out GameStaticData staticData)
                 ? staticData
                 : null;
 
@@ -72,8 +72,8 @@ namespace Code.Services.StaticData
                 ? staticData
                 : null;
 
-        public GridPlacesStaticData GetGridPlaces(GridPlacesTypeId gridPlacesTypeId) =>
-            _grids.TryGetValue(gridPlacesTypeId, out GridPlacesStaticData staticData)
+        public GridPlacesStaticData GetGridPlaces(UnitTypeId unitTypeId) =>
+            _grids.TryGetValue(unitTypeId, out GridPlacesStaticData staticData)
                 ? staticData
                 : null;
 

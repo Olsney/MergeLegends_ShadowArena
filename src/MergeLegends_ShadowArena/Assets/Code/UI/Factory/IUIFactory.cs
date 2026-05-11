@@ -7,6 +7,7 @@ using Code.UI.Levels;
 using Code.UI.Services.Windows;
 using Code.UI.Settings;
 using Code.UI.SpawnUnits;
+using Code.UI.SpawnUnits.PriceUnits;
 using Code.UI.WarningMessages;
 using Code.Units.UI.Health;
 using Code.Units.UI.Levels;
@@ -21,8 +22,8 @@ namespace Code.UI.Factory
         GameObject CreateUIRoot();
         GameObject CreateHud();
         UnitSpawnerViewsRoot CreateSpawnerViewsRoot();
-        SpawnPlayerUnitView CreateMeleeSpawnButtonView(Transform parent);
-        SpawnPlayerUnitView CreateRangedSpawnButtonView(Transform parent);
+        MeleePlayerUnitPurchaseView CreateMeleeSpawnButtonView(Transform parent);
+        RangedPlayerUnitPurchaseView CreateRangedSpawnButtonView(Transform parent);
         StartFightView CreateStartFightButtonView();
         WarningMessageView CreateWarningMessageView();
         OpenSettingsView GetOpenSettingsView();

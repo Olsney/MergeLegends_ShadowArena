@@ -1,18 +1,16 @@
 using System.Linq;
 using Code.Infrastructure.Builders;
-using Code.Infrastructure.Factory.Game;
-using Code.Infrastructure.Factory.Units;
 using Code.Logic.PlayArea.Cell;
 using Code.Services.StaticData;
 using Code.StaticData;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Code.Logic.EnemySpawners
 {
     public class EnemySpawner : IEnemySpawner
     {
         private const int FirstGameLevelIndex = 0;
+        private const string MainSceneName = "Main";
 
         private readonly IUnitBuilder _unitBuilder;
         private readonly IEnemyCellsProvider _cellsProvider;
@@ -31,7 +29,7 @@ namespace Code.Logic.EnemySpawners
         public void Spawn()
         {
             var enemiesSpawnData =
-                _staticDataService.GetLevel(SceneManager.GetActiveScene().name)
+                _staticDataService.GetGameStaticData(MainSceneName)
                     .SpawnEnemiesInGameLevels[FirstGameLevelIndex].EnemiesSpawnData;
 
             var freeCells = _cellsProvider.GetFreeCells().ToList();

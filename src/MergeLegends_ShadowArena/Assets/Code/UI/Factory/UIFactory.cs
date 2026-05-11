@@ -55,16 +55,16 @@ namespace Code.UI.Factory
 
         public UnitSpawnerViewsRoot CreateSpawnerViewsRoot()
         {
-            GameObject prefab = _assets.Load(AssetPath.SpawnerButtonsRootPath);
+            GameObject prefab = _assets.Load(AssetPath.PurchaseButtonsRootPath);
             return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform)
                 .GetComponentInChildren<UnitSpawnerViewsRoot>();
         }
 
-        public SpawnPlayerUnitView CreateMeleeSpawnButtonView(Transform parent)
-            => CreateView<SpawnPlayerUnitView>(AssetPath.UISpawnMeleePlayerUnitButtonPath, parent);
+        public MeleePlayerUnitPurchaseView CreateMeleeSpawnButtonView(Transform parent)
+            => CreateView<MeleePlayerUnitPurchaseView>(AssetPath.PurchaseMeleePlayerUnitButtonPath, parent);
 
-        public SpawnPlayerUnitView CreateRangedSpawnButtonView(Transform parent)
-            => CreateView<SpawnPlayerUnitView>(AssetPath.UISpawnRangedPlayerUnitButtonPath, parent);
+        public RangedPlayerUnitPurchaseView CreateRangedSpawnButtonView(Transform parent)
+            => CreateView<RangedPlayerUnitPurchaseView>(AssetPath.PurchaseRangedPlayerUnitButtonPath, parent);
 
         public StartFightView CreateStartFightButtonView()
             => CreateView<StartFightView>(AssetPath.UIStartFightButtonPath);

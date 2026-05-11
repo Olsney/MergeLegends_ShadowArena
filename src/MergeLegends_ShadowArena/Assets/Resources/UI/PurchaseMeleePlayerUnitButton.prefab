@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2121493499538376024, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
       propertyPath: m_text
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5971165355605195655, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
       propertyPath: m_AnchorMax.y
@@ -156,5 +156,57 @@ PrefabInstance:
     - {fileID: 6636419264247661411, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6018295235567411323, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2440561176100280047}
+    - targetCorrespondingSourceObject: {fileID: 1933758934041825328, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7544055994859629865}
   m_SourcePrefab: {fileID: 100100000, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+--- !u!1 &1151717165580258633 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1933758934041825328, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+  m_PrefabInstance: {fileID: 1526068442345282937}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7544055994859629865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151717165580258633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ef5ebbb2104a708a1a86cdf3f2315f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.UnitPriceTexts.MeleePriceText
+--- !u!114 &2312329569383023840 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3835558714590992793, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+  m_PrefabInstance: {fileID: 1526068442345282937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091575053137968386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5091575053137968386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6018295235567411323, guid: 2399310ab0c89a24abd75f6c7bbcf264, type: 3}
+  m_PrefabInstance: {fileID: 1526068442345282937}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2440561176100280047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091575053137968386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0006ae00dd484ccc93d34289af406607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.SpawnUnits.BuyMeleePlayerUnitView
+  _spawnButton: {fileID: 2312329569383023840}

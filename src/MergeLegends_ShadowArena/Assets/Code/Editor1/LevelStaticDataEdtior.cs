@@ -7,26 +7,26 @@ using UnityEngine.SceneManagement;
 
 namespace Code.Editor1
 {
-    [CustomEditor(typeof(LevelStaticData))]
+    [CustomEditor(typeof(GameStaticData))]
     public class LevelStaticDataEdtior : Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            LevelStaticData levelData = (LevelStaticData)target;
+            GameStaticData gameData = (GameStaticData)target;
 
             if (GUILayout.Button("Collect"))
             {
-                levelData.PlayZonePosition =
+                gameData.PlayZonePosition =
                     FindAnyObjectByType<PlayZoneSpawnPoint>().transform.position;
 
-                levelData.PlayerUnitsGridPlacesPosition =
+                gameData.PlayerUnitsGridPlacesPosition =
                     FindAnyObjectByType<GridPlayerUnitPlacesSpawnPoint>().transform.position;
 
-                levelData.EnemiesGridPlacesPosition =
+                gameData.EnemiesGridPlacesPosition =
                     FindAnyObjectByType<GridEnemiesPlacesSpawnPoint>().transform.position;
                 
-                levelData.LevelKey = SceneManager.GetActiveScene().name;
+                gameData.SceneKey = SceneManager.GetActiveScene().name;
             }
 
             EditorUtility.SetDirty(target);
