@@ -1,4 +1,6 @@
-﻿using Code.Logic.PlayArea;
+﻿using System.Linq;
+using Code.Confetti;
+using Code.Logic.PlayArea;
 using Code.Logic.PlayArea.Grid;
 using Code.StaticData;
 using UnityEditor;
@@ -8,7 +10,7 @@ using UnityEngine.SceneManagement;
 namespace Code.Editor1
 {
     [CustomEditor(typeof(GameStaticData))]
-    public class LevelStaticDataEdtior : Editor
+    public class GameStaticDataEditor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -27,6 +29,10 @@ namespace Code.Editor1
                     FindAnyObjectByType<GridEnemiesPlacesSpawnPoint>().transform.position;
                 
                 gameData.SceneKey = SceneManager.GetActiveScene().name;
+                
+                gameData.ConfettiEffectSpawnPointPosition = FindObjectsByType<ConfettiEffectSpawnPoint>(FindObjectsSortMode.None)
+                    .Select(x => x.transform.position)
+                    .ToList();
             }
 
             EditorUtility.SetDirty(target);
