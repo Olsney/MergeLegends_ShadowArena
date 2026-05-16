@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c032879a89e485aa7d29a4a58334db5, type: 3}
+  m_Name: Enemy_Boss
+  m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.UnitStaticData
+  UnitAttackTypeId: 3
+  UnitStatsByLevelIndexSetups:
+  - UnitLevelStatsData:
+      Hp: 1000
+      Damage: 25
+      ViewPrefab: {fileID: 6442996145787665958, guid: a76d9f08f16ad0c4482ad8fb796a0b69, type: 3}
+  - UnitLevelStatsData:
+      Hp: 2000
+      Damage: 50
+      ViewPrefab: {fileID: 6442996145787665958, guid: 407509eeb3db9b046baa4c72174c40d1, type: 3}
+  - UnitLevelStatsData:
+      Hp: 3500
+      Damage: 50
+      ViewPrefab: {fileID: 6442996145787665958, guid: c2cb1b2bcb6b35244a4c282bfd979911, type: 3}
+  GeneralData:
+    UnitData:
+      MoveSpeed: 2
+      AttackDistance: 10
+      AttackCooldown: 2
+    TargetData:
+      TargetLayerMask: 6
+    MagicSphereData:
+      Speed: 0
+      ViewPrefab: {fileID: 0}
