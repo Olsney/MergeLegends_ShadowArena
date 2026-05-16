@@ -23,7 +23,6 @@ namespace Code.StaticData
                 throw new ArgumentOutOfRangeException(nameof(amount), "Add amount must be positive");
 
             Value += amount;
-            Changed?.Invoke();
         }
     }
 }
