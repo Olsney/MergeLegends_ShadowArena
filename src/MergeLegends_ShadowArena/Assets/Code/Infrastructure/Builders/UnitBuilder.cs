@@ -1,6 +1,5 @@
 using System;
 using Code.Infrastructure.Factory.Units;
-using Code.Logic.BattleServices;
 using Code.Services.StaticData;
 using Code.StaticData;
 using Code.UI.Factory;
@@ -20,7 +19,6 @@ namespace Code.Infrastructure.Builders
         private readonly IUnitFactory _unitFactory;
         private readonly IStaticDataService _staticData;
         private readonly IPresenterFactory _presenterFactory;
-        private readonly IBattleService _battleService;
 
         private UnitTypeId _unitTypeId;
         private UnitAttackTypeId _unitAttackTypeId;
@@ -30,13 +28,11 @@ namespace Code.Infrastructure.Builders
         public UnitBuilder(
             IUnitFactory unitFactory,
             IStaticDataService staticData,
-            IPresenterFactory presenterFactory,
-            IBattleService battleService)
+            IPresenterFactory presenterFactory)
         {
             _unitFactory = unitFactory;
             _staticData = staticData;
             _presenterFactory = presenterFactory;
-            _battleService = battleService;
         }
 
         public IUnitBuilder SetUnitType(UnitTypeId unitTypeId)
@@ -117,6 +113,12 @@ namespace Code.Infrastructure.Builders
                         magicSphereSpeed: magicData.Speed,
                         unitTypeId: _unitTypeId);
                     break;
+                case BossAttacker boss:
+                    boss.Init(
+                        damage: stats.Damage,
+                        cooldown: unitData.AttackCooldown,
+                        targetLayerMask: targetData.TargetLayerMask);
+                    break;
             }
         }
 
@@ -131,13 +133,14 @@ namespace Code.Infrastructure.Builders
             UnitHealthBarView healthBarView = unitPrefab.GetComponentInChildren<UnitHealthBarView>();
             DamageFloatingView damageFloatingView = unitPrefab.GetComponentInChildren<DamageFloatingView>();
 
+            UnitCanvasPresenter canvasPresenter = 
+                _presenterFactory.CreateUnitCanvasPresenter(canvasView, unitDeath);
             UnitLevelPresenter levelPresenter =
-                _presenterFactory.CreateUnitLevelPresenter(levelView, _battleService, _unitCurrentLevelIndex);
+                _presenterFactory.CreateUnitLevelPresenter(levelView, unit, _unitCurrentLevelIndex);
             UnitHealthBarPresenter healthBarPresenter =
                 _presenterFactory.CreateUnitHealthBarPresenter(healthBarView, health);
             DamageFloatingPresenter damageFloatingPresenter =
                 _presenterFactory.CreateDamageFloatingPresenter(damageFloatingView, health);
-            UnitCanvasPresenter canvasPresenter = _presenterFactory.CreateUnitCanvasPresenter(canvasView, unitDeath);
 
             unit.Destroying += OnUnitDestroying;
 
