@@ -9,18 +9,20 @@ namespace Code.Units.PlayerUnits
 {
     public class PlayerUnit : MonoBehaviour, IUnit
     {
+        public UnitDeath UnitDeath { get; private set; }
         public bool IsDead { get; private set; }
         public Transform Transform => transform;
         public int LevelIndex { get; private set; }
         public UnitAttackTypeId AttackType { get; private set; }
 
         public event Action Destroying;
+        public event Action ProcessStarting;
 
         private UnitNavmeshAgentMover _unitNavmeshAgentMover;
         private IAttacker _attacker;
-        private UnitDeath _unitDeath;
         private IPlayerUnitsProvider _playerUnitsProvider;
         private PlayerUnitHealth _playerUnitHealth;
+        private UnitAnimator _unitAnimator;
 
         private SpawnEffect _spawnEffect;
         private LevelUpEffect _levelUpEffect;
@@ -41,19 +43,22 @@ namespace Code.Units.PlayerUnits
 
         private void Awake()
         {
+            UnitDeath = GetComponent<UnitDeath>();
             _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
-            _attacker = GetComponentInChildren<IAttacker>();
-            _unitDeath = GetComponent<UnitDeath>();
-            _spawnEffect = GetComponentInChildren<SpawnEffect>();
-            _levelUpEffect = GetComponentInChildren<LevelUpEffect>();
             _playerUnitHealth = GetComponent<PlayerUnitHealth>();
+            
+            _unitAnimator = GetComponentInChildren<UnitAnimator>();
+            _attacker = GetComponentInChildren<IAttacker>();
+            
             _damageEffect = GetComponentInChildren<DamageEffect>();
+            _levelUpEffect = GetComponentInChildren<LevelUpEffect>();
+            _spawnEffect = GetComponentInChildren<SpawnEffect>();
         }
 
         private void Start()
         {
             _playerUnitsProvider.AddUnit(this);
-            _unitDeath.Dead += OnDead;
+            UnitDeath.Dead += OnDead;
             _playerUnitHealth.HealthChanged += _damageEffect.Play;
             _spawnEffect.Play();
         }
@@ -62,7 +67,7 @@ namespace Code.Units.PlayerUnits
         {
             Destroying?.Invoke();
             _playerUnitsProvider.RemoveUnit(this);
-            _unitDeath.Dead -= OnDead;
+            UnitDeath.Dead -= OnDead;
             _playerUnitHealth.HealthChanged -= _damageEffect.Play;
         }
 
@@ -71,14 +76,26 @@ namespace Code.Units.PlayerUnits
             if (IsDead)
                 return;
 
+            ProcessStarting?.Invoke();
+
             _unitNavmeshAgentMover.StartMoving();
             _attacker.StartAttacking();
+        }
+
+        public void StartVictoryAnimation()
+        {
+            _unitNavmeshAgentMover.DeactivateMoving();
+            _unitAnimator.PlayVictory();
         }
 
         public void Remove()
             => Destroy(gameObject);
 
         private void OnDead()
-            => IsDead = true;
+        {
+            UnitDeath.Dead -= OnDead;
+            _playerUnitsProvider.RemoveUnit(this);
+            IsDead = true;
+        }
     }
 }
