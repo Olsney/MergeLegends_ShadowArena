@@ -18,5 +18,8 @@ namespace Code.Logic.PlayArea.Cell
 
         public void AddCell(ICellGrid cellGrid)
             => _allCells.Add(cellGrid);
+
+        public void Clear()
+            => _allCells.Clear();
     }
 }
