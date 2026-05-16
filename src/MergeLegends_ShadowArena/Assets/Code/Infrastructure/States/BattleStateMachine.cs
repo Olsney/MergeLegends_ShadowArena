@@ -1,16 +1,16 @@
-﻿using Code.Logic.BattleServices;
+﻿using Code.Units.PlayerUnits;
 
 namespace Code.Infrastructure.States
 {
     public class BattleStateMachine : IState
     {
         private readonly GameStateMachine _gameStateMachine;
-        private readonly IBattleService _battleService;
+        private readonly IPlayerUnitsProvider _playerUnitsProvider;
 
-        public BattleStateMachine(GameStateMachine gameStateMachine, IBattleService battleService)
+        public BattleStateMachine(GameStateMachine gameStateMachine, IPlayerUnitsProvider playerUnitsProvider)
         {
             _gameStateMachine = gameStateMachine;
-            _battleService = battleService;
+            _playerUnitsProvider = playerUnitsProvider;
         }
 
         public void Enter()
@@ -22,7 +22,7 @@ namespace Code.Infrastructure.States
 
         public void EnterFight()
         {
-            if (_battleService.CanStartFight())
+            if (_playerUnitsProvider.GetPlayerUnits().Count > 0)
                 _gameStateMachine.Enter<BattleFightState>();
         }
 
