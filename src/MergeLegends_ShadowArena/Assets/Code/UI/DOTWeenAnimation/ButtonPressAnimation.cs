@@ -25,7 +25,14 @@ namespace Code.UI.DOTWeenAnimation
         }
 
         private void OnDestroy()
-            => _pressTween?.Kill();
+        {
+            _pressTween?.Kill();
+
+            if (_transform != null)
+                DOTween.Kill(_transform);
+
+            DOTween.Kill(gameObject);
+        }
 
         private void OnDisable()
         {
