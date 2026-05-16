@@ -7,16 +7,18 @@ namespace Code.Units.Enemies
 {
     public class Enemy : MonoBehaviour, IUnit
     {
+        public UnitDeath UnitDeath { get; private set; }
         public bool IsDead { get; private set; }
         public Transform Transform => transform;
-        
+
         public event Action Destroying;
+        public event Action ProcessStarting;
 
         private UnitNavmeshAgentMover _unitNavmeshAgentMover;
         private IAttacker _attacker;
-        private UnitDeath _unitDeath;
         private IEnemiesProvider _enemiesProvider;
         private EnemyHealth _enemyHealth;
+        private UnitAnimator _unitAnimator;
 
         private SpawnEffect _spawnEffect;
         private DamageEffect _damageEffect;
@@ -27,11 +29,13 @@ namespace Code.Units.Enemies
 
         private void Awake()
         {
+            UnitDeath = GetComponent<UnitDeath>();
             _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
-            _attacker = GetComponentInChildren<IAttacker>();
-            _unitDeath = GetComponent<UnitDeath>();
             _enemyHealth = GetComponent<EnemyHealth>();
             
+            _attacker = GetComponentInChildren<IAttacker>();
+            _unitAnimator = GetComponentInChildren<UnitAnimator>();
+
             _spawnEffect = GetComponentInChildren<SpawnEffect>();
             _damageEffect = GetComponentInChildren<DamageEffect>();
         }
@@ -39,7 +43,7 @@ namespace Code.Units.Enemies
         private void Start()
         {
             _enemiesProvider.AddUnit(this);
-            _unitDeath.Dead += OnDead;
+            UnitDeath.Dead += OnDead;
             _enemyHealth.HealthChanged += _damageEffect.Play;
             _spawnEffect.Play();
         }
@@ -49,7 +53,7 @@ namespace Code.Units.Enemies
             Destroying?.Invoke();
             _enemiesProvider.RemoveUnit(this);
             _enemyHealth.HealthChanged -= _damageEffect.Play;
-            _unitDeath.Dead -= OnDead;
+            UnitDeath.Dead -= OnDead;
         }
 
         public void ProcessUnit()
@@ -57,11 +61,23 @@ namespace Code.Units.Enemies
             if (IsDead)
                 return;
 
+            ProcessStarting?.Invoke();
+
             _unitNavmeshAgentMover.StartMoving();
             _attacker.StartAttacking();
         }
 
+        public void StartVictoryAnimation()
+        {
+            _unitNavmeshAgentMover.DeactivateMoving();
+            _unitAnimator.PlayVictory();
+        }
+
         private void OnDead()
-            => IsDead = true;
+        {
+            UnitDeath.Dead -= OnDead;
+            _enemiesProvider.RemoveUnit(this);
+            IsDead = true;
+        }
     }
 }
