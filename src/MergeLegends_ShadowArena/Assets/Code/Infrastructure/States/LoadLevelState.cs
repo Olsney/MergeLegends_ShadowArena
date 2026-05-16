@@ -1,6 +1,5 @@
-using Code.Infrastructure.Factory.Game;
 using Code.Services.PersistentProgress;
-using Code.Services.StaticData;
+using Code.UI.Currency;
 using Code.UI.Factory;
 
 namespace Code.Infrastructure.States
@@ -11,29 +10,26 @@ namespace Code.Infrastructure.States
 
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
-        private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
         private readonly IPresenterFactory _presenterFactory;
-        private readonly IStaticDataService _staticData;
         private readonly IPersistentProgressService _progressService;
+        private readonly ICurrencyPresenterProvider _currencyPresenterProvider;
 
         public LoadLevelState(
             GameStateMachine stateMachine,
             SceneLoader sceneLoader,
-            IGameFactory gameFactory,
             IUIFactory uiFactory,
             IPresenterFactory presenterFactory,
-            IStaticDataService staticData,
-            IPersistentProgressService progressService
+            IPersistentProgressService progressService,
+            ICurrencyPresenterProvider currencyPresenterProvider
         )
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
-            _gameFactory = gameFactory;
             _uiFactory = uiFactory;
             _presenterFactory = presenterFactory;
-            _staticData = staticData;
             _progressService = progressService;
+            _currencyPresenterProvider = currencyPresenterProvider;
         }
 
         public void Enter(string sceneName)
@@ -48,6 +44,7 @@ namespace Code.Infrastructure.States
         private void OnLoaded()
         {
             InitUIRoot();
+            InitTopLayerCanvas();
             InitGameWorld();
             InformProgressReaders();
 
@@ -59,16 +56,21 @@ namespace Code.Infrastructure.States
             foreach (ISavedProgressReader progressReader in _uiFactory.ProgressReaders)
                 progressReader.LoadProgress(_progressService.Progress);
         }
-        
+
         private void InitGameWorld()
         {
             _uiFactory.CreateHud();
             _presenterFactory.CreateSettingsPresenter();
-            _presenterFactory.CreateCurrencyPresenter(_progressService);
+            CurrencyPresenter currencyPresenter = _presenterFactory.CreateCurrencyPresenter(_progressService);
             _presenterFactory.CreateLevelPresenter(_progressService);
+
+            _currencyPresenterProvider.SetPresenter(currencyPresenter);
         }
 
         private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();
+
+        private void InitTopLayerCanvas()
+            => _uiFactory.CreateTopLayerCanvas();
     }
 }
