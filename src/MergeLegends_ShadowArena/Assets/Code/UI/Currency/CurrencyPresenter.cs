@@ -13,8 +13,8 @@ namespace Code.UI.Currency
 
         public override void Initialize()
         {
-            _progressService.Progress.WorldData.CurrencyData.Changed += OnCurrencyChanged;
             OnCurrencyChanged();
+            _progressService.Progress.WorldData.CurrencyData.Changed += OnCurrencyChanged;
         }
 
         public override void Dispose() 
@@ -22,8 +22,10 @@ namespace Code.UI.Currency
 
         private void OnCurrencyChanged()
         {
-            int value = _progressService.Progress.WorldData.CurrencyData.Value;
-            View.UpdateCounter(value);
+            View.UpdateCounter(_progressService.Progress.WorldData.CurrencyData.Value);
         }
+
+        public void UpdateValue() 
+            => View.UpdateCounter(_progressService.Progress.WorldData.CurrencyData.Value);
     }
 }
