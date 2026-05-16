@@ -6,6 +6,7 @@ using Code.Infrastructure.Factory.Projectile;
 using Code.Infrastructure.Factory.State;
 using Code.Infrastructure.Factory.Units;
 using Code.Infrastructure.States;
+using Code.Logic.BattleResultShowers;
 using Code.Logic.BattleServices;
 using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
@@ -15,8 +16,11 @@ using Code.Services.MergeUnits;
 using Code.Services.PersistentProgress;
 using Code.Services.PlayerUnitPurchases;
 using Code.Services.Raycast;
+using Code.Services.ReloadSceneService;
+using Code.Services.RewardServices;
 using Code.Services.SaveLoad;
 using Code.Services.StaticData;
+using Code.UI.Currency;
 using Code.UI.Factory;
 using Code.UI.SpawnUnits;
 using Code.Units.Enemies;
@@ -83,6 +87,10 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IPresenterFactory>().To<PresenterFactory>().AsSingle();
             Container.Bind<IUnitBuilder>().To<UnitBuilder>().AsSingle();
             Container.Bind<IPlayerUnitPurchaseService>().To<PlayerUnitPurchaseService>().AsSingle();
+            Container.Bind<IBattleResultService>().To<BattleResultService>().AsSingle();
+            Container.Bind<IRewardServices>().To<RewardServices>().AsSingle();
+            Container.Bind<IReloadSceneService>().To<ReloadSceneService>().AsSingle();
+            Container.Bind<ICurrencyPresenterProvider>().To<CurrencyPresenterProvider>().AsSingle();
         }
 
         private void BindInputService()
