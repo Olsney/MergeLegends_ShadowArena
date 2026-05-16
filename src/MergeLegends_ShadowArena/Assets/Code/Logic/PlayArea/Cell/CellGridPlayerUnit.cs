@@ -14,11 +14,11 @@ namespace Code.Logic.PlayArea.Cell
         public Transform Transform => transform;
         public GameObject Unit { get; private set; }
         public bool IsOccupied { get; private set; }
+        public int CellIndex { get; private set; }
 
         private GameObject _selectedBorder;
         private IPersistentProgressService _persistentProgressService;
         private ISaveLoadService _saveLoadService;
-        private int _cellIndex;
 
         [Inject]
         private void Construct(IPersistentProgressService persistentProgressService, ISaveLoadService saveLoadService)
@@ -38,7 +38,7 @@ namespace Code.Logic.PlayArea.Cell
             if (index < 0)
                 throw new ArgumentOutOfRangeException(nameof(index), "Cell index cannot be negative");
 
-            _cellIndex = index;
+            CellIndex = index;
 
             if (unit != null)
             {
@@ -75,7 +75,7 @@ namespace Code.Logic.PlayArea.Cell
             PlayerUnitStatsInCellData playerUnitStatsInCellData = new PlayerUnitStatsInCellData();
             PlayerUnit playerUnit = Unit.GetComponent<PlayerUnit>();
 
-            playerUnitStatsInCellData.CellIndex = _cellIndex;
+            playerUnitStatsInCellData.CellIndex = CellIndex;
             playerUnitStatsInCellData.UnitAttackTypeId = playerUnit.AttackType;
             playerUnitStatsInCellData.PlayerUnitLevelIndex = playerUnit.LevelIndex;
 
@@ -88,7 +88,7 @@ namespace Code.Logic.PlayArea.Cell
         {
             var savedData = _persistentProgressService.Progress.WorldData
                 .CompositionTeamData.PlayerUnitInCells
-                .FirstOrDefault(data => data.CellIndex == _cellIndex);
+                .FirstOrDefault(data => data.CellIndex == CellIndex);
 
             _persistentProgressService.Progress.WorldData
                 .CompositionTeamData.PlayerUnitInCells.Remove(savedData);
