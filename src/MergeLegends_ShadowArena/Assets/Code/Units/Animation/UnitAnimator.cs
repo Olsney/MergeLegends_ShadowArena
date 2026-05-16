@@ -10,6 +10,7 @@ namespace Code.Units
         private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int Die = Animator.StringToHash("Die");
+        private static readonly int Victory = Animator.StringToHash("Victory");
 
         private readonly int _idleStateHash = Animator.StringToHash("idle");
         private readonly int _attackStateHash = Animator.StringToHash("attack01");
@@ -23,10 +24,12 @@ namespace Code.Units
 
         public AnimatorState State { get; private set; }
 
+
         private void Awake() =>
             _animator = GetComponent<Animator>();
-        
+
         public void PlayDeath() => _animator.SetTrigger(Die);
+
 
         public void Move(float speed)
         {
@@ -37,6 +40,8 @@ namespace Code.Units
         public void StopMoving() => _animator.SetBool(IsMoving, false);
 
         public void PlayAttack() => _animator.SetTrigger(Attack);
+
+        public void PlayVictory() => _animator.SetTrigger(Victory);
 
         public void EnteredState(int stateHash)
         {
