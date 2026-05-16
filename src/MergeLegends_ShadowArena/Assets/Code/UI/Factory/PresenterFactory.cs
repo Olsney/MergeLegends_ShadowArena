@@ -3,11 +3,18 @@ using Code.Infrastructure.States;
 using Code.Logic.BattleServices;
 using Code.Services.PersistentProgress;
 using Code.Services.PlayerUnitPurchases;
+using Code.Services.ReloadSceneService;
+using Code.Services.RewardServices;
+using Code.Services.StaticData;
 using Code.UI.Currency;
 using Code.UI.Fights;
 using Code.UI.Levels;
+using Code.UI.LossShowers;
+using Code.UI.ReloadScenes;
+using Code.UI.Rewards;
 using Code.UI.Settings;
 using Code.UI.SpawnUnits;
+using Code.UI.VictoryShowers;
 using Code.UI.WarningMessages;
 using Code.Units;
 using Code.Units.UI;
@@ -22,22 +29,24 @@ namespace Code.UI.Factory
     public class PresenterFactory : IPresenterFactory
     {
         private readonly IUIFactory _uiFactory;
+        private readonly ICurrencyPresenterProvider _currencyPresenterProvider;
 
-        public PresenterFactory(IUIFactory uiFactory)
+        public PresenterFactory(IUIFactory uiFactory, ICurrencyPresenterProvider currencyPresenterProvider)
         {
             _uiFactory = uiFactory;
+            _currencyPresenterProvider = currencyPresenterProvider;
         }
 
-        public UnitCanvasPresenter CreateUnitCanvasPresenter(UnitCanvasView view, UnitDeath unitDeath) 
+        public UnitCanvasPresenter CreateUnitCanvasPresenter(UnitCanvasView view, UnitDeath unitDeath)
             => CreatePresenter(view, canvasView => new UnitCanvasPresenter(canvasView, unitDeath));
 
         public UnitHealthBarPresenter CreateUnitHealthBarPresenter(UnitHealthBarView view, IHealth health)
             => CreatePresenter(view, healthBarView => new UnitHealthBarPresenter(healthBarView, health));
 
-        public UnitLevelPresenter CreateUnitLevelPresenter(UnitLevelView view, IBattleService battleService,
+        public UnitLevelPresenter CreateUnitLevelPresenter(UnitLevelView view, IUnit unit,
             int unitCurrentLevelIndex)
-            => CreatePresenter(view, levelView 
-                => new UnitLevelPresenter(levelView, battleService, unitCurrentLevelIndex));
+            => CreatePresenter(view, levelView
+                => new UnitLevelPresenter(levelView, unit, unitCurrentLevelIndex));
 
         public DamageFloatingPresenter CreateDamageFloatingPresenter(DamageFloatingView view, IHealth health)
             => CreatePresenter(view, floatingView => new DamageFloatingPresenter(floatingView, health));
@@ -46,7 +55,7 @@ namespace Code.UI.Factory
             Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService)
         {
             MeleePlayerUnitPurchaseView purchaseView = _uiFactory.CreateMeleeSpawnButtonView(parent);
-            return CreatePresenter(purchaseView, view 
+            return CreatePresenter(purchaseView, view
                 => new MeleePlayerUnitPurchasePresenter(view, purchaseService, progressService));
         }
 
@@ -54,7 +63,7 @@ namespace Code.UI.Factory
             Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService)
         {
             RangedPlayerUnitPurchaseView purchaseView = _uiFactory.CreateRangedSpawnButtonView(parent);
-            return CreatePresenter(purchaseView, view 
+            return CreatePresenter(purchaseView, view
                 => new RangedPlayerUnitPurchasePresenter(view, purchaseService, progressService));
         }
 
@@ -72,7 +81,7 @@ namespace Code.UI.Factory
 
         public CurrencyPresenter CreateCurrencyPresenter(IPersistentProgressService progressService)
         {
-            CurrencyCounterView view = _uiFactory.GetCurrencyCounterView();
+            CurrencyCounterView view = _uiFactory.CreateCurrencyCounterView();
             return CreatePresenter(view, currencyView => new CurrencyPresenter(currencyView, progressService));
         }
 
@@ -86,6 +95,25 @@ namespace Code.UI.Factory
         {
             WarningMessageView view = _uiFactory.CreateWarningMessageView();
             return CreatePresenter(view, warningView => new WarningMessagePresenter(warningView, message));
+        }
+
+        public ReloadScenePresenter CreateReloadScenePresenter(ReloadSceneView view,
+            IReloadSceneService reloadSceneService)
+        {
+            return CreatePresenter(view, reloadSceneView
+                => new ReloadScenePresenter(reloadSceneView, reloadSceneService));
+        }
+
+        public VictoryPresenter CreateVictoryPresenter(VictoryView view, int rewardValue)
+        {
+            return CreatePresenter(view, loseView
+                => new VictoryPresenter(loseView, rewardValue, _currencyPresenterProvider));
+        }
+
+        public LosePresenter CreateLosePresenter(LoseView view, int rewardValue)
+        {
+            return CreatePresenter(view, loseView
+                => new LosePresenter(loseView, rewardValue, _currencyPresenterProvider));
         }
 
         private TPresenter CreatePresenter<TView, TPresenter>(TView view, Func<TView, TPresenter> factory)
