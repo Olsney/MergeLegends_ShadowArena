@@ -56,8 +56,6 @@ namespace Code.Infrastructure.States
                 _spawnButtonsParentProvider.TransformParent, _purchaseService, _progressService);
 
             _fightPresenter = _presenterFactory.CreateFightPresenter(_battleStateMachine);
-            _presenterFactory.CreateCurrencyPresenter(_progressService);
-            _presenterFactory.CreateLevelPresenter(_progressService);
 
             _playZone = _gameFactory.CreatePlayZone();
             _enemySpawner.Spawn();
