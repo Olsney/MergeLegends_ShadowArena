@@ -1,5 +1,6 @@
 using Code.StaticData;
 using UnityEngine;
+using Zenject;
 
 namespace Code.Infrastructure.Factory.Units
 {
@@ -7,5 +8,6 @@ namespace Code.Infrastructure.Factory.Units
     {
         GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId, int unitCurrentLevelIndex,
             Vector3 position);
+        void SetSceneContainer(DiContainer sceneContainer);
     }
 }
