@@ -6,10 +6,10 @@ namespace Code.StaticData
     [Serializable]
     public class UnitLevelStatsData
     {
-        [Range(0, 1000)]
+        [Min(0)]
         public float Hp;
 
-        [Range(0, 500)]
+        [Min(0)]
         public float Damage;
 
         public GameObject ViewPrefab;
