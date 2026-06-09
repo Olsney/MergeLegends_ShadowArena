@@ -1,19 +1,13 @@
 using System;
 using Code.Infrastructure.States;
-using Code.Logic.BattleServices;
 using Code.Services.PersistentProgress;
-using Code.Services.PlayerUnitPurchases;
 using Code.Services.ReloadSceneService;
-using Code.Services.RewardServices;
-using Code.Services.StaticData;
 using Code.UI.Currency;
 using Code.UI.Fights;
 using Code.UI.Levels;
 using Code.UI.LossShowers;
 using Code.UI.ReloadScenes;
-using Code.UI.Rewards;
 using Code.UI.Settings;
-using Code.UI.SpawnUnits;
 using Code.UI.VictoryShowers;
 using Code.UI.WarningMessages;
 using Code.Units;
@@ -50,22 +44,6 @@ namespace Code.UI.Factory
 
         public DamageFloatingPresenter CreateDamageFloatingPresenter(DamageFloatingView view, IHealth health)
             => CreatePresenter(view, floatingView => new DamageFloatingPresenter(floatingView, health));
-
-        public MeleePlayerUnitPurchasePresenter CreateMeleePlayerUnitPurchasePresenter(
-            Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService)
-        {
-            MeleePlayerUnitPurchaseView purchaseView = _uiFactory.CreateMeleeSpawnButtonView(parent);
-            return CreatePresenter(purchaseView, view
-                => new MeleePlayerUnitPurchasePresenter(view, purchaseService, progressService));
-        }
-
-        public RangedPlayerUnitPurchasePresenter CreateRangedPlayerUnitPurchasePresenter(
-            Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService)
-        {
-            RangedPlayerUnitPurchaseView purchaseView = _uiFactory.CreateRangedSpawnButtonView(parent);
-            return CreatePresenter(purchaseView, view
-                => new RangedPlayerUnitPurchasePresenter(view, purchaseService, progressService));
-        }
 
         public FightPresenter CreateFightPresenter(BattleStateMachine battleStateMachine)
         {

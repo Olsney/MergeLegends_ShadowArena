@@ -30,10 +30,6 @@ namespace Code.UI.Factory
         UnitLevelPresenter CreateUnitLevelPresenter(UnitLevelView view, IUnit unit,
             int unitCurrentLevelIndex);
         DamageFloatingPresenter CreateDamageFloatingPresenter(DamageFloatingView view, IHealth health);
-        MeleePlayerUnitPurchasePresenter CreateMeleePlayerUnitPurchasePresenter(
-            Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService);
-        RangedPlayerUnitPurchasePresenter CreateRangedPlayerUnitPurchasePresenter(
-            Transform parent, IPlayerUnitPurchaseService purchaseService, IPersistentProgressService progressService);
         FightPresenter CreateFightPresenter(BattleStateMachine battleStateMachine);
         SettingsPresenter CreateSettingsPresenter();
         CurrencyPresenter CreateCurrencyPresenter(IPersistentProgressService progressService);

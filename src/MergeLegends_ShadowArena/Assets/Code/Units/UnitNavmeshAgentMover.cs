@@ -82,7 +82,7 @@ namespace Code.Units
             StopMoving();
         }
 
-        public void UpdateTarget()
+        private void UpdateTarget()
         {
             var newTarget = _targetFinder.GetTarget();
 

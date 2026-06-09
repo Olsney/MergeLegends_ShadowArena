@@ -53,6 +53,8 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
             Container.Bind<IProjectileFactory>().To<ProjectileFactory>().AsSingle();
             Container.Bind<IUnitFactory>().To<UnitFactory>().AsSingle();
+            Container.Bind<IPresenterFactory>().To<PresenterFactory>().AsSingle();
+            Container.Bind<IPurchasePresenterFactory>().To<PurchaseUnitPresenterFactory>().AsSingle();
         }
 
         private void BindStates()
@@ -84,7 +86,6 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
             Container.Bind<ISpawnButtonsParentProvider>().To<SpawnButtonsParentProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<MergeUnitsService>().AsSingle();
-            Container.Bind<IPresenterFactory>().To<PresenterFactory>().AsSingle();
             Container.Bind<IUnitBuilder>().To<UnitBuilder>().AsSingle();
             Container.Bind<IPlayerUnitPurchaseService>().To<PlayerUnitPurchaseService>().AsSingle();
             Container.Bind<IBattleResultService>().To<BattleResultService>().AsSingle();
