@@ -15,10 +15,10 @@ MonoBehaviour:
   SceneKey: Main
   PlayZonePosition: {x: 3.35, y: 0, z: -7.42}
   PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0, z: -21.669998}
-  EnemiesGridPlacesPosition: {x: -1.8700004, y: 0, z: -9.77}
+  EnemiesGridPlacesPosition: {x: -2.19, y: 0, z: -9.83}
   ConfettiEffectSpawnPointPosition:
-  - {x: -2.39, y: 5, z: -14.179999}
   - {x: 5.47, y: 5, z: -13.94}
+  - {x: -2.39, y: 5, z: -14.179999}
   FirstGameLaunchData:
     CurrencyStarting:
       StartValue: 2500
