@@ -1,4 +1,5 @@
 using System;
+using Code.Services.SceneProvider;
 using Code.Services.StaticData;
 using Code.StaticData;
 using UnityEngine;
@@ -12,20 +13,16 @@ namespace Code.Infrastructure.Factory.Units
 
         private readonly IInstantiator _instantiator;
         private readonly IStaticDataService _staticData;
-
-        private DiContainer _sceneContainer;
+        private readonly ISceneProvider _sceneProvider;
 
         public UnitFactory(
             IInstantiator instantiator,
-            IStaticDataService staticData)
+            IStaticDataService staticData,
+            ISceneProvider sceneProvider)
         {
             _instantiator = instantiator;
             _staticData = staticData;
-        }
-
-        public void SetSceneContainer(DiContainer sceneContainer)
-        {
-            _sceneContainer = sceneContainer;
+            _sceneProvider = sceneProvider;
         }
 
         public GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
@@ -48,7 +45,7 @@ namespace Code.Infrastructure.Factory.Units
                 ? Quaternion.Euler(0, EnemySpawnRotationY, 0)
                 : Quaternion.identity;
 
-            return _sceneContainer.InstantiatePrefab(stats.ViewPrefab, position, rotation, null);
+            return _instantiator.InstantiatePrefab(stats.ViewPrefab, position, rotation, _sceneProvider.Container);
         }
 
         private UnitStaticData GetUnitStaticData(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId)

@@ -19,6 +19,7 @@ using Code.Services.Raycast;
 using Code.Services.ReloadSceneService;
 using Code.Services.RewardServices;
 using Code.Services.SaveLoad;
+using Code.Services.SceneProvider;
 using Code.Services.StaticData;
 using Code.UI.Currency;
 using Code.UI.Factory;
@@ -92,6 +93,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IRewardServices>().To<RewardServices>().AsSingle();
             Container.Bind<IReloadSceneService>().To<ReloadSceneService>().AsSingle();
             Container.Bind<ICurrencyPresenterProvider>().To<CurrencyPresenterProvider>().AsSingle();
+            Container.Bind<ISceneProvider>().To<SceneProvider>().AsSingle();
         }
 
         private void BindInputService()

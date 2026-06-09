@@ -5,7 +5,6 @@ using Code.UI.Currency;
 using Code.UI.Fights;
 using Code.UI.Levels;
 using Code.UI.LossShowers;
-using Code.UI.Rewards;
 using Code.UI.Services.Windows;
 using Code.UI.Settings;
 using Code.UI.SpawnUnits;
@@ -14,7 +13,6 @@ using Code.UI.WarningMessages;
 using Code.Units.UI.Health;
 using Code.Units.UI.Levels;
 using UnityEngine;
-using Zenject;
 
 namespace Code.UI.Factory
 {
@@ -35,7 +33,6 @@ namespace Code.UI.Factory
         UnitHealthBarView GetUnitHealthBarView();
         UnitLevelView GetUnitLevelView();
         WindowBase CreateWindow(WindowType windowType);
-        void SetSceneContainer(DiContainer sceneContainer);
         VictoryView CreateVictoryView();
         LoseView CreateLoseView();
         GameObject CreateTopLayerCanvas();

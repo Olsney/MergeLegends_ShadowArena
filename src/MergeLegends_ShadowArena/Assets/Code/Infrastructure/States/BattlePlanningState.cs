@@ -52,7 +52,7 @@ namespace Code.Infrastructure.States
 
             _fightPresenter = _presenterFactory.CreateFightPresenter(_battleStateMachine);
 
-            _playZone = _gameFactory.CreatePlayZone();
+            _playZone = _gameFactory.CreatePlayZone().GetComponent<PlayZone>();
             _enemySpawner.Spawn();
         }
 

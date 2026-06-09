@@ -1,10 +1,10 @@
 using System.Linq;
 using Code.Infrastructure.AssetManagement;
 using Code.Infrastructure.Builders;
-using Code.Logic.PlayArea;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.Grid;
 using Code.Services.PersistentProgress;
+using Code.Services.SceneProvider;
 using Code.Services.StaticData;
 using Code.StaticData;
 using UnityEngine;
@@ -21,91 +21,81 @@ namespace Code.Infrastructure.Factory.Game
         private readonly IStaticDataService _staticData;
         private readonly IPersistentProgressService _progressService;
         private readonly IUnitBuilder _unitBuilder;
-
-        private DiContainer _sceneContainer;
-        private GameObject _playZone;
+        private readonly ISceneProvider _sceneProvider;
 
         public GameFactory(
             IInstantiator instantiator,
             IAssetProvider assets,
             IStaticDataService staticData,
             IPersistentProgressService progressService,
-            IUnitBuilder unitBuilder)
+            IUnitBuilder unitBuilder,
+            ISceneProvider sceneProvider)
         {
             _instantiator = instantiator;
             _assets = assets;
             _staticData = staticData;
             _progressService = progressService;
             _unitBuilder = unitBuilder;
+            _sceneProvider = sceneProvider;
         }
 
-        public void SetSceneContainer(DiContainer sceneContainer)
+        public GameObject CreatePlayZone()
         {
-            _sceneContainer = sceneContainer;
-        }
-
-        public PlayZone CreatePlayZone()
-        {
-            _playZone = _sceneContainer.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath));
+            GameObject playZone =
+                _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath), _sceneProvider.Container);
 
             GameStaticData gameData = _staticData.GetGameStaticData(MainSceneName);
 
-            CreateGridZone(gameData.PlayerUnitsGridPlacesPosition, UnitTypeId.PlayerUnit);
-            CreateGridZone(gameData.EnemiesGridPlacesPosition, UnitTypeId.Enemy);
+            CreateGridZone(playZone.transform, gameData.PlayerUnitsGridPlacesPosition, UnitTypeId.PlayerUnit);
+            CreateGridZone(playZone.transform, gameData.EnemiesGridPlacesPosition, UnitTypeId.Enemy);
 
-            return _playZone.GetComponent<PlayZone>();
+            return playZone;
         }
 
         public void CreateVictoryConfetti()
         {
-            GameObject prefab = _assets.Load(AssetPath.ConfettiVictoryEffectPath);
+            var confettiPrefab = _assets.Load(AssetPath.ConfettiVictoryEffectPath);
+            var spawnPoints = _staticData.GetGameStaticData(MainSceneName).ConfettiEffectSpawnPointPosition;
 
-            GameStaticData gameStaticData = _staticData.GetGameStaticData(MainSceneName);
-
-            for (int i = 0; i < gameStaticData.ConfettiEffectSpawnPointPosition.Count; i++)
+            for (int i = 0; i < spawnPoints.Count; i++)
             {
-                _sceneContainer.InstantiatePrefab(prefab, gameStaticData.ConfettiEffectSpawnPointPosition[i],
-                    Quaternion.identity, null);
+                _instantiator.InstantiatePrefab(confettiPrefab, spawnPoints[i], Quaternion.identity,
+                    _sceneProvider.Container);
             }
         }
 
-        private void CreateGridZone(Vector3 position, UnitTypeId unitTypeId)
+        private void CreateGridZone(Transform parent, Vector3 position, UnitTypeId unitTypeId)
         {
-            GridData gridData = _staticData.GetGridPlaces(unitTypeId).GridData;
+            var gridData = _staticData.GetGridPlaces(unitTypeId).GridData;
+            var gridZone = _instantiator.InstantiatePrefab(gridData.GridsRoot, parent);
 
-            var gridZone = _sceneContainer.InstantiatePrefab(gridData.GridsRoot);
-
-            gridZone.transform.SetParent(_playZone.transform, true);
+            gridZone.transform.SetParent(parent, true);
             gridZone.transform.localPosition = position;
             gridZone.name = unitTypeId.ToString();
 
             GenerateCellsForGrid(gridZone, gridZone.GetComponent<IGridUnitPlaces>(), unitTypeId);
         }
 
-        private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces,
-            UnitTypeId unitTypeId)
+        private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces, UnitTypeId unitTypeId)
         {
-            GridData gridData = _staticData.GetGridPlaces(unitTypeId).GridData;
-
-            int gridWidth = gridData.Height;
-            int gridHeight = gridData.Width;
-            float gridSpacing = gridData.Spacing;
+            var gridData = _staticData.GetGridPlaces(unitTypeId).GridData;
+            var cellPrefab = gridData.CellPrefab;
+            var gridWidth = gridData.Height;
+            var gridHeight = gridData.Width;
+            var spacing = gridData.Spacing;
 
             int index = 0;
 
-            for (int verical = 0; verical < gridWidth; verical++)
+            for (int vertical = 0; vertical < gridWidth; vertical++)
             {
                 for (int horizontal = 0; horizontal < gridHeight; horizontal++)
                 {
-                    GameObject cell = _sceneContainer.InstantiatePrefab(gridData.CellPrefab);
-
-                    Vector3 localPosition = new Vector3(horizontal * gridSpacing, 0, verical * gridSpacing);
+                    var cell = _instantiator.InstantiatePrefab(cellPrefab, _sceneProvider.Container);
                     cell.transform.SetParent(gridZone.transform, true);
-                    cell.transform.localPosition = localPosition;
-                    cell.name = $"Cell {horizontal} {verical}";
+                    cell.transform.localPosition = new Vector3(horizontal * spacing, 0, vertical * spacing);
+                    cell.name = $"Cell {horizontal} {vertical}";
 
                     gridUnitPlaces.AddCell(cell.GetComponent<ICellGrid>());
-
                     InitCell(unitTypeId, cell, index);
                     index++;
                 }
@@ -133,7 +123,6 @@ namespace Code.Infrastructure.Factory.Game
         private void InitCellPlayerUnit(GameObject cell, int index)
         {
             var cellGridPlayerUnit = cell.GetComponent<CellGridPlayerUnit>();
-
             var savedData = _progressService.Progress.WorldData.CompositionTeamData.PlayerUnitInCells
                 .FirstOrDefault(data => data.CellIndex == index);
 

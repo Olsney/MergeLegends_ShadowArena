@@ -23,6 +23,7 @@ namespace Code.Infrastructure.Builders
         private UnitTypeId _unitTypeId;
         private UnitAttackTypeId _unitAttackTypeId;
         private int _unitCurrentLevelIndex;
+        private Transform _parent;
         private Vector3 _position;
 
         public UnitBuilder(

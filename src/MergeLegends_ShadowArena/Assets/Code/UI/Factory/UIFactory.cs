@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Code.Infrastructure.AssetManagement;
 using Code.Services.PersistentProgress;
+using Code.Services.SceneProvider;
 using Code.Services.StaticData;
 using Code.Services.Windows;
 using Code.StaticData;
@@ -9,7 +10,6 @@ using Code.UI.Currency;
 using Code.UI.Fights;
 using Code.UI.Levels;
 using Code.UI.LossShowers;
-using Code.UI.Rewards;
 using Code.UI.Services.Windows;
 using Code.UI.Settings;
 using Code.UI.SpawnUnits;
@@ -30,50 +30,47 @@ namespace Code.UI.Factory
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
         private readonly IStaticDataService _staticDataService;
+        private readonly ISceneProvider _sceneProvider;
 
-        private DiContainer _sceneContainer;
         private GameObject _uiRoot;
         private GameObject _topLayerCanvas;
 
         public UIFactory(
             IInstantiator instantiator,
             IAssetProvider assets,
-            IStaticDataService staticDataService)
+            IStaticDataService staticDataService,
+            ISceneProvider sceneProvider)
         {
             _instantiator = instantiator;
             _assets = assets;
             _staticDataService = staticDataService;
-        }
-
-        public void SetSceneContainer(DiContainer sceneContainer)
-        {
-            _sceneContainer = sceneContainer;
+            _sceneProvider = sceneProvider;
         }
 
         public GameObject CreateUIRoot()
         {
             GameObject prefab = _assets.Load(AssetPath.UIRootPath);
-            _uiRoot = _sceneContainer.InstantiatePrefab(prefab);
+            _uiRoot = _instantiator.InstantiatePrefab(prefab, _sceneProvider.Container);
             return _uiRoot;
         }
 
         public GameObject CreateTopLayerCanvas()
         {
             GameObject prefab = _assets.Load(AssetPath.TopLayerCanvasWindowPath);
-            _topLayerCanvas = _sceneContainer.InstantiatePrefab(prefab);
+            _topLayerCanvas = _instantiator.InstantiatePrefab(prefab, _sceneProvider.Container);
             return _topLayerCanvas;
         }
 
         public GameObject CreateHud()
         {
             GameObject prefab = _assets.Load(AssetPath.HudPath);
-            return _sceneContainer.InstantiatePrefab(prefab, _uiRoot.transform);
+            return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform);
         }
 
         public UnitSpawnerViewsRoot CreateSpawnerViewsRoot()
         {
             GameObject prefab = _assets.Load(AssetPath.PurchaseButtonsRootPath);
-            return _sceneContainer.InstantiatePrefab(prefab, _uiRoot.transform)
+            return _instantiator.InstantiatePrefab(prefab, _uiRoot.transform)
                 .GetComponentInChildren<UnitSpawnerViewsRoot>();
         }
 
@@ -105,15 +102,15 @@ namespace Code.UI.Factory
             => FindExistingView<UnitLevelView>();
 
         public VictoryView CreateVictoryView()
-            => CreateView<VictoryView>(AssetPath.VictoryWindowPath, null);
+            => CreateView<VictoryView>(AssetPath.VictoryWindowPath, _sceneProvider.Container);
 
         public LoseView CreateLoseView()
-            => CreateView<LoseView>(AssetPath.LoseWindowPath, null);
+            => CreateView<LoseView>(AssetPath.LoseWindowPath, _sceneProvider.Container);
 
         public WindowBase CreateWindow(WindowType windowType)
         {
             WindowData windowData = _staticDataService.GetWindow(windowType);
-            var windowObject = _sceneContainer.InstantiatePrefab(windowData.Template, _uiRoot.transform);
+            var windowObject = _instantiator.InstantiatePrefab(windowData.Template, _uiRoot.transform);
 
             return windowType switch
             {
@@ -141,7 +138,7 @@ namespace Code.UI.Factory
         private TView CreateView<TView>(string assetPath, Transform parent) where TView : MonoBehaviour
         {
             GameObject prefab = _assets.Load(assetPath);
-            GameObject view = _sceneContainer.InstantiatePrefab(prefab, parent);
+            GameObject view = _instantiator.InstantiatePrefab(prefab, parent);
 
             RegisterProgressWatchers(view);
 

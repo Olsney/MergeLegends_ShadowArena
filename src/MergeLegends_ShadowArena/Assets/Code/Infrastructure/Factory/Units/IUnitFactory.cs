@@ -8,6 +8,5 @@ namespace Code.Infrastructure.Factory.Units
     {
         GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId, int unitCurrentLevelIndex,
             Vector3 position);
-        void SetSceneContainer(DiContainer sceneContainer);
     }
 }
