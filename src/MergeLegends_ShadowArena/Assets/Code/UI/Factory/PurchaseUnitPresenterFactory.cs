@@ -26,15 +26,15 @@ namespace Code.UI.Factory
         public MeleePlayerUnitPurchasePresenter CreateMeleePlayerUnitPurchasePresenter(Transform parent)
         {
             var view = _uiFactory.CreateMeleeSpawnButtonView(parent);
-            return CreatePresenter(view,
-                purchaseView => new MeleePlayerUnitPurchasePresenter(purchaseView, _purchaseService, _progressService));
+            return CreatePresenter(view, purchaseView 
+                => new MeleePlayerUnitPurchasePresenter(purchaseView, _purchaseService, _progressService));
         }
 
         public RangedPlayerUnitPurchasePresenter CreateRangedPlayerUnitPurchasePresenter(Transform parent)
         {
             var view = _uiFactory.CreateRangedSpawnButtonView(parent);
-            return CreatePresenter(view,
-                purchaseView => new RangedPlayerUnitPurchasePresenter(purchaseView, _purchaseService, _progressService));
+            return CreatePresenter(view, purchaseView 
+                => new RangedPlayerUnitPurchasePresenter(purchaseView, _purchaseService, _progressService));
         }
 
         private TPresenter CreatePresenter<TView, TPresenter>(TView view, Func<TView, TPresenter> factory)
