@@ -1,4 +1,5 @@
 using System;
+using Code.Services.SceneProvider;
 using Code.Services.StaticData;
 using Code.StaticData;
 using Code.Units.MagicSphereAttack;
@@ -11,13 +12,16 @@ namespace Code.Infrastructure.Factory.Projectile
     {
         private readonly IInstantiator _instantiator;
         private readonly IStaticDataService _staticData;
+        private readonly ISceneProvider _sceneProvider;
 
         private GameObject _playZone;
 
-        public ProjectileFactory(IInstantiator instantiator, IStaticDataService staticData)
+        public ProjectileFactory(IInstantiator instantiator, IStaticDataService staticData,
+            ISceneProvider sceneProvider)
         {
             _instantiator = instantiator;
             _staticData = staticData;
+            _sceneProvider = sceneProvider;
         }
 
         public MagicSphere CreateMagicSphere(UnitTypeId unitTypeId, Vector3 position)
@@ -40,7 +44,7 @@ namespace Code.Infrastructure.Factory.Projectile
                     unitStaticData.GeneralData.MagicSphereData.ViewPrefab,
                     position,
                     Quaternion.identity,
-                    null)
+                    _sceneProvider.Container)
                 .GetComponent<MagicSphere>();
         }
     }

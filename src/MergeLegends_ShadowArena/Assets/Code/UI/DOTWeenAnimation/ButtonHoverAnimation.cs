@@ -14,7 +14,7 @@ namespace Code.UI.DOTWeenAnimation
         private Transform _transform;
         private Vector3 _originalScale;
         private Tween _hoverTween;
-        
+
         public bool IsHovering { get; private set; }
 
         public event Action<bool> OnHoverStateChanged;
@@ -25,13 +25,20 @@ namespace Code.UI.DOTWeenAnimation
             _originalScale = _transform.localScale;
         }
 
-        private void OnDestroy() 
-            => _hoverTween?.Kill();
+        private void OnDestroy()
+        {
+            _hoverTween?.Kill();
+
+            if (_transform != null)
+                DOTween.Kill(_transform);
+
+            DOTween.Kill(gameObject);
+        }
 
         private void OnDisable()
         {
             _hoverTween?.Kill();
-            
+
             if (_transform != null)
                 _transform.localScale = _originalScale;
         }

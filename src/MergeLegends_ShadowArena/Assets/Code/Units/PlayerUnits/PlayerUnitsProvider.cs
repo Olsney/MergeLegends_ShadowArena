@@ -9,10 +9,18 @@ namespace Code.Units.PlayerUnits
         public void AddUnit(PlayerUnit playerUnit) 
             => _playerUnits.Add(playerUnit);
         
-        public void RemoveUnit(PlayerUnit playerUnit) 
-            => _playerUnits.Remove(playerUnit);
+        public void RemoveUnit(PlayerUnit playerUnit)
+        {
+            if (playerUnit == null)
+                return;
 
-        public IReadOnlyList<IUnit> GetUnits() 
+            _playerUnits.Remove(playerUnit);
+        }
+
+        public IReadOnlyList<PlayerUnit> GetPlayerUnits() 
             => _playerUnits;
+        
+        public void Clear() 
+            => _playerUnits.Clear();
     }
 }

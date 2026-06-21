@@ -9,10 +9,18 @@ namespace Code.Units.Enemies
         public void AddUnit(Enemy enemy) 
             => _enemies.Add(enemy);
         
-        public void RemoveUnit(Enemy enemy) 
-            => _enemies.Remove(enemy);
+        public void RemoveUnit(Enemy enemy)
+        {
+            if (enemy == null)
+                return;
+            
+            _enemies.Remove(enemy);
+        }
 
-        public IReadOnlyList<IUnit> GetUnits() 
+        public IReadOnlyList<Enemy> GetEnemies() 
             => _enemies;
+        
+        public void Clear() 
+            => _enemies.Clear();
     }
 }

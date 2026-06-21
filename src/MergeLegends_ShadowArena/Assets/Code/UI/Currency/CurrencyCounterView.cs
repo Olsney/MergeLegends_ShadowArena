@@ -1,16 +1,76 @@
-﻿using Code.UI.Texts;
+﻿using DG.Tweening;
 using UnityEngine;
 
 namespace Code.UI.Currency
 {
     public class CurrencyCounterView : MonoBehaviour, IView
     {
+        [SerializeField] private float _animationAddedDuration = 1.5f;
+
+        private Transform _transform;
+        private Tween _tween;
+
         private CurrencyText _currencyText;
+        private Transform _currencyTextTransform;
+
+        private int _startValue;
 
         private void Awake()
-            => _currencyText = GetComponentInChildren<CurrencyText>();
+        {
+            _transform = transform;
+            _currencyText = GetComponentInChildren<CurrencyText>();
+            _currencyTextTransform = _currencyText.transform;
+        }
 
-        public void UpdateCounter(int value) 
-            => _currencyText.TextMeshPro.text = value.ToString();
+        private void OnDestroy()
+        {
+            _tween?.Kill();
+
+            if (_transform != null)
+                DOTween.Kill(_transform);
+
+            DOTween.Kill(gameObject);
+        }
+
+        public void UpdateCounter(int endValue)
+        {
+            _transform.SetAsLastSibling();
+            StartIncreaseAnimate(endValue);
+        }
+
+        private void StartIncreaseAnimate(int endValue)
+        {
+            if (this == null || gameObject == null)
+                return;
+
+            _tween?.Kill();
+
+            int currentValue = _startValue;
+
+            _tween = DOTween.To(() => currentValue, x =>
+                {
+                    currentValue = Mathf.RoundToInt(x);
+
+                    if (_currencyText != null && _currencyText.TextMeshPro != null)
+                        _currencyText.TextMeshPro.text = currentValue.ToString();
+                    
+                }, endValue, _animationAddedDuration)
+                .SetEase(Ease.OutQuad)
+                .OnUpdate(() =>
+                {
+                    if (_currencyTextTransform == null)
+                        return;
+
+                    float scale = 1f + Mathf.Sin(Time.time * 30f) * 0.1f;
+                    _currencyTextTransform.localScale = Vector3.one * scale;
+                })
+                .OnComplete(() =>
+                {
+                    if (_currencyTextTransform != null)
+                        _currencyTextTransform.DOPunchScale(Vector3.one * 0.2f, 0.2f, 2, 0.5f);
+
+                    _startValue = endValue;
+                });
+        }
     }
 }

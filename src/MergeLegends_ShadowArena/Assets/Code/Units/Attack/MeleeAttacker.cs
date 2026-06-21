@@ -6,7 +6,7 @@ namespace Code.Units.Attack
 {
     public class MeleeAttacker : MonoBehaviour, IAttacker
     {
-        private const float HitRadius = 0.35f;
+        private const float HitRadius = 0.50f;
 
         public bool IsAttacking { get; private set; }
 

@@ -7,38 +7,23 @@ namespace Code.UI.DOTWeenAnimation
     {
         [SerializeField] private float _idleScale = 1.03f;
         [SerializeField] private float _idleDuration = 1.2f;
+        [SerializeField] private bool _isActiveToStart = false;
 
         private Transform _transform;
-        private Vector3 _originalScale;
-        private Tween _idleTween;
+        private Tween _pressTween;
 
-        private void Awake()
+        private void Start()
         {
             _transform = transform;
-            _originalScale = _transform.localScale;
+            
+            if (_isActiveToStart)
+                StartAnimation();
         }
 
-        private void OnEnable()
+        public void StartAnimation()
         {
-            StartIdle();
-        }
-
-        private void OnDisable()
-        {
-            _idleTween?.Kill();
-
-            if (_transform != null)
-                _transform.localScale = _originalScale;
-        }
-
-        private void OnDestroy()
-        {
-            _idleTween?.Kill();
-        }
-
-        private void StartIdle()
-        {
-            _idleTween = _transform.DOScale(_idleScale, _idleDuration)
+            _pressTween?.Kill();
+            _pressTween = _transform.DOScale(_idleScale, _idleDuration)
                 .SetEase(Ease.InOutSine)
                 .SetLoops(-1, LoopType.Yoyo);
         }

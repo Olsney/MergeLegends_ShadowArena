@@ -77,6 +77,11 @@ namespace Code.Units
             return _unitTarget;
         }
 
+        public void DeactivateMoving()
+        {
+            StopMoving();
+        }
+
         private void UpdateTarget()
         {
             var newTarget = _targetFinder.GetTarget();

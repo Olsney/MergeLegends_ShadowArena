@@ -1,8 +1,12 @@
-﻿namespace Code.Units.PlayerUnits
+﻿using System.Collections.Generic;
+
+namespace Code.Units.PlayerUnits
 {
-    public interface IPlayerUnitsProvider : IUnitsProvider
+    public interface IPlayerUnitsProvider
     {
         void AddUnit(PlayerUnit playerUnit);
         void RemoveUnit(PlayerUnit playerUnit);
+        IReadOnlyList<PlayerUnit> GetPlayerUnits();
+        void Clear();
     }
 }

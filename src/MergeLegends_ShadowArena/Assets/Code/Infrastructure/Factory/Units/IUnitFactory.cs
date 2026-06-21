@@ -1,5 +1,6 @@
 using Code.StaticData;
 using UnityEngine;
+using Zenject;
 
 namespace Code.Infrastructure.Factory.Units
 {

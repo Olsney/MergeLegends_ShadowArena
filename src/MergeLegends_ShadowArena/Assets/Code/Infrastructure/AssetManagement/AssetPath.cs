@@ -8,8 +8,10 @@ namespace Code.Infrastructure.AssetManagement
         public const string UIStartFightButtonPath = "UI/StartFightButton";
         public const string PurchaseMeleePlayerUnitButtonPath = "UI/PurchaseMeleePlayerUnitButton";
         public const string PurchaseRangedPlayerUnitButtonPath = "UI/PurchaseRangedPlayerUnitButton";
-        public const string UIOpenSettingsButtonPath = "UI/OpenSettingsButton";
         public const string VictoryWindowPath = "UI/VictoryWindow";
+        public const string TopLayerCanvasWindowPath = "UI/TopLayerCanvas";
+        public const string CurrencyWindowPath = "UI/CurrencyWindow";
+        public const string ConfettiVictoryEffectPath = "ConfettiParticle/ConfettVictory";
         public const string LoseWindowPath = "UI/LoseWindow";
         public const string WarningMessagePath = "UI/WarningMessage";
         public const string PlayZonePath = "PlayZone/PlayZone";

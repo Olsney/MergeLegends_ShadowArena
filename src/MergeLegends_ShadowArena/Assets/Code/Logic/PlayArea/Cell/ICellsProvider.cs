@@ -7,5 +7,6 @@ namespace Code.Logic.PlayArea.Cell
         IEnumerable<ICellGrid> GetFreeCells();
         IEnumerable<ICellGrid> GetAllCells();
         void AddCell(ICellGrid cellGrid);
+        void Clear();
     }
 }

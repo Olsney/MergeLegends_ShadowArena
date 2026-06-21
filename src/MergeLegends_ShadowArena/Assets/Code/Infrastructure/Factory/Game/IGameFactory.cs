@@ -1,9 +1,10 @@
-using Code.Logic.PlayArea;
+using UnityEngine;
 
 namespace Code.Infrastructure.Factory.Game
 {
     public interface IGameFactory
     {
-        PlayZone CreatePlayZone();
+        GameObject CreatePlayZone();
+        void CreateVictoryConfetti();
     }
 }

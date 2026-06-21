@@ -1,4 +1,5 @@
 using System;
+using Code.Services.SceneProvider;
 using Code.Services.StaticData;
 using Code.StaticData;
 using UnityEngine;
@@ -12,34 +13,39 @@ namespace Code.Infrastructure.Factory.Units
 
         private readonly IInstantiator _instantiator;
         private readonly IStaticDataService _staticData;
+        private readonly ISceneProvider _sceneProvider;
 
         public UnitFactory(
             IInstantiator instantiator,
-            IStaticDataService staticData)
+            IStaticDataService staticData,
+            ISceneProvider sceneProvider)
         {
             _instantiator = instantiator;
             _staticData = staticData;
+            _sceneProvider = sceneProvider;
         }
 
         public GameObject CreateUnit(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId,
             int unitCurrentLevelIndex, Vector3 position)
         {
             UnitStaticData unitStaticData = GetUnitStaticData(unitTypeId, unitAttackTypeId);
-    
-            if (unitStaticData.UnitStatsByLevelIndexSetups == null || unitStaticData.UnitStatsByLevelIndexSetups.Count == 0)
+
+            if (unitStaticData.UnitStatsByLevelIndexSetups == null ||
+                unitStaticData.UnitStatsByLevelIndexSetups.Count == 0)
                 throw new InvalidOperationException($"UnitStatsByLevelIndexSetups is empty for {unitStaticData.name}");
-    
+
             if (unitCurrentLevelIndex < 0 || unitCurrentLevelIndex >= unitStaticData.UnitStatsByLevelIndexSetups.Count)
-                throw new ArgumentOutOfRangeException(nameof(unitCurrentLevelIndex), 
+                throw new ArgumentOutOfRangeException(nameof(unitCurrentLevelIndex),
                     $"Level {unitCurrentLevelIndex} not found in {unitStaticData.name}");
 
-            UnitLevelStatsData stats = unitStaticData.UnitStatsByLevelIndexSetups[unitCurrentLevelIndex].UnitLevelStatsData;
-    
+            UnitLevelStatsData stats = unitStaticData.UnitStatsByLevelIndexSetups[unitCurrentLevelIndex]
+                .UnitLevelStatsData;
+
             Quaternion rotation = unitTypeId == UnitTypeId.Enemy
                 ? Quaternion.Euler(0, EnemySpawnRotationY, 0)
                 : Quaternion.identity;
 
-            return _instantiator.InstantiatePrefab(stats.ViewPrefab, position, rotation, null);
+            return _instantiator.InstantiatePrefab(stats.ViewPrefab, position, rotation, _sceneProvider.Container);
         }
 
         private UnitStaticData GetUnitStaticData(UnitTypeId unitTypeId, UnitAttackTypeId unitAttackTypeId)

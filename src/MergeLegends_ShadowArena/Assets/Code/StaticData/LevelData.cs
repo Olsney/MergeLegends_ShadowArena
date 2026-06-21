@@ -6,5 +6,10 @@ namespace Code.StaticData
     public class LevelData
     {
         public int CurrentLevelIndex;
+
+        public void UpLevel()
+        {
+            CurrentLevelIndex++;
+        }
     }
 }

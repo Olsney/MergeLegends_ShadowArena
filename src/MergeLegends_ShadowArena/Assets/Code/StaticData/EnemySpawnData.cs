@@ -10,5 +10,8 @@ namespace Code.StaticData
         public int LevelIndex;
 
         public UnitAttackTypeId UnitAttackTypeId;
+
+        [Min(-1)] 
+        public int CellIndex = -1;
     }
 }

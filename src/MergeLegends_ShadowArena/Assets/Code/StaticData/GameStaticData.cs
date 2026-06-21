@@ -10,7 +10,8 @@ namespace Code.StaticData
         public Vector3 PlayZonePosition;
         public Vector3 PlayerUnitsGridPlacesPosition;
         public Vector3 EnemiesGridPlacesPosition;
-        public List<SpawnEnemiesInGameLevelData> SpawnEnemiesInGameLevels;
+        public List<Vector3> ConfettiEffectSpawnPointPosition;
         public FirstGameLaunchData FirstGameLaunchData;
+        public List<GameLevelData> GameLevelsData;
     }
 }

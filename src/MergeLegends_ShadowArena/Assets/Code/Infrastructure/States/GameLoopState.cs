@@ -18,4 +18,3 @@ namespace Code.Infrastructure.States
         }
     }
 }
-    
