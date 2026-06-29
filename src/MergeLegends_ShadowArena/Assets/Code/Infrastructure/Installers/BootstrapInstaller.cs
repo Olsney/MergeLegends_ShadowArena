@@ -11,6 +11,7 @@ using Code.Logic.BattleServices;
 using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
+using Code.Services.CellsInitializerServices;
 using Code.Services.Input;
 using Code.Services.MergeUnits;
 using Code.Services.PersistentProgress;
@@ -56,6 +57,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IUnitFactory>().To<UnitFactory>().AsSingle();
             Container.Bind<IPresenterFactory>().To<PresenterFactory>().AsSingle();
             Container.Bind<IPurchasePresenterFactory>().To<PurchaseUnitPresenterFactory>().AsSingle();
+            Container.Bind<IUnitPresenterFactory>().To<UnitPresenterFactory>().AsSingle();
         }
 
         private void BindStates()
@@ -94,6 +96,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IReloadSceneService>().To<ReloadSceneService>().AsSingle();
             Container.Bind<ICurrencyPresenterProvider>().To<CurrencyPresenterProvider>().AsSingle();
             Container.Bind<ISceneProvider>().To<SceneProvider>().AsSingle();
+            Container.Bind<ICellsInitializerService>().To<CellsInitializerService>().AsSingle();
         }
 
         private void BindInputService()
