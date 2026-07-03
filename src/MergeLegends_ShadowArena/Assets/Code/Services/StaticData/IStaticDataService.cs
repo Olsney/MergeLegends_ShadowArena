@@ -11,5 +11,6 @@ namespace Code.Services.StaticData
         GridPlacesStaticData GetGridPlaces(UnitTypeId unitTypeId);
         WindowData GetWindow(WindowType windowType);
         WarningMessageData GetWarningMessage(WarningMessagesTypeId warningTypeId);
+        CameraMoveData GetCameraMoveData(CameraMoveTypeId cameraMoveTypeId);
     }
 }
