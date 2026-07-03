@@ -1,5 +1,4 @@
 ﻿using System;
-using Code.StaticData;
 
 namespace Code.StaticData
 {
@@ -9,5 +8,6 @@ namespace Code.StaticData
         public UnitData UnitData;
         public TargetData TargetData;
         public MagicSphereData MagicSphereData;
+        public CameraShakeToAttackData CameraShakeToAttackData;
     }
 }
