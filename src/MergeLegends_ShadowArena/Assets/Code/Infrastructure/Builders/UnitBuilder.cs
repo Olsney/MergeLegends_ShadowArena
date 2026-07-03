@@ -88,7 +88,6 @@ namespace Code.Infrastructure.Builders
                 .UnitLevelStatsData;
             TargetData targetData = unitStaticData.GeneralData.TargetData;
             UnitData unitData = unitStaticData.GeneralData.UnitData;
-            MagicSphereData magicData = unitStaticData.GeneralData.MagicSphereData;
 
             if (unit.TryGetComponent<PlayerUnit>(out var playerUnit))
                 playerUnit.Init(_unitCurrentLevelIndex, _unitAttackTypeId);
@@ -107,18 +106,21 @@ namespace Code.Infrastructure.Builders
                         targetLayerMask: targetData.TargetLayerMask);
                     break;
                 case RangedAttacker ranged:
+                    MagicSphereData magicSphereData = unitStaticData.GeneralData.MagicSphereData;
+
                     ranged.Init(
                         damage: stats.Damage,
                         cooldown: unitData.AttackCooldown,
                         targetLayerMask: targetData.TargetLayerMask,
-                        magicSphereSpeed: magicData.Speed,
+                        magicSphereSpeed: magicSphereData.Speed,
                         unitTypeId: _unitTypeId);
                     break;
                 case BossAttacker boss:
                     boss.Init(
                         damage: stats.Damage,
                         cooldown: unitData.AttackCooldown,
-                        targetLayerMask: targetData.TargetLayerMask);
+                        targetLayerMask: targetData.TargetLayerMask,
+                        cameraShakeToAttackData: unitStaticData.GeneralData.CameraShakeToAttackData);
                     break;
             }
         }
@@ -134,7 +136,7 @@ namespace Code.Infrastructure.Builders
             UnitHealthBarView healthBarView = unitPrefab.GetComponentInChildren<UnitHealthBarView>();
             DamageFloatingView damageFloatingView = unitPrefab.GetComponentInChildren<DamageFloatingView>();
 
-            UnitCanvasPresenter canvasPresenter = 
+            UnitCanvasPresenter canvasPresenter =
                 _presenterFactory.CreateUnitCanvasPresenter(canvasView, unitDeath);
             UnitLevelPresenter levelPresenter =
                 _presenterFactory.CreateUnitLevelPresenter(levelView, _unitCurrentLevelIndex);
