@@ -10,7 +10,7 @@ namespace Code.Infrastructure.States
     public class LoadProgressState : IState
     {
         private const string MainSceneName = "Main";
-        private const int FirstLevelIndex = 2;
+        private const int FirstLevelIndex = 0;
 
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPersistentProgressService _progressService;
@@ -52,12 +52,12 @@ namespace Code.Infrastructure.States
 
             progress.WorldData.LevelData.CurrentLevelIndex = FirstLevelIndex;
             progress.WorldData.CurrencyData.Value = firstGameLaunchData.CurrencyStarting.StartValue;
-            
+
             progress.WorldData.UnitsPriceData.meleeCurrentPrice.PriceValue =
                 firstGameLaunchData.UnitsStartingPrice.MeleePrice.StartValue;
             progress.WorldData.UnitsPriceData.rangedCurrentPrice.PriceValue =
                 firstGameLaunchData.UnitsStartingPrice.RangedPrice.StartValue;
-            
+
             progress.WorldData.CompositionTeamData.PlayerUnitInCells = new List<PlayerUnitStatsInCellData>();
 
             return progress;
