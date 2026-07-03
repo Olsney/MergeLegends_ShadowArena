@@ -10,7 +10,7 @@ namespace Code.Infrastructure.States
     public class LoadProgressState : IState
     {
         private const string MainSceneName = "Main";
-        private const int FirstLevelIndex = 0;
+        private const int FirstLevelIndex = 2;
 
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPersistentProgressService _progressService;

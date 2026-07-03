@@ -1,3 +1,4 @@
+using Code.Core.LoadingCurtains;
 using Code.Services.PersistentProgress;
 using Code.UI.Currency;
 using Code.UI.Factory;
@@ -14,6 +15,7 @@ namespace Code.Infrastructure.States
         private readonly IPresenterFactory _presenterFactory;
         private readonly IPersistentProgressService _progressService;
         private readonly ICurrencyPresenterProvider _currencyPresenterProvider;
+        private readonly ILoadingCurtainProvider _loadingCurtainProvider;
 
         public LoadLevelState(
             GameStateMachine stateMachine,
@@ -21,7 +23,8 @@ namespace Code.Infrastructure.States
             IUIFactory uiFactory,
             IPresenterFactory presenterFactory,
             IPersistentProgressService progressService,
-            ICurrencyPresenterProvider currencyPresenterProvider
+            ICurrencyPresenterProvider currencyPresenterProvider,
+            ILoadingCurtainProvider loadingCurtainProvider
         )
         {
             _stateMachine = stateMachine;
@@ -30,10 +33,12 @@ namespace Code.Infrastructure.States
             _presenterFactory = presenterFactory;
             _progressService = progressService;
             _currencyPresenterProvider = currencyPresenterProvider;
+            _loadingCurtainProvider = loadingCurtainProvider;
         }
 
         public void Enter(string sceneName)
         {
+            _loadingCurtainProvider.LoadingCurtain.Show();
             _sceneLoader.Load(EmptySceneName, () => _sceneLoader.Load(sceneName, OnLoaded));
         }
 
@@ -48,6 +53,7 @@ namespace Code.Infrastructure.States
             InitGameWorld();
             InformProgressReaders();
 
+            _loadingCurtainProvider.LoadingCurtain.Hide();
             _stateMachine.Enter<BattleStateMachine>();
         }
 
