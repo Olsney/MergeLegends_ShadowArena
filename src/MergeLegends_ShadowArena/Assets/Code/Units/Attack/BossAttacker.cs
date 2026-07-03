@@ -1,15 +1,20 @@
+using Code.Services.CameraMoves;
 using Code.StaticData;
 using UnityEngine;
+using Zenject;
 
 namespace Code.Units.Attack
 {
     public class BossAttacker : MonoBehaviour, IAttacker
     {
-        private const int MaxHits = 3;
-        
         [SerializeField] private float _hitRadius = 2f;
-        
+
+        private const int MaxHits = 3;
+
         public bool IsAttacking { get; private set; }
+
+        private ICameraShakeService _cameraShakeService;
+        private CameraShakeToAttackData _cameraShakeToAttackData;
 
         private UnitAnimator _animator;
         private AnimationEventsReader _animationEventsReader;
@@ -24,10 +29,14 @@ namespace Code.Units.Attack
         private float _currentAttackCooldown;
         private bool _isActive;
 
+        [Inject]
+        private void Construct(ICameraShakeService cameraShakeService)
+            => _cameraShakeService = cameraShakeService;
+
         private void Awake()
         {
             _hits = new Collider[MaxHits];
-            
+
             _animationEventsReader = GetComponentInParent<AnimationEventsReader>();
             _animator = GetComponentInParent<UnitAnimator>();
             _navmeshAgentMover = GetComponentInParent<UnitNavmeshAgentMover>();
@@ -61,11 +70,13 @@ namespace Code.Units.Attack
             UpdateCooldown();
         }
 
-        public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask)
+        public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask,
+            CameraShakeToAttackData cameraShakeToAttackData)
         {
             _damage = damage;
             _attackCooldown = cooldown;
             _layerMask = 1 << (int)targetLayerMask;
+            _cameraShakeToAttackData = cameraShakeToAttackData;
         }
 
         public void StartAttacking()
@@ -82,6 +93,7 @@ namespace Code.Units.Attack
         private void OnLastAttack()
         {
             bossLastAttackEffect.Play();
+            _cameraShakeService.StartVerticleShake(_cameraShakeToAttackData.Force, _cameraShakeToAttackData.Direction);
             PerformAttack();
         }
 
