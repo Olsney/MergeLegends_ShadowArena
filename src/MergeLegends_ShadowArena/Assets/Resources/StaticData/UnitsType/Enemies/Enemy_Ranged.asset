@@ -64,3 +64,8 @@ MonoBehaviour:
     MagicSphereData:
       Speed: 7
       ViewPrefab: {fileID: 5959412765337696548, guid: d3d4f62396789fd439940e8108c81834, type: 3}
+    CameraShakeData:
+      Force: 0
+      XForce: 0
+      YForce: 0
+      IntensivityMult: 0

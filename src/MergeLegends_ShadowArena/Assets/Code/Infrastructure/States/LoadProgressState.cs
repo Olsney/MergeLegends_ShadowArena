@@ -52,12 +52,12 @@ namespace Code.Infrastructure.States
 
             progress.WorldData.LevelData.CurrentLevelIndex = FirstLevelIndex;
             progress.WorldData.CurrencyData.Value = firstGameLaunchData.CurrencyStarting.StartValue;
-            
+
             progress.WorldData.UnitsPriceData.meleeCurrentPrice.PriceValue =
                 firstGameLaunchData.UnitsStartingPrice.MeleePrice.StartValue;
             progress.WorldData.UnitsPriceData.rangedCurrentPrice.PriceValue =
                 firstGameLaunchData.UnitsStartingPrice.RangedPrice.StartValue;
-            
+
             progress.WorldData.CompositionTeamData.PlayerUnitInCells = new List<PlayerUnitStatsInCellData>();
 
             return progress;

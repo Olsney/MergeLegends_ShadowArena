@@ -15,6 +15,7 @@ namespace Code.Services.StaticData
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
         private const string WindowStaticDataPath = "StaticData/UI/WindowStaticData";
         private const string WarningMessageStaticDataPath = "StaticData/UI/WarningMessageStaticData";
+        private const string CameraMovesDataPath = "StaticData/CameraMoves/CameraMoveData";
 
         private Dictionary<string, GameStaticData> _gameStaticData;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
@@ -22,6 +23,7 @@ namespace Code.Services.StaticData
         private Dictionary<UnitTypeId, GridPlacesStaticData> _grids;
         private Dictionary<WindowType, WindowData> _windowConfigs;
         private Dictionary<WarningMessagesTypeId, WarningMessageData> _warningMessages;
+        private Dictionary<CameraMoveTypeId, CameraMoveData> _cameraMoves;
 
         public void Initialize()
         {
@@ -55,6 +57,11 @@ namespace Code.Services.StaticData
                 .Load<WarningMessageStaticData>(WarningMessageStaticDataPath)
                 .WarningMessages
                 .ToDictionary(x => x.WarningMessagesTypeId, x => x);
+            
+            _cameraMoves = Resources
+                .Load<CameraMoveStaticData>(CameraMovesDataPath)
+                .CameraMoveDatas
+                .ToDictionary(x => x.CameraMoveTypeId, x => x);
         }
 
         public GameStaticData GetGameStaticData(string sceneKey) =>
@@ -85,6 +92,11 @@ namespace Code.Services.StaticData
         public WarningMessageData GetWarningMessage(WarningMessagesTypeId warningTypeId) =>
             _warningMessages.TryGetValue(warningTypeId, out WarningMessageData warningData)
                 ? warningData
+                : null; 
+        
+        public CameraMoveData GetCameraMoveData(CameraMoveTypeId cameraMoveTypeId) =>
+            _cameraMoves.TryGetValue(cameraMoveTypeId, out CameraMoveData cameraMoveData)
+                ? cameraMoveData
                 : null;
     }
 }

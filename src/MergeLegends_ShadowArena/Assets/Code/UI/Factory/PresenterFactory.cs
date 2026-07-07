@@ -10,11 +10,6 @@ using Code.UI.ReloadScenes;
 using Code.UI.Settings;
 using Code.UI.VictoryShowers;
 using Code.UI.WarningMessages;
-using Code.Units;
-using Code.Units.UI;
-using Code.Units.UI.FloatingDamages;
-using Code.Units.UI.Health;
-using Code.Units.UI.Levels;
 using UnityEngine;
 using Zenject;
 
@@ -30,20 +25,6 @@ namespace Code.UI.Factory
             _uiFactory = uiFactory;
             _currencyPresenterProvider = currencyPresenterProvider;
         }
-
-        public UnitCanvasPresenter CreateUnitCanvasPresenter(UnitCanvasView view, UnitDeath unitDeath)
-            => CreatePresenter(view, canvasView => new UnitCanvasPresenter(canvasView, unitDeath));
-
-        public UnitHealthBarPresenter CreateUnitHealthBarPresenter(UnitHealthBarView view, IHealth health)
-            => CreatePresenter(view, healthBarView => new UnitHealthBarPresenter(healthBarView, health));
-
-        public UnitLevelPresenter CreateUnitLevelPresenter(UnitLevelView view, IUnit unit,
-            int unitCurrentLevelIndex)
-            => CreatePresenter(view, levelView
-                => new UnitLevelPresenter(levelView, unit, unitCurrentLevelIndex));
-
-        public DamageFloatingPresenter CreateDamageFloatingPresenter(DamageFloatingView view, IHealth health)
-            => CreatePresenter(view, floatingView => new DamageFloatingPresenter(floatingView, health));
 
         public FightPresenter CreateFightPresenter(BattleStateMachine battleStateMachine)
         {

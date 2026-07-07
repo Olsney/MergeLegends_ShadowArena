@@ -36,3 +36,6 @@ MonoBehaviour:
     MagicSphereData:
       Speed: 0
       ViewPrefab: {fileID: 0}
+    CameraShakeToAttackData:
+      Force: 0.9
+      Direction: {x: 0.5, y: 0.3}

@@ -1,34 +1,26 @@
+using Code.Logic.BattleServices;
 using Code.UI;
 
 namespace Code.Units.UI.Levels
 {
     public class UnitLevelPresenter : Presenter<UnitLevelView>
     {
+        private readonly IBattleService _battleService;
         private readonly int _unitLevelIndex;
-        private readonly IUnit _unit;
 
-        public UnitLevelPresenter(UnitLevelView view, IUnit unit, int unitLevelIndex) : base(view)
+        public UnitLevelPresenter(UnitLevelView view, IBattleService battleService, int unitLevelIndex) : base(view)
         {
-            _unit = unit;
+            _battleService = battleService;
             _unitLevelIndex = unitLevelIndex;
         }
 
         public override void Initialize()
         {
-            _unit.UnitDeath.Dead += OnUnitDead;
+            _battleService.FightStarting += View.Remove;
             View.SetValue(_unitLevelIndex);
         }
 
-        public override void Dispose()
-        {
-            _unit.UnitDeath.Dead -= OnUnitDead;
-        }
-
-        private void OnUnitDead()
-        {
-            _unit.UnitDeath.Dead -= OnUnitDead;
-            Dispose();
-            View.Remove();
-        }
+        public override void Dispose() 
+            => _battleService.FightStarting -= View.Remove;
     }
 }
