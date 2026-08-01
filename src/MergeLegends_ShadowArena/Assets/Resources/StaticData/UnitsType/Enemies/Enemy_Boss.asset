@@ -23,14 +23,14 @@ MonoBehaviour:
       Damage: 50
       ViewPrefab: {fileID: 6442996145787665958, guid: 407509eeb3db9b046baa4c72174c40d1, type: 3}
   - UnitLevelStatsData:
-      Hp: 3500
-      Damage: 50
+      Hp: 3000
+      Damage: 20
       ViewPrefab: {fileID: 6442996145787665958, guid: c2cb1b2bcb6b35244a4c282bfd979911, type: 3}
   GeneralData:
     UnitData:
       MoveSpeed: 2
       AttackDistance: 10
-      AttackCooldown: 2
+      AttackCooldown: 3.5
     TargetData:
       TargetLayerMask: 6
     MagicSphereData:
@@ -39,3 +39,22 @@ MonoBehaviour:
     CameraShakeToAttackData:
       Force: 0.9
       Direction: {x: 0.5, y: 0.3}
+    UnitSoundData:
+      MeleeAttackSoundData:
+        hitAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1
+      RangedAttackSoundData:
+        magicSphereAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1
+        explosionMagicSphereAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1
+      BossAttackSoundData:
+        clubSwingAudio:
+          AudioClip: {fileID: 8300000, guid: 27f454027a9a1c3448afb3bb48d46aab, type: 3}
+          Volume: 0.8
+        groundSlamAudio:
+          AudioClip: {fileID: 8300000, guid: 5fd6228348cdc8f44bb8b1f0c9bf8df2, type: 3}
+          Volume: 0.9

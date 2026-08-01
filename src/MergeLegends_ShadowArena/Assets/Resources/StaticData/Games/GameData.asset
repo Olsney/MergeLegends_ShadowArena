@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.LevelStaticData
   SceneKey: Main
-  PlayZonePosition: {x: 3.35, y: 0, z: 8.46}
   PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0, z: -5.789998}
   EnemiesGridPlacesPosition: {x: -2.19, y: 0, z: 6.05}
   ConfettiEffectSpawnPointPosition:
@@ -21,7 +20,7 @@ MonoBehaviour:
   - {x: 5.47, y: 5, z: 1.9400005}
   FirstGameLaunchData:
     CurrencyStarting:
-      StartValue: 2500
+      StartValue: 66666
     UnitsStartingPrice:
       PriceIncrementPerPurchaseValue: 200
       MeleePrice:
