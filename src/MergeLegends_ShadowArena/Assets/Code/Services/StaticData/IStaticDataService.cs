@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Code.Services.Windows;
 using Code.StaticData;
 
@@ -12,5 +13,7 @@ namespace Code.Services.StaticData
         WindowData GetWindow(WindowType windowType);
         WarningMessageData GetWarningMessage(WarningMessagesTypeId warningTypeId);
         CameraMoveData GetCameraMoveData(CameraMoveTypeId cameraMoveTypeId);
+        AudioData GetSoundData(GameSoundTypeId gameSoundTypeId);
+        List<GameMusicData> GetMusicData();
     }
 }
