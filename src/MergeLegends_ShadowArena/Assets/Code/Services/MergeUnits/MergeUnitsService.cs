@@ -2,6 +2,7 @@ using System;
 using Code.Infrastructure.Builders;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
+using Code.Services.Audio;
 using Code.Services.StaticData;
 using Code.StaticData;
 using Code.UI.Factory;
@@ -17,6 +18,7 @@ namespace Code.Services.MergeUnits
         private readonly IUnitBuilder _unitBuilder;
         private readonly IPlayerUnitGridSelectorService _selectorService;
         private readonly IPresenterFactory _uiFactory;
+        private readonly IAudioService _audioService;
 
         private CellGridPlayerUnit _selectedCell;
 
@@ -24,12 +26,14 @@ namespace Code.Services.MergeUnits
             IUnitBuilder unitBuilder,
             IStaticDataService staticData,
             IPlayerUnitGridSelectorService selectorService,
-            IPresenterFactory uiFactory)
+            IPresenterFactory uiFactory,
+            IAudioService audioService)
         {
             _unitBuilder = unitBuilder;
             _staticData = staticData;
             _selectorService = selectorService;
             _uiFactory = uiFactory;
+            _audioService = audioService;
         }
 
         public void Initialize()
@@ -102,6 +106,8 @@ namespace Code.Services.MergeUnits
                 .SetCurrentLevel(nextLevel)
                 .SetPosition(cell2.transform.position)
                 .Build();
+
+            _audioService.PlaySound(GameSoundTypeId.PlayerUnitMerge);
 
             return newUnit;
         }
