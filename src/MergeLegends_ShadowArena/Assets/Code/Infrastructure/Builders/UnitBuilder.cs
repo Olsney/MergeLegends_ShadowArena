@@ -5,6 +5,7 @@ using Code.StaticData;
 using Code.UI.Factory;
 using Code.Units;
 using Code.Units.Attack;
+using Code.Units.Audio;
 using Code.Units.PlayerUnits;
 using Code.Units.UI;
 using Code.Units.UI.FloatingDamages;
@@ -100,27 +101,59 @@ namespace Code.Infrastructure.Builders
             switch (unit.GetComponentInChildren<IAttacker>())
             {
                 case MeleeAttacker melee:
+                    var meleeAttackSound = unit.GetComponentInChildren<MeleeAttackSound>();
+
                     melee.Init(
                         damage: stats.Damage,
                         cooldown: unitData.AttackCooldown,
-                        targetLayerMask: targetData.TargetLayerMask);
+                        targetLayerMask: targetData.TargetLayerMask,
+                        meleeAttackSound: meleeAttackSound);
+
+                    meleeAttackSound.Init(
+                        audioClip: unitStaticData.GeneralData.UnitSoundData.MeleeAttackSoundData.hitAudio.AudioClip,
+                        volume: unitStaticData.GeneralData.UnitSoundData.MeleeAttackSoundData.hitAudio.Volume);
                     break;
                 case RangedAttacker ranged:
                     MagicSphereData magicSphereData = unitStaticData.GeneralData.MagicSphereData;
+                    var rangedAttackSound = unit.GetComponentInChildren<RangedAttackSound>();
 
                     ranged.Init(
                         damage: stats.Damage,
                         cooldown: unitData.AttackCooldown,
                         targetLayerMask: targetData.TargetLayerMask,
                         magicSphereSpeed: magicSphereData.Speed,
-                        unitTypeId: _unitTypeId);
+                        unitTypeId: _unitTypeId,
+                        rangedAttackSound: rangedAttackSound);
+
+                    rangedAttackSound.Init(
+                        spawnClip: unitStaticData.GeneralData.UnitSoundData.RangedAttackSoundData.magicSphereAudio
+                            .AudioClip,
+                        spawnVolume: unitStaticData.GeneralData.UnitSoundData.RangedAttackSoundData.magicSphereAudio
+                            .Volume,
+                        explodeClip: unitStaticData.GeneralData.UnitSoundData.RangedAttackSoundData
+                            .explosionMagicSphereAudio.AudioClip,
+                        explodeVolume: unitStaticData.GeneralData.UnitSoundData.RangedAttackSoundData
+                            .explosionMagicSphereAudio.Volume);
                     break;
                 case BossAttacker boss:
+                    var bossAttackSound = unit.GetComponentInChildren<BossAttackSound>();
+
+                    bossAttackSound.Init(
+                        attackClip: unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData.clubSwingAudio
+                            .AudioClip,
+                        attackVolume: unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData.clubSwingAudio
+                            .Volume,
+                        lastAttackClip: unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData.groundSlamAudio
+                            .AudioClip,
+                        lastAttackVolume: unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData.groundSlamAudio
+                            .Volume);
+
                     boss.Init(
                         damage: stats.Damage,
                         cooldown: unitData.AttackCooldown,
                         targetLayerMask: targetData.TargetLayerMask,
-                        cameraShakeToAttackData: unitStaticData.GeneralData.CameraShakeToAttackData);
+                        cameraShakeToAttackData: unitStaticData.GeneralData.CameraShakeToAttackData,
+                        bossAttackSound: bossAttackSound);
                     break;
             }
         }
