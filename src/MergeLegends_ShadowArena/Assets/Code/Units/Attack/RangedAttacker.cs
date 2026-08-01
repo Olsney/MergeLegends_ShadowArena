@@ -1,5 +1,6 @@
 using Code.Infrastructure.Factory.Projectile;
 using Code.StaticData;
+using Code.Units.Audio;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,7 @@ namespace Code.Units.Attack
         private AnimationEventsReader _animationEventsReader;
         private UnitNavmeshAgentMover _navmeshAgentMover;
         private UnitDeath _unitDeath;
+        private RangedAttackSound _rangedAttackSound;
 
         private float _attackCooldown;
         private float _currentAttackCooldown;
@@ -58,12 +60,12 @@ namespace Code.Units.Attack
         {
             if (_isActive == false)
                 return;
-            
+
             UpdateCooldown();
         }
 
         public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask, float magicSphereSpeed,
-            UnitTypeId unitTypeId)
+            UnitTypeId unitTypeId, RangedAttackSound rangedAttackSound)
         {
             _attackCooldown = cooldown;
             _unitTypeId = unitTypeId;
@@ -71,12 +73,13 @@ namespace Code.Units.Attack
             _damage = damage;
             _targetLayerMask = targetLayerMask;
             _magicSphereSpeed = magicSphereSpeed;
+            _rangedAttackSound = rangedAttackSound;
         }
 
         public void StartAttacking()
             => _isActive = true;
 
-        private void StopAttacking() 
+        private void StopAttacking()
             => _isActive = false;
 
         private void OnAttack()
@@ -87,7 +90,8 @@ namespace Code.Units.Attack
                 return;
 
             _projectileFactory.CreateMagicSphere(_unitTypeId, transform.position)
-                .Launch(_damage, _targetLayerMask, _magicSphereSpeed, transform.position, _targetToAttack);
+                .Launch(_damage, _targetLayerMask, _magicSphereSpeed, transform.position, _targetToAttack,
+                    _rangedAttackSound);
         }
 
         private void OnAttackEnded()

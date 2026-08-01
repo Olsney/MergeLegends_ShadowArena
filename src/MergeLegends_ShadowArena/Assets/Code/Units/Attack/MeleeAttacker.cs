@@ -1,5 +1,6 @@
 using System.Linq;
 using Code.StaticData;
+using Code.Units.Audio;
 using UnityEngine;
 
 namespace Code.Units.Attack
@@ -14,6 +15,7 @@ namespace Code.Units.Attack
         private AnimationEventsReader _animationEventsReader;
         private UnitNavmeshAgentMover _navmeshAgentMover;
         private UnitDeath _unitDeath;
+        private MeleeAttackSound _meleeAttackSound;
 
         private Collider[] _hits = new Collider[1];
         private int _layerMask;
@@ -54,11 +56,12 @@ namespace Code.Units.Attack
             UpdateCooldown();
         }
 
-        public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask)
+        public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask, MeleeAttackSound meleeAttackSound)
         {
             _damage = damage;
             _attackCooldown = cooldown;
             _layerMask = 1 << (int)targetLayerMask;
+            _meleeAttackSound = meleeAttackSound;
         }
 
         public void StartAttacking()
@@ -72,6 +75,7 @@ namespace Code.Units.Attack
             if (CanHit(out Collider hit))
             {
                 hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
+                _meleeAttackSound.PlayHitSound(true);
             }
         }
 
