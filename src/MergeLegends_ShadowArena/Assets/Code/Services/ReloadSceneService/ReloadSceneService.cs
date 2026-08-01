@@ -7,6 +7,8 @@ namespace Code.Services.ReloadSceneService
 {
     public class ReloadSceneService : IReloadSceneService
     {
+        private const string MainSceneName = "Main";
+        
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPlayerUnitCellsProvider _playerUnitCellsProvider;
         private readonly IEnemyCellsProvider _enemiesCellsProvider;
@@ -33,7 +35,7 @@ namespace Code.Services.ReloadSceneService
             _playerUnitsProvider.Clear();
             _enemiesProvider.Clear();
             
-            _gameStateMachine.Enter<LoadProgressState>();
+            _gameStateMachine.Enter<LoadLevelState, string>(MainSceneName);
         }
     }
 }
