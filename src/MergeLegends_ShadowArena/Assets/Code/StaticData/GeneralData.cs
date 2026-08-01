@@ -9,5 +9,6 @@ namespace Code.StaticData
         public TargetData TargetData;
         public MagicSphereData MagicSphereData;
         public CameraShakeToAttackData CameraShakeToAttackData;
+        public UnitSoundData UnitSoundData;
     }
 }

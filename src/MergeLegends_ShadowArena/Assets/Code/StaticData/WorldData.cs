@@ -9,6 +9,7 @@ namespace Code.StaticData
         public CurrencyData CurrencyData;
         public UnitsPriceData UnitsPriceData;
         public CompositionTeamData CompositionTeamData;
+        public SettingsData SettingsData;
 
         public WorldData()
         {
@@ -16,6 +17,7 @@ namespace Code.StaticData
             CurrencyData = new CurrencyData();
             UnitsPriceData = new UnitsPriceData();
             CompositionTeamData = new CompositionTeamData();
+            SettingsData = new SettingsData();
         }
     }
 }
