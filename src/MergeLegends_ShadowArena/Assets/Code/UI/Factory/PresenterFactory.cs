@@ -19,11 +19,14 @@ namespace Code.UI.Factory
     {
         private readonly IUIFactory _uiFactory;
         private readonly ICurrencyPresenterProvider _currencyPresenterProvider;
+        private readonly ISettingsComponentsPresenterFactory _settingsComponentsPresenterFactory;
 
-        public PresenterFactory(IUIFactory uiFactory, ICurrencyPresenterProvider currencyPresenterProvider)
+        public PresenterFactory(IUIFactory uiFactory, ICurrencyPresenterProvider currencyPresenterProvider,
+            ISettingsComponentsPresenterFactory settingsComponentsPresenterFactory)
         {
             _uiFactory = uiFactory;
             _currencyPresenterProvider = currencyPresenterProvider;
+            _settingsComponentsPresenterFactory = settingsComponentsPresenterFactory;
         }
 
         public FightPresenter CreateFightPresenter(BattleStateMachine battleStateMachine)
@@ -35,7 +38,8 @@ namespace Code.UI.Factory
         public SettingsPresenter CreateSettingsPresenter()
         {
             OpenSettingsView view = _uiFactory.GetOpenSettingsView();
-            return CreatePresenter(view, settingsView => new SettingsPresenter(settingsView, _uiFactory));
+            return CreatePresenter(view, settingsView
+                => new SettingsPresenter(settingsView, _uiFactory, _settingsComponentsPresenterFactory));
         }
 
         public CurrencyPresenter CreateCurrencyPresenter(IPersistentProgressService progressService)
