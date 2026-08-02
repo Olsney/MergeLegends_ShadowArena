@@ -15,7 +15,7 @@ namespace Code.Services.Music
         private const string MusicVolume = "MusicVolume";
         private const float MinVolume = -80f;
         private const float MaxVolume = 0f;
-    
+
         private readonly IMusicProvider _musicProvider;
         private readonly IStaticDataService _staticDataService;
         private readonly IPersistentProgressService _progressService;
@@ -62,12 +62,12 @@ namespace Code.Services.Music
             _isActive = true;
 
             Shuffle();
-            PlayNext();
+            PlayNext().Forget();
         }
 
-        public async UniTask PlayNext()
+        private async UniTask PlayNext()
         {
-            if (!_isActive)
+            if (_isActive == false)
                 return;
 
             List<GameMusicData> music = _staticDataService.GetMusicData();
@@ -77,7 +77,6 @@ namespace Code.Services.Music
 
             _currentTrackIndex++;
 
-            // закончился список - мешаем заново
             if (_currentTrackIndex >= _playlist.Count)
             {
                 Shuffle();
@@ -103,8 +102,6 @@ namespace Code.Services.Music
 
         private void Shuffle()
         {
-            Debug.Log("Shuffling");
-
             List<GameMusicData> music = _staticDataService.GetMusicData();
 
             if (music == null || music.Count == 0)

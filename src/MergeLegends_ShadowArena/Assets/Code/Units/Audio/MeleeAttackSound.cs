@@ -4,9 +4,12 @@ namespace Code.Units.Audio
 {
     public class MeleeAttackSound : MonoBehaviour
     {
+        private const float MaxInclusive = 1.1f;
+        private const float MinInclusive = 0.90f;
+
         private AudioSource _audioSource;
 
-        private void Awake() 
+        private void Awake()
             => _audioSource = GetComponent<AudioSource>();
 
         public void Init(AudioClip audioClip, float volume)
@@ -20,7 +23,7 @@ namespace Code.Units.Audio
             _audioSource.Stop();
 
             if (pitchActive)
-                _audioSource.pitch = Random.Range(0.90f, 1.1f);
+                _audioSource.pitch = Random.Range(MinInclusive, MaxInclusive);
 
             _audioSource.PlayOneShot(_audioSource.clip, _audioSource.volume);
         }

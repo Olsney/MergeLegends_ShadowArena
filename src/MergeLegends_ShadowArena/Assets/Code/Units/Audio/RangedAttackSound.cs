@@ -4,15 +4,17 @@ namespace Code.Units.Audio
 {
     public class RangedAttackSound : MonoBehaviour
     {
-        private AudioSource _audioSource;
+        private const float MinInclusive = 0.95f;
+        private const float MaxInclusive = 1.05f;
 
+        private AudioSource _audioSource;
         private AudioClip _spawnClip;
         private AudioClip _explodeClip;
 
         private float _spawnVolume;
         private float _explodeVolume;
 
-        private void Awake() 
+        private void Awake()
             => _audioSource = GetComponent<AudioSource>();
 
         public void Init(AudioClip spawnClip, float spawnVolume, AudioClip explodeClip, float explodeVolume)
@@ -24,10 +26,10 @@ namespace Code.Units.Audio
             _explodeVolume = explodeVolume;
         }
 
-        public void PlaySpawnMagicSphereSound() 
+        public void PlaySpawnMagicSphereSound()
             => Play(_spawnClip, _spawnVolume);
 
-        public void PlayExplosionMagicSphereSound() 
+        public void PlayExplosionMagicSphereSound()
             => Play(_explodeClip, _explodeVolume);
 
         private void Play(AudioClip clip, float volume)
@@ -36,7 +38,7 @@ namespace Code.Units.Audio
 
             _audioSource.clip = clip;
             _audioSource.volume = volume;
-            _audioSource.pitch = Random.Range(0.95f, 1.05f);
+            _audioSource.pitch = Random.Range(MinInclusive, MaxInclusive);
 
             _audioSource.Play();
         }

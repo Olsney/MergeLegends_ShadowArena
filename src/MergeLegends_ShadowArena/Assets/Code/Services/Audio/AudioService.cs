@@ -34,9 +34,6 @@ namespace Code.Services.Audio
 
         public void PlaySound(GameSoundTypeId gameSoundTypeId)
         {
-            if (IsMuted)
-                return;
-
             AudioData soundData = _staticDataService.GetSoundData(gameSoundTypeId);
 
             if (soundData == null)
