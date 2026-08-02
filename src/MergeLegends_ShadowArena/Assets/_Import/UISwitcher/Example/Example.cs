@@ -4,20 +4,20 @@ using UnityEngine.UI;
 namespace UISwitcher {
 	public class Example : MonoBehaviour {
 		[Header("Case 1: Switcher True/False")]
-		[SerializeField] private UISwitcher switcher1;
+		[SerializeField] private _Import.UISwitcher.UISwitcher.Scripts.UISwitcher switcher1;
 		[SerializeField] private Text valueText1;
 
 		[Header("Case 2: Switcher True/False/Null")]
-		[SerializeField] private UISwitcher switcher2;
+		[SerializeField] private _Import.UISwitcher.UISwitcher.Scripts.UISwitcher switcher2;
 		[SerializeField] private Text valueText2;
 
 		[Header("Case 3: Switcher Custom Colors")]
-		[SerializeField] private UISwitcher switcher3;
+		[SerializeField] private _Import.UISwitcher.UISwitcher.Scripts.UISwitcher switcher3;
 		[SerializeField] private Text onText;
 		[SerializeField] private Text offText;
 
 		[Header("Case 4: Different Styles")]
-		[SerializeField] private UISwitcher switcher4;
+		[SerializeField] private _Import.UISwitcher.UISwitcher.Scripts.UISwitcher switcher4;
 		[SerializeField] private Text valueText4;
 
 		private void Awake() {

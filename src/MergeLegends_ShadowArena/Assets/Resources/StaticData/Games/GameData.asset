@@ -1,0 +1,201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d4003d647c46aa87672c03ba9be701, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.LevelStaticData
+  SceneKey: Main
+  PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0, z: -5.789998}
+  EnemiesGridPlacesPosition: {x: -2.19, y: 0, z: 6.05}
+  ConfettiEffectSpawnPointPosition:
+  - {x: -2.3899999, y: 5, z: 1.7000008}
+  - {x: 5.47, y: 5, z: 1.9400005}
+  FirstGameLaunchData:
+    CurrencyStarting:
+      StartValue: 66666
+    UnitsStartingPrice:
+      PriceIncrementPerPurchaseValue: 200
+      MeleePrice:
+        StartValue: 200
+      RangedPrice:
+        StartValue: 200
+  GameLevelsData:
+  - EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 1500
+    LoseRewardValue: 400
+  - EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 2500
+    LoseRewardValue: 600
+  - EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: 1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: 3
+    - LevelIndex: 0
+      UnitAttackTypeId: 3
+      CellIndex: 7
+    VictoryRewardValue: 4000
+    LoseRewardValue: 1000
+  - EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 5000
+    LoseRewardValue: 1200
+  - EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 6000
+    LoseRewardValue: 1500
+  - EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: 0
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: 1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: 3
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: 4
+    - LevelIndex: 1
+      UnitAttackTypeId: 3
+      CellIndex: 7
+    VictoryRewardValue: 8000
+    LoseRewardValue: 2000
+  - EnemiesSpawnData:
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 9000
+    LoseRewardValue: 2200
+  - EnemiesSpawnData:
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: 1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: 2
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: 3
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: 0
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: 4
+    VictoryRewardValue: 11000
+    LoseRewardValue: 2800
+  - EnemiesSpawnData:
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: 2
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: 6
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: 8
+    - LevelIndex: 2
+      UnitAttackTypeId: 3
+      CellIndex: 7
+    VictoryRewardValue: 15000
+    LoseRewardValue: 4000
+  - EnemiesSpawnData:
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: 1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: 3
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: 5
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: 6
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: 8
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: 9
+    VictoryRewardValue: 20000
+    LoseRewardValue: 5000

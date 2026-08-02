@@ -4,5 +4,6 @@ namespace Code.UI.Currency
     {
         CurrencyPresenter Presenter { get; }
         void SetPresenter(CurrencyPresenter presenter);
+        void ResetPresenter();
     }
 }

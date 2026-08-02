@@ -64,3 +64,25 @@ MonoBehaviour:
     MagicSphereData:
       Speed: 0
       ViewPrefab: {fileID: 0}
+    CameraShakeToAttackData:
+      Force: 0
+      Direction: {x: 0, y: 0}
+    UnitSoundData:
+      MeleeAttackSoundData:
+        hitAudio:
+          AudioClip: {fileID: 8300000, guid: f465227ac40a3134cb0dfe43f36550ab, type: 3}
+          Volume: 0.5
+      RangedAttackSoundData:
+        magicSphereAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1
+        explosionMagicSphereAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1
+      BossAttackSoundData:
+        clubSwingAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1
+        groundSlamAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1

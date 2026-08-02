@@ -1,16 +1,20 @@
+using Code.UI.Currency;
+
 namespace Code.Infrastructure.States
 {
     public class GameLoopState : IState
     {
-        private readonly GameStateMachine _stateMachine;
+        private readonly ICurrencyPresenterProvider _currencyPresenterProvider;
 
-        public GameLoopState(GameStateMachine stateMachine)
+        public GameLoopState(ICurrencyPresenterProvider currencyPresenterProvider)
         {
-            _stateMachine = stateMachine;
+            _currencyPresenterProvider = currencyPresenterProvider;
         }
 
         public void Exit()
         {
+            _currencyPresenterProvider.Presenter.Dispose();
+            _currencyPresenterProvider.ResetPresenter();
         }
 
         public void Enter()

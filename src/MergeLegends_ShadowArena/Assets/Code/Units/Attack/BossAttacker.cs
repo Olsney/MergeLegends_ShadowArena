@@ -1,5 +1,6 @@
 using Code.Services.CameraMoves;
 using Code.StaticData;
+using Code.Units.Audio;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +10,7 @@ namespace Code.Units.Attack
     {
         [SerializeField] private float _hitRadius = 2f;
 
-        private const int MaxHits = 3;
+        private const int MaxHits = 15;
 
         public bool IsAttacking { get; private set; }
 
@@ -21,6 +22,8 @@ namespace Code.Units.Attack
         private UnitNavmeshAgentMover _navmeshAgentMover;
         private UnitDeath _unitDeath;
         private BossLastAttackEffect bossLastAttackEffect;
+        private BossAttackSound _bossAttackSound;
+        private BossLastAttackSound _bossLastAttackSound;
 
         private Collider[] _hits;
         private int _layerMask;
@@ -71,12 +74,13 @@ namespace Code.Units.Attack
         }
 
         public void Init(float damage, float cooldown, LayerMaskTypeId targetLayerMask,
-            CameraShakeToAttackData cameraShakeToAttackData)
+            CameraShakeToAttackData cameraShakeToAttackData, BossAttackSound bossAttackSound)
         {
             _damage = damage;
             _attackCooldown = cooldown;
             _layerMask = 1 << (int)targetLayerMask;
             _cameraShakeToAttackData = cameraShakeToAttackData;
+            _bossAttackSound = bossAttackSound;
         }
 
         public void StartAttacking()
@@ -87,6 +91,7 @@ namespace Code.Units.Attack
 
         private void OnAttack()
         {
+            _bossAttackSound.PlayAttackSound();
             PerformAttack();
         }
 
@@ -94,6 +99,7 @@ namespace Code.Units.Attack
         {
             bossLastAttackEffect.Play();
             _cameraShakeService.StartVerticleShake(_cameraShakeToAttackData.Force, _cameraShakeToAttackData.Direction);
+            _bossAttackSound.PlayLastAttackSound();
             PerformAttack();
         }
 

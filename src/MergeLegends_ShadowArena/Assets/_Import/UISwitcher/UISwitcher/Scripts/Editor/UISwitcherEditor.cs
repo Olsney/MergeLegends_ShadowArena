@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UISwitcher {
 
-	[CustomEditor(typeof(UISwitcher))]
+	[CustomEditor(typeof(_Import.UISwitcher.UISwitcher.Scripts.UISwitcher))]
 	public class UISwitcherEditor : UINullableToggleEditor {
 		private SerializedProperty _tipRect;
 		private SerializedProperty _onColor;

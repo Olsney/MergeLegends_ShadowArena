@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9505f5e63b7d45feae094761a2861faf, type: 3}
+  m_Name: MusicStaticData
+  m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.GameMusicStaticData
+  GameMusicDatas:
+  - audioData:
+      AudioClip: {fileID: 8300000, guid: c3602cd1d7428ff4fa6862efb701d51a, type: 3}
+      Volume: 0.3
+  - audioData:
+      AudioClip: {fileID: 8300000, guid: ea63034b85ec65643b3417c4558ec238, type: 3}
+      Volume: 0.3
+  - audioData:
+      AudioClip: {fileID: 8300000, guid: 2486796d55f2aee41b1c0d6a30dabd15, type: 3}
+      Volume: 0.3
+  - audioData:
+      AudioClip: {fileID: 8300000, guid: 640583c78cc304749a73eb0bebe4d3a0, type: 3}
+      Volume: 0.3
+  - audioData:
+      AudioClip: {fileID: 8300000, guid: 2bcc1bf0b0f6baf4c96806aeadf44350, type: 3}
+      Volume: 0.3
+  - audioData:
+      AudioClip: {fileID: 8300000, guid: f661d6aba6616344abb4c9fc17c91b18, type: 3}
+      Volume: 0.3

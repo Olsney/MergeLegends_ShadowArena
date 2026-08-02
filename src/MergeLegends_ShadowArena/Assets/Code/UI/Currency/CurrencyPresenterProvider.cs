@@ -4,9 +4,10 @@ namespace Code.UI.Currency
     {
         public CurrencyPresenter Presenter { get; private set; }
 
-        public void SetPresenter(CurrencyPresenter presenter)
-        {
-            Presenter = presenter;
-        }
+        public void SetPresenter(CurrencyPresenter presenter) 
+            => Presenter = presenter;
+
+        public void ResetPresenter() 
+            => Presenter = null;
     }
 }

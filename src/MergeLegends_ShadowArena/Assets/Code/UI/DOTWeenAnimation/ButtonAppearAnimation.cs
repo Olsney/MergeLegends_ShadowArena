@@ -8,6 +8,7 @@ namespace Code.UI.DOTWeenAnimation
     {
         [SerializeField] private float _appearDuration = 3f;
         [SerializeField] private float _activeThreshold = 0.5f;
+        [SerializeField] private float _appearDelay = 2f;
         [SerializeField] private Ease _appearEase = Ease.OutQuad;
 
         private Transform _transform;
@@ -41,6 +42,7 @@ namespace Code.UI.DOTWeenAnimation
             _isAnimated = true;
 
             _tween = _canvasGroup.DOFade(1f, _appearDuration)
+                .SetDelay(_appearDelay)
                 .SetEase(_appearEase)
                 .OnUpdate(() =>
                 {

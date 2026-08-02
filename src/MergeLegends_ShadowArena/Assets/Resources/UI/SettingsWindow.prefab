@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.7921569, b: 0.7921569, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -203,6 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6796479751443650350}
   - component: {fileID: 8726820061154421945}
+  - component: {fileID: 8347726821350654224}
   m_Layer: 5
   m_Name: Switcher3
   m_TagString: Untagged
@@ -281,10 +282,22 @@ MonoBehaviour:
   m_isOnNullable: 1
   m_nullValueEnabled: 0
   backgroundGraphic: {fileID: 8791684766064114007}
-  onColor: {r: 0.16153437, g: 0.6226415, b: 0.22266346, a: 1}
+  onColor: {r: 0.14907439, g: 0.4716981, b: 0.19388323, a: 1}
   offColor: {r: 0.5764706, g: 0.56078434, b: 0.56078434, a: 1}
   nullColor: {r: 0.5754717, g: 0.56135637, b: 0.56135637, a: 1}
   tipRect: {fileID: 2929490903488320121}
+--- !u!114 &8347726821350654224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366417284055363778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66770687b6a24ba0973a2c4956f1ddd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.Settings.AudioMute.AudioMuteView
 --- !u!1 &2341240317104095998
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.7921569, b: 0.7921569, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -1041,7 +1054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.7921569, b: 0.7921569, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -1212,7 +1225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.7921569, b: 0.7921569, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1431,6 +1444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.UI.Settings.SettingsWindow
   _closeButton: {fileID: 7568005095813624645}
+  _audioMixerGroup: {fileID: 24300002, guid: 452a1d34d833aa24f87c2f74b14f4897, type: 2}
 --- !u!1 &6567507644135205341
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,8 +1556,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284402170
-  m_fontColor: {r: 0.9803922, g: 0.78823537, b: 0.36862746, a: 1}
+    rgba: 4284329940
+  m_fontColor: {r: 0.8301887, g: 0.6861517, b: 0.36418653, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1821,7 +1835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16153437, g: 0.6226415, b: 0.22266346, a: 1}
+  m_Color: {r: 0.14901961, g: 0.47058824, b: 0.19215687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2198,7 +2212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16153437, g: 0.6226415, b: 0.22266346, a: 1}
+  m_Color: {r: 0.14907439, g: 0.4716981, b: 0.19388323, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2270,6 +2284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4058626414187801899}
   - component: {fileID: 7878961265596677033}
+  - component: {fileID: 6461514427792781553}
   m_Layer: 5
   m_Name: Switcher3
   m_TagString: Untagged
@@ -2348,10 +2363,22 @@ MonoBehaviour:
   m_isOnNullable: 1
   m_nullValueEnabled: 0
   backgroundGraphic: {fileID: 174736370322059566}
-  onColor: {r: 0.16153437, g: 0.6226415, b: 0.22266346, a: 1}
+  onColor: {r: 0.14901961, g: 0.47058824, b: 0.19215687, a: 1}
   offColor: {r: 0.5764706, g: 0.56078434, b: 0.56078434, a: 1}
   nullColor: {r: 0.5754717, g: 0.56135637, b: 0.56135637, a: 1}
   tipRect: {fileID: 175883244694613825}
+--- !u!114 &6461514427792781553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771092355259763841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe7ffff62194d49a9c670938e612db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.Settings.MusicMute.MusicMuteView
 --- !u!1 &8811934370507999539
 GameObject:
   m_ObjectHideFlags: 0

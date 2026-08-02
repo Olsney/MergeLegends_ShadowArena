@@ -12,10 +12,13 @@ using Code.Logic.BattleServices;
 using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
+using Code.Services.Audio;
 using Code.Services.CameraMoves;
 using Code.Services.CellsInitializerServices;
 using Code.Services.Input;
 using Code.Services.MergeUnits;
+using Code.Services.Music;
+using Code.Services.MusicProviders;
 using Code.Services.PersistentProgress;
 using Code.Services.PlayerUnitPurchases;
 using Code.Services.Raycast;
@@ -23,6 +26,7 @@ using Code.Services.ReloadSceneService;
 using Code.Services.RewardServices;
 using Code.Services.SaveLoad;
 using Code.Services.SceneProvider;
+using Code.Services.SoundProviders;
 using Code.Services.StaticData;
 using Code.UI.Currency;
 using Code.UI.Factory;
@@ -60,6 +64,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IPresenterFactory>().To<PresenterFactory>().AsSingle();
             Container.Bind<IPurchasePresenterFactory>().To<PurchaseUnitPresenterFactory>().AsSingle();
             Container.Bind<IUnitPresenterFactory>().To<UnitPresenterFactory>().AsSingle();
+            Container.Bind<ISettingsComponentsPresenterFactory>().To<SettingsComponentsPresenterFactory>().AsSingle();
         }
 
         private void BindStates()
@@ -68,6 +73,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<LoadProgressState>().AsSingle();
+            Container.Bind<ApplySettingsState>().AsSingle();
             Container.Bind<BattleStateMachine>().AsSingle();
             Container.Bind<BattlePlanningState>().AsSingle();
             Container.Bind<BattleFightState>().AsSingle();
@@ -103,6 +109,10 @@ namespace Code.Infrastructure.Installers
             Container.Bind<ILoadingCurtainProvider>().To<LoadingCurtainProvider>().AsSingle();
             Container.Bind<ICinemachineProvider>().To<CinemachineProvider>().AsSingle();
             Container.Bind<ICameraShakeService>().To<CameraShakeService>().AsSingle();
+            Container.Bind<ISoundProvider>().To<SoundProvider>().AsSingle();
+            Container.Bind<IAudioService>().To<AudioService>().AsSingle();
+            Container.Bind<IMusicProvider>().To<MusicProvider>().AsSingle();
+            Container.Bind<IMusicService>().To<MusicService>().AsSingle();
         }
 
         private void BindInputService()

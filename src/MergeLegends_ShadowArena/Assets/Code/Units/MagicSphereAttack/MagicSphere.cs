@@ -1,4 +1,5 @@
 using Code.StaticData;
+using Code.Units.Audio;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace Code.Units.MagicSphereAttack
         private IUnit _targetUnit;
         private Vector3 _lastDirection;
         private Vector3 _direction;
+        private RangedAttackSound _rangedAttackSound;
 
         private void Awake()
         {
@@ -41,6 +43,7 @@ namespace Code.Units.MagicSphereAttack
             if (_currentLifeTime <= 0f)
             {
                 StartExplosionAsync();
+                _rangedAttackSound.PlayExplosionMagicSphereSound();
                 return;
             }
 
@@ -48,7 +51,7 @@ namespace Code.Units.MagicSphereAttack
         }
 
         public void Launch(float damage, LayerMaskTypeId targetLayerMask, float speed,
-            Vector3 position, IUnit targetUnit)
+            Vector3 position, IUnit targetUnit, RangedAttackSound rangedAttackSound)
         {
             _damage = damage;
             _layerMask = 1 << (int)targetLayerMask;
@@ -61,6 +64,9 @@ namespace Code.Units.MagicSphereAttack
             _isActive = true;
             gameObject.SetActive(true);
             _passiveEffect.Play();
+
+            _rangedAttackSound = rangedAttackSound;
+            _rangedAttackSound.PlaySpawnMagicSphereSound();
         }
 
         private void Move()
@@ -85,6 +91,7 @@ namespace Code.Units.MagicSphereAttack
             {
                 hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
                 StartExplosionAsync();
+                _rangedAttackSound.PlayExplosionMagicSphereSound();
             }
         }
 

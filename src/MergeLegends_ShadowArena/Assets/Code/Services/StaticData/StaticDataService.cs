@@ -9,13 +9,15 @@ namespace Code.Services.StaticData
 {
     public class StaticDataService : IStaticDataService, IInitializable
     {
-        private const string LevelStaticDataPath = "StaticData/Levels";
+        private const string GamesStaticDataPath = "StaticData/Games";
         private const string PlayerUnitsStaticDataPath = "StaticData/UnitsType/PlayerUnits";
         private const string EnemiesStaticDataPath = "StaticData/UnitsType/Enemies";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
         private const string WindowStaticDataPath = "StaticData/UI/WindowStaticData";
         private const string WarningMessageStaticDataPath = "StaticData/UI/WarningMessageStaticData";
         private const string CameraMovesDataPath = "StaticData/CameraMoves/CameraMoveData";
+        private const string SoundsStaticDataPath = "StaticData/Audio/SoundStaticData";
+        private const string MusicStaticDataPath = "StaticData/Audio/MusicStaticData";
 
         private Dictionary<string, GameStaticData> _gameStaticData;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
@@ -24,6 +26,8 @@ namespace Code.Services.StaticData
         private Dictionary<WindowType, WindowData> _windowConfigs;
         private Dictionary<WarningMessagesTypeId, WarningMessageData> _warningMessages;
         private Dictionary<CameraMoveTypeId, CameraMoveData> _cameraMoves;
+        private Dictionary<GameSoundTypeId, AudioData> _soundStaticData;
+        private List<GameMusicData>  _gameMusicData;
 
         public void Initialize()
         {
@@ -33,7 +37,7 @@ namespace Code.Services.StaticData
         private void Load()
         {
             _gameStaticData = Resources
-                .LoadAll<GameStaticData>(LevelStaticDataPath)
+                .LoadAll<GameStaticData>(GamesStaticDataPath)
                 .ToDictionary(x => x.SceneKey, x => x);
 
             _playerUnits = Resources
@@ -57,11 +61,20 @@ namespace Code.Services.StaticData
                 .Load<WarningMessageStaticData>(WarningMessageStaticDataPath)
                 .WarningMessages
                 .ToDictionary(x => x.WarningMessagesTypeId, x => x);
-            
+
             _cameraMoves = Resources
                 .Load<CameraMoveStaticData>(CameraMovesDataPath)
                 .CameraMoveDatas
                 .ToDictionary(x => x.CameraMoveTypeId, x => x);
+
+            _soundStaticData = Resources
+                .Load<SoundStaticData>(SoundsStaticDataPath)
+                .GameSoundDatas
+                .ToDictionary(x => x.GameSoundTypeId, x => x.audioData);
+            
+            _gameMusicData = Resources
+                .Load<MusicStaticData>(MusicStaticDataPath)
+                .GameMusicDatas;
         }
 
         public GameStaticData GetGameStaticData(string sceneKey) =>
@@ -92,11 +105,19 @@ namespace Code.Services.StaticData
         public WarningMessageData GetWarningMessage(WarningMessagesTypeId warningTypeId) =>
             _warningMessages.TryGetValue(warningTypeId, out WarningMessageData warningData)
                 ? warningData
-                : null; 
-        
+                : null;
+
         public CameraMoveData GetCameraMoveData(CameraMoveTypeId cameraMoveTypeId) =>
             _cameraMoves.TryGetValue(cameraMoveTypeId, out CameraMoveData cameraMoveData)
                 ? cameraMoveData
                 : null;
+
+        public AudioData GetSoundData(GameSoundTypeId gameSoundTypeId) =>
+            _soundStaticData.TryGetValue(gameSoundTypeId, out AudioData soundData)
+                ? soundData
+                : null;
+        
+        public List<GameMusicData> GetMusicData() =>
+            _gameMusicData;
     }
 }

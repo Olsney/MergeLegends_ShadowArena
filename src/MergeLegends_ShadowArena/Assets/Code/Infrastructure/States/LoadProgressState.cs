@@ -30,7 +30,7 @@ namespace Code.Infrastructure.States
         {
             LoadProgressOrInitNew();
 
-            _gameStateMachine.Enter<LoadLevelState, string>(MainSceneName);
+            _gameStateMachine.Enter<ApplySettingsState>();
         }
 
         public void Exit()
