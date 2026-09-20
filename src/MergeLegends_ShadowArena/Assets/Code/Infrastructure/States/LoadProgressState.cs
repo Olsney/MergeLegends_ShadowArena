@@ -39,9 +39,15 @@ namespace Code.Infrastructure.States
 
         private void LoadProgressOrInitNew()
         {
-            _progressService.Progress =
-                _saveLoadProgress.LoadProgress()
-                ?? InitNewProgress();
+            PlayerProgress loadedProgress = _saveLoadProgress.LoadProgress();
+
+            if (loadedProgress == null || loadedProgress.WorldData.TutorialData.IntroCompleted == false)
+            {
+                _progressService.Progress = InitNewProgress();
+                return;
+            }
+
+            _progressService.Progress = loadedProgress;
         }
 
         private PlayerProgress InitNewProgress()
