@@ -15,8 +15,6 @@ using Code.UI.Settings;
 using Code.UI.SpawnUnits;
 using Code.UI.VictoryShowers;
 using Code.UI.WarningMessages;
-using Code.Units.UI.Health;
-using Code.Units.UI.Levels;
 using UnityEngine;
 using Zenject;
 
@@ -34,6 +32,7 @@ namespace Code.UI.Factory
 
         private GameObject _uiRoot;
         private GameObject _topLayerCanvas;
+        private GameObject _tutorialCanvas;
 
         public UIFactory(
             IInstantiator instantiator,
@@ -95,17 +94,14 @@ namespace Code.UI.Factory
         public LevelView GetLevelView()
             => FindExistingView<LevelView>();
 
-        public UnitHealthBarView GetUnitHealthBarView()
-            => FindExistingView<UnitHealthBarView>();
-
-        public UnitLevelView GetUnitLevelView()
-            => FindExistingView<UnitLevelView>();
-
         public VictoryView CreateVictoryView()
             => CreateView<VictoryView>(AssetPath.VictoryWindowPath, _sceneProvider.Container);
 
         public LoseView CreateLoseView()
             => CreateView<LoseView>(AssetPath.LoseWindowPath, _sceneProvider.Container);
+
+        public TView GetView<TView>() where TView : MonoBehaviour
+            => FindExistingView<TView>();
 
         public WindowBase CreateWindow(WindowType windowType)
         {
@@ -117,6 +113,22 @@ namespace Code.UI.Factory
                 WindowType.Settings => windowObject.GetComponent<SettingsWindow>(),
                 _ => throw new NullReferenceException($"Unknown window type: {windowType}")
             };
+        }
+
+        public GameObject CreateTutorialPoint()
+        {
+            GameObject prefab = _assets.Load(AssetPath.TutorialPoint);
+            GameObject view = _instantiator.InstantiatePrefab(prefab, _tutorialCanvas.transform);
+
+            return view;
+        }
+
+        public GameObject CreateTutorialOverlay()
+        {
+            GameObject prefab = _assets.Load(AssetPath.TutorialOverlay);
+            _tutorialCanvas = _instantiator.InstantiatePrefab(prefab, _sceneProvider.Container);
+
+            return _tutorialCanvas;
         }
 
         public void Cleanup()
