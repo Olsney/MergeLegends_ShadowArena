@@ -28,9 +28,11 @@ using Code.Services.SaveLoad;
 using Code.Services.SceneProvider;
 using Code.Services.SoundProviders;
 using Code.Services.StaticData;
+using Code.Services.Tutorial;
 using Code.UI.Currency;
 using Code.UI.Factory;
 using Code.UI.SpawnUnits;
+using Code.UI.Tutorial;
 using Code.Units.Enemies;
 using Code.Units.PlayerUnits;
 using UnityEngine;
@@ -49,6 +51,7 @@ namespace Code.Infrastructure.Installers
             BindServices();
             BindSceneLoader();
             BindSpawners();
+            BindTutorial();
         }
 
         private void BindCoroutine() =>
@@ -130,6 +133,12 @@ namespace Code.Infrastructure.Installers
         {
             Container.Bind<IPlayerUnitSpawner>().To<PlayerUnitSpawner>().AsSingle();
             Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
+        }
+
+        private void BindTutorial()
+        {
+            Container.Bind<ITutorialFlow>().To<TutorialFlow>().AsSingle();
+            Container.Bind<ITutorialPointerService>().To<TutorialPointerService>().AsSingle();
         }
     }
 }
