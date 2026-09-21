@@ -10,8 +10,6 @@ using Code.UI.Settings;
 using Code.UI.SpawnUnits;
 using Code.UI.VictoryShowers;
 using Code.UI.WarningMessages;
-using Code.Units.UI.Health;
-using Code.Units.UI.Levels;
 using UnityEngine;
 
 namespace Code.UI.Factory
@@ -30,11 +28,12 @@ namespace Code.UI.Factory
         OpenSettingsView GetOpenSettingsView();
         CurrencyCounterView CreateCurrencyCounterView();
         LevelView GetLevelView();
-        UnitHealthBarView GetUnitHealthBarView();
-        UnitLevelView GetUnitLevelView();
         WindowBase CreateWindow(WindowType windowType);
         VictoryView CreateVictoryView();
         LoseView CreateLoseView();
         GameObject CreateTopLayerCanvas();
+        TView GetView<TView>() where TView : MonoBehaviour;
+        GameObject CreateTutorialPoint();
+        GameObject CreateTutorialOverlay();
     }
 }

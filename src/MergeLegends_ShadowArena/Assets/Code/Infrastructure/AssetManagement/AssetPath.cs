@@ -15,5 +15,7 @@ namespace Code.Infrastructure.AssetManagement
         public const string LoseWindowPath = "UI/LoseWindow";
         public const string WarningMessagePath = "UI/WarningMessage";
         public const string PlayZonePath = "PlayZone/PlayZone";
+        public const string TutorialPoint = "UI/TutorialPointer";
+        public const string TutorialOverlay = "UI/TutorialOverlay";
     }
 }

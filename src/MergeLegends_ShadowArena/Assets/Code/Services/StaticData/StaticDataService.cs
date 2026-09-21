@@ -18,6 +18,7 @@ namespace Code.Services.StaticData
         private const string CameraMovesDataPath = "StaticData/CameraMoves/CameraMoveData";
         private const string SoundsStaticDataPath = "StaticData/Audio/SoundStaticData";
         private const string MusicStaticDataPath = "StaticData/Audio/MusicStaticData";
+        private const string TutorialStaticDataPath = "StaticData/Tutorial/TutorialStaticData";
 
         private Dictionary<string, GameStaticData> _gameStaticData;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
@@ -28,6 +29,7 @@ namespace Code.Services.StaticData
         private Dictionary<CameraMoveTypeId, CameraMoveData> _cameraMoves;
         private Dictionary<GameSoundTypeId, AudioData> _soundStaticData;
         private List<GameMusicData>  _gameMusicData;
+        private TutorialStaticData _tutorialStaticData;
 
         public void Initialize()
         {
@@ -75,6 +77,9 @@ namespace Code.Services.StaticData
             _gameMusicData = Resources
                 .Load<MusicStaticData>(MusicStaticDataPath)
                 .GameMusicDatas;
+            
+            _tutorialStaticData = Resources
+                .Load<TutorialStaticData>(TutorialStaticDataPath);
         }
 
         public GameStaticData GetGameStaticData(string sceneKey) =>
@@ -119,5 +124,8 @@ namespace Code.Services.StaticData
         
         public List<GameMusicData> GetMusicData() =>
             _gameMusicData;
+        
+        public TutorialStaticData GetTutorialData() =>
+            _tutorialStaticData;
     }
 }

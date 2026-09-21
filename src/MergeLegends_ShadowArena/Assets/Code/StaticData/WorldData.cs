@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.StaticData.Tutorial;
 
 namespace Code.StaticData
 {
@@ -10,6 +11,7 @@ namespace Code.StaticData
         public UnitsPriceData UnitsPriceData;
         public CompositionTeamData CompositionTeamData;
         public SettingsData SettingsData;
+        public TutorialData TutorialData;
 
         public WorldData()
         {
@@ -18,6 +20,7 @@ namespace Code.StaticData
             UnitsPriceData = new UnitsPriceData();
             CompositionTeamData = new CompositionTeamData();
             SettingsData = new SettingsData();
+            TutorialData = new TutorialData();
         }
     }
 }

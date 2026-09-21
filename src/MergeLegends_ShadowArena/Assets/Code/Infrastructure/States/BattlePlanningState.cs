@@ -6,6 +6,7 @@ using Code.Services.CellsInitializerServices;
 using Code.UI.Factory;
 using Code.UI.Fights;
 using Code.UI.SpawnUnits;
+using Code.UI.Tutorial;
 
 namespace Code.Infrastructure.States
 {
@@ -20,6 +21,7 @@ namespace Code.Infrastructure.States
         private readonly BattleStateMachine _battleStateMachine;
         private readonly ICellsInitializerService _cellsInitializerService;
         private readonly ICameraMoverService _cameraMover;
+        private readonly ITutorialFlow _tutorialFlow;
 
         private UnitSpawnerViewsRoot _unitSpawnerViewsRoot;
         private MeleePlayerUnitPurchasePresenter _meleeSpawnPresenter;
@@ -36,7 +38,8 @@ namespace Code.Infrastructure.States
             BattleStateMachine battleStateMachine,
             IPurchasePresenterFactory purchasePresenterFactory,
             ICellsInitializerService cellsInitializerService,
-            ICameraMoverService cameraMover)
+            ICameraMoverService cameraMover,
+            ITutorialFlow tutorialFlow)
         {
             _uiFactory = uiFactory;
             _gameFactory = gameFactory;
@@ -47,6 +50,7 @@ namespace Code.Infrastructure.States
             _purchasePresenterFactory = purchasePresenterFactory;
             _cellsInitializerService = cellsInitializerService;
             _cameraMover = cameraMover;
+            _tutorialFlow = tutorialFlow;
         }
 
         public void Enter()
@@ -63,8 +67,10 @@ namespace Code.Infrastructure.States
             _playZone = _gameFactory.CreatePlayZone().GetComponent<PlayZone>();
             _cellsInitializerService.InitializeAllCells();
             _enemySpawner.Spawn();
-            
+
             _cameraMover.StartMoveFirstTimeGameLater();
+
+            _tutorialFlow.TryStart();
         }
 
         public void Exit()

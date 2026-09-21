@@ -15,5 +15,6 @@ namespace Code.Services.StaticData
         CameraMoveData GetCameraMoveData(CameraMoveTypeId cameraMoveTypeId);
         AudioData GetSoundData(GameSoundTypeId gameSoundTypeId);
         List<GameMusicData> GetMusicData();
+        TutorialStaticData GetTutorialData();
     }
 }
