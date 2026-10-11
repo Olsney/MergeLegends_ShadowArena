@@ -6,7 +6,7 @@ namespace Code.Services.StaticData
 {
     public interface IStaticDataService
     {
-        GameStaticData GetGameStaticData(string sceneKey);
+        GameStaticData GetGameStaticData();
         UnitStaticData GetPlayerUnit(UnitAttackTypeId unitAttackTypeId);
         UnitStaticData GetEnemy(UnitAttackTypeId unitAttackTypeId);
         GridPlacesStaticData GetGridPlaces(UnitTypeId unitTypeId);
@@ -16,5 +16,6 @@ namespace Code.Services.StaticData
         AudioData GetSoundData(GameSoundTypeId gameSoundTypeId);
         List<GameMusicData> GetMusicData();
         TutorialStaticData GetTutorialData();
+        LocationSceneEntryData GetLocation(LocationTypeId locationTypeId);
     }
 }
