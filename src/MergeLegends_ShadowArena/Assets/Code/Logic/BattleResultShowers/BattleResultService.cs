@@ -16,7 +16,6 @@ namespace Code.Logic.BattleResultShowers
 {
     public class BattleResultService : IBattleResultService
     {
-        private const string MainSceneName = "Main";
         private const int DealyToShowResultWindow = 800;
 
         private readonly IUIFactory _uiFactory;
@@ -57,22 +56,21 @@ namespace Code.Logic.BattleResultShowers
 
         private async UniTask StartVictoryProcessAsync()
         {
+            int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
+            GameLevelData levelData = _staticData.GetGameStaticData().GameLevelsData[levelIndex];
+
             _rewardServices.TransferCoinsVictory();
             _progressService.Progress.WorldData.LevelData.UpLevel();
             _saveLoadProgress.SaveProgress();
 
-            _gameFactory.CreateVictoryConfetti();
+            _gameFactory.CreateVictoryConfetti(levelData.Location);
             _audioService.PlaySound(GameSoundTypeId.GameWin);
 
             await UniTask.Delay(DealyToShowResultWindow);
 
             VictoryView victoryView = _uiFactory.CreateVictoryView();
 
-            int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex - 1;
-            int rewardValue = _staticData.GetGameStaticData(MainSceneName).GameLevelsData[levelIndex]
-                .VictoryRewardValue;
-
-            var victoryPresenter = _presenterFactory.CreateVictoryPresenter(victoryView, rewardValue);
+            var victoryPresenter = _presenterFactory.CreateVictoryPresenter(victoryView, levelData.VictoryRewardValue);
             _presenterFactory.CreateReloadScenePresenter(victoryView.GetComponentInChildren<ReloadSceneView>(),
                 _reloadSceneService);
 
@@ -83,16 +81,15 @@ namespace Code.Logic.BattleResultShowers
         {
             _rewardServices.TransferCoinsVictory();
             _saveLoadProgress.SaveProgress();
-            
+
             await UniTask.Delay(DealyToShowResultWindow);
 
             LoseView loseView = _uiFactory.CreateLoseView();
-            
+
             _audioService.PlaySound(GameSoundTypeId.GameLose);
 
             int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
-            int rewardValue = _staticData.GetGameStaticData(MainSceneName).GameLevelsData[levelIndex]
-                .LoseRewardValue;
+            int rewardValue = _staticData.GetGameStaticData().GameLevelsData[levelIndex].LoseRewardValue;
 
             var losePresenter = _presenterFactory.CreateLosePresenter(loseView, rewardValue);
             _presenterFactory.CreateReloadScenePresenter(loseView.GetComponentInChildren<ReloadSceneView>(),

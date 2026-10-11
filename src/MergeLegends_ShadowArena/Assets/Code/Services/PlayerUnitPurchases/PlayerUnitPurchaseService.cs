@@ -9,7 +9,6 @@ namespace Code.Services.PlayerUnitPurchases
 {
     public class PlayerUnitPurchaseService : IPlayerUnitPurchaseService
     {
-        private const string MainSceneName = "Main";
         private const string NoMoneyMessage = "No Money";
 
         private readonly IPlayerUnitSpawner _playerUnitSpawnerService;
@@ -66,7 +65,7 @@ namespace Code.Services.PlayerUnitPurchases
 
         private void IncreaseUnitPrice(UnitAttackTypeId attackType)
         {
-            int increment = _staticDataService.GetGameStaticData(MainSceneName)
+            int increment = _staticDataService.GetGameStaticData()
                 .FirstGameLaunchData.UnitsStartingPrice.PriceIncrementPerPurchaseValue;
 
             switch (attackType)

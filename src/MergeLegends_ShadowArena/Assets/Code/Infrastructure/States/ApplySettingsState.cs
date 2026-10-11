@@ -1,32 +1,39 @@
 using Code.Services.Audio;
 using Code.Services.Music;
 using Code.Services.PersistentProgress;
+using Code.Services.StaticData;
+using Code.StaticData;
 
 namespace Code.Infrastructure.States
 {
     public class ApplySettingsState : IState
     {
-        private const string MainSceneName = "Main";
-
         private readonly GameStateMachine _gameStateMachine;
         private readonly IMusicService _musicService;
         private readonly IAudioService _audioService;
         private readonly IPersistentProgressService _persistentProgressService;
+        private readonly IStaticDataService _staticData;
 
         public ApplySettingsState(GameStateMachine gameStateMachine, IMusicService musicService,
-            IAudioService audioService, IPersistentProgressService persistentProgressService)
+            IAudioService audioService, IPersistentProgressService persistentProgressService,
+            IStaticDataService staticData)
         {
             _gameStateMachine = gameStateMachine;
             _musicService = musicService;
             _audioService = audioService;
             _persistentProgressService = persistentProgressService;
+            _staticData = staticData;
         }
 
         public void Enter()
         {
             InitServices();
+            
+            int levelIndex = _persistentProgressService.Progress.WorldData.LevelData.CurrentLevelIndex;
+            LocationTypeId location = _staticData.GetGameStaticData().GameLevelsData[levelIndex].Location;
+            string sceneName = _staticData.GetLocation(location).SceneName;
 
-            _gameStateMachine.Enter<LoadLevelState, string>(MainSceneName);
+            _gameStateMachine.Enter<LoadLevelState, string>(sceneName);
         }
 
         private void InitServices()

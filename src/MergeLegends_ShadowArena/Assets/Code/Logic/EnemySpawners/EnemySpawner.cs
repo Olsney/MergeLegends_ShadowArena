@@ -11,8 +11,6 @@ namespace Code.Logic.EnemySpawners
 {
     public class EnemySpawner : IEnemySpawner
     {
-        private const string MainSceneName = "Main";
-
         private readonly IUnitBuilder _unitBuilder;
         private readonly IEnemyCellsProvider _cellsProvider;
         private readonly IStaticDataService _staticDataService;
@@ -33,7 +31,7 @@ namespace Code.Logic.EnemySpawners
         public void Spawn()
         {
             var levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
-            var enemiesSpawnData = _staticDataService.GetGameStaticData(MainSceneName)
+            var enemiesSpawnData = _staticDataService.GetGameStaticData()
                 .GameLevelsData[levelIndex].EnemiesSpawnData;
             var allCells = _cellsProvider.GetAllCells().ToList();
             var freeCells = allCells.Where(c => !c.IsOccupied).ToList();

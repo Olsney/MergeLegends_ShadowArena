@@ -3,6 +3,9 @@ using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea;
 using Code.Services.CameraMoves;
 using Code.Services.CellsInitializerServices;
+using Code.Services.PersistentProgress;
+using Code.Services.StaticData;
+using Code.StaticData;
 using Code.UI.Factory;
 using Code.UI.Fights;
 using Code.UI.SpawnUnits;
@@ -22,6 +25,8 @@ namespace Code.Infrastructure.States
         private readonly ICellsInitializerService _cellsInitializerService;
         private readonly ICameraMoverService _cameraMover;
         private readonly ITutorialFlow _tutorialFlow;
+        private readonly IPersistentProgressService _progressService;
+        private readonly IStaticDataService _staticData;
 
         private UnitSpawnerViewsRoot _unitSpawnerViewsRoot;
         private MeleePlayerUnitPurchasePresenter _meleeSpawnPresenter;
@@ -39,7 +44,9 @@ namespace Code.Infrastructure.States
             IPurchasePresenterFactory purchasePresenterFactory,
             ICellsInitializerService cellsInitializerService,
             ICameraMoverService cameraMover,
-            ITutorialFlow tutorialFlow)
+            ITutorialFlow tutorialFlow,
+            IPersistentProgressService progressService,
+            IStaticDataService staticData)
         {
             _uiFactory = uiFactory;
             _gameFactory = gameFactory;
@@ -51,6 +58,8 @@ namespace Code.Infrastructure.States
             _cellsInitializerService = cellsInitializerService;
             _cameraMover = cameraMover;
             _tutorialFlow = tutorialFlow;
+            _progressService = progressService;
+            _staticData = staticData;
         }
 
         public void Enter()
@@ -64,7 +73,10 @@ namespace Code.Infrastructure.States
 
             _fightPresenter = _presenterFactory.CreateFightPresenter(_battleStateMachine);
 
-            _playZone = _gameFactory.CreatePlayZone().GetComponent<PlayZone>();
+            int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
+            LocationTypeId location = _staticData.GetGameStaticData().GameLevelsData[levelIndex].Location;
+
+            _playZone = _gameFactory.CreatePlayZone(location).GetComponent<PlayZone>();
             _cellsInitializerService.InitializeAllCells();
             _enemySpawner.Spawn();
 
