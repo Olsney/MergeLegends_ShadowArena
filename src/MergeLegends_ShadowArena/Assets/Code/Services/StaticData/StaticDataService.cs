@@ -9,7 +9,7 @@ namespace Code.Services.StaticData
 {
     public class StaticDataService : IStaticDataService, IInitializable
     {
-        private const string GamesStaticDataPath = "StaticData/Games";
+        private const string GameStaticDataPath = "StaticData/Games/GameData";
         private const string PlayerUnitsStaticDataPath = "StaticData/UnitsType/PlayerUnits";
         private const string EnemiesStaticDataPath = "StaticData/UnitsType/Enemies";
         private const string GridsStaticDataPath = "StaticData/GridPlaces";
@@ -20,7 +20,7 @@ namespace Code.Services.StaticData
         private const string MusicStaticDataPath = "StaticData/Audio/MusicStaticData";
         private const string TutorialStaticDataPath = "StaticData/Tutorial/TutorialStaticData";
 
-        private Dictionary<string, GameStaticData> _gameStaticData;
+        private GameStaticData _gameStaticData;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _playerUnits;
         private Dictionary<UnitAttackTypeId, UnitStaticData> _enemies;
         private Dictionary<UnitTypeId, GridPlacesStaticData> _grids;
@@ -30,6 +30,7 @@ namespace Code.Services.StaticData
         private Dictionary<GameSoundTypeId, AudioData> _soundStaticData;
         private List<GameMusicData>  _gameMusicData;
         private TutorialStaticData _tutorialStaticData;
+        private Dictionary<LocationTypeId, LocationSceneEntryData> _locations;
 
         public void Initialize()
         {
@@ -39,8 +40,7 @@ namespace Code.Services.StaticData
         private void Load()
         {
             _gameStaticData = Resources
-                .LoadAll<GameStaticData>(GamesStaticDataPath)
-                .ToDictionary(x => x.SceneKey, x => x);
+                .Load<GameStaticData>(GameStaticDataPath);
 
             _playerUnits = Resources
                 .LoadAll<UnitStaticData>(PlayerUnitsStaticDataPath)
@@ -80,12 +80,13 @@ namespace Code.Services.StaticData
             
             _tutorialStaticData = Resources
                 .Load<TutorialStaticData>(TutorialStaticDataPath);
+            
+            _locations = _gameStaticData.LocationCatalog.Entries
+                .ToDictionary(x => x.Type, x => x);
         }
 
-        public GameStaticData GetGameStaticData(string sceneKey) =>
-            _gameStaticData.TryGetValue(sceneKey, out GameStaticData staticData)
-                ? staticData
-                : null;
+        public GameStaticData GetGameStaticData() =>
+            _gameStaticData;
 
         public UnitStaticData GetPlayerUnit(UnitAttackTypeId unitAttackTypeId) =>
             _playerUnits.TryGetValue(unitAttackTypeId, out UnitStaticData staticData)
@@ -127,5 +128,10 @@ namespace Code.Services.StaticData
         
         public TutorialStaticData GetTutorialData() =>
             _tutorialStaticData;
+        
+        public LocationSceneEntryData GetLocation(LocationTypeId locationTypeId) =>
+            _locations.TryGetValue(locationTypeId, out LocationSceneEntryData entry)
+                ? entry
+                : null;
     }
 }

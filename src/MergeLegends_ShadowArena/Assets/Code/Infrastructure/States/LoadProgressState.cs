@@ -9,7 +9,6 @@ namespace Code.Infrastructure.States
 {
     public class LoadProgressState : IState
     {
-        private const string MainSceneName = "Main";
         private const int FirstLevelIndex = 0;
 
         private readonly GameStateMachine _gameStateMachine;
@@ -52,7 +51,7 @@ namespace Code.Infrastructure.States
 
         private PlayerProgress InitNewProgress()
         {
-            var firstGameLaunchData = _staticDataService.GetGameStaticData(MainSceneName).FirstGameLaunchData;
+            var firstGameLaunchData = _staticDataService.GetGameStaticData().FirstGameLaunchData;
 
             var progress = new PlayerProgress();
 

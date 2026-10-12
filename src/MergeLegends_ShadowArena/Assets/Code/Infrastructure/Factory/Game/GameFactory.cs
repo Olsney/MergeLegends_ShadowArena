@@ -30,23 +30,23 @@ namespace Code.Infrastructure.Factory.Game
             _sceneProvider = sceneProvider;
         }
 
-        public GameObject CreatePlayZone()
+        public GameObject CreatePlayZone(LocationTypeId locationTypeId)
         {
             GameObject playZone =
                 _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath), _sceneProvider.Container);
 
-            GameStaticData gameData = _staticData.GetGameStaticData(MainSceneName);
+            LocationSceneEntryData location = _staticData.GetLocation(locationTypeId);
 
-            CreateGridZone(playZone.transform, gameData.PlayerUnitsGridPlacesPosition, UnitTypeId.PlayerUnit);
-            CreateGridZone(playZone.transform, gameData.EnemiesGridPlacesPosition, UnitTypeId.Enemy);
+            CreateGridZone(playZone.transform, location.PlayerUnitsGridPlacesPosition, UnitTypeId.PlayerUnit);
+            CreateGridZone(playZone.transform, location.EnemiesGridPlacesPosition, UnitTypeId.Enemy);
 
             return playZone;
         }
 
-        public void CreateVictoryConfetti()
+        public void CreateVictoryConfetti(LocationTypeId locationTypeId)
         {
             var confettiPrefab = _assets.Load(AssetPath.ConfettiVictoryEffectPath);
-            var spawnPoints = _staticData.GetGameStaticData(MainSceneName).ConfettiEffectSpawnPointPosition;
+            var spawnPoints = _staticData.GetLocation(locationTypeId).ConfettiEffectSpawnPointPosition;
 
             for (int i = 0; i < spawnPoints.Count; i++)
             {
