@@ -2,6 +2,7 @@ using System;
 using Code.Services.MergeUnits;
 using Code.StaticData;
 using Code.Units.Attack;
+using Code.Units.Effects;
 using UnityEngine;
 using Zenject;
 
@@ -27,6 +28,7 @@ namespace Code.Units.PlayerUnits
         private SpawnEffect _spawnEffect;
         private LevelUpEffect _levelUpEffect;
         private DamageEffect _damageEffect;
+        private MergeHintEffect _mergeHintEffect;
 
         [Inject]
         private void Construct(IPlayerUnitsProvider playerUnitsProvider)
@@ -41,18 +43,25 @@ namespace Code.Units.PlayerUnits
         public void StartLevelUpEffect()
             => _levelUpEffect.Play();
 
+        public void StartMergeHintEffect()
+            => _mergeHintEffect.Play();
+
+        public void StopMergeHintEffect()
+            => _mergeHintEffect.Stop();
+
         private void Awake()
         {
             UnitDeath = GetComponent<UnitDeath>();
             _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
             _playerUnitHealth = GetComponent<PlayerUnitHealth>();
-            
+
             _unitAnimator = GetComponentInChildren<UnitAnimator>();
             _attacker = GetComponentInChildren<IAttacker>();
-            
+
             _damageEffect = GetComponentInChildren<DamageEffect>();
             _levelUpEffect = GetComponentInChildren<LevelUpEffect>();
             _spawnEffect = GetComponentInChildren<SpawnEffect>();
+            _mergeHintEffect = GetComponentInChildren<MergeHintEffect>();
         }
 
         private void Start()
