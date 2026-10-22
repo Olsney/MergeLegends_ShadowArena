@@ -47,6 +47,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
             }
 
             ClearSelection();
+            SelectionCleared?.Invoke();
         }
 
         private void HandleCell(CellGridPlayerUnit cell)
@@ -56,6 +57,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
                 if (_selectedCell == cell)
                 {
                     ClearSelection();
+                    SelectionCleared?.Invoke();
                     return;
                 }
 
@@ -93,6 +95,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
             targetCell.SetUnit(playerUnit);
             UnitCellChanged?.Invoke(playerUnit, targetCell.transform.position);
             ClearSelection();
+            SelectionCleared?.Invoke();
         }
 
         private void ClearSelection()
