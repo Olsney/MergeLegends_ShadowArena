@@ -21,6 +21,8 @@ namespace Code.Services.MergeUnits
         private readonly IAudioService _audioService;
 
         private CellGridPlayerUnit _selectedCell;
+        
+        public event Action<CellGridPlayerUnit> SelectionChanged;
 
         public MergeUnitsService(
             IUnitBuilder unitBuilder,
@@ -52,20 +54,27 @@ namespace Code.Services.MergeUnits
         {
             if (_selectedCell == null)
             {
-                _selectedCell = cell;
+                SetSelection(cell);
                 return;
             }
 
             if (_selectedCell == cell)
             {
-                ClearSelection();
+                SetSelection(null);
                 return;
             }
 
             TryMerge(_selectedCell, cell);
-            ClearSelection();
+            SetSelection(cell);
+        }
 
+        private void ClearSelection()
+            => SetSelection(null);
+
+        private void SetSelection(CellGridPlayerUnit cell)
+        {
             _selectedCell = cell;
+            SelectionChanged?.Invoke(cell);
         }
 
         private void TryMerge(CellGridPlayerUnit cell1, CellGridPlayerUnit cell2)
@@ -128,8 +137,5 @@ namespace Code.Services.MergeUnits
             cell.RemoveUnit();
             unit.GetComponent<PlayerUnit>().Remove();
         }
-
-        private void ClearSelection()
-            => _selectedCell = null;
     }
 }
