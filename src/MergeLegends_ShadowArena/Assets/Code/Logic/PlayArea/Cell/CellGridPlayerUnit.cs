@@ -15,8 +15,7 @@ namespace Code.Logic.PlayArea.Cell
         public GameObject Unit { get; private set; }
         public bool IsOccupied { get; private set; }
         public int CellIndex { get; private set; }
-
-        private GameObject _selectedBorder;
+        
         private IPersistentProgressService _persistentProgressService;
         private ISaveLoadService _saveLoadService;
 
@@ -25,12 +24,6 @@ namespace Code.Logic.PlayArea.Cell
         {
             _persistentProgressService = persistentProgressService;
             _saveLoadService = saveLoadService;
-        }
-
-        private void Awake()
-        {
-            _selectedBorder = GetComponentInChildren<BorderCellSelected>().gameObject;
-            _selectedBorder.SetActive(false);
         }
 
         public void Init(int index, GameObject unit = null)
@@ -63,12 +56,6 @@ namespace Code.Logic.PlayArea.Cell
             Unit = null;
             IsOccupied = false;
         }
-
-        public void ActivateSelectedBorder()
-            => _selectedBorder.SetActive(true);
-
-        public void DeactivateSelectedBorder()
-            => _selectedBorder.SetActive(false);
 
         private void SaveUnitInCell()
         {
