@@ -11,8 +11,6 @@ namespace Code.Infrastructure.Factory.Game
 {
     public class GameFactory : IGameFactory
     {
-        private const string MainSceneName = "Main";
-
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
         private readonly IStaticDataService _staticData;
