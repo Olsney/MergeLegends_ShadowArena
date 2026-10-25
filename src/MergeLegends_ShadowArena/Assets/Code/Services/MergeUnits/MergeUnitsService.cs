@@ -6,6 +6,7 @@ using Code.Services.Audio;
 using Code.Services.StaticData;
 using Code.StaticData;
 using Code.UI.Factory;
+using Code.Units.Effects;
 using Code.Units.PlayerUnits;
 using UnityEngine;
 using Zenject;
@@ -21,7 +22,7 @@ namespace Code.Services.MergeUnits
         private readonly IAudioService _audioService;
 
         private CellGridPlayerUnit _selectedCell;
-        
+
         public event Action<CellGridPlayerUnit> SelectionChanged;
 
         public MergeUnitsService(
@@ -125,7 +126,7 @@ namespace Code.Services.MergeUnits
             => cell2.SetUnit(newUnit);
 
         private void StartLevelUpEffect(GameObject newUnit)
-            => newUnit.GetComponent<PlayerUnit>().StartLevelUpEffect();
+            => newUnit.GetComponent<PlayerUnit>().Effects.Play(UnitEffectTypeId.LevelUp);
 
         private void ShowMaxLevelToMergeMessage()
             => _uiFactory.CreateWarningMessagePresenter(
