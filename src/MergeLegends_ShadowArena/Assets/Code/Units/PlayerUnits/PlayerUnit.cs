@@ -11,24 +11,19 @@ namespace Code.Units.PlayerUnits
     public class PlayerUnit : MonoBehaviour, IUnit
     {
         public UnitDeath UnitDeath { get; private set; }
+        public UnitEffects Effects { get; private set; }
         public bool IsDead { get; private set; }
         public Transform Transform => transform;
         public int LevelIndex { get; private set; }
         public UnitAttackTypeId AttackType { get; private set; }
 
         public event Action Destroying;
-        public event Action ProcessStarting;
 
         private UnitNavmeshAgentMover _unitNavmeshAgentMover;
         private IAttacker _attacker;
         private IPlayerUnitsProvider _playerUnitsProvider;
         private PlayerUnitHealth _playerUnitHealth;
         private UnitAnimator _unitAnimator;
-
-        private SpawnEffect _spawnEffect;
-        private LevelUpEffect _levelUpEffect;
-        private DamageEffect _damageEffect;
-        private MergeHintEffect _mergeHintEffect;
 
         [Inject]
         private void Construct(IPlayerUnitsProvider playerUnitsProvider)
@@ -40,36 +35,24 @@ namespace Code.Units.PlayerUnits
             AttackType = attackTypeId;
         }
 
-        public void StartLevelUpEffect()
-            => _levelUpEffect.Play();
-
-        public void StartMergeHintEffect()
-            => _mergeHintEffect.Play();
-
-        public void StopMergeHintEffect()
-            => _mergeHintEffect.Stop();
-
         private void Awake()
         {
             UnitDeath = GetComponent<UnitDeath>();
+            Effects = GetComponent<UnitEffects>();
+
             _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
             _playerUnitHealth = GetComponent<PlayerUnitHealth>();
 
             _unitAnimator = GetComponentInChildren<UnitAnimator>();
             _attacker = GetComponentInChildren<IAttacker>();
-
-            _damageEffect = GetComponentInChildren<DamageEffect>();
-            _levelUpEffect = GetComponentInChildren<LevelUpEffect>();
-            _spawnEffect = GetComponentInChildren<SpawnEffect>();
-            _mergeHintEffect = GetComponentInChildren<MergeHintEffect>();
         }
 
         private void Start()
         {
             _playerUnitsProvider.AddUnit(this);
             UnitDeath.Dead += OnDead;
-            _playerUnitHealth.HealthChanged += _damageEffect.Play;
-            _spawnEffect.Play();
+            _playerUnitHealth.HealthChanged += OnHealthChanged;
+            Effects.Play(UnitEffectTypeId.Spawn);
         }
 
         private void OnDestroy()
@@ -77,15 +60,13 @@ namespace Code.Units.PlayerUnits
             Destroying?.Invoke();
             _playerUnitsProvider.RemoveUnit(this);
             UnitDeath.Dead -= OnDead;
-            _playerUnitHealth.HealthChanged -= _damageEffect.Play;
+            _playerUnitHealth.HealthChanged -= OnHealthChanged;
         }
 
         public void ProcessUnit()
         {
             if (IsDead)
                 return;
-
-            ProcessStarting?.Invoke();
 
             _unitNavmeshAgentMover.StartMoving();
             _attacker.StartAttacking();
@@ -99,6 +80,9 @@ namespace Code.Units.PlayerUnits
 
         public void Remove()
             => Destroy(gameObject);
+
+        private void OnHealthChanged()
+            => Effects.Play(UnitEffectTypeId.Damage);
 
         private void OnDead()
         {
