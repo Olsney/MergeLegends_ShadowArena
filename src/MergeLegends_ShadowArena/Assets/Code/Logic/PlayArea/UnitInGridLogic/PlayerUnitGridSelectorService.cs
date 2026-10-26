@@ -34,7 +34,6 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
 
         private void OnHitEmpty()
         {
-            ClearSelection();
             SelectionCleared?.Invoke();
         }
 
@@ -46,7 +45,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
                 return;
             }
 
-            ClearSelection();
+            SelectionCleared?.Invoke();
         }
 
         private void HandleCell(CellGridPlayerUnit cell)
@@ -55,13 +54,12 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
             {
                 if (_selectedCell == cell)
                 {
-                    ClearSelection();
+                    SelectionCleared?.Invoke();
                     return;
                 }
 
                 if (cell.IsOccupied)
                 {
-                    ClearSelection();
                     SelectCell(cell);
                     return;
                 }
@@ -83,7 +81,6 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
         {
             UnitSelected?.Invoke(cell);
             _selectedCell = cell;
-            _selectedCell.ActivateSelectedBorder();
         }
 
         private void SetUnitInCell(CellGridPlayerUnit targetCell)
@@ -92,16 +89,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
             _selectedCell.RemoveUnit();
             targetCell.SetUnit(playerUnit);
             UnitCellChanged?.Invoke(playerUnit, targetCell.transform.position);
-            ClearSelection();
-        }
-
-        private void ClearSelection()
-        {
-            if (_selectedCell != null)
-            {
-                _selectedCell.DeactivateSelectedBorder();
-                _selectedCell = null;
-            }
+            SelectionCleared?.Invoke();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Code.Units.Attack;
+using Code.Units.Effects;
 using UnityEngine;
 using Zenject;
 
@@ -8,20 +9,17 @@ namespace Code.Units.Enemies
     public class Enemy : MonoBehaviour, IUnit
     {
         public UnitDeath UnitDeath { get; private set; }
+        public UnitEffects Effects { get; private set; }
         public bool IsDead { get; private set; }
         public Transform Transform => transform;
 
         public event Action Destroying;
-        public event Action ProcessStarting;
 
         private UnitNavmeshAgentMover _unitNavmeshAgentMover;
         private IAttacker _attacker;
         private IEnemiesProvider _enemiesProvider;
         private EnemyHealth _enemyHealth;
         private UnitAnimator _unitAnimator;
-
-        private SpawnEffect _spawnEffect;
-        private DamageEffect _damageEffect;
 
         [Inject]
         private void Construct(IEnemiesProvider enemiesProvider)
@@ -30,29 +28,28 @@ namespace Code.Units.Enemies
         private void Awake()
         {
             UnitDeath = GetComponent<UnitDeath>();
+            Effects = GetComponent<UnitEffects>();
+            
             _unitNavmeshAgentMover = GetComponent<UnitNavmeshAgentMover>();
             _enemyHealth = GetComponent<EnemyHealth>();
             
             _attacker = GetComponentInChildren<IAttacker>();
             _unitAnimator = GetComponentInChildren<UnitAnimator>();
-
-            _spawnEffect = GetComponentInChildren<SpawnEffect>();
-            _damageEffect = GetComponentInChildren<DamageEffect>();
         }
 
         private void Start()
         {
             _enemiesProvider.AddUnit(this);
             UnitDeath.Dead += OnDead;
-            _enemyHealth.HealthChanged += _damageEffect.Play;
-            _spawnEffect.Play();
+            _enemyHealth.HealthChanged += OnHealthChanged;
+            Effects.Play(UnitEffectTypeId.Spawn);
         }
 
         private void OnDestroy()
         {
             Destroying?.Invoke();
             _enemiesProvider.RemoveUnit(this);
-            _enemyHealth.HealthChanged -= _damageEffect.Play;
+            _enemyHealth.HealthChanged -= OnHealthChanged;
             UnitDeath.Dead -= OnDead;
         }
 
@@ -60,8 +57,6 @@ namespace Code.Units.Enemies
         {
             if (IsDead)
                 return;
-
-            ProcessStarting?.Invoke();
 
             _unitNavmeshAgentMover.StartMoving();
             _attacker.StartAttacking();
@@ -72,6 +67,9 @@ namespace Code.Units.Enemies
             _unitNavmeshAgentMover.DeactivateMoving();
             _unitAnimator.PlayVictory();
         }
+        
+        private void OnHealthChanged()
+            => Effects.Play(UnitEffectTypeId.Damage);
 
         private void OnDead()
         {

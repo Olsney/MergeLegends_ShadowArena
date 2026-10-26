@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 4697965543385600792}
   - component: {fileID: -4322051091873375717}
   - component: {fileID: -2443668912873559723}
+  - component: {fileID: 774866200505964030}
   m_Layer: 7
   m_Name: Enemy_Ranged_lvl_1
   m_TagString: Untagged
@@ -335,6 +336,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9236355bd79114f889e5d715d44ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeath
+--- !u!114 &774866200505964030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8591336734477682272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 278112eb38d043d19cb5749efdf663f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.Units.Effects.UnitEffects
 --- !u!1001 &1364385309105870433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -405,6 +418,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6502506020497929645}
     m_Modifications:
+    - target: {fileID: 585201168664996499, guid: bb853bce74c40bd41add44cdcc22b87d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 585201168664996499, guid: bb853bce74c40bd41add44cdcc22b87d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1469416298344466571, guid: bb853bce74c40bd41add44cdcc22b87d, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -522,6 +543,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4434885948042530491, guid: bb853bce74c40bd41add44cdcc22b87d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790850075456354453, guid: bb853bce74c40bd41add44cdcc22b87d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790850075456354453, guid: bb853bce74c40bd41add44cdcc22b87d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}

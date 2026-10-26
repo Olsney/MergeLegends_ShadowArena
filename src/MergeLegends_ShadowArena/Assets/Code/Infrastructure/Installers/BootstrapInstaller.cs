@@ -16,6 +16,7 @@ using Code.Services.Audio;
 using Code.Services.CameraMoves;
 using Code.Services.CellsInitializerServices;
 using Code.Services.Input;
+using Code.Services.MergeHintServices;
 using Code.Services.MergeUnits;
 using Code.Services.Music;
 using Code.Services.MusicProviders;
@@ -116,6 +117,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IAudioService>().To<AudioService>().AsSingle();
             Container.Bind<IMusicProvider>().To<MusicProvider>().AsSingle();
             Container.Bind<IMusicService>().To<MusicService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MergeHintService>().AsSingle();
         }
 
         private void BindInputService()

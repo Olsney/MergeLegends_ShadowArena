@@ -14699,6 +14699,7 @@ GameObject:
   - component: {fileID: 4697965543385600792}
   - component: {fileID: -4322051091873375717}
   - component: {fileID: -2443668912873559723}
+  - component: {fileID: 5122218632264792173}
   m_Layer: 7
   m_Name: Enemy_Melee_lvl_1
   m_TagString: Untagged
@@ -14843,6 +14844,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9236355bd79114f889e5d715d44ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeath
+--- !u!114 &5122218632264792173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8591336734477682272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 278112eb38d043d19cb5749efdf663f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.Units.Effects.UnitEffects
 --- !u!1001 &48791049626153397
 PrefabInstance:
   m_ObjectHideFlags: 0
