@@ -38,7 +38,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: A_Idle_Base_Sword
+      name: Idle_Var_1
       takeName: A_Idle_SwordStance
       internalID: 1375766457120316241
       firstFrame: 1
