@@ -1,6 +1,7 @@
 using Code.Services.CameraMoves;
 using Code.StaticData;
 using Code.Units.Audio;
+using Code.Units.Effects;
 using UnityEngine;
 using Zenject;
 
@@ -21,9 +22,9 @@ namespace Code.Units.Attack
         private AnimationEventsReader _animationEventsReader;
         private UnitNavmeshAgentMover _navmeshAgentMover;
         private UnitDeath _unitDeath;
-        private BossLastAttackEffect bossLastAttackEffect;
         private BossAttackSound _bossAttackSound;
         private BossLastAttackSound _bossLastAttackSound;
+        private UnitEffects _effects;
 
         private Collider[] _hits;
         private int _layerMask;
@@ -44,7 +45,7 @@ namespace Code.Units.Attack
             _animator = GetComponentInParent<UnitAnimator>();
             _navmeshAgentMover = GetComponentInParent<UnitNavmeshAgentMover>();
             _unitDeath = GetComponentInParent<UnitDeath>();
-            bossLastAttackEffect = GetComponentInChildren<BossLastAttackEffect>();
+            _effects = GetComponentInParent<UnitEffects>();
         }
 
         private void OnEnable()
@@ -97,7 +98,7 @@ namespace Code.Units.Attack
 
         private void OnLastAttack()
         {
-            bossLastAttackEffect.Play();
+            _effects.Play(UnitEffectTypeId.BossLastAttack);
             _cameraShakeService.StartVerticleShake(_cameraShakeToAttackData.Force, _cameraShakeToAttackData.Direction);
             _bossAttackSound.PlayLastAttackSound();
             PerformAttack();

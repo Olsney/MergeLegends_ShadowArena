@@ -1,6 +1,6 @@
 using Code.ParticleBase;
 
-namespace Code.Services.MergeUnits
+namespace Code.Units.Effects
 {
     public class LevelUpEffect : BaseEffect
     {
