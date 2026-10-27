@@ -9,5 +9,6 @@ namespace Code.StaticData
         public UnitAttackTypeId UnitAttackTypeId;
         public List<UnitStatsByLevelIndexSetup> UnitStatsByLevelIndexSetups;
         public GeneralData GeneralData;
+        public UnitStatsGenerationSettings Generation;
     }
 }
