@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af96569ed7b64af4fa851b251876f0d8
+guid: bbf16071c7c8b184fbeabd9a7f625aa8
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: boss_attack_var_2
+      name: Attack_Var_1
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 80
+      lastFrame: 72
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -55,14 +55,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.50500834
+      - time: 0.3828125
         functionName: OnAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9968652
+      - time: 0.9960937
         functionName: OnAttackEnded
         data: 
         objectReferenceParameter: {instanceID: 0}

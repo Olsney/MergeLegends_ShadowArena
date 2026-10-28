@@ -14,18 +14,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.UnitStaticData
   UnitAttackTypeId: 3
   UnitStatsByLevelIndexSetups:
-  - UnitLevelStatsData:
-      Hp: 1000
-      Damage: 25
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 430
+      Damage: 40
       ViewPrefab: {fileID: 6442996145787665958, guid: a76d9f08f16ad0c4482ad8fb796a0b69, type: 3}
-  - UnitLevelStatsData:
-      Hp: 2000
-      Damage: 50
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 940
+      Damage: 88
       ViewPrefab: {fileID: 6442996145787665958, guid: 407509eeb3db9b046baa4c72174c40d1, type: 3}
-  - UnitLevelStatsData:
-      Hp: 3000
-      Damage: 20
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 2100
+      Damage: 190
       ViewPrefab: {fileID: 6442996145787665958, guid: c2cb1b2bcb6b35244a4c282bfd979911, type: 3}
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 4500
+      Damage: 270
+      ViewPrefab: {fileID: 6442996145787665958, guid: ca4b285078fdd754881460ba5e9917c2, type: 3}
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 10000
+      Damage: 940
+      ViewPrefab: {fileID: 6442996145787665958, guid: 342c74d613e37934d96819eebeed9315, type: 3}
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 22000
+      Damage: 2100
+      ViewPrefab: {fileID: 6442996145787665958, guid: 79ae7ee542343d84a9c285cbb6f171fd, type: 3}
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 48000
+      Damage: 2500
+      ViewPrefab: {fileID: 6442996145787665958, guid: 6e85f89f80b387a4da1aaa01d1e45798, type: 3}
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 110000
+      Damage: 6200
+      ViewPrefab: {fileID: 6442996145787665958, guid: 69fcf3b223d3a834a80fcf43b84d3a8d, type: 3}
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 230000
+      Damage: 22000
+      ViewPrefab: {fileID: 6442996145787665958, guid: 2c0ad18086d5e56459b30f81862f7bbb, type: 3}
+  - Override: 1
+    UnitLevelStatsData:
+      Hp: 510000
+      Damage: 27000
+      ViewPrefab: {fileID: 6442996145787665958, guid: 1208b930633956d449761d5a3de6d80f, type: 3}
   GeneralData:
     UnitData:
       MoveSpeed: 2
@@ -58,3 +96,10 @@ MonoBehaviour:
         groundSlamAudio:
           AudioClip: {fileID: 8300000, guid: 5fd6228348cdc8f44bb8b1f0c9bf8df2, type: 3}
           Volume: 0.9
+  Generation:
+    AutoGenerate: 0
+    BaseHp: 0
+    BaseDamage: 0
+    HpGrowth: 1
+    DamageGrowth: 1
+    SignificantDigits: 0

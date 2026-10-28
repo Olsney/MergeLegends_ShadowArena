@@ -280,7 +280,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 03a3078fef26dd446823af0faf216708, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 5fe4d374e6a749242b878ae7447ced65, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -354,7 +354,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AnimatorBossUnit_var_2
+  m_Name: AnimatorBossUnit_var_3_Mutant
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Die
@@ -544,7 +544,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1375766457120316241, guid: b94969b4c36c3c94284f72888ad9289d, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 3ebffcd615d7223449da60bd7b972bac, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

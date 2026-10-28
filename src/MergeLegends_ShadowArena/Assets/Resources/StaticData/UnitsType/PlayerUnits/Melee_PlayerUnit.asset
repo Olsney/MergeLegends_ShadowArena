@@ -14,45 +14,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitStaticData
   UnitAttackTypeId: 1
   UnitStatsByLevelIndexSetups:
-  - UnitLevelStatsData:
-      Hp: 200
-      Damage: 20
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 100
+      Damage: 10
       ViewPrefab: {fileID: 8275382250729833740, guid: 59ef7c436e79e7a4484e1b2105d32db5, type: 3}
-  - UnitLevelStatsData:
-      Hp: 300
-      Damage: 30
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 220
+      Damage: 22
       ViewPrefab: {fileID: 3759103967844450914, guid: cba8eab4c755eb0478f77323c3b81271, type: 3}
-  - UnitLevelStatsData:
-      Hp: 450
-      Damage: 45
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 480
+      Damage: 48
       ViewPrefab: {fileID: 5026480724419865750, guid: 7ac2b631a64836a4c912e0305ade1795, type: 3}
-  - UnitLevelStatsData:
-      Hp: 675
-      Damage: 68
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 1100
+      Damage: 110
       ViewPrefab: {fileID: 6849417737449798978, guid: 5197ed77e07faee41a97c583f1240fe4, type: 3}
-  - UnitLevelStatsData:
-      Hp: 1015
-      Damage: 102
-      ViewPrefab: {fileID: 5724308467584291934, guid: 7e0b41bfb2acd71489b96ae942be77a7, type: 3}
-  - UnitLevelStatsData:
-      Hp: 1525
-      Damage: 153
-      ViewPrefab: {fileID: 2068172944038221058, guid: dac4235b839fa0049bffa8816f612297, type: 3}
-  - UnitLevelStatsData:
-      Hp: 2290
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 2300
       Damage: 230
+      ViewPrefab: {fileID: 5724308467584291934, guid: 7e0b41bfb2acd71489b96ae942be77a7, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 5200
+      Damage: 520
+      ViewPrefab: {fileID: 2068172944038221058, guid: dac4235b839fa0049bffa8816f612297, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 11000
+      Damage: 1100
       ViewPrefab: {fileID: 2068172944038221058, guid: 9c2f8ee0c993db94394878ebd307f0d9, type: 3}
-  - UnitLevelStatsData:
-      Hp: 3435
-      Damage: 345
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 25000
+      Damage: 2500
       ViewPrefab: {fileID: 4967645608839584357, guid: 648b0f3a9085fc54daf1be4a2c89a55a, type: 3}
-  - UnitLevelStatsData:
-      Hp: 5155
-      Damage: 518
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 55000
+      Damage: 5500
       ViewPrefab: {fileID: 3326047030309354395, guid: 9e502d5925f67914fb84075742a91d2a, type: 3}
-  - UnitLevelStatsData:
-      Hp: 7735
-      Damage: 777
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 120000
+      Damage: 12000
       ViewPrefab: {fileID: 2068172944038221058, guid: 3d68660f055f82e4caf08e54ab9ec6f1, type: 3}
   GeneralData:
     UnitData:
@@ -86,3 +96,10 @@ MonoBehaviour:
         groundSlamAudio:
           AudioClip: {fileID: 0}
           Volume: 1
+  Generation:
+    AutoGenerate: 1
+    BaseHp: 100
+    BaseDamage: 10
+    HpGrowth: 2.2
+    DamageGrowth: 2.2
+    SignificantDigits: 2

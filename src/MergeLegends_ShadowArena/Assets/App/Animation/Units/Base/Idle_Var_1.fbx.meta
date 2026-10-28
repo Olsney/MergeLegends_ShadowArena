@@ -1,5 +1,12 @@
 fileFormatVersion: 2
-guid: 03a3078fef26dd446823af0faf216708
+guid: b94969b4c36c3c94284f72888ad9289d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 291806
+  packageName: Synty ANIMATION - Sword Combat
+  packageVersion: 1.0.1
+  assetPath: Assets/__Download/Synty/AnimationSwordCombat/Animations/Polygon/Idle/Base/A_Idle_Base_Sword.fbx
+  uploadId: 686788
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -31,18 +38,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: boss_attack_ver_3
-      takeName: mixamo.com
-      internalID: -203655887218126122
-      firstFrame: 0
-      lastFrame: 126
+      name: Idle_Var_1
+      takeName: A_Idle_SwordStance
+      internalID: 1375766457120316241
+      firstFrame: 1
+      lastFrame: 54
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -54,39 +61,119 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.23510972
-        functionName: OnAttack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.37304074
-        functionName: OnAttack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.6262521
-        functionName: OnLastAttack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: OnAttackEnded
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/Spine_01
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Finger_01
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Finger_01/Finger_02
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Finger_01/Finger_02/Finger_03
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Finger_01/Finger_02/Finger_03/Finger_04
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/IndexFinger_01
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/IndexFinger_01/IndexFinger_02
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/IndexFinger_01/IndexFinger_02/IndexFinger_03
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/IndexFinger_01/IndexFinger_02/IndexFinger_03/IndexFinger_04
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Prop_L
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Thumb_01
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Thumb_01/Thumb_02
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Thumb_01/Thumb_02/Thumb_03
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Finger_01_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Finger_01_1/Finger_02_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Finger_01_1/Finger_02_1/Finger_03_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Finger_01_1/Finger_02_1/Finger_03_1/Finger_04_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/IndexFinger_01_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/IndexFinger_01_1/IndexFinger_02_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/IndexFinger_01_1/IndexFinger_02_1/IndexFinger_03_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/IndexFinger_01_1/IndexFinger_02_1/IndexFinger_03_1/IndexFinger_04_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Prop_R
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Thumb_01_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Thumb_01_1/Thumb_02_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Thumb_01_1/Thumb_02_1/Thumb_03_1
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Neck
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head/Eyebrows
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head/Eyes
+        weight: 1
+      - path: Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head/Jaw
+        weight: 1
+      - path: Root/Hips/UpperLeg_L
+        weight: 1
+      - path: Root/Hips/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: Root/Hips/UpperLeg_L/LowerLeg_L/Ankle_L
+        weight: 1
+      - path: Root/Hips/UpperLeg_L/LowerLeg_L/Ankle_L/Ball_L
+        weight: 1
+      - path: Root/Hips/UpperLeg_L/LowerLeg_L/Ankle_L/Ball_L/Toes_L
+        weight: 1
+      - path: Root/Hips/UpperLeg_R
+        weight: 1
+      - path: Root/Hips/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: Root/Hips/UpperLeg_R/LowerLeg_R/Ankle_R
+        weight: 1
+      - path: Root/Hips/UpperLeg_R/LowerLeg_R/Ankle_R/Ball_R
+        weight: 1
+      - path: Root/Hips/UpperLeg_R/LowerLeg_R/Ankle_R/Ball_R/Toes_R
+        weight: 1
+      - path: SK_TEST_DEVU_SNTY_BASE_01_Classic
+        weight: 1
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: ebc8800d7aef22a4aa95591cd452157d, type: 2}
+      additiveReferencePoseFrame: 0.9
     isReadable: 0
   meshes:
     lODScreenPercentages: []
