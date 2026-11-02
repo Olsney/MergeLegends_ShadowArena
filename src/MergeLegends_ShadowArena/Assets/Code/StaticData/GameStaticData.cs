@@ -9,6 +9,7 @@ namespace Code.StaticData
         public LocationCatalogData LocationCatalog;
         public FirstGameLaunchData FirstGameLaunchData;
         public List<GameLevelData> GameLevelsData;
+        public LevelAutoGenerationData LevelAutoGeneration;
         
 #if UNITY_EDITOR
         private void OnValidate() =>
