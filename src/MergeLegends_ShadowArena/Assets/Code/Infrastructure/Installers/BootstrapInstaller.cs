@@ -16,6 +16,8 @@ using Code.Services.Audio;
 using Code.Services.CameraMoves;
 using Code.Services.CellsInitializerServices;
 using Code.Services.Input;
+using Code.Services.LevelAutoGeneratorServices;
+using Code.Services.LevelServices;
 using Code.Services.MergeHintServices;
 using Code.Services.MergeUnits;
 using Code.Services.Music;
@@ -30,6 +32,8 @@ using Code.Services.SceneProvider;
 using Code.Services.SoundProviders;
 using Code.Services.StaticData;
 using Code.Services.Tutorial;
+using Code.Services.UnitStatsAutoGeneratorServices;
+using Code.Services.UnitStatsServices;
 using Code.UI.Currency;
 using Code.UI.Factory;
 using Code.UI.SpawnUnits;
@@ -118,6 +122,10 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IMusicProvider>().To<MusicProvider>().AsSingle();
             Container.Bind<IMusicService>().To<MusicService>().AsSingle();
             Container.BindInterfacesAndSelfTo<MergeHintService>().AsSingle();
+            Container.Bind<ILevelService>().To<LevelService>().AsSingle();
+            Container.Bind<ILevelAutoGeneratorService>().To<LevelAutoGeneratorService>().AsSingle();
+            Container.Bind<IUnitStatsAutoGeneratorService>().To<UnitStatsAutoGeneratorService>().AsSingle();
+            Container.Bind<IUnitStatsService>().To<UnitStatsService>().AsSingle();
         }
 
         private void BindInputService()
