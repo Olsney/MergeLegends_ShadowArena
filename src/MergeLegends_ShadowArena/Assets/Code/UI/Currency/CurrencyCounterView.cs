@@ -13,7 +13,7 @@ namespace Code.UI.Currency
         private CurrencyText _currencyText;
         private Transform _currencyTextTransform;
 
-        private int _startValue;
+        private long _startValue;
 
         private void Awake()
         {
@@ -32,20 +32,20 @@ namespace Code.UI.Currency
             DOTween.Kill(gameObject);
         }
 
-        public void UpdateCounter(int endValue)
+        public void UpdateCounter(long endValue)
         {
             _transform.SetAsLastSibling();
             StartIncreaseAnimate(endValue);
         }
 
-        private void StartIncreaseAnimate(int endValue)
+        private void StartIncreaseAnimate(long endValue)
         {
             if (this == null || gameObject == null)
                 return;
 
             _tween?.Kill();
 
-            int currentValue = _startValue;
+            long currentValue = _startValue;
 
             _tween = DOTween.To(() => currentValue, x =>
                 {

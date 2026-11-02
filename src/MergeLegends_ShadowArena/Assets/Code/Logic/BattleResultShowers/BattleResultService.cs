@@ -70,7 +70,7 @@ namespace Code.Logic.BattleResultShowers
 
             VictoryView victoryView = _uiFactory.CreateVictoryView();
 
-            int rewardValue = levelData.VictoryRewardValue;
+            long rewardValue = levelData.VictoryRewardValue;
             var victoryPresenter = _presenterFactory.CreateVictoryPresenter(victoryView, rewardValue);
             _presenterFactory.CreateReloadScenePresenter(victoryView.GetComponentInChildren<ReloadSceneView>(),
                 _reloadSceneService);
@@ -90,7 +90,7 @@ namespace Code.Logic.BattleResultShowers
             _audioService.PlaySound(GameSoundTypeId.GameLose);
             
             int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
-            int rewardValue = _levelService.GetLevelData(levelIndex).LoseRewardValue;
+            long rewardValue = _levelService.GetLevelData(levelIndex).LoseRewardValue;
             var losePresenter = _presenterFactory.CreateLosePresenter(loseView, rewardValue);
             _presenterFactory.CreateReloadScenePresenter(loseView.GetComponentInChildren<ReloadSceneView>(),
                 _reloadSceneService);

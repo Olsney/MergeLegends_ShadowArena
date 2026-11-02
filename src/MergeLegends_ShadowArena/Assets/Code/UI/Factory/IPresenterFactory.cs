@@ -20,7 +20,7 @@ namespace Code.UI.Factory
         LevelPresenter CreateLevelPresenter(IPersistentProgressService progressService);
         WarningMessagePresenter CreateWarningMessagePresenter(string message);
         ReloadScenePresenter CreateReloadScenePresenter(ReloadSceneView view, IReloadSceneService reloadSceneService);
-        VictoryPresenter CreateVictoryPresenter(VictoryView view, int rewardValue);
-        LosePresenter CreateLosePresenter(LoseView view, int rewardValue);
+        VictoryPresenter CreateVictoryPresenter(VictoryView view, long rewardValue);
+        LosePresenter CreateLosePresenter(LoseView view, long rewardValue);
     }
 }

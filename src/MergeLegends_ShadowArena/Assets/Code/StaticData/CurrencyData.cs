@@ -5,10 +5,10 @@ namespace Code.StaticData
     [Serializable]
     public class CurrencyData
     {
-        public int Value;
+        public long Value;
         public Action Changed;
 
-        public void Spend(int amount)
+        public void Spend(long amount)
         {
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(amount), "Spend amount must be positive");
@@ -17,7 +17,7 @@ namespace Code.StaticData
             Changed?.Invoke();
         }
 
-        public void Add(int amount)
+        public void Add(long amount)
         {
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(amount), "Add amount must be positive");

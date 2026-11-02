@@ -67,13 +67,13 @@ namespace Code.UI.Factory
                 => new ReloadScenePresenter(reloadSceneView, reloadSceneService));
         }
 
-        public VictoryPresenter CreateVictoryPresenter(VictoryView view, int rewardValue)
+        public VictoryPresenter CreateVictoryPresenter(VictoryView view, long rewardValue)
         {
             return CreatePresenter(view, loseView
                 => new VictoryPresenter(loseView, rewardValue, _currencyPresenterProvider));
         }
 
-        public LosePresenter CreateLosePresenter(LoseView view, int rewardValue)
+        public LosePresenter CreateLosePresenter(LoseView view, long rewardValue)
         {
             return CreatePresenter(view, loseView
                 => new LosePresenter(loseView, rewardValue, _currencyPresenterProvider));
