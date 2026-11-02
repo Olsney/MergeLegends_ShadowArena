@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Infrastructure.Builders;
 using Code.Logic.PlayArea.Cell;
+using Code.Services.LevelServices;
 using Code.Services.PersistentProgress;
-using Code.Services.StaticData;
 using Code.StaticData;
 
 namespace Code.Logic.EnemySpawners
@@ -13,26 +13,25 @@ namespace Code.Logic.EnemySpawners
     {
         private readonly IUnitBuilder _unitBuilder;
         private readonly IEnemyCellsProvider _cellsProvider;
-        private readonly IStaticDataService _staticDataService;
         private readonly IPersistentProgressService _progressService;
+        private readonly ILevelService _levelService;
 
         public EnemySpawner(
             IUnitBuilder unitBuilder,
             IEnemyCellsProvider cellsProvider,
-            IStaticDataService staticDataService,
-            IPersistentProgressService progressService)
+            IPersistentProgressService progressService,
+            ILevelService levelService)
         {
             _unitBuilder = unitBuilder;
             _cellsProvider = cellsProvider;
-            _staticDataService = staticDataService;
             _progressService = progressService;
+            _levelService = levelService;
         }
 
         public void Spawn()
         {
             var levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
-            var enemiesSpawnData = _staticDataService.GetGameStaticData()
-                .GameLevelsData[levelIndex].EnemiesSpawnData;
+            var enemiesSpawnData = _levelService.GetLevelData(levelIndex).EnemiesSpawnData;
             var allCells = _cellsProvider.GetAllCells().ToList();
             var freeCells = allCells.Where(c => !c.IsOccupied).ToList();
 

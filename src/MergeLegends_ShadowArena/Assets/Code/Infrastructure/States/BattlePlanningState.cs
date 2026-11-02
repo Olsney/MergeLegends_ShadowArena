@@ -3,8 +3,8 @@ using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea;
 using Code.Services.CameraMoves;
 using Code.Services.CellsInitializerServices;
+using Code.Services.LevelServices;
 using Code.Services.PersistentProgress;
-using Code.Services.StaticData;
 using Code.StaticData;
 using Code.UI.Factory;
 using Code.UI.Fights;
@@ -26,7 +26,7 @@ namespace Code.Infrastructure.States
         private readonly ICameraMoverService _cameraMover;
         private readonly ITutorialFlow _tutorialFlow;
         private readonly IPersistentProgressService _progressService;
-        private readonly IStaticDataService _staticData;
+        private readonly ILevelService _levelService;
 
         private UnitSpawnerViewsRoot _unitSpawnerViewsRoot;
         private MeleePlayerUnitPurchasePresenter _meleeSpawnPresenter;
@@ -46,7 +46,7 @@ namespace Code.Infrastructure.States
             ICameraMoverService cameraMover,
             ITutorialFlow tutorialFlow,
             IPersistentProgressService progressService,
-            IStaticDataService staticData)
+            ILevelService levelService)
         {
             _uiFactory = uiFactory;
             _gameFactory = gameFactory;
@@ -59,7 +59,7 @@ namespace Code.Infrastructure.States
             _cameraMover = cameraMover;
             _tutorialFlow = tutorialFlow;
             _progressService = progressService;
-            _staticData = staticData;
+            _levelService = levelService;
         }
 
         public void Enter()
@@ -74,7 +74,7 @@ namespace Code.Infrastructure.States
             _fightPresenter = _presenterFactory.CreateFightPresenter(_battleStateMachine);
 
             int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
-            LocationTypeId location = _staticData.GetGameStaticData().GameLevelsData[levelIndex].Location;
+            LocationTypeId location = _levelService.GetLevelData(levelIndex).Location;
 
             _playZone = _gameFactory.CreatePlayZone(location).GetComponent<PlayZone>();
             _cellsInitializerService.InitializeAllCells();
