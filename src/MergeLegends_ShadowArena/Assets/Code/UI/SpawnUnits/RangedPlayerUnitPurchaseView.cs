@@ -16,7 +16,7 @@ namespace Code.UI.SpawnUnits
         private void Awake()
             => _priceText = GetComponentInChildren<RangedPriceText>();
 
-        public void ChangeValue(int value)
+        public void ChangeValue(long value)
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value), "Price value cannot be negative");

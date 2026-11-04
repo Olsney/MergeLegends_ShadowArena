@@ -28,7 +28,7 @@ namespace Code.Services.PlayerUnitPurchases
 
         public void BuyUnit(UnitAttackTypeId attackType)
         {
-            int price = GetPrice(attackType);
+            long price = GetPrice(attackType);
 
             if (HasEnoughCurrency(price) == false)
                 return;
@@ -38,7 +38,7 @@ namespace Code.Services.PlayerUnitPurchases
             SpawnUnit(attackType);
         }
 
-        private int GetPrice(UnitAttackTypeId attackType)
+        private long GetPrice(UnitAttackTypeId attackType)
         {
             return attackType switch
             {
@@ -50,7 +50,7 @@ namespace Code.Services.PlayerUnitPurchases
             };
         }
 
-        private bool HasEnoughCurrency(int price)
+        private bool HasEnoughCurrency(long price)
         {
             if (_progressService.Progress.WorldData.CurrencyData.Value >= price)
                 return true;
@@ -60,7 +60,7 @@ namespace Code.Services.PlayerUnitPurchases
             return false;
         }
 
-        private void SpendCurrency(int price) 
+        private void SpendCurrency(long price) 
             => _progressService.Progress.WorldData.CurrencyData.Spend(price);
 
         private void IncreaseUnitPrice(UnitAttackTypeId attackType)
