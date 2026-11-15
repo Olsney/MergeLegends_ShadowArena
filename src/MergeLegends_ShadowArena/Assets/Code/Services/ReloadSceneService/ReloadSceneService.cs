@@ -1,5 +1,6 @@
 ﻿using Code.Infrastructure.States;
 using Code.Logic.PlayArea.Cell;
+using Code.Services.LevelServices;
 using Code.Services.PersistentProgress;
 using Code.Services.StaticData;
 using Code.StaticData;
@@ -17,6 +18,7 @@ namespace Code.Services.ReloadSceneService
         private readonly IEnemiesProvider _enemiesProvider;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticData;
+        private readonly ILevelService _levelService;
 
         public ReloadSceneService(GameStateMachine gameStateMachine,
             IPlayerUnitCellsProvider playerUnitCellsProvider,
@@ -24,7 +26,8 @@ namespace Code.Services.ReloadSceneService
             IPlayerUnitsProvider playerUnitsProvider,
             IEnemiesProvider enemiesProvider,
             IPersistentProgressService progressService,
-            IStaticDataService staticData)
+            IStaticDataService staticData,
+            ILevelService levelService)
         {
             _gameStateMachine = gameStateMachine;
             _playerUnitCellsProvider = playerUnitCellsProvider;
@@ -33,6 +36,7 @@ namespace Code.Services.ReloadSceneService
             _enemiesProvider = enemiesProvider;
             _progressService = progressService;
             _staticData = staticData;
+            _levelService = levelService;
         }
 
         public void StartReload()
@@ -43,7 +47,7 @@ namespace Code.Services.ReloadSceneService
             _enemiesProvider.Clear();
 
             int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
-            LocationTypeId locationTypeId = _staticData.GetGameStaticData().GameLevelsData[levelIndex].Location;
+            LocationTypeId locationTypeId = _levelService.GetLevelData(levelIndex).Location;
             string sceneName = _staticData.GetLocation(locationTypeId).SceneName;
 
             _gameStateMachine.Enter<LoadLevelState, string>(sceneName);

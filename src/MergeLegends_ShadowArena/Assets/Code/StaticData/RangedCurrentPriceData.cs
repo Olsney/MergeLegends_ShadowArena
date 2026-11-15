@@ -5,11 +5,11 @@ namespace Code.StaticData
     [Serializable]
     public class RangedCurrentPriceData
     {
-        public int PriceValue;
+        public long PriceValue;
 
         public Action Changed;
 
-        public void IncreasePrice(int amount)
+        public void IncreasePrice(long amount)
         {
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(amount), "Increase amount must be positive");

@@ -1,10 +1,10 @@
 ﻿using Code.Infrastructure.Factory.Game;
 using Code.Services.Audio;
+using Code.Services.LevelServices;
 using Code.Services.PersistentProgress;
 using Code.Services.ReloadSceneService;
 using Code.Services.RewardServices;
 using Code.Services.SaveLoad;
-using Code.Services.StaticData;
 using Code.StaticData;
 using Code.UI.Factory;
 using Code.UI.LossShowers;
@@ -24,24 +24,24 @@ namespace Code.Logic.BattleResultShowers
         private readonly IRewardServices _rewardServices;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadProgress;
-        private readonly IStaticDataService _staticData;
         private readonly IReloadSceneService _reloadSceneService;
         private readonly IAudioService _audioService;
+        private readonly ILevelService _levelService;
 
         public BattleResultService(IUIFactory uiFactory, IGameFactory gameFactory, IRewardServices rewardServices,
             IPersistentProgressService progressService, ISaveLoadService saveLoadProgress,
-            IStaticDataService staticData, IPresenterFactory presenterFactory, IReloadSceneService reloadSceneService,
-            IAudioService audioService)
+            IPresenterFactory presenterFactory, IReloadSceneService reloadSceneService,
+            IAudioService audioService, ILevelService levelService)
         {
             _uiFactory = uiFactory;
             _gameFactory = gameFactory;
             _rewardServices = rewardServices;
             _progressService = progressService;
             _saveLoadProgress = saveLoadProgress;
-            _staticData = staticData;
             _presenterFactory = presenterFactory;
             _reloadSceneService = reloadSceneService;
             _audioService = audioService;
+            _levelService = levelService;
         }
 
         public async void StartVictoryProcess()
@@ -57,7 +57,7 @@ namespace Code.Logic.BattleResultShowers
         private async UniTask StartVictoryProcessAsync()
         {
             int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
-            GameLevelData levelData = _staticData.GetGameStaticData().GameLevelsData[levelIndex];
+            GameLevelData levelData = _levelService.GetLevelData(levelIndex);
 
             _rewardServices.TransferCoinsVictory();
             _progressService.Progress.WorldData.LevelData.UpLevel();
@@ -70,7 +70,8 @@ namespace Code.Logic.BattleResultShowers
 
             VictoryView victoryView = _uiFactory.CreateVictoryView();
 
-            var victoryPresenter = _presenterFactory.CreateVictoryPresenter(victoryView, levelData.VictoryRewardValue);
+            long rewardValue = levelData.VictoryRewardValue;
+            var victoryPresenter = _presenterFactory.CreateVictoryPresenter(victoryView, rewardValue);
             _presenterFactory.CreateReloadScenePresenter(victoryView.GetComponentInChildren<ReloadSceneView>(),
                 _reloadSceneService);
 
@@ -87,10 +88,9 @@ namespace Code.Logic.BattleResultShowers
             LoseView loseView = _uiFactory.CreateLoseView();
 
             _audioService.PlaySound(GameSoundTypeId.GameLose);
-
+            
             int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
-            int rewardValue = _staticData.GetGameStaticData().GameLevelsData[levelIndex].LoseRewardValue;
-
+            long rewardValue = _levelService.GetLevelData(levelIndex).LoseRewardValue;
             var losePresenter = _presenterFactory.CreateLosePresenter(loseView, rewardValue);
             _presenterFactory.CreateReloadScenePresenter(loseView.GetComponentInChildren<ReloadSceneView>(),
                 _reloadSceneService);

@@ -6,9 +6,9 @@ namespace Code.UI.VictoryShowers
     public class VictoryPresenter : Presenter<VictoryView>
     {
         private readonly ICurrencyPresenterProvider _currencyPresenterProvider;
-        private readonly int _rewardValue;
+        private readonly long _rewardValue;
 
-        public VictoryPresenter(VictoryView view, int rewardValue,
+        public VictoryPresenter(VictoryView view, long rewardValue,
             ICurrencyPresenterProvider currencyPresenterProvider) : base(view)
         {
             _rewardValue = rewardValue;

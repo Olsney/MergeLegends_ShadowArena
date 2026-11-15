@@ -14,7 +14,7 @@ namespace Code.UI.Rewards
         private Transform _transform;
         private Tween _tween;
         
-        private int _rewardValue;
+        private long _rewardValue;
 
         private void Awake()
         {
@@ -33,7 +33,7 @@ namespace Code.UI.Rewards
             DOTween.Kill(gameObject);
         }
 
-        public void SetValue(int rewardValue)
+        public void SetValue(long rewardValue)
         {
             _rewardValue = rewardValue;
             _rewardText.TextMeshPro.text = rewardValue.ToString();
@@ -46,9 +46,9 @@ namespace Code.UI.Rewards
 
             _rewardText.TextMeshPro.text = _rewardValue.ToString();
 
-            int startValue = _rewardValue;
+            long startValue = _rewardValue;
             int endValue = 0;
-            int currentValue = startValue;
+            long currentValue = startValue;
 
             await DOTween.To(() => currentValue, x =>
                 {

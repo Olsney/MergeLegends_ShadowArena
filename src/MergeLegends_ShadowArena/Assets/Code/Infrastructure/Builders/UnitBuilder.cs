@@ -1,6 +1,6 @@
-using System;
 using Code.Infrastructure.Factory.Units;
 using Code.Services.StaticData;
+using Code.Services.UnitStatsServices;
 using Code.StaticData;
 using Code.UI.Factory;
 using Code.Units;
@@ -20,6 +20,7 @@ namespace Code.Infrastructure.Builders
         private readonly IUnitFactory _unitFactory;
         private readonly IStaticDataService _staticData;
         private readonly IUnitPresenterFactory _presenterFactory;
+        private readonly IUnitStatsService _unitStatsService;
 
         private UnitTypeId _unitTypeId;
         private UnitAttackTypeId _unitAttackTypeId;
@@ -30,11 +31,13 @@ namespace Code.Infrastructure.Builders
         public UnitBuilder(
             IUnitFactory unitFactory,
             IStaticDataService staticData,
-            IUnitPresenterFactory presenterFactory)
+            IUnitPresenterFactory presenterFactory,
+            IUnitStatsService unitStatsService)
         {
             _unitFactory = unitFactory;
             _staticData = staticData;
             _presenterFactory = presenterFactory;
+            _unitStatsService = unitStatsService;
         }
 
         public IUnitBuilder SetUnitType(UnitTypeId unitTypeId)
@@ -76,17 +79,8 @@ namespace Code.Infrastructure.Builders
         {
             UnitStaticData unitStaticData = GetUnitStaticData();
 
-            if (unitStaticData.UnitStatsByLevelIndexSetups == null ||
-                unitStaticData.UnitStatsByLevelIndexSetups.Count == 0)
-                throw new InvalidOperationException($"UnitStatsByLevelIndexSetups is empty for {unitStaticData.name}");
+            UnitLevelStatsData stats = _unitStatsService.GetStats(unitStaticData, _unitCurrentLevelIndex);
 
-            if (_unitCurrentLevelIndex < 0 ||
-                _unitCurrentLevelIndex >= unitStaticData.UnitStatsByLevelIndexSetups.Count)
-                throw new ArgumentOutOfRangeException(nameof(_unitCurrentLevelIndex),
-                    $"Level {_unitCurrentLevelIndex} not found in {unitStaticData.name}");
-
-            UnitLevelStatsData stats = unitStaticData.UnitStatsByLevelIndexSetups[_unitCurrentLevelIndex]
-                .UnitLevelStatsData;
             TargetData targetData = unitStaticData.GeneralData.TargetData;
             UnitData unitData = unitStaticData.GeneralData.UnitData;
 

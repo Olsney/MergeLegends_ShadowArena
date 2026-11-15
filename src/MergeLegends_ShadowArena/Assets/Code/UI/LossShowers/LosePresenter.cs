@@ -6,9 +6,9 @@ namespace Code.UI.LossShowers
     public class LosePresenter : Presenter<LoseView>
     {
         private readonly ICurrencyPresenterProvider _currencyPresenterProvider;
-        private readonly int _rewardValue;
+        private readonly long _rewardValue;
         
-        public LosePresenter(LoseView view, int rewardValue, 
+        public LosePresenter(LoseView view, long rewardValue, 
             ICurrencyPresenterProvider currencyPresenterProvider) : base(view)
         {
             _rewardValue = rewardValue;

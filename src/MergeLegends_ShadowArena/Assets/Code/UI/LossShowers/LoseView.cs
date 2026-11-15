@@ -19,7 +19,7 @@ namespace Code.UI.LossShowers
             _reloadSceneView = GetComponentInChildren<ReloadSceneView>();
         }
 
-        public void SetValueReward(int rewardValue)
+        public void SetValueReward(long rewardValue)
         {
             _rewardView.SetValue(rewardValue);
         }
