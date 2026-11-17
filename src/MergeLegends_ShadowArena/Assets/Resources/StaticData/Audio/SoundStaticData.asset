@@ -15,17 +15,17 @@ MonoBehaviour:
   GameSoundDatas:
   - GameSoundTypeId: 1
     audioData:
-      AudioClip: {fileID: 8300000, guid: c0038c9b4109de047bb0bb9b3991e7a5, type: 3}
-      Volume: 0.5
+      AudioClip: {fileID: 8300000, guid: 48d67f8ffa77b674196c7411d29b286a, type: 3}
+      Volume: 0.3
   - GameSoundTypeId: 2
     audioData:
-      AudioClip: {fileID: 8300000, guid: f1b8c30e077d6aa41916e0e604dff130, type: 3}
+      AudioClip: {fileID: 8300000, guid: a2cea5d7d915976409a30259c7cc5d53, type: 3}
       Volume: 0.5
   - GameSoundTypeId: 3
     audioData:
-      AudioClip: {fileID: 8300000, guid: 6891b12a8f91f724482c4dc0a805b835, type: 3}
-      Volume: 0.8
+      AudioClip: {fileID: 8300000, guid: c5fbe05bfc2d375479580d18e7d857fa, type: 3}
+      Volume: 1
   - GameSoundTypeId: 4
     audioData:
-      AudioClip: {fileID: 8300000, guid: 6bf208c4d095b85448ee8fa35afc0039, type: 3}
-      Volume: 0.25
+      AudioClip: {fileID: 8300000, guid: aee5537483a6dc64189931cc4dc3682c, type: 3}
+      Volume: 1

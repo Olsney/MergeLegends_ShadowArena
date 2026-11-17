@@ -82,6 +82,9 @@ MonoBehaviour:
         hitAudio:
           AudioClip: {fileID: 0}
           Volume: 1
+        pitchRange:
+          Min: 0.8
+          Max: 1.2
       RangedAttackSoundData:
         magicSphereAudio:
           AudioClip: {fileID: 0}
@@ -91,11 +94,13 @@ MonoBehaviour:
           Volume: 1
       BossAttackSoundData:
         clubSwingAudio:
-          AudioClip: {fileID: 8300000, guid: 27f454027a9a1c3448afb3bb48d46aab, type: 3}
-          Volume: 0.8
+          AudioClip: {fileID: 8300000, guid: 87f84a0ca84f98f4793203b40ef5ec01, type: 3}
+          Volume: 1
+        clubSwingPitch: 0.6
         groundSlamAudio:
-          AudioClip: {fileID: 8300000, guid: 5fd6228348cdc8f44bb8b1f0c9bf8df2, type: 3}
-          Volume: 0.9
+          AudioClip: {fileID: 8300000, guid: c2f10d47508b8c24883d9e2783362d8f, type: 3}
+          Volume: 1
+        groundSlamPitch: 0.6
   Generation:
     AutoGenerate: 0
     BaseHp: 0
