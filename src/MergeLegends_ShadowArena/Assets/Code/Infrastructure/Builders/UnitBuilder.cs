@@ -103,9 +103,7 @@ namespace Code.Infrastructure.Builders
                         targetLayerMask: targetData.TargetLayerMask,
                         meleeAttackSound: meleeAttackSound);
 
-                    meleeAttackSound.Init(
-                        audioClip: unitStaticData.GeneralData.UnitSoundData.MeleeAttackSoundData.hitAudio.AudioClip,
-                        volume: unitStaticData.GeneralData.UnitSoundData.MeleeAttackSoundData.hitAudio.Volume);
+                    meleeAttackSound.Init(unitStaticData.GeneralData.UnitSoundData.MeleeAttackSoundData);
                     break;
                 case RangedAttacker ranged:
                     MagicSphereData magicSphereData = unitStaticData.GeneralData.MagicSphereData;
@@ -132,15 +130,7 @@ namespace Code.Infrastructure.Builders
                 case BossAttacker boss:
                     var bossAttackSound = unit.GetComponentInChildren<BossAttackSound>();
 
-                    bossAttackSound.Init(
-                        attackClip: unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData.clubSwingAudio
-                            .AudioClip,
-                        attackVolume: unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData.clubSwingAudio
-                            .Volume,
-                        lastAttackClip: unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData.groundSlamAudio
-                            .AudioClip,
-                        lastAttackVolume: unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData.groundSlamAudio
-                            .Volume);
+                    bossAttackSound.Init(unitStaticData.GeneralData.UnitSoundData.BossAttackSoundData);
 
                     boss.Init(
                         damage: stats.Damage,

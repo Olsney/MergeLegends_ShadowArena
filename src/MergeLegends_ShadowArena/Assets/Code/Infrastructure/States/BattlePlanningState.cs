@@ -1,6 +1,7 @@
 ﻿using Code.Infrastructure.Factory.Game;
 using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea;
+using Code.Logic.PlayArea.UnitInGridLogic;
 using Code.Services.CameraMoves;
 using Code.Services.CellsInitializerServices;
 using Code.Services.LevelServices;
@@ -27,6 +28,7 @@ namespace Code.Infrastructure.States
         private readonly ITutorialFlow _tutorialFlow;
         private readonly IPersistentProgressService _progressService;
         private readonly ILevelService _levelService;
+        private readonly IPlayerUnitGridSelectorService _playerUnitGridSelectorService;
 
         private UnitSpawnerViewsRoot _unitSpawnerViewsRoot;
         private MeleePlayerUnitPurchasePresenter _meleeSpawnPresenter;
@@ -46,7 +48,8 @@ namespace Code.Infrastructure.States
             ICameraMoverService cameraMover,
             ITutorialFlow tutorialFlow,
             IPersistentProgressService progressService,
-            ILevelService levelService)
+            ILevelService levelService,
+            IPlayerUnitGridSelectorService playerUnitGridSelectorService)
         {
             _uiFactory = uiFactory;
             _gameFactory = gameFactory;
@@ -60,6 +63,7 @@ namespace Code.Infrastructure.States
             _tutorialFlow = tutorialFlow;
             _progressService = progressService;
             _levelService = levelService;
+            _playerUnitGridSelectorService = playerUnitGridSelectorService;
         }
 
         public void Enter()
@@ -87,6 +91,8 @@ namespace Code.Infrastructure.States
 
         public void Exit()
         {
+            _playerUnitGridSelectorService.ClearSelection();
+            
             _meleeSpawnPresenter.Dispose();
             _rangedSpawnPresenter.Dispose();
             _fightPresenter.Dispose();

@@ -80,8 +80,11 @@ MonoBehaviour:
     UnitSoundData:
       MeleeAttackSoundData:
         hitAudio:
-          AudioClip: {fileID: 8300000, guid: f465227ac40a3134cb0dfe43f36550ab, type: 3}
+          AudioClip: {fileID: 8300000, guid: 01b97db1df7f28940b0fb2684f855eb9, type: 3}
           Volume: 0.6
+        pitchRange:
+          Min: 0.8
+          Max: 1.2
       RangedAttackSoundData:
         magicSphereAudio:
           AudioClip: {fileID: 0}
