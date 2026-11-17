@@ -31,6 +31,12 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
             _raycastService.HitPerformed -= OnHitPerformed;
             _raycastService.EmptyHit -= OnHitEmpty;
         }
+        
+        public void ClearSelection()
+        {
+            _selectedCell = null;
+            SelectionCleared?.Invoke();
+        }
 
         private void OnHitEmpty()
         {
