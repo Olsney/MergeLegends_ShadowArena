@@ -1,3 +1,4 @@
+using Code.StaticData;
 using UnityEngine;
 
 namespace Code.Units.Audio
@@ -5,36 +6,24 @@ namespace Code.Units.Audio
     public class BossAttackSound : MonoBehaviour
     {
         private AudioSource _audioSource;
+        private BossAttackSoundData _soundData;
 
-        private AudioClip _attackClip;
-        private float _attackVolume;
-
-        private AudioClip _lastAttackClip;
-        private float _lastAttackVolume;
-
-        private void Awake() 
+        private void Awake()
             => _audioSource = GetComponent<AudioSource>();
 
-        public void Init(
-            AudioClip attackClip,
-            float attackVolume,
-            AudioClip lastAttackClip,
-            float lastAttackVolume)
+        public void Init(BossAttackSoundData soundData)
+            => _soundData = soundData;
+
+        public void PlayAttackSound()
+            => Play(_soundData.clubSwingAudio, _soundData.clubSwingPitch);
+
+        public void PlayLastAttackSound()
+            => Play(_soundData.groundSlamAudio, _soundData.groundSlamPitch);
+
+        private void Play(AudioData audioData, float pitch)
         {
-            _attackClip = attackClip;
-            _attackVolume = attackVolume;
-
-            _lastAttackClip = lastAttackClip;
-            _lastAttackVolume = lastAttackVolume;
+            _audioSource.pitch = pitch;
+            _audioSource.PlayOneShot(audioData.AudioClip, audioData.Volume);
         }
-
-        public void PlayAttackSound() 
-            => Play(_attackClip, _attackVolume);
-
-        public void PlayLastAttackSound() 
-            => Play(_lastAttackClip, _lastAttackVolume);
-
-        private void Play(AudioClip clip, float volume) 
-            => _audioSource.PlayOneShot(clip, volume);
     }
 }
