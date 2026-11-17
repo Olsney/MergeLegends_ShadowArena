@@ -6,5 +6,6 @@ namespace Code.StaticData
     public class MeleeAttackSoundData
     {
         public AudioData hitAudio;
+        public PitchRangeData pitchRange;
     }
 }

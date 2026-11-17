@@ -75,7 +75,7 @@ namespace Code.Units.Attack
             if (CanHit(out Collider hit))
             {
                 hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
-                _meleeAttackSound.PlayHitSound(true);
+                _meleeAttackSound.PlayHitSound();
             }
         }
 

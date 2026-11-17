@@ -1,30 +1,27 @@
+using Code.StaticData;
 using UnityEngine;
 
 namespace Code.Units.Audio
 {
     public class MeleeAttackSound : MonoBehaviour
     {
-        private const float MaxInclusive = 1.1f;
-        private const float MinInclusive = 0.90f;
-
         private AudioSource _audioSource;
+        private PitchRangeData _pitchRange;
 
         private void Awake()
             => _audioSource = GetComponent<AudioSource>();
 
-        public void Init(AudioClip audioClip, float volume)
+        public void Init(MeleeAttackSoundData soundData)
         {
-            _audioSource.clip = audioClip;
-            _audioSource.volume = volume;
+            _audioSource.clip = soundData.hitAudio.AudioClip;
+            _audioSource.volume = soundData.hitAudio.Volume;
+            _pitchRange = soundData.pitchRange;
         }
 
-        public void PlayHitSound(bool pitchActive = false)
+        public void PlayHitSound()
         {
             _audioSource.Stop();
-
-            if (pitchActive)
-                _audioSource.pitch = Random.Range(MinInclusive, MaxInclusive);
-
+            _audioSource.pitch = Random.Range(_pitchRange.Min, _pitchRange.Max);
             _audioSource.PlayOneShot(_audioSource.clip, _audioSource.volume);
         }
     }
