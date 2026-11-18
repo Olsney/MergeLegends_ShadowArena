@@ -56,7 +56,7 @@ MonoBehaviour:
       - {x: 5.47, y: 5.25, z: 1.3400006}
   FirstGameLaunchData:
     CurrencyStarting:
-      StartValue: 6000
+      StartValue: 600
     UnitsStartingPrice:
       PriceIncrementPerPurchaseValue: 8
       MeleePrice:
@@ -2115,4 +2115,3 @@ MonoBehaviour:
     LoseRewardValue: 15000000
   LevelAutoGeneration:
     BossEveryNLevels: 3
-    MaxBossesPerLevel: 3
