@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Code.Infrastructure.States;
 using Code.Services.PersistentProgress;
 using Code.Services.ReloadSceneService;
@@ -8,8 +9,12 @@ using Code.UI.Levels;
 using Code.UI.LossShowers;
 using Code.UI.ReloadScenes;
 using Code.UI.Settings;
+using Code.UI.TeamHealth;
 using Code.UI.VictoryShowers;
 using Code.UI.WarningMessages;
+using Code.Units;
+using Code.Units.Enemies;
+using Code.Units.PlayerUnits;
 using UnityEngine;
 using Zenject;
 
@@ -77,6 +82,34 @@ namespace Code.UI.Factory
         {
             return CreatePresenter(view, loseView
                 => new LosePresenter(loseView, rewardValue, _currencyPresenterProvider));
+        }
+
+        public TeamHealthBarPresenter CreatePlayerTeamHealthBarPresenter(IPlayerUnitsProvider playerUnitsProvider)
+            => CreateTeamHealthBarPresenter(
+                _uiFactory.GetView<PlayerTeamHealthBarView>(),
+                GetHealths(playerUnitsProvider.GetPlayerUnits()));
+
+        public TeamHealthBarPresenter CreateEnemyTeamHealthBarPresenter(IEnemiesProvider enemiesProvider)
+            => CreateTeamHealthBarPresenter(
+                _uiFactory.GetView<EnemyTeamHealthBarView>(),
+                GetHealths(enemiesProvider.GetEnemies()));
+
+        private TeamHealthBarPresenter CreateTeamHealthBarPresenter(TeamHealthBarView view, List<IHealth> healths)
+        {
+            var presenter = new TeamHealthBarPresenter(view, healths);
+            presenter.Initialize();
+            return presenter;
+        }
+
+        private List<IHealth> GetHealths<TUnit>(IReadOnlyList<TUnit> units) where TUnit : MonoBehaviour
+        {
+            var healths = new List<IHealth>(units.Count);
+
+            foreach (TUnit unit in units)
+                if (unit != null && unit.TryGetComponent(out IHealth health))
+                    healths.Add(health);
+
+            return healths;
         }
 
         private TPresenter CreatePresenter<TView, TPresenter>(TView view, Func<TView, TPresenter> factory)
