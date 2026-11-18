@@ -345,6 +345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 300819033621068165}
+  - component: {fileID: 4952004902729122656}
   m_Layer: 5
   m_Name: HPBar_Enemy
   m_TagString: Untagged
@@ -372,6 +373,20 @@ RectTransform:
   m_AnchoredPosition: {x: 75, y: 225}
   m_SizeDelta: {x: 400, y: 40}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &4952004902729122656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038527439724256731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3fa1b2943dc416a97101f15f2ca2ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.TeamHealth.EnemyTeamHealthBarView
+  _slider: {fileID: 438885898272650509}
+  _animationDuration: 0.3
 --- !u!1 &1400753925025731944
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +877,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3126153439936563892}
+  - component: {fileID: 5565251801302447408}
   m_Layer: 5
   m_Name: HPBar_PlayerUnit
   m_TagString: Untagged
@@ -890,6 +906,20 @@ RectTransform:
   m_AnchoredPosition: {x: -500, y: 225}
   m_SizeDelta: {x: 340, y: 40}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &5565251801302447408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700414481360211763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539d1727317246fdaebaf94a327acf84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.UI.TeamHealth.PlayerTeamHealthBarView
+  _slider: {fileID: 4524170622130286033}
+  _animationDuration: 0.3
 --- !u!1 &4203653870536439942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,6 +1987,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b369200a4505640bea81594ae56cb8, type: 3}
+--- !u!114 &4524170622130286033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5950794249759537741, guid: 10b369200a4505640bea81594ae56cb8, type: 3}
+  m_PrefabInstance: {fileID: 7808224579424343964}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6556877536066361146 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3936945984264110246, guid: 10b369200a4505640bea81594ae56cb8, type: 3}
