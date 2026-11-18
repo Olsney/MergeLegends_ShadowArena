@@ -130,10 +130,10 @@ namespace Code.Infrastructure.Installers
 
         private void BindInputService()
         {
-            if (Application.isEditor)
-                Container.BindInterfacesAndSelfTo<StandaloneInputService>().AsSingle();
-            else
+            if (Application.isMobilePlatform)
                 Container.BindInterfacesAndSelfTo<MobileInputService>().AsSingle();
+            else
+                Container.BindInterfacesAndSelfTo<StandaloneInputService>().AsSingle();
         }
 
         private void BindSceneLoader() =>
