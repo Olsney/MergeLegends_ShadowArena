@@ -12,6 +12,8 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
         private CellGridPlayerUnit _selectedCell;
 
         public event Action<GameObject, Vector3> UnitCellChanged;
+        public event Action<CellGridPlayerUnit> UnitSelected;
+        public event Action SelectionCleared;
 
         public PlayerUnitGridSelectorService(IRaycastService raycastService)
         {
@@ -19,10 +21,27 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
         }
 
         public void Initialize()
-            => _raycastService.HitPerformed += OnHitPerformed;
+        {
+            _raycastService.HitPerformed += OnHitPerformed;
+            _raycastService.EmptyHit += OnHitEmpty;
+        }
 
         public void Dispose()
-            => _raycastService.HitPerformed -= OnHitPerformed;
+        {
+            _raycastService.HitPerformed -= OnHitPerformed;
+            _raycastService.EmptyHit -= OnHitEmpty;
+        }
+        
+        public void ClearSelection()
+        {
+            _selectedCell = null;
+            SelectionCleared?.Invoke();
+        }
+
+        private void OnHitEmpty()
+        {
+            SelectionCleared?.Invoke();
+        }
 
         private void OnHitPerformed(RaycastHit hit)
         {
@@ -32,7 +51,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
                 return;
             }
 
-            ClearSelection();
+            SelectionCleared?.Invoke();
         }
 
         private void HandleCell(CellGridPlayerUnit cell)
@@ -41,13 +60,12 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
             {
                 if (_selectedCell == cell)
                 {
-                    ClearSelection();
+                    SelectionCleared?.Invoke();
                     return;
                 }
 
                 if (cell.IsOccupied)
                 {
-                    ClearSelection();
                     SelectCell(cell);
                     return;
                 }
@@ -67,8 +85,8 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
 
         private void SelectCell(CellGridPlayerUnit cell)
         {
+            UnitSelected?.Invoke(cell);
             _selectedCell = cell;
-            _selectedCell.ActivateSelectedBorder();
         }
 
         private void SetUnitInCell(CellGridPlayerUnit targetCell)
@@ -77,16 +95,7 @@ namespace Code.Logic.PlayArea.UnitInGridLogic
             _selectedCell.RemoveUnit();
             targetCell.SetUnit(playerUnit);
             UnitCellChanged?.Invoke(playerUnit, targetCell.transform.position);
-            ClearSelection();
-        }
-
-        private void ClearSelection()
-        {
-            if (_selectedCell != null)
-            {
-                _selectedCell.DeactivateSelectedBorder();
-                _selectedCell = null;
-            }
+            SelectionCleared?.Invoke();
         }
     }
 }

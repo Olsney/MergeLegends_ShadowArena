@@ -1,12 +1,10 @@
 using Code.Infrastructure.AssetManagement;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.Grid;
-using Code.Logic.PlayArea.GridConfig;
+using Code.Services.SceneProvider;
 using Code.Services.StaticData;
 using Code.StaticData;
-using Code.Units;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Code.Infrastructure.Factory.Game
@@ -16,77 +14,77 @@ namespace Code.Infrastructure.Factory.Game
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assets;
         private readonly IStaticDataService _staticData;
+        private readonly ISceneProvider _sceneProvider;
 
-        private GameObject _playZone;
-
-        public GameFactory(IInstantiator instantiator, IAssetProvider assets, IStaticDataService staticData)
+        public GameFactory(
+            IInstantiator instantiator,
+            IAssetProvider assets,
+            IStaticDataService staticData,
+            ISceneProvider sceneProvider)
         {
             _instantiator = instantiator;
             _assets = assets;
             _staticData = staticData;
+            _sceneProvider = sceneProvider;
         }
 
-        public GameObject CreatePlayZone()
+        public GameObject CreatePlayZone(LocationTypeId locationTypeId)
         {
-            _playZone = _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath));
+            GameObject playZone =
+                _instantiator.InstantiatePrefab(_assets.Load(AssetPath.PlayZonePath), _sceneProvider.Container);
 
-            LevelStaticData levelData = _staticData.GetLevel(SceneManager.GetActiveScene().name);
-            
-            CreateGridZone(levelData.PlayerUnitsGridPlacesPosition, GridPlacesTypeId.PlayerUnit);
-            CreateGridZone(levelData.EnemiesGridPlacesPosition, GridPlacesTypeId.Enemy);
+            LocationSceneEntryData location = _staticData.GetLocation(locationTypeId);
 
-            return _playZone;
+            CreateGridZone(playZone.transform, location.PlayerUnitsGridPlacesPosition, UnitTypeId.PlayerUnit);
+            CreateGridZone(playZone.transform, location.EnemiesGridPlacesPosition, UnitTypeId.Enemy);
+
+            return playZone;
         }
 
-        private void CreateGridZone(Vector3 position, GridPlacesTypeId gridPlacesTypeId)
+        public void CreateVictoryConfetti(LocationTypeId locationTypeId)
         {
-            GridConfig gridConfig = _staticData.GetGridPlaces(gridPlacesTypeId).GridConfig;
+            var confettiPrefab = _assets.Load(AssetPath.ConfettiVictoryEffectPath);
+            var spawnPoints = _staticData.GetLocation(locationTypeId).ConfettiEffectSpawnPointPosition;
 
-            var gridZone = _instantiator.InstantiatePrefab(gridConfig.GridsRoot);
-
-            gridZone.transform.SetParent(_playZone.transform, true);
-            gridZone.transform.localPosition = position;
-            gridZone.name = gridPlacesTypeId.ToString();
-
-            GenerateCellsForGrid(gridZone, gridZone.GetComponent<IGridUnitPlaces>(), gridPlacesTypeId);
-        }
-
-        private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces,
-            GridPlacesTypeId gridPlacesTypeId)
-        {
-            GridConfig gridConfig = _staticData.GetGridPlaces(gridPlacesTypeId).GridConfig;
-
-            int gridWidth = gridConfig.Width;
-            int gridHeight = gridConfig.Height;
-            float gridSpacing = gridConfig.Spacing;
-
-            for (int x = 0; x < gridWidth; x++)
+            for (int i = 0; i < spawnPoints.Count; i++)
             {
-                for (int z = 0; z < gridHeight; z++)
-                {
-                    GameObject cell = _instantiator.InstantiatePrefab(gridConfig.CellPrefab);
+                _instantiator.InstantiatePrefab(confettiPrefab, spawnPoints[i], Quaternion.identity,
+                    _sceneProvider.Container);
+            }
+        }
 
-                    Vector3 localPosition = new Vector3(x * gridSpacing, 0, z * gridSpacing);
+        private void CreateGridZone(Transform parent, Vector3 position, UnitTypeId unitTypeId)
+        {
+            var gridData = _staticData.GetGridPlaces(unitTypeId).GridData;
+            var gridZone = _instantiator.InstantiatePrefab(gridData.GridsRoot, parent);
+
+            gridZone.transform.SetParent(parent, true);
+            gridZone.transform.localPosition = position;
+            gridZone.name = unitTypeId.ToString();
+
+            GenerateCellsForGrid(gridZone, gridZone.GetComponent<IGridUnitPlaces>(), unitTypeId);
+        }
+
+        private void GenerateCellsForGrid(GameObject gridZone, IGridUnitPlaces gridUnitPlaces, UnitTypeId unitTypeId)
+        {
+            var gridData = _staticData.GetGridPlaces(unitTypeId).GridData;
+            var cellPrefab = gridData.CellPrefab;
+            var gridWidth = gridData.Height;
+            var gridHeight = gridData.Width;
+            var spacing = gridData.Spacing;
+
+            for (int vertical = 0; vertical < gridWidth; vertical++)
+            {
+                for (int horizontal = 0; horizontal < gridHeight; horizontal++)
+                {
+                    var cell = _instantiator.InstantiatePrefab(cellPrefab, _sceneProvider.Container);
                     cell.transform.SetParent(gridZone.transform, true);
-                    cell.transform.localPosition = localPosition;
-                    cell.name = $"Cell {x} {z}";
+                    cell.transform.localPosition = new Vector3(horizontal * spacing, 0, vertical * spacing);
+                    cell.name = $"Cell {horizontal} {vertical}";
 
                     gridUnitPlaces.AddCell(cell.GetComponent<ICellGrid>());
                 }
             }
-        }
-
-        public GameObject CreatePlayerUnit(Vector3 position)
-        {
-            PlayerUnitStaticData playerUnitStaticData = _staticData.GetPlayerUnit(PlayerUnitTypeId.Lvl1);
-            
-            GameObject playerUnit = _instantiator.InstantiatePrefab(
-                playerUnitStaticData.PlayerUnitConfig.PlayerUnitPrefab, position,
-                Quaternion.identity, null);
-            
-            playerUnit.GetComponent<TargetFinder>().InitSettings(playerUnitStaticData.TargetFinderConfig);
-            
-            return playerUnit;
         }
     }
 }

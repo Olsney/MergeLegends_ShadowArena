@@ -6,5 +6,6 @@ namespace Code.Services.Raycast
     public interface IRaycastService
     {
         event Action<RaycastHit> HitPerformed;
+        event Action EmptyHit;
     }
 }

@@ -1,39 +1,38 @@
 using Code.Data;
-using Code.Units.PlayerUnit;
+using Code.StaticData;
 using UnityEngine;
 
 namespace Code.Units
 {
-    public class TargetFinder : MonoBehaviour
+    public class TargetFinder : MonoBehaviour, ITargetFinder
     {
         private const int MaxColliders = 20;
+        private const float FinderRadius = 22;
 
-        private float _finderRadius;
         private int _layerMask;
         private Collider[] _results = new Collider[MaxColliders];
-        private Enemy _currentEnemy;
+        private IUnit _currentUnit;
 
-        public void InitSettings(TargetFinderConfig config)
+        public void Init(LayerMaskTypeId layerMaskTypeId)
         {
-            _finderRadius = config.Radius;
-            _layerMask = 1 << (int)config.layerMaskTypeId;
+            _layerMask = 1 << (int)layerMaskTypeId;
         }
 
-        public Enemy GetTarget()
+        public IUnit GetTarget()
         {
-            if (_currentEnemy == null || _currentEnemy.IsDead)
+            if (_currentUnit == null || _currentUnit.IsDead)
                 return Find();
 
-            return _currentEnemy;
+            return _currentUnit;
         }
 
-        private Enemy Find()
+        private IUnit Find()
         {
-            _currentEnemy = null;
+            _currentUnit = null;
 
             int hitCount = Physics.OverlapSphereNonAlloc(
                 transform.position,
-                _finderRadius,
+                FinderRadius,
                 _results,
                 _layerMask
             );
@@ -42,27 +41,27 @@ namespace Code.Units
 
             for (int i = 0; i < hitCount; i++)
             {
-                var enemy = _results[i].GetComponent<Enemy>();
+                var enemy = _results[i].GetComponent<IUnit>();
 
                 if (enemy == null || enemy.IsDead)
                     continue;
 
-                float sqrDistance = transform.position.SqrMagnitudeTo(enemy.transform.position);
+                float sqrDistance = transform.position.SqrMagnitudeTo(enemy.Transform.position);
 
                 if (sqrDistance < minSqrDistance)
                 {
                     minSqrDistance = sqrDistance;
-                    _currentEnemy = enemy;
+                    _currentUnit = enemy;
                 }
             }
 
-            return _currentEnemy;
+            return _currentUnit;
         }
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, _finderRadius);
+            Gizmos.DrawWireSphere(transform.position, FinderRadius);
         }
     }
 }

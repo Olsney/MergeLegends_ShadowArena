@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c032879a89e485aa7d29a4a58334db5, type: 3}
+  m_Name: Ranged_PlayerUnit
+  m_EditorClassIdentifier: Assembly-CSharp::UnitStaticData
+  UnitAttackTypeId: 2
+  UnitStatsByLevelIndexSetups:
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 60
+      Damage: 12
+      ViewPrefab: {fileID: 5596223144143196016, guid: 970875efd63e99049a509d9e76aa5dff, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 130
+      Damage: 26
+      ViewPrefab: {fileID: 7764083839754589176, guid: da9827d506b0ac746b3d4e1e0f43e1ab, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 290
+      Damage: 58
+      ViewPrefab: {fileID: 3655724013019319166, guid: 95ff5321358d0cc4ea7ea6f916663a5c, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 640
+      Damage: 130
+      ViewPrefab: {fileID: 7390873143129347522, guid: 8bea84a9456ee5a4591f00b54f6f5b3f, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 1400
+      Damage: 280
+      ViewPrefab: {fileID: 6914762380294600127, guid: 34d774ff26f35c54682bace3cff59b26, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 3100
+      Damage: 620
+      ViewPrefab: {fileID: 6964295550334762419, guid: f78cd945a469ce74db472b20bca5315f, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 6800
+      Damage: 1400
+      ViewPrefab: {fileID: 797039692764323593, guid: 39d96db559422d847b0d3dcfacdceda7, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 15000
+      Damage: 3000
+      ViewPrefab: {fileID: 1512751822078995830, guid: 4612e1e549f8f1842a4e88809f7abdfb, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 33000
+      Damage: 6600
+      ViewPrefab: {fileID: 3184429323735600068, guid: 894ddabd8d62f80479e357787bc8415a, type: 3}
+  - Override: 0
+    UnitLevelStatsData:
+      Hp: 72000
+      Damage: 14000
+      ViewPrefab: {fileID: 5155759024317157098, guid: 90d4239cb438862449b3286b75a9bc03, type: 3}
+  GeneralData:
+    UnitData:
+      MoveSpeed: 3.5
+      AttackDistance: 35
+      AttackCooldown: 0.2
+    TargetData:
+      TargetLayerMask: 7
+    MagicSphereData:
+      Speed: 7
+      ViewPrefab: {fileID: 5959412765337696548, guid: 574dd2aaac98a3f4c9a740fc7bbe1430, type: 3}
+    CameraShakeToAttackData:
+      Force: 0
+      Direction: {x: 0, y: 0}
+    UnitSoundData:
+      MeleeAttackSoundData:
+        hitAudio:
+          AudioClip: {fileID: 0}
+          Volume: 0
+      RangedAttackSoundData:
+        magicSphereAudio:
+          AudioClip: {fileID: 8300000, guid: 97a93348ae9ec424a9b78f55944f74b0, type: 3}
+          Volume: 1
+        explosionMagicSphereAudio:
+          AudioClip: {fileID: 8300000, guid: b7a210df23bd255428bdf4def67109f2, type: 3}
+          Volume: 1
+      BossAttackSoundData:
+        clubSwingAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1
+        groundSlamAudio:
+          AudioClip: {fileID: 0}
+          Volume: 1
+  Generation:
+    AutoGenerate: 1
+    BaseHp: 60
+    BaseDamage: 12
+    HpGrowth: 2.2
+    DamageGrowth: 2.2
+    SignificantDigits: 2

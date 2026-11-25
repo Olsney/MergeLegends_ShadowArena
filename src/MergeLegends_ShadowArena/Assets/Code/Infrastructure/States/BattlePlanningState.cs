@@ -1,7 +1,16 @@
 ﻿using Code.Infrastructure.Factory.Game;
-using Code.UI;
+using Code.Logic.EnemySpawners;
+using Code.Logic.PlayArea;
+using Code.Logic.PlayArea.UnitInGridLogic;
+using Code.Services.CameraMoves;
+using Code.Services.CellsInitializerServices;
+using Code.Services.LevelServices;
+using Code.Services.PersistentProgress;
+using Code.StaticData;
 using Code.UI.Factory;
-using UnityEngine;
+using Code.UI.Fights;
+using Code.UI.SpawnUnits;
+using Code.UI.Tutorial;
 
 namespace Code.Infrastructure.States
 {
@@ -9,36 +18,91 @@ namespace Code.Infrastructure.States
     {
         private readonly IUIFactory _uiFactory;
         private readonly IGameFactory _gameFactory;
+        private readonly IEnemySpawner _enemySpawner;
+        private readonly ISpawnButtonsParentProvider _spawnButtonsParentProvider;
+        private readonly IPresenterFactory _presenterFactory;
+        private readonly IPurchasePresenterFactory _purchasePresenterFactory;
+        private readonly BattleStateMachine _battleStateMachine;
+        private readonly ICellsInitializerService _cellsInitializerService;
+        private readonly ICameraMoverService _cameraMover;
+        private readonly ITutorialFlow _tutorialFlow;
+        private readonly IPersistentProgressService _progressService;
+        private readonly ILevelService _levelService;
+        private readonly IPlayerUnitGridSelectorService _playerUnitGridSelectorService;
 
-        private PlayerSpawnerPresenter _spawnPresenter;
+        private UnitSpawnerViewsRoot _unitSpawnerViewsRoot;
+        private MeleePlayerUnitPurchasePresenter _meleeSpawnPresenter;
+        private RangedPlayerUnitPurchasePresenter _rangedSpawnPresenter;
         private FightPresenter _fightPresenter;
-        private GameObject _playZone;
+        private PlayZone _playZone;
 
-        public BattlePlanningState(IUIFactory uiFactory, IGameFactory gameFactory)
+        public BattlePlanningState(
+            IUIFactory uiFactory,
+            IGameFactory gameFactory,
+            IEnemySpawner enemySpawner,
+            ISpawnButtonsParentProvider spawnButtonsParentProvider,
+            IPresenterFactory presenterFactory,
+            BattleStateMachine battleStateMachine,
+            IPurchasePresenterFactory purchasePresenterFactory,
+            ICellsInitializerService cellsInitializerService,
+            ICameraMoverService cameraMover,
+            ITutorialFlow tutorialFlow,
+            IPersistentProgressService progressService,
+            ILevelService levelService,
+            IPlayerUnitGridSelectorService playerUnitGridSelectorService)
         {
             _uiFactory = uiFactory;
             _gameFactory = gameFactory;
+            _enemySpawner = enemySpawner;
+            _spawnButtonsParentProvider = spawnButtonsParentProvider;
+            _presenterFactory = presenterFactory;
+            _battleStateMachine = battleStateMachine;
+            _purchasePresenterFactory = purchasePresenterFactory;
+            _cellsInitializerService = cellsInitializerService;
+            _cameraMover = cameraMover;
+            _tutorialFlow = tutorialFlow;
+            _progressService = progressService;
+            _levelService = levelService;
+            _playerUnitGridSelectorService = playerUnitGridSelectorService;
         }
 
         public void Enter()
         {
-            _spawnPresenter = _uiFactory.CreateSpawnPlayerUnitPresenter();
-            _fightPresenter = _uiFactory.CreateFightPresenter();
-            _playZone = _gameFactory.CreatePlayZone();
+            _unitSpawnerViewsRoot = _uiFactory.CreateSpawnerViewsRoot();
+
+            _meleeSpawnPresenter = _purchasePresenterFactory.CreateMeleePlayerUnitPurchasePresenter(
+                _spawnButtonsParentProvider.TransformParent);
+            _rangedSpawnPresenter = _purchasePresenterFactory.CreateRangedPlayerUnitPurchasePresenter(
+                _spawnButtonsParentProvider.TransformParent);
+
+            _fightPresenter = _presenterFactory.CreateFightPresenter(_battleStateMachine);
+
+            int levelIndex = _progressService.Progress.WorldData.LevelData.CurrentLevelIndex;
+            LocationTypeId location = _levelService.GetLevelData(levelIndex).Location;
+
+            _playZone = _gameFactory.CreatePlayZone(location).GetComponent<PlayZone>();
+            _cellsInitializerService.InitializeAllCells();
+            _enemySpawner.Spawn();
+
+            _cameraMover.StartMoveFirstTimeGameLater();
+
+            _tutorialFlow.TryStart();
         }
 
         public void Exit()
         {
-            _spawnPresenter.RemoveView();
-            _fightPresenter.RemoveView();
+            _playerUnitGridSelectorService.ClearSelection();
+            
+            _meleeSpawnPresenter.Dispose();
+            _rangedSpawnPresenter.Dispose();
+            _fightPresenter.Dispose();
 
-            _spawnPresenter?.Dispose();
-            _fightPresenter?.Dispose();
-
-            _spawnPresenter = null;
+            _meleeSpawnPresenter = null;
+            _rangedSpawnPresenter = null;
             _fightPresenter = null;
 
-            GameObject.Destroy(_playZone);
+            _unitSpawnerViewsRoot.Remove();
+            _playZone.Remove();
         }
     }
 }

@@ -1,18 +1,45 @@
+using Code.Core.LoadingCurtains;
 using Code.Infrastructure.AssetManagement;
+using Code.Infrastructure.Builders;
 using Code.Infrastructure.CameraProviders;
 using Code.Infrastructure.Factory.Game;
+using Code.Infrastructure.Factory.Projectile;
 using Code.Infrastructure.Factory.State;
+using Code.Infrastructure.Factory.Units;
 using Code.Infrastructure.States;
-using Code.Logic;
+using Code.Logic.BattleResultShowers;
+using Code.Logic.BattleServices;
+using Code.Logic.EnemySpawners;
 using Code.Logic.PlayArea.Cell;
 using Code.Logic.PlayArea.UnitInGridLogic;
+using Code.Services.Audio;
+using Code.Services.CameraMoves;
+using Code.Services.CellsInitializerServices;
 using Code.Services.Input;
+using Code.Services.LevelAutoGeneratorServices;
+using Code.Services.LevelServices;
+using Code.Services.MergeHintServices;
+using Code.Services.MergeUnits;
+using Code.Services.Music;
+using Code.Services.MusicProviders;
+using Code.Services.PersistentProgress;
+using Code.Services.PlayerUnitPurchases;
 using Code.Services.Raycast;
+using Code.Services.ReloadSceneService;
+using Code.Services.RewardServices;
+using Code.Services.SaveLoad;
+using Code.Services.SceneProvider;
+using Code.Services.SoundProviders;
 using Code.Services.StaticData;
-using Code.UI;
+using Code.Services.Tutorial;
+using Code.Services.UnitStatsAutoGeneratorServices;
+using Code.Services.UnitStatsServices;
+using Code.UI.Currency;
 using Code.UI.Factory;
-using Code.UI.Services.Windows;
-using Code.Units.PlayerUnit;
+using Code.UI.SpawnUnits;
+using Code.UI.Tutorial;
+using Code.Units.Enemies;
+using Code.Units.PlayerUnits;
 using UnityEngine;
 using Zenject;
 
@@ -25,9 +52,11 @@ namespace Code.Infrastructure.Installers
             BindCoroutine();
             BindFactories();
             BindStates();
+            BindInputService();
             BindServices();
             BindSceneLoader();
             BindSpawners();
+            BindTutorial();
         }
 
         private void BindCoroutine() =>
@@ -38,6 +67,12 @@ namespace Code.Infrastructure.Installers
             Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
             Container.Bind<IStateFactory>().To<StateFactory>().AsSingle();
             Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
+            Container.Bind<IProjectileFactory>().To<ProjectileFactory>().AsSingle();
+            Container.Bind<IUnitFactory>().To<UnitFactory>().AsSingle();
+            Container.Bind<IPresenterFactory>().To<PresenterFactory>().AsSingle();
+            Container.Bind<IPurchasePresenterFactory>().To<PurchaseUnitPresenterFactory>().AsSingle();
+            Container.Bind<IUnitPresenterFactory>().To<UnitPresenterFactory>().AsSingle();
+            Container.Bind<ISettingsComponentsPresenterFactory>().To<SettingsComponentsPresenterFactory>().AsSingle();
         }
 
         private void BindStates()
@@ -46,6 +81,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<LoadProgressState>().AsSingle();
+            Container.Bind<ApplySettingsState>().AsSingle();
             Container.Bind<BattleStateMachine>().AsSingle();
             Container.Bind<BattlePlanningState>().AsSingle();
             Container.Bind<BattleFightState>().AsSingle();
@@ -54,25 +90,50 @@ namespace Code.Infrastructure.Installers
 
         private void BindServices()
         {
-            BindInputService();
             Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
-            Container.Bind<IWindowService>().To<WindowService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<RaycastService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridSelectorService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerUnitGridMoverService>().AsSingle();
-            Container.Bind<ICellsProvider>().To<CellsProvider>().AsSingle();
-            Container.Bind<IPlayerUnitProvider>().To<PlayerUnitProvider>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BattleService>().AsCached();
+            Container.Bind<IPlayerUnitCellsProvider>().To<PlayerUnitCellsProvider>().AsSingle();
+            Container.Bind<IEnemiesProvider>().To<EnemiesProvider>().AsSingle();
+            Container.Bind<IEnemyCellsProvider>().To<EnemyCellsProvider>().AsSingle();
+            Container.Bind<IPlayerUnitsProvider>().To<PlayerUnitsProvider>().AsSingle();
+            Container.Bind<IBattleService>().To<BattleService>().AsSingle();
+            Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
+            Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
+            Container.Bind<ISpawnButtonsParentProvider>().To<SpawnButtonsParentProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MergeUnitsService>().AsSingle();
+            Container.Bind<IUnitBuilder>().To<UnitBuilder>().AsSingle();
+            Container.Bind<IPlayerUnitPurchaseService>().To<PlayerUnitPurchaseService>().AsSingle();
+            Container.Bind<IBattleResultService>().To<BattleResultService>().AsSingle();
+            Container.Bind<IRewardServices>().To<RewardServices>().AsSingle();
+            Container.Bind<IReloadSceneService>().To<ReloadSceneService>().AsSingle();
+            Container.Bind<ICurrencyPresenterProvider>().To<CurrencyPresenterProvider>().AsSingle();
+            Container.Bind<ISceneProvider>().To<SceneProvider>().AsSingle();
+            Container.Bind<ICellsInitializerService>().To<CellsInitializerService>().AsSingle();
+            Container.Bind<ICameraMoverService>().To<CameraMoverService>().AsSingle();
+            Container.Bind<ILoadingCurtainProvider>().To<LoadingCurtainProvider>().AsSingle();
+            Container.Bind<ICinemachineProvider>().To<CinemachineProvider>().AsSingle();
+            Container.Bind<ICameraShakeService>().To<CameraShakeService>().AsSingle();
+            Container.Bind<ISoundProvider>().To<SoundProvider>().AsSingle();
+            Container.Bind<IAudioService>().To<AudioService>().AsSingle();
+            Container.Bind<IMusicProvider>().To<MusicProvider>().AsSingle();
+            Container.Bind<IMusicService>().To<MusicService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MergeHintService>().AsSingle();
+            Container.Bind<ILevelService>().To<LevelService>().AsSingle();
+            Container.Bind<ILevelAutoGeneratorService>().To<LevelAutoGeneratorService>().AsSingle();
+            Container.Bind<IUnitStatsAutoGeneratorService>().To<UnitStatsAutoGeneratorService>().AsSingle();
+            Container.Bind<IUnitStatsService>().To<UnitStatsService>().AsSingle();
         }
 
         private void BindInputService()
         {
-            if (Application.isEditor)
-                Container.BindInterfacesAndSelfTo<StandaloneInputService>().AsSingle();
-            else
+            if (Application.isMobilePlatform)
                 Container.BindInterfacesAndSelfTo<MobileInputService>().AsSingle();
+            else
+                Container.BindInterfacesAndSelfTo<StandaloneInputService>().AsSingle();
         }
 
         private void BindSceneLoader() =>
@@ -81,6 +142,13 @@ namespace Code.Infrastructure.Installers
         private void BindSpawners()
         {
             Container.Bind<IPlayerUnitSpawner>().To<PlayerUnitSpawner>().AsSingle();
+            Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
+        }
+
+        private void BindTutorial()
+        {
+            Container.Bind<ITutorialFlow>().To<TutorialFlow>().AsSingle();
+            Container.Bind<ITutorialPointerService>().To<TutorialPointerService>().AsSingle();
         }
     }
 }

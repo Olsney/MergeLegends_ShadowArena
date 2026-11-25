@@ -1,0 +1,2117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d4003d647c46aa87672c03ba9be701, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: Assembly-CSharp::Code.StaticData.LevelStaticData
+  LocationCatalog:
+    Entries:
+    - Type: 1
+      Scene: {fileID: 102900000, guid: 6f8d03e146e23d94db0aefbc4f5f2658, type: 3}
+      SceneName: Main
+      PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0, z: -5.789998}
+      EnemiesGridPlacesPosition: {x: -2.19, y: 0, z: 6.05}
+      ConfettiEffectSpawnPointPosition:
+      - {x: -2.3899999, y: 5, z: 1.7000008}
+      - {x: 5.47, y: 5, z: 1.9400005}
+    - Type: 2
+      Scene: {fileID: 102900000, guid: f320eb76c10857547b0bc01d34687f2d, type: 3}
+      SceneName: Main_1
+      PlayerUnitsGridPlacesPosition: {x: -2.1800017, y: 0.13, z: -5.3600016}
+      EnemiesGridPlacesPosition: {x: -2.1800015, y: 0.13, z: 5.760001}
+      ConfettiEffectSpawnPointPosition:
+      - {x: 4.7400007, y: 5.13, z: -0.32000017}
+      - {x: -2.870001, y: 5.13, z: -0.31999993}
+    - Type: 3
+      Scene: {fileID: 102900000, guid: 5f2f11bd22c901a4bb1bdbf54558ff77, type: 3}
+      SceneName: Main_2
+      PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0, z: -5.1499977}
+      EnemiesGridPlacesPosition: {x: -2.19, y: 0, z: 6.6900005}
+      ConfettiEffectSpawnPointPosition:
+      - {x: -2.3899999, y: 5, z: 2.340001}
+      - {x: 5.47, y: 5, z: 2.5800009}
+    - Type: 4
+      Scene: {fileID: 102900000, guid: 666617834c71ed249867b80983a52e7f, type: 3}
+      SceneName: Main_3
+      PlayerUnitsGridPlacesPosition: {x: -2.1999998, y: -0.5, z: -4.3900003}
+      EnemiesGridPlacesPosition: {x: -2.1999998, y: -0.5, z: 6.45}
+      ConfettiEffectSpawnPointPosition:
+      - {x: -2.3999996, y: 4.5, z: 2.1000004}
+      - {x: 5.46, y: 4.5, z: 2.3400002}
+    - Type: 5
+      Scene: {fileID: 102900000, guid: 9bd751d86eafec546852cd33a2800d9b, type: 3}
+      SceneName: Main_4
+      PlayerUnitsGridPlacesPosition: {x: -2.19, y: 0.25, z: -5.39}
+      EnemiesGridPlacesPosition: {x: -2.19, y: 0.25, z: 5.86}
+      ConfettiEffectSpawnPointPosition:
+      - {x: -2.3899999, y: 5.25, z: 1.1000009}
+      - {x: 5.47, y: 5.25, z: 1.3400006}
+  FirstGameLaunchData:
+    CurrencyStarting:
+      StartValue: 600
+    UnitsStartingPrice:
+      PriceIncrementPerPurchaseValue: 8
+      MeleePrice:
+        StartValue: 100
+      RangedPrice:
+        StartValue: 100
+  GameLevelsData:
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 100
+    LoseRewardValue: 35
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 120
+    LoseRewardValue: 43
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 200
+    LoseRewardValue: 70
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 190
+    LoseRewardValue: 67
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 240
+    LoseRewardValue: 83
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 380
+    LoseRewardValue: 130
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 360
+    LoseRewardValue: 130
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 450
+    LoseRewardValue: 160
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 730
+    LoseRewardValue: 250
+  - Location: 1
+    EnemiesSpawnData:
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 690
+    LoseRewardValue: 240
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 860
+    LoseRewardValue: 300
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 2
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 1400
+    LoseRewardValue: 480
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 1300
+    LoseRewardValue: 460
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 1600
+    LoseRewardValue: 570
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 2
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 2600
+    LoseRewardValue: 920
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 2500
+    LoseRewardValue: 880
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 3100
+    LoseRewardValue: 1100
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 3
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 5000
+    LoseRewardValue: 1800
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 4800
+    LoseRewardValue: 1700
+  - Location: 2
+    EnemiesSpawnData:
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 6000
+    LoseRewardValue: 2100
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 3
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 9600
+    LoseRewardValue: 3400
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 9200
+    LoseRewardValue: 3200
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 11000
+    LoseRewardValue: 4000
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 4
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 1
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 18000
+    LoseRewardValue: 6400
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 17000
+    LoseRewardValue: 6100
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 22000
+    LoseRewardValue: 7600
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 4
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 35000
+    LoseRewardValue: 12000
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 33000
+    LoseRewardValue: 12000
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 41000
+    LoseRewardValue: 14000
+  - Location: 3
+    EnemiesSpawnData:
+    - LevelIndex: 5
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 0
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 2
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 67000
+    LoseRewardValue: 23000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 63000
+    LoseRewardValue: 22000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 79000
+    LoseRewardValue: 28000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 5
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 130000
+    LoseRewardValue: 44000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 120000
+    LoseRewardValue: 42000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 150000
+    LoseRewardValue: 53000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 6
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 240000
+    LoseRewardValue: 85000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 230000
+    LoseRewardValue: 81000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 290000
+    LoseRewardValue: 100000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 6
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 460000
+    LoseRewardValue: 160000
+  - Location: 4
+    EnemiesSpawnData:
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 440000
+    LoseRewardValue: 150000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 550000
+    LoseRewardValue: 190000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 7
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 880000
+    LoseRewardValue: 310000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 840000
+    LoseRewardValue: 290000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 1000000
+    LoseRewardValue: 360000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 8
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 3
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 4
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 1700000
+    LoseRewardValue: 590000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 1600000
+    LoseRewardValue: 560000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 2000000
+    LoseRewardValue: 690000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 8
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 3200000
+    LoseRewardValue: 1100000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 3000000
+    LoseRewardValue: 1100000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 3800000
+    LoseRewardValue: 1300000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 9
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 5
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 6
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 6100000
+    LoseRewardValue: 2100000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 5800000
+    LoseRewardValue: 2000000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 7200000
+    LoseRewardValue: 2500000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 9
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 12000000
+    LoseRewardValue: 4100000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 11000000
+    LoseRewardValue: 3900000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    VictoryRewardValue: 14000000
+    LoseRewardValue: 4800000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 9
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 22000000
+    LoseRewardValue: 7800000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 21000000
+    LoseRewardValue: 7400000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 26000000
+    LoseRewardValue: 9200000
+  - Location: 5
+    EnemiesSpawnData:
+    - LevelIndex: 9
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 8
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 7
+      UnitAttackTypeId: 3
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 1
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    - LevelIndex: 9
+      UnitAttackTypeId: 2
+      CellIndex: -1
+    VictoryRewardValue: 42000000
+    LoseRewardValue: 15000000
+  LevelAutoGeneration:
+    BossEveryNLevels: 3
