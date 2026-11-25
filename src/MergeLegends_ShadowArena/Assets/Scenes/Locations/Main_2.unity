@@ -26344,7 +26344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4188466687044796251, guid: 3cb6a4b71eb2b724f9e8a938ff0544e7, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5257574430155130744, guid: 3cb6a4b71eb2b724f9e8a938ff0544e7, type: 3}
       propertyPath: m_Name
@@ -27248,7 +27248,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 50
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 1
     rotation3D: 0
@@ -69441,7 +69441,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 50
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -77234,7 +77234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 902152431755447821, guid: 62d08d809745aec44b0c9fa87327d70c, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1028970867693538119, guid: 62d08d809745aec44b0c9fa87327d70c, type: 3}
       propertyPath: m_Name
@@ -84594,7 +84594,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 50
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -122934,7 +122934,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 50
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 1
@@ -132393,7 +132393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8698565845571003249, guid: 852933045785b074ca45e1790e7ad6e7, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8698565845571003249, guid: 852933045785b074ca45e1790e7ad6e7, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.ctime2
