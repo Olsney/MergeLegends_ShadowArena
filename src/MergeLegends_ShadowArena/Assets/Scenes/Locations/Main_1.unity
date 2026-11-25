@@ -3931,6 +3931,10 @@ PrefabInstance:
       propertyPath: emitterVelocityMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2540554949660553911, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5879195395630746260, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
       propertyPath: m_Name
       value: FX_Fire_01 (1)
@@ -7576,7 +7580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2032907002402210217, guid: de7e4784d391fd040900fab4e0951a78, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2032907002402210217, guid: de7e4784d391fd040900fab4e0951a78, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
@@ -32186,6 +32190,10 @@ PrefabInstance:
       propertyPath: emitterVelocityMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2540554949660553911, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5879195395630746260, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
       propertyPath: m_Name
       value: FX_Fire_01
@@ -39362,6 +39370,10 @@ PrefabInstance:
       propertyPath: emitterVelocityMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2540554949660553911, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5879195395630746260, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
       propertyPath: m_Name
       value: FX_Fire_01 (2)
@@ -42913,7 +42925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2032907002402210217, guid: de7e4784d391fd040900fab4e0951a78, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2032907002402210217, guid: de7e4784d391fd040900fab4e0951a78, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
@@ -44063,7 +44075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2032907002402210217, guid: de7e4784d391fd040900fab4e0951a78, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2032907002402210217, guid: de7e4784d391fd040900fab4e0951a78, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
@@ -44469,6 +44481,10 @@ PrefabInstance:
     - target: {fileID: 2540554949660553911, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
       propertyPath: emitterVelocityMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540554949660553911, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5879195395630746260, guid: 66935891f0cc76c46869337a4d1b7fd5, type: 3}
       propertyPath: m_Name
@@ -45790,7 +45806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2032907002402210217, guid: de7e4784d391fd040900fab4e0951a78, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2032907002402210217, guid: de7e4784d391fd040900fab4e0951a78, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
